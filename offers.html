@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="offers">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="عروض خاصة بمناسبة عيد الأضحى من مركز بيرلي سمايل لطب الأسنان، تشمل زراعة، فينير، تبييض، وتنظيف بأسعار مميزة."
+    />
+    <meta name="theme-color" content="#2563eb" />
+    <meta property="og:title" content="عروض عيد الأضحى | Pearly Smile" />
+    <meta
+      property="og:description"
+      content="احجز عرضك الآن وتمتع بتخفيضات خاصة على العناية بالأسنان والفينير."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Pearly Smile Dental Center | عروض عيد الأضحى</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const initialTheme = localStorage.getItem("ps-theme");
+      const initialLanguage = localStorage.getItem("ps-lang");
+
+      if (initialTheme === "dark") {
+        document.documentElement.classList.add("dark-theme");
+      }
+      if (initialLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav>
+        <ul>
+          <li>
+            <a href="index.html#home" data-translate="navHome">الرئيسية</a>
+          </li>
+          <li>
+            <a href="index.html#stats" data-translate="navStats">إحصائيات</a>
+          </li>
+          <li>
+            <a href="services.html" data-translate="navServices">خدماتنا</a>
+          </li>
+          <li>
+            <a href="offers.html" data-translate="navOffers">عروضنا</a>
+          </li>
+          <li>
+            <a href="index.html#booking" data-translate="navBooking">حجز</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button
+          type="button"
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Toggle theme"
+        >
+          🌙
+        </button>
+        <button type="button" id="languageToggle" class="lang-toggle">
+          EN
+        </button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow"
+          >اتصل الآن</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <section class="hero offers-hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="offersTitle">
+            عروض خاصة بمناسبة عيد الأضحى
+          </p>
+          <h1 data-translate="offersSubtitle">
+            استفد من التخفيضات على زراعة الأسنان، قشور الفينير، التبييض،
+            والتنظيف.
+          </h1>
+          <div class="hero-actions">
+            <a
+              href="index.html#booking"
+              class="btn btn-secondary"
+              data-translate="heroBook"
+              >احجز الآن</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="offers-section">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-dark" data-translate="offersTitle">
+            عروض عيد الأضحى
+          </p>
+          <h2 data-translate="offersSubtitle">
+            استمتع بتخفيضات حصرية على أفضل خدمات الأسنان.
+          </h2>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div class="offer-image" aria-hidden="true"></div>
+            <div class="offer-content">
+              <span class="offer-tag" data-translate="offer1Title"
+                >عرض زراعة الأسنان</span
+              >
+              <p data-translate="offer1Text">
+                خصم 25% على علاج الزراعة الكامل مع متابعة بعد العملية.
+              </p>
+              <a
+                href="index.html#booking"
+                class="btn btn-primary"
+                data-translate="bookNowButton"
+                >احجز الآن</a
+              >
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-image" aria-hidden="true"></div>
+            <div class="offer-content">
+              <span class="offer-tag" data-translate="offer2Title"
+                >عرض قشور الفينير</span
+              >
+              <p data-translate="offer2Text">
+                خصم 30% على قشور الفينير للحصول على ابتسامة طبيعية ومشرقة.
+              </p>
+              <a
+                href="index.html#booking"
+                class="btn btn-primary"
+                data-translate="bookNowButton"
+                >احجز الآن</a
+              >
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-image" aria-hidden="true"></div>
+            <div class="offer-content">
+              <span class="offer-tag" data-translate="offer3Title"
+                >عرض تبييض الأسنان</span
+              >
+              <p data-translate="offer3Text">
+                جلسة تبييض احترافية مع نتائج سريعة وأقل حساسية.
+              </p>
+              <a
+                href="index.html#booking"
+                class="btn btn-primary"
+                data-translate="bookNowButton"
+                >احجز الآن</a
+              >
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <div class="offer-image" aria-hidden="true"></div>
+            <div class="offer-content">
+              <span class="offer-tag" data-translate="offer4Title"
+                >عرض فحص وتنظيف</span
+              >
+              <p data-translate="offer4Text">
+                فحص شامل وتنظيف دقيق لضمان صحة فمك ووقايته.
+              </p>
+              <a
+                href="index.html#booking"
+                class="btn btn-primary"
+                data-translate="bookNowButton"
+                >احجز الآن</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-translate="footerText">
+        © 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

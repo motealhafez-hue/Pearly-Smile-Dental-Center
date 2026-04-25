@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="home">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pearly Smile Dental Center يقدم رعاية أسنان حديثة باللغة العربية والإنجليزية، تشمل خدمات الزراعة، التقويم، الجراحة، والعناية الكاملة بابتسامة صحية."
+    />
+    <meta name="theme-color" content="#2563eb" />
+    <meta
+      property="og:title"
+      content="Pearly Smile Dental Center | مركز بيرلي سمايل لطب الأسنان"
+    />
+    <meta
+      property="og:description"
+      content="عيادة أسنان حديثة تقدم رعاية متكاملة وتقنيات متقدمة لحجز سريع ونتائج مريحة للمرضى."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Pearly Smile Dental Center | مركز بيرلي سمايل لطب الأسنان</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const initialTheme = localStorage.getItem("ps-theme");
+      const initialLanguage = localStorage.getItem("ps-lang");
+
+      if (initialTheme === "dark") {
+        document.documentElement.classList.add("dark-theme");
+      }
+      if (initialLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav>
+        <ul>
+          <li><a href="#home" data-translate="navHome">الرئيسية</a></li>
+          <li><a href="#stats" data-translate="navStats">إحصائيات</a></li>
+          <li>
+            <a href="services.html" data-translate="navServices">خدماتنا</a>
+          </li>
+          <li>
+            <a href="offers.html" data-translate="navOffers">عروضنا</a>
+          </li>
+          <li><a href="#booking" data-translate="navBooking">حجز</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button
+          type="button"
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Toggle theme"
+        >
+          🌙
+        </button>
+        <button type="button" id="languageToggle" class="lang-toggle">
+          EN
+        </button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow"
+          >اتصل الآن</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="heroEyebrow">
+            عيادة أسنان مودرن وراحة لا مثيل لها
+          </p>
+          <h1 data-translate="heroTitle">نمنحك ابتسامة ناصعة وصحية بكل ثقة</h1>
+          <p data-translate="heroText">
+            في مركز بيرلي سمايل نقدم رعاية أسنان متكاملة، تقنيات حديثة، وطاقم
+            محترف من أطباء الأسنان والممرضين.
+          </p>
+          <div class="hero-actions">
+            <a
+              href="#booking"
+              class="btn btn-secondary"
+              data-translate="heroBook"
+              >احجز موعدك</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="stats" class="stats-bar">
+        <div class="stat-card">
+          <h3 class="counter" data-target="5000">0</h3>
+          <p data-translate="patients">مريض</p>
+        </div>
+        <div class="stat-card">
+          <h3 class="counter" data-target="15">0</h3>
+          <p data-translate="doctors">دكتور</p>
+        </div>
+        <div class="stat-card">
+          <h3 class="counter" data-target="50">0</h3>
+          <p data-translate="staff">موظف</p>
+        </div>
+      </section>
+
+      <section id="services" class="info-section">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-dark" data-translate="servicesLabel">
+            خدماتنا
+          </p>
+          <h2 data-translate="servicesTitle">
+            أحدث خدمات طب الأسنان في مكان واحد
+          </h2>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <h3 data-translate="service1Title">طبيب عام</h3>
+            <p data-translate="service1Text">
+              فحص أسنان كامل، تنظيف، علاج تسوس، وترتيب خطة العناية اليومية.
+            </p>
+          </article>
+          <article class="service-card">
+            <h3 data-translate="service2Title">صور إكس رِي</h3>
+            <p data-translate="service2Text">
+              تصوير رقمي سريع ودقيق لتشخيص حالة الأسنان والفم قبل العلاج.
+            </p>
+          </article>
+          <article class="service-card">
+            <h3 data-translate="service4Title">اختصاص لثة</h3>
+            <p data-translate="service4Text">
+              علاج اللثة والتهاباتها، وتنظيف عميق لجذور الأسنان واستعادة الصحة.
+            </p>
+          </article>
+          <article class="service-card">
+            <h3 data-translate="service5Title">اختصاص زراعة</h3>
+            <p data-translate="service5Text">
+              زراعة أسنان ثابتة مع متابعة دقيقة لضمان نتيجة طبيعية وقوية.
+            </p>
+          </article>
+        </div>
+        <div class="services-actions">
+          <a
+            href="services.html"
+            class="btn btn-primary"
+            data-translate="seeAllServices"
+            >شوف الكل</a
+          >
+        </div>
+      </section>
+
+      <section class="doctors-section">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-dark" data-translate="teamLabel">فريقنا</p>
+          <h2 data-translate="teamTitle">أطباء ذوي خبرة عالية</h2>
+        </div>
+        <div class="doctors-grid">
+          <div class="doctor-card">
+            <div class="doc-img"></div>
+            <h4 data-translate="doctor1Name">د. ريم العبدالله</h4>
+            <span data-translate="doctor1Role">أخصائية تجميل الأسنان</span>
+          </div>
+          <div class="doctor-card">
+            <div class="doc-img"></div>
+            <h4 data-translate="doctor2Name">د. خالد الشريف</h4>
+            <span data-translate="doctor2Role">جراح أسنان</span>
+          </div>
+          <div class="doctor-card">
+            <div class="doc-img"></div>
+            <h4 data-translate="doctor3Name">د. سارة الماجد</h4>
+            <span data-translate="doctor3Role">أخصائية تقويم</span>
+          </div>
+        </div>
+      </section>
+      <section id="faq" class="faq-section">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-dark" data-translate="faqLabel">
+            الأسئلة الشائعة
+          </p>
+          <h2 data-translate="faqTitle">كل ما تود معرفته عن خدماتنا</h2>
+        </div>
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span data-translate="faqQ1">كم تستغرق عملية تبييض الأسنان؟</span>
+              <i class="arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-translate="faqA1">
+                تستغرق الجلسة حوالي 45 إلى 60 دقيقة باستخدام تقنية الزووم
+                الحديثة.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span data-translate="faqQ2">هل تقبل العيادة التأمين الطبي؟</span>
+              <i class="arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-translate="faqA2">
+                نعم، نحن نتعامل مع كبرى شركات التأمين الطبي لتغطية أغلب
+                العلاجات.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="booking" class="booking-section">
+        <div class="booking-container">
+          <div class="booking-content">
+            <p class="eyebrow eyebrow-light" data-translate="bookingLabel">
+              احجز موعدك الآن
+            </p>
+            <h2 data-translate="bookingTitle">استشر طبيبك في خطوات بسيطة</h2>
+            <p data-translate="bookingText">
+              املأ البيانات وسنتواصل معك لتأكيد موعدك بأسرع وقت.
+            </p>
+            <ul class="booking-benefits">
+              <li data-translate="bookingBenefit1">
+                استجابة سريعة خلال 24 ساعة
+              </li>
+              <li data-translate="bookingBenefit2">
+                تأكيد الحجز الفوري عبر الهاتف أو الواتساب
+              </li>
+              <li data-translate="bookingBenefit3">خطوات بسيطة بدون تعقيد</li>
+            </ul>
+          </div>
+          <form
+            class="modern-form"
+            action="#"
+            method="post"
+            aria-label="Booking form"
+          >
+            <div class="input-row">
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  autocomplete="name"
+                  placeholder=" "
+                  required
+                />
+                <label for="name" data-translate="labelName"
+                  >الاسم الكامل</label
+                >
+              </div>
+              <div class="input-group">
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  autocomplete="tel"
+                  placeholder=" "
+                  required
+                />
+                <label for="phone" data-translate="labelPhone"
+                  >رقم الهاتف</label
+                >
+              </div>
+            </div>
+            <div class="input-group">
+              <input
+                type="date"
+                id="date"
+                name="date"
+                placeholder=" "
+                required
+              />
+              <label for="date" data-translate="labelDate">تاريخ الزيارة</label>
+            </div>
+            <button
+              type="submit"
+              class="submit-btn"
+              data-translate="submitButton"
+            >
+              إرسال الطلب
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-translate="footerText">
+        © 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.
+      </p>
+    </footer>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Dentist",
+        "name": "Pearly Smile Dental Center",
+        "description": "عيادة أسنان حديثة تقدم رعاية متكاملة وتقنيات متطورة للحجز السريع باللغة العربية والإنجليزية.",
+        "telephone": "+966500000000",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "SA",
+          "addressLocality": "Riyadh",
+          "streetAddress": "Pearly Smile Dental Center"
+        },
+        "openingHours": ["Mo-Fr 09:00-19:00"],
+        "priceRange": "متوسط"
+      }
+    </script>
+    <script src="script.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "كم تستغرق عملية تبييض الأسنان في بيرلي سمايل؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "تستغرق جلسة تبييض الأسنان الاحترافية لدينا حوالي 45 إلى 60 دقيقة باستخدام تقنية الزووم الحديثة لضمان أفضل نتائج وأقل حساسية."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل تقبل عيادة بيرلي سمايل التأمين الطبي؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم، نحن نتعامل مع كبرى شركات التأمين الطبي لتغطية خدمات علاج الأسنان والجراحة."
+            }
+          }
+        ]
+      }
+    </script>
+  </body>
+</html>
