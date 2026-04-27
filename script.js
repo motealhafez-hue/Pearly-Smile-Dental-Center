@@ -191,6 +191,7 @@ const TRANSLATIONS = {
   bookingTimePlaceholder: { ar: "اختر الوقت", en: "Select a time" },
   bookingNotesLabel: { ar: "ملاحظة (اختياري)", en: "Note (optional)" },
   bookingSuccess: { ar: "تم إرسال طلب الحجز بنجاح! سنتواصل لتأكيد الموعد.", en: "Booking request sent successfully! We will contact you to confirm the appointment." },
+  viewProfile: { ar: "عرض البروفايل", en: "View Profile" },
   faqLabel: { ar: "الأسئلة الشائعة", en: "Frequently Asked Questions" },
   faqTitle: {
     ar: "كل ما تود معرفته عن خدماتنا",
