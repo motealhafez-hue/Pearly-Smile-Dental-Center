@@ -11,6 +11,15 @@
   --muted: #475569;
   --border: #dbeafe;
 }
+/* Animation & performance variables */
+:root {
+  --anim-fast: 180ms;
+  --anim-medium: 360ms;
+  --anim-slow: 600ms;
+  --card-ease: cubic-bezier(.2,.9,.3,1);
+  --shadow-soft: 0 16px 40px rgba(15,23,42,0.06);
+  --shine-color: rgba(255,255,255,0.08);
+}
 
 html.dark-theme {
   --background: #0f172a;
@@ -318,6 +327,46 @@ html.dark-theme .btn-primary {
   background: rgba(255, 255, 255, 0.3);
 }
 
+/* Subtle premium shine for buttons (GPU friendly) */
+.btn {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--shine-color) 50%, transparent 100%);
+  transform: translateX(-120%);
+  transition: transform var(--anim-medium) var(--card-ease);
+  pointer-events: none;
+}
+.btn:hover::after {
+  transform: translateX(120%);
+}
+
+/* Reveal animation for in-view elements (transform + opacity only) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px) scale(0.995);
+  transition: opacity var(--anim-medium) var(--card-ease), transform var(--anim-medium) var(--card-ease);
+  will-change: opacity, transform;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.doctor-card {
+  transition: transform var(--anim-medium) var(--card-ease), box-shadow var(--anim-medium) var(--card-ease);
+  will-change: transform, box-shadow;
+}
+.doctor-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-soft);
+}
+
 html.dark-theme .btn-secondary {
   background: rgba(255, 255, 255, 0.08);
   color: #e2e8f0;
@@ -326,6 +375,18 @@ html.dark-theme .btn-secondary {
 
 html.dark-theme .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.12);
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .btn::after,
+  .reveal,
+  .doctor-card,
+  .hero-content,
+  .header-actions * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 .stats-bar {
@@ -647,6 +708,27 @@ html.dark-theme .modern-form {
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+.input-group select {
+  width: 100%;
+  padding: 14px 14px;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+.input-group textarea {
+  width: 100%;
+  padding: 14px 14px;
+  font-size: 0.98rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  color: var(--text);
+  resize: vertical;
+}
+
 .input-group input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
@@ -692,6 +774,40 @@ html.dark-theme .input-group label {
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.booking-message {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #083344;
+  background: linear-gradient(180deg, rgba(6,95,70,0.06), rgba(6,95,70,0.03));
+  border: 1px solid rgba(6,95,70,0.08);
+}
+.booking-message.error {
+  background: linear-gradient(180deg, rgba(153,27,27,0.06), rgba(153,27,27,0.03));
+  border-color: rgba(153,27,27,0.12);
+  color: #4c0519;
+}
+
+/* compact modern select + labels adjustments */
+.input-group label {
+  right: 18px;
+  top: 12px;
+}
+
+/* make booking container slightly more modern */
+.booking-container {
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-soft) 100%);
+}
+
+@media (max-width: 1024px) {
+  .booking-container {
+    box-shadow: none;
+  }
 }
 
 .submit-btn:hover {
