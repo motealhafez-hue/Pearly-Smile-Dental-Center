@@ -55,6 +55,7 @@
           <li>
             <a href="offers.html" data-translate="navOffers">عروضنا</a>
           </li>
+          <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
           <li><a href="#booking" data-translate="navBooking">حجز</a></li>
         </ul>
       </nav>
@@ -270,16 +271,45 @@
                 >
               </div>
             </div>
-            <div class="input-group">
-              <input
-                type="date"
-                id="date"
-                name="date"
-                placeholder=" "
-                required
-              />
-              <label for="date" data-translate="labelDate">تاريخ الزيارة</label>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="doctor" data-translate="bookingDoctorLabel">اختر الطبيب</label>
+                <select id="doctor" name="doctor" required>
+                  <option value="" disabled selected data-translate="bookingDoctorPlaceholder">اختر الدكتور</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="branch" data-translate="bookingBranchLabel">اختر الفرع</label>
+                <select id="branch" name="branch" required>
+                  <option value="main" data-translate="branchMain">الفرع الرئيسي</option>
+                  <option value="one" data-translate="branchOne">الفرع الأول</option>
+                </select>
+              </div>
             </div>
+            <div class="input-row">
+              <div class="input-group">
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  placeholder=" "
+                  required
+                />
+                <label for="date" data-translate="labelDate">تاريخ الزيارة</label>
+              </div>
+              <div class="input-group">
+                <label for="time" data-translate="bookingTimeLabel">اختر الوقت</label>
+                <select id="time" name="time" required>
+                  <option value="" disabled selected data-translate="bookingTimePlaceholder">اختر الوقت</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <textarea id="notes" name="notes" rows="2" placeholder=" "></textarea>
+              <label for="notes" data-translate="bookingNotesLabel">ملاحظة (اختياري)</label>
+            </div>
+
             <button
               type="submit"
               class="submit-btn"
@@ -287,6 +317,8 @@
             >
               إرسال الطلب
             </button>
+
+            <div id="bookingMessage" class="booking-message" role="status" aria-live="polite" hidden></div>
           </form>
         </div>
       </section>
