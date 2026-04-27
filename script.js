@@ -35,6 +35,10 @@ const TRANSLATIONS = {
       ar: "عروض عيد الأضحى | Pearly Smile Dental Center",
       en: "Eid Al-Adha Offers | Pearly Smile Dental Center",
     },
+    team: {
+      ar: "فريق الأطباء | Pearly Smile Dental Center",
+      en: "Our Team | Pearly Smile Dental Center",
+    },
   },
   title: {
     ar: "Pearly Smile Dental Center | مركز بيرلي سمايل لطب الأسنان",
@@ -47,8 +51,9 @@ const TRANSLATIONS = {
   navHome: { ar: "الرئيسية", en: "Home" },
   navStats: { ar: "إحصائيات", en: "Statistics" },
   navServices: { ar: "خدماتنا", en: "Services" },
-  navBooking: { ar: "حجز", en: "Booking" },
   navOffers: { ar: "عروضنا", en: "Offers" },
+  navTeam: { ar: "فريقنا", en: "Our Team" },
+  navBooking: { ar: "حجز", en: "Booking" },
   callNow: { ar: "اتصل الآن", en: "Call Now" },
   heroEyebrow: {
     ar: "عيادة أسنان مودرن وراحة لا مثيل لها",
@@ -63,6 +68,18 @@ const TRANSLATIONS = {
     en: "At Pearly Smile we offer complete dental care, modern technology, and a skilled team of dentists and nurses.",
   },
   heroBook: { ar: "احجز موعدك", en: "Book Now" },
+  teamHeroEyebrow: {
+    ar: "فريق الأطباء",
+    en: "Meet the Team",
+  },
+  teamHeroTitle: {
+    ar: "تعرف على أطباء بيرلي سمايل",
+    en: "Meet Our Expert Dental Team",
+  },
+  teamHeroText: {
+    ar: "خبرات متعددة وخطة علاج مخصصة — هدفنا راحتك ونتائج طويلة المدى.",
+    en: "Experienced specialists with tailored treatment plans for long-lasting results.",
+  },
   patients: { ar: "مريض", en: "Patients" },
   doctors: { ar: "دكتور", en: "Doctors" },
   staff: { ar: "موظف", en: "Staff" },
@@ -117,12 +134,39 @@ const TRANSLATIONS = {
     ar: "أطباء ذوي خبرة عالية",
     en: "Highly Experienced Dentists",
   },
+  teamSectionLabel: { ar: "فريقنا", en: "Our Team" },
+  teamSectionTitle: {
+    ar: "أطباء متخصصون لمختلف الحالات",
+    en: "Specialists for Every Dental Need",
+  },
+  teamPageTitle: {
+    ar: "فريق الأطباء | Pearly Smile Dental Center",
+    en: "Our Team | Pearly Smile Dental Center",
+  },
   doctor1Name: { ar: "د. ريم العبدالله", en: "Dr. Reem Alabdullah" },
   doctor1Role: { ar: "أخصائية تجميل الأسنان", en: "Cosmetic Dentist" },
   doctor2Name: { ar: "د. خالد الشريف", en: "Dr. Khaled Alshareef" },
   doctor2Role: { ar: "جراح أسنان", en: "Oral Surgeon" },
   doctor3Name: { ar: "د. سارة الماجد", en: "Dr. Sara Almajid" },
   doctor3Role: { ar: "أخصائية تقويم", en: "Orthodontic Specialist" },
+  teamDoctor1Name: { ar: "Dr. Mohamed Bilal Abdulsamad", en: "Dr. Mohamed Bilal Abdulsamad" },
+  teamDoctor1Role: { ar: "أخصائي تقويم الأسنان", en: "Orthodontist" },
+  teamDoctor2Name: { ar: "Dr. Shadi Almoghayer", en: "Dr. Shadi Almoghayer" },
+  teamDoctor2Role: { ar: "أخصائي زراعة الأسنان", en: "Dental Implantologist" },
+  teamDoctor3Name: { ar: "Dr. Srivalli Perumalla", en: "Dr. Srivalli Perumalla" },
+  teamDoctor3Role: { ar: "أخصائي التركيبات", en: "Prosthodontist" },
+  teamDoctor4Name: { ar: "Dr. Alaa Adi", en: "Dr. Alaa Adi" },
+  teamDoctor4Role: { ar: "أخصائي لثة", en: "Periodontist" },
+  teamDoctor5Name: { ar: "Dr. Shaha Eddib", en: "Dr. Shaha Eddib" },
+  teamDoctor5Role: { ar: "طبيب أسنان عام", en: "GP Dentist" },
+  teamDoctor6Name: { ar: "Dr. Sara Yousef", en: "Dr. Sara Yousef" },
+  teamDoctor6Role: { ar: "طبيب أسنان عام", en: "GP Dentist" },
+  teamDoctor7Name: { ar: "Dr. Ali Alnuami", en: "Dr. Ali Alnuami" },
+  teamDoctor7Role: { ar: "طبيب أسنان عام", en: "GP Dentist" },
+  teamDoctor8Name: { ar: "Dr. Nada Alawadhi", en: "Dr. Nada Alawadhi" },
+  teamDoctor8Role: { ar: "طبيب أسنان عام", en: "GP Dentist" },
+  teamDoctor9Name: { ar: "Dr. Antoine Emil Habib", en: "Dr. Antoine Emil Habib" },
+  teamDoctor9Role: { ar: "جراح الفم والوجه والفكين", en: "Oral and Maxillofacial Surgeon" },
   bookingLabel: { ar: "احجز موعدك الآن", en: "Reserve Your Appointment" },
   bookingTitle: {
     ar: "استشر طبيبك في خطوات بسيطة",
@@ -132,12 +176,21 @@ const TRANSLATIONS = {
     ar: "املأ البيانات وسنتواصل معك لتأكيد موعدك بأسرع وقت.",
     en: "Fill in your details and we will contact you to confirm your appointment quickly.",
   },
+  bookingDoctorLabel: { ar: "اختر الطبيب", en: "Choose Doctor" },
+  bookingDoctorPlaceholder: { ar: "اختر الدكتور", en: "Select a doctor" },
+  bookingBranchLabel: { ar: "اختر الفرع", en: "Choose Branch" },
+  branchMain: { ar: "الفرع الرئيسي", en: "Main Branch" },
+  branchOne: { ar: "الفرع الأول", en: "Branch One" },
   bookingBenefit1: { ar: "استجابة سريعة خلال 24 ساعة", en: "Fast response within 24 hours" },
   bookingBenefit2: {
     ar: "تأكيد الحجز الفوري عبر الهاتف أو الواتساب",
     en: "Instant booking confirmation by phone or WhatsApp",
   },
   bookingBenefit3: { ar: "خطوات بسيطة بدون تعقيد", en: "Simple, hassle-free steps" },
+  bookingTimeLabel: { ar: "اختر الوقت", en: "Choose Time" },
+  bookingTimePlaceholder: { ar: "اختر الوقت", en: "Select a time" },
+  bookingNotesLabel: { ar: "ملاحظة (اختياري)", en: "Note (optional)" },
+  bookingSuccess: { ar: "تم إرسال طلب الحجز بنجاح! سنتواصل لتأكيد الموعد.", en: "Booking request sent successfully! We will contact you to confirm the appointment." },
   faqLabel: { ar: "الأسئلة الشائعة", en: "Frequently Asked Questions" },
   faqTitle: {
     ar: "كل ما تود معرفته عن خدماتنا",
@@ -268,6 +321,10 @@ class LanguageManager {
     this.updateLanguageToggle(lang);
     this.updateTranslatableElements(lang);
     this.appState.setLanguage(lang);
+    // update booking selects if present
+    if (typeof BookingManager !== 'undefined' && BookingManager.updateForLanguage) {
+      BookingManager.updateForLanguage(lang);
+    }
   }
 
   updateDocumentLanguage(lang) {
@@ -286,6 +343,9 @@ class LanguageManager {
     const btn = document.getElementById("languageToggle");
     if (btn) {
       btn.textContent = lang === "ar" ? "EN" : "AR";
+      const ariaLabel = lang === "ar" ? "التبديل إلى الإنجليزية" : "Switch to Arabic";
+      btn.setAttribute("aria-label", ariaLabel);
+      btn.title = ariaLabel;
     }
   }
 
@@ -304,6 +364,170 @@ class LanguageManager {
   toggleLanguage() {
     const newLang = this.appState.currentLang === "ar" ? "en" : "ar";
     this.setLanguage(newLang);
+  }
+}
+
+// ============================================================================
+// BOOKING MANAGER
+// ============================================================================
+
+class BookingManager {
+  static init() {
+    this.doctorSelect = document.getElementById('doctor');
+    this.branchSelect = document.getElementById('branch');
+    this.timeSelect = document.getElementById('time');
+    this.dateInput = document.getElementById('date');
+    this.form = document.querySelector('.modern-form');
+    this.bookingMessage = document.getElementById('bookingMessage');
+    this.populateAll(this.appLang());
+    this.attachListeners();
+  }
+
+  static appLang() {
+    return appState.currentLang || CONFIG.defaults.language;
+  }
+
+  static populateAll(lang) {
+    this.renderDoctors(lang);
+    this.renderBranches(lang);
+    this.renderTimes(lang);
+  }
+
+  static renderDoctors(lang) {
+    const select = this.doctorSelect;
+    if (!select) return;
+    select.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    placeholder.dataset.translate = 'bookingDoctorPlaceholder';
+    placeholder.textContent = TRANSLATIONS.bookingDoctorPlaceholder?.[lang] || 'اختر الدكتور';
+    select.appendChild(placeholder);
+
+    for (let i = 1; i <= 9; i++) {
+      const key = `teamDoctor${i}Name`;
+      if (TRANSLATIONS[key]) {
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.dataset.translate = key;
+        opt.textContent = TRANSLATIONS[key]?.[lang] || TRANSLATIONS[key]?.en || key;
+        select.appendChild(opt);
+      }
+    }
+  }
+
+  static renderBranches(lang) {
+    const select = this.branchSelect;
+    if (!select) return;
+    select.innerHTML = '';
+    const b1 = document.createElement('option');
+    b1.value = 'main';
+    b1.dataset.translate = 'branchMain';
+    b1.textContent = TRANSLATIONS.branchMain?.[lang] || 'Main Branch';
+    select.appendChild(b1);
+
+    const b2 = document.createElement('option');
+    b2.value = 'one';
+    b2.dataset.translate = 'branchOne';
+    b2.textContent = TRANSLATIONS.branchOne?.[lang] || 'Branch One';
+    select.appendChild(b2);
+  }
+
+  static timeSlotsFor(date, doctorKey, branch) {
+    // Lightweight, deterministic slots for client-side selection.
+    // Could be replaced by server-driven availability later.
+    return [
+      '09:00',
+      '10:00',
+      '11:30',
+      '13:00',
+      '15:30',
+      '17:00'
+    ];
+  }
+
+  static renderTimes(lang) {
+    const select = this.timeSelect;
+    if (!select) return;
+    select.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    placeholder.dataset.translate = 'bookingTimePlaceholder';
+    placeholder.textContent = TRANSLATIONS.bookingTimePlaceholder?.[lang] || 'اختر الوقت';
+    select.appendChild(placeholder);
+
+    const slots = this.timeSlotsFor(this.dateInput?.value, this.doctorSelect?.value, this.branchSelect?.value);
+    slots.forEach((t) => {
+      const opt = document.createElement('option');
+      opt.value = t;
+      opt.textContent = t;
+      select.appendChild(opt);
+    });
+  }
+
+  static attachListeners() {
+    if (this.doctorSelect) {
+      this.doctorSelect.addEventListener('change', () => this.renderTimes(this.appLang()));
+    }
+    if (this.branchSelect) {
+      this.branchSelect.addEventListener('change', () => this.renderTimes(this.appLang()));
+    }
+    if (this.dateInput) {
+      this.dateInput.addEventListener('change', () => this.renderTimes(this.appLang()));
+    }
+    if (this.form) {
+      this.form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.handleSubmit();
+      });
+    }
+  }
+
+  static handleSubmit() {
+    const name = document.getElementById('name')?.value.trim();
+    const phone = document.getElementById('phone')?.value.trim();
+    const doctorKey = this.doctorSelect?.value;
+    const doctorName = doctorKey ? (TRANSLATIONS[doctorKey]?.[this.appLang()] || doctorKey) : '';
+    const branch = this.branchSelect?.value;
+    const date = this.dateInput?.value;
+    const time = this.timeSelect?.value;
+
+    if (!name || !phone || !doctorName || !date || !time) {
+      const msg = this.appLang() === 'ar' ? 'يرجى تعبئة جميع الحقول المطلوبة' : 'Please fill all required fields';
+      this.showMessage(msg, 'error');
+      return;
+    }
+
+    // Simulate a successful booking submission (progressive enhancement).
+    const successText = TRANSLATIONS.bookingSuccess?.[this.appLang()] || 'تم إرسال طلبكم بنجاح! سنعاود الاتصال لتأكيد الموعد.';
+    this.showMessage(successText, 'success');
+    // reset form while preserving language and re-populate selects
+    this.form.reset();
+    this.populateAll(this.appLang());
+  }
+
+  static showMessage(text, type = 'success') {
+    if (!this.bookingMessage) return;
+    this.bookingMessage.hidden = false;
+    this.bookingMessage.textContent = text;
+    this.bookingMessage.className = `booking-message ${type}`;
+    setTimeout(() => {
+      this.bookingMessage.hidden = true;
+    }, 6000);
+  }
+
+  static updateForLanguage(lang) {
+    // if not initialized yet, try to init
+    if (!this.doctorSelect || !this.branchSelect) {
+      this.doctorSelect = document.getElementById('doctor');
+      this.branchSelect = document.getElementById('branch');
+      this.timeSelect = document.getElementById('time');
+      this.dateInput = document.getElementById('date');
+    }
+    this.populateAll(lang);
   }
 }
 
@@ -367,6 +591,33 @@ class CounterAnimator {
     };
 
     requestAnimationFrame(updateCounter);
+  }
+}
+
+// ============================================================================
+// REVEAL OBSERVER (PERFORMANCE FRIENDLY)
+// ============================================================================
+
+class RevealObserver {
+  static init() {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const items = document.querySelectorAll('.reveal');
+    if (!items || items.length === 0) return;
+    if (prefersReduced) {
+      items.forEach((el) => el.classList.add('visible'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    items.forEach((item) => io.observe(item));
   }
 }
 
@@ -435,6 +686,10 @@ class App {
     this.initializeLanguage();
     this.initializeAnimations();
     this.attachEventListeners();
+    // initialize booking manager after language/DOM are ready
+    if (typeof BookingManager !== 'undefined' && BookingManager.init) {
+      BookingManager.init();
+    }
   }
 
   initializeTheme() {
@@ -446,6 +701,7 @@ class App {
   }
 
   initializeAnimations() {
+    RevealObserver.init();
     CounterAnimator.animateCounters();
   }
 
