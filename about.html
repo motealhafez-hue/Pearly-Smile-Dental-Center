@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="about">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="تعرف على Pearly Smile Dental Center - مركز طب الأسنان الرائد في أبوظبي الذي يقدم رعاية أسنان متكاملة بتقنيات حديثة وطاقم طبي محترف."
+    />
+    <meta name="theme-color" content="#2563eb" />
+    <meta
+      property="og:title"
+      content="عنّا | Pearly Smile Dental Center | مركز بيرلي سمايل لطب الأسنان"
+    />
+    <meta
+      property="og:description"
+      content="تعرف على قصة نجاحنا، رؤيتنا، ورسالتنا في تقديم أفضل رعاية أسنان في أبوظبي."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>عنّا | Pearly Smile Dental Center | مركز بيرلي سمايل لطب الأسنان</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const initialTheme = localStorage.getItem("ps-theme");
+      const initialLanguage = localStorage.getItem("ps-lang");
+
+      if (initialTheme === "dark") {
+        document.documentElement.classList.add("dark-theme");
+      }
+      if (initialLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav>
+        <ul>
+          <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+          <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
+          <li>
+            <a href="services.html" data-translate="navServices">خدماتنا</a>
+          </li>
+          <li>
+            <a href="offers.html" data-translate="navOffers">عروضنا</a>
+          </li>
+          <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+          <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+          <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button
+          type="button"
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Toggle theme"
+        >
+          🌙
+        </button>
+        <button type="button" id="languageToggle" class="lang-toggle">
+          EN
+        </button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow"
+          >اتصل الآن</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <section class="hero about-hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="aboutEyebrow">تعرف على قصة نجاحنا</p>
+          <h1 data-translate="aboutTitle">مرحباً بكم في Pearly Smile Dental Center</h1>
+          <p data-translate="aboutSubtitle">
+            نحن فخورون بخدمة مجتمع أبوظبي منذ عام 2018، ونقدم رعاية أسنان متكاملة بتقنيات حديثة وطاقم طبي محترف.
+          </p>
+        </div>
+      </section>
+
+      <!-- About Cards Section -->
+      <section class="about-cards-section reveal">
+        <div class="container">
+          <div class="about-cards-grid">
+            <!-- Card 1: Our Mission -->
+            <article class="about-card flip-card" tabindex="0">
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="card-icon">🎯</div>
+                  <h3 data-translate="missionTitle">رؤيتنا</h3>
+                  <p data-translate="missionText">
+                    أن نكون المركز الرائد في طب الأسنان في منطقة أبوظبي من خلال تقديم رعاية استثنائية وتقنيات مبتكرة تحسن جودة حياة مرضانا.
+                  </p>
+                </div>
+                <div class="flip-back">
+                  <div class="back-content">
+                    <h3 data-translate="missionTitle">رؤيتنا</h3>
+                    <p data-translate="missionText">
+                      أن نكون المركز الرائد في طب الأسنان في منطقة أبوظبي من خلال تقديم رعاية استثنائية وتقنيات مبتكرة تحسن جودة حياة مرضانا.
+                    </p>
+                    <button class="btn btn-secondary read-more-btn" type="button" data-translate="readMore">اقرأ المزيد</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2: Who We Are -->
+            <article class="about-card flip-card" tabindex="0">
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="card-icon">👥</div>
+                  <h3 data-translate="whoWeAreTitle">من نحن</h3>
+                  <p data-translate="whoWeAreText">
+                    فريق من أطباء الأسنان المتخصصين والممرضين المدربين، ملتزمون بتقديم رعاية أسنان شاملة ومريحة لكل مريض.
+                  </p>
+                </div>
+                <div class="flip-back">
+                  <div class="back-content">
+                    <h3 data-translate="whoWeAreTitle">من نحن</h3>
+                    <p data-translate="whoWeAreText">
+                      فريق من أطباء الأسنان المتخصصين والممرضين المدربين، ملتزمون بتقديم رعاية أسنان شاملة ومريحة لكل مريض.
+                    </p>
+                    <button class="btn btn-secondary read-more-btn" type="button" data-translate="readMore">اقرأ المزيد</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3: Safety -->
+            <article class="about-card flip-card" tabindex="0">
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="card-icon">🛡️</div>
+                  <h3 data-translate="safetyTitle">السلامة</h3>
+                  <p data-translate="safetyText">
+                    نلتزم بأعلى معايير النظافة والتعقيم، مع أنظمة متقدمة لضمان سلامة المرضى في كل زيارة.
+                  </p>
+                </div>
+                <div class="flip-back">
+                  <div class="back-content">
+                    <h3 data-translate="safetyTitle">السلامة</h3>
+                    <p data-translate="safetyText">
+                      نلتزم بأعلى معايير النظافة والتعقيم، مع أنظمة متقدمة لضمان سلامة المرضى في كل زيارة.
+                    </p>
+                    <button class="btn btn-secondary read-more-btn" type="button" data-translate="readMore">اقرأ المزيد</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 4: Technology -->
+            <article class="about-card flip-card" tabindex="0">
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="card-icon">💻</div>
+                  <h3 data-translate="technologyTitle">التقنية</h3>
+                  <p data-translate="technologyText">
+                    نستخدم أحدث تقنيات طب الأسنان الرقمية للتشخيص الدقيق والعلاج الفعال مع نتائج طويلة المدى.
+                  </p>
+                </div>
+                <div class="flip-back">
+                  <div class="back-content">
+                    <h3 data-translate="technologyTitle">التقنية</h3>
+                    <p data-translate="technologyText">
+                      نستخدم أحدث تقنيات طب الأسنان الرقمية للتشخيص الدقيق والعلاج الفعال مع نتائج طويلة المدى.
+                    </p>
+                    <button class="btn btn-secondary read-more-btn" type="button" data-translate="readMore">اقرأ المزيد</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 5: Community -->
+            <article class="about-card flip-card" tabindex="0">
+              <div class="flip-inner">
+                <div class="flip-front">
+                  <div class="card-icon">🤝</div>
+                  <h3 data-translate="communityCardTitle">المجتمع</h3>
+                  <p data-translate="communityCardText">
+                    نفتخر بخدمة مجتمع أبوظبي منذ 2018، ونشارك بانتظام في فعاليات الصحة المجتمعية والتوعوية.
+                  </p>
+                </div>
+                <div class="flip-back">
+                  <div class="back-content">
+                    <h3 data-translate="communityCardTitle">المجتمع</h3>
+                    <p data-translate="communityCardText">
+                      نفتخر بخدمة مجتمع أبوظبي منذ 2018، ونشارك بانتظام في فعاليات الصحة المجتمعية والتوعوية.
+                    </p>
+                    <button class="btn btn-secondary read-more-btn" type="button" data-translate="readMore">اقرأ المزيد</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-stats">
+        <div class="container">
+          <h2 data-translate="aboutStatsTitle">أرقامنا تتحدث عنا</h2>
+          <p class="stats-subtitle" data-translate="aboutStatsSubtitle">
+            إنجازاتنا خلال السنوات الماضية
+          </p>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" data-count="8500">0</div>
+              <div class="stat-label" data-translate="statPatients">مريض راضٍ</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="15">0</div>
+              <div class="stat-label" data-translate="statDoctors">طبيب متخصص</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="45">0</div>
+              <div class="stat-label" data-translate="statStaff">موظف داعم</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-count="98">0</div>
+              <div class="stat-label" data-translate="statSatisfaction">% رضا المرضى</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-facilities">
+        <div class="container">
+          <h2 data-translate="facilitiesTitle">مرافقنا الحديثة</h2>
+          <div class="facilities-grid">
+            <div class="facility-card">
+              <div class="facility-icon">🦷</div>
+              <h3 data-translate="facility1Title">غرف علاج متطورة</h3>
+              <p data-translate="facility1Text">
+                12 غرفة علاج مجهزة بأحدث تقنيات طب الأسنان، مع أنظمة تعقيم متقدمة لضمان سلامة المرضى.
+              </p>
+            </div>
+            <div class="facility-card">
+              <div class="facility-icon">📷</div>
+              <h3 data-translate="facility2Title">تصوير رقمي متكامل</h3>
+              <p data-translate="facility2Text">
+                وحدة تصوير أشعة سينية رقمية كاملة (CBCT، بانوراما، وأشعة داخلية) لتشخيص دقيق.
+              </p>
+            </div>
+            <div class="facility-card">
+              <div class="facility-icon">😊</div>
+              <h3 data-translate="facility3Title">منطقة استقبال مريحة</h3>
+              <p data-translate="facility3Text">
+                منطقة انتظار فسيحة مع وسائل ترفيهية وخدمة واي فاي مجانية لتجربة مريحة للمرضى.
+              </p>
+            </div>
+            <div class="facility-card">
+              <div class="facility-icon">🅿️</div>
+              <h3 data-translate="facility4Title">مواقف مجانية</h3>
+              <p data-translate="facility4Text">
+                مواقف سيارات مجانية ومخصصة للمرضى لتسهيل الوصول إلى العيادة.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-community">
+        <div class="container">
+          <div class="community-content">
+            <h2 data-translate="communityTitle">فخورون بخدمة مجتمع أبوظبي</h2>
+            <p data-translate="communityText">
+              Pearly Smile Dental Center تفتخر بخدمة مجتمع أبوظبي منذ تأسيسها. نحن نشارك بانتظام في فعاليات الصحة المجتمعية، ونقدم فحوصات مجانية، وندوات توعوية حول صحة الفم والأسنان. نؤمن بأن الصحة الجيدة تبدأ بفم صحي، ونسعى لنشر هذه الثقافة في مجتمعنا.
+            </p>
+            <div class="community-highlights">
+              <div class="highlight">
+                <span data-translate="highlight1">✓ فحوصات مجانية للمدارس</span>
+              </div>
+              <div class="highlight">
+                <span data-translate="highlight2">✓ مشاركة في معارض الصحة</span>
+              </div>
+              <div class="highlight">
+                <span data-translate="highlight3">✓ برامج توعوية للمجتمع</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container">
+          <h2 data-translate="aboutCtaTitle">جاهزون لرعاية ابتسامتك؟</h2>
+          <p data-translate="aboutCtaText">
+            انضم إلى آلاف المرضى الراضين عن خدماتنا. احجز موعدك اليوم واستمتع برعاية أسنان استثنائية.
+          </p>
+          <div class="cta-buttons">
+            <a href="index.html#booking" class="btn btn-primary" data-translate="bookNow">احجز موعدك</a>
+            <a href="tel:+966500000000" class="btn btn-secondary" data-translate="callUs">اتصل بنا</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-translate="footerText">
+        © 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.
+      </p>
+    </footer>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Dentist",
+        "name": "Pearly Smile Dental Center",
+        "description": "مركز طب الأسنان الرائد في أبوظبي يقدم رعاية أسنان متكاملة بتقنيات حديثة وطاقم طبي محترف.",
+        "foundingDate": "2018",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "AE",
+          "addressLocality": "Abu Dhabi",
+          "streetAddress": "Pearly Smile Dental Center"
+        },
+        "telephone": "+966500000000",
+        "openingHours": ["Mo-Fr 09:00-19:00", "Sa 09:00-14:00"],
+        "priceRange": "$$",
+        "medicalSpecialty": "Dentistry"
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
