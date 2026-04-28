@@ -53,6 +53,7 @@ const TRANSLATIONS = {
   navServices: { ar: "خدماتنا", en: "Services" },
   navOffers: { ar: "عروضنا", en: "Offers" },
   navTeam: { ar: "فريقنا", en: "Our Team" },
+  navAbout: { ar: "عنّا", en: "About Us" },
   navBooking: { ar: "حجز", en: "Booking" },
   callNow: { ar: "اتصل الآن", en: "Call Now" },
   heroEyebrow: {
@@ -268,6 +269,115 @@ const TRANSLATIONS = {
     ar: "© 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.",
     en: "© 2026 Pearly Smile Dental Center. All rights reserved.",
   },
+  // About Us Page Translations
+  aboutEyebrow: { ar: "تعرف على قصة نجاحنا", en: "Our Story" },
+  aboutTitle: { ar: "مرحباً بكم في Pearly Smile Dental Center", en: "Welcome to Pearly Smile Dental Center" },
+  aboutSubtitle: {
+    ar: "نحن فخورون بخدمة مجتمع أبوظبي منذ عام 2018، ونقدم رعاية أسنان متكاملة بتقنيات حديثة وطاقم طبي محترف.",
+    en: "We proudly serve the Abu Dhabi community since 2018, offering comprehensive dental care with modern technology and professional medical staff."
+  },
+  aboutStoryTitle: { ar: "قصتنا ورحلتنا", en: "Our Story & Journey" },
+  aboutStoryText1: {
+    ar: "تأسس مركز بيرلي سمايل لطب الأسنان في عام 2018 برؤية واضحة: تقديم رعاية أسنان استثنائية تجمع بين أحدث التقنيات والرعاية الإنسانية المتميزة. بدأنا كعيادة صغيرة في قلب أبوظبي، وبتفانٍ فريقنا وثقة مرضانا، نمينا لتصبح واحدة من أبرز مراكز طب الأسنان في الإمارات.",
+    en: "Pearly Smile Dental Center was founded in 2018 with a clear vision: to provide exceptional dental care that combines the latest technology with outstanding human care. We started as a small clinic in the heart of Abu Dhabi, and through our team's dedication and our patients' trust, we grew to become one of the leading dental centers in the UAE."
+  },
+  aboutStoryText2: {
+    ar: "اليوم، نخدم آلاف العائلات في أبوظبي والإمارات المجاورة، ونفتخر بكوننا وجهة موثوقة للرعاية الشاملة للأسنان. نحن نؤمن بأن الابتسامة الصحية هي حق للجميع، ونسعى جاهدين لجعل تجربة علاج الأسنان مريحة ومريحة لكل مريض.",
+    en: "Today, we serve thousands of families in Abu Dhabi and neighboring emirates, and we are proud to be a trusted destination for comprehensive dental care. We believe that a healthy smile is everyone's right, and we strive to make the dental treatment experience comfortable and reassuring for every patient."
+  },
+  aboutImageAlt: { ar: "عيادة بيرلي سمايل الحديثة", en: "Modern Pearly Smile Clinic" },
+  missionTitle: { ar: "رؤيتنا", en: "Our Vision" },
+  missionText: {
+    ar: "أن نكون المركز الرائد في طب الأسنان في منطقة أبوظبي من خلال تقديم رعاية استثنائية وتقنيات مبتكرة تحسن جودة حياة مرضانا.",
+    en: "To be the leading dental center in the Abu Dhabi region by providing exceptional care and innovative technologies that improve our patients' quality of life."
+  },
+  valuesTitle: { ar: "قيمنا", en: "Our Values" },
+  valuesText: {
+    ar: "نؤمن بالشفافية، الجودة، والرعاية الشخصية. كل مريض هو فرد له احتياجات فريدة، ونحن نلتزم بتقديم حلول مخصصة لكل حالة.",
+    en: "We believe in transparency, quality, and personalized care. Every patient is an individual with unique needs, and we are committed to providing customized solutions for each case."
+  },
+  commitmentTitle: { ar: "التزامنا", en: "Our Commitment" },
+  commitmentText: {
+    ar: "نلتزم باستخدام أحدث المعدات والتقنيات، وتدريب فريقنا باستمرار، والحفاظ على أعلى معايير النظافة والسلامة.",
+    en: "We are committed to using the latest equipment and technologies, continuously training our team, and maintaining the highest standards of hygiene and safety."
+  },
+  aboutStatsTitle: { ar: "أرقامنا تتحدث عنا", en: "Our Numbers Speak for Themselves" },
+  aboutStatsSubtitle: { ar: "إنجازاتنا خلال السنوات الماضية", en: "Our achievements over the past years" },
+  statPatients: { ar: "مريض راضٍ", en: "Satisfied Patients" },
+  statDoctors: { ar: "طبيب متخصص", en: "Specialized Doctors" },
+  statStaff: { ar: "موظف داعم", en: "Support Staff" },
+  statSatisfaction: { ar: "% رضا المرضى", en: "Patient Satisfaction" },
+  facilitiesTitle: { ar: "مرافقنا الحديثة", en: "Our Modern Facilities" },
+  facility1Title: { ar: "غرف علاج متطورة", en: "Advanced Treatment Rooms" },
+  facility1Text: {
+    ar: "12 غرفة علاج مجهزة بأحدث تقنيات طب الأسنان، مع أنظمة تعقيم متقدمة لضمان سلامة المرضى.",
+    en: "12 treatment rooms equipped with the latest dental technologies, with advanced sterilization systems to ensure patient safety."
+  },
+  facility2Title: { ar: "تصوير رقمي متكامل", en: "Integrated Digital Imaging" },
+  facility2Text: {
+    ar: "وحدة تصوير أشعة سينية رقمية كاملة (CBCT، بانوراما، وأشعة داخلية) لتشخيص دقيق.",
+    en: "Complete digital X-ray imaging unit (CBCT, panoramic, and intraoral) for accurate diagnosis."
+  },
+  facility3Title: { ar: "منطقة استقبال مريحة", en: "Comfortable Reception Area" },
+  facility3Text: {
+    ar: "منطقة انتظار فسيحة مع وسائل ترفيهية وخدمة واي فاي مجانية لتجربة مريحة للمرضى.",
+    en: "Spacious waiting area with entertainment facilities and free Wi-Fi for a comfortable patient experience."
+  },
+  facility4Title: { ar: "مواقف مجانية", en: "Free Parking" },
+  facility4Text: {
+    ar: "مواقف سيارات مجانية ومخصصة للمرضى لتسهيل الوصول إلى العيادة.",
+    en: "Free and dedicated parking spaces for patients to facilitate access to the clinic."
+  },
+  communityTitle: { ar: "فخورون بخدمة مجتمع أبوظبي", en: "Proudly Serving the Abu Dhabi Community" },
+  communityText: {
+    ar: "Pearly Smile Dental Center تفتخر بخدمة مجتمع أبوظبي منذ تأسيسها. نحن نشارك بانتظام في فعاليات الصحة المجتمعية، ونقدم فحوصات مجانية، وندوات توعوية حول صحة الفم والأسنان. نؤمن بأن الصحة الجيدة تبدأ بفم صحي، ونسعى لنشر هذه الثقافة في مجتمعنا.",
+    en: "Pearly Smile Dental Center is proud to serve the Abu Dhabi community since its establishment. We regularly participate in community health events, provide free check-ups, and conduct awareness seminars about oral and dental health. We believe that good health starts with a healthy mouth, and we strive to spread this culture in our community."
+  },
+  communityCardTitle: { ar: "المجتمع", en: "Community" },
+  communityCardText: {
+    ar: "نفتخر بخدمة مجتمع أبوظبي منذ 2018، ونشارك بانتظام في فعاليات الصحة المجتمعية والتوعوية.",
+    en: "We proudly serve the Abu Dhabi community since 2018, regularly participating in community health events and awareness programs."
+  },
+  // New About Cards Translations
+  whoWeAreTitle: { ar: "من نحن", en: "Who We Are" },
+  whoWeAreText: {
+    ar: "فريق من أطباء الأسنان المتخصصين والممرضين المدربين، ملتزمون بتقديم رعاية أسنان شاملة ومريحة لكل مريض.",
+    en: "A team of specialized dentists and trained nurses, committed to providing comprehensive and comfortable dental care for every patient."
+  },
+  safetyTitle: { ar: "السلامة", en: "Safety" },
+  safetyText: {
+    ar: "نلتزم بأعلى معايير النظافة والتعقيم، مع أنظمة متقدمة لضمان سلامة المرضى في كل زيارة.",
+    en: "We adhere to the highest standards of hygiene and sterilization, with advanced systems to ensure patient safety in every visit."
+  },
+  technologyTitle: { ar: "التقنية", en: "Technology" },
+  technologyText: {
+    ar: "نستخدم أحدث تقنيات طب الأسنان الرقمية للتشخيص الدقيق والعلاج الفعال مع نتائج طويلة المدى.",
+    en: "We use the latest digital dental technologies for accurate diagnosis and effective treatment with long-term results."
+  },
+  readMore: { ar: "اقرأ المزيد", en: "Read More" },
+  highlight1: { ar: "✓ فحوصات مجانية للمدارس", en: "✓ Free school check-ups" },
+  highlight2: { ar: "✓ مشاركة في معارض الصحة", en: "✓ Participation in health exhibitions" },
+  highlight3: { ar: "✓ برامج توعوية للمجتمع", en: "✓ Community awareness programs" },
+  aboutCtaTitle: { ar: "جاهزون لرعاية ابتسامتك؟", en: "Ready to Care for Your Smile?" },
+  aboutCtaText: {
+    ar: "انضم إلى آلاف المرضى الراضين عن خدماتنا. احجز موعدك اليوم واستمتع برعاية أسنان استثنائية.",
+    en: "Join thousands of satisfied patients with our services. Book your appointment today and enjoy exceptional dental care."
+  },
+  bookNow: { ar: "احجز موعدك", en: "Book Your Appointment" },
+  callUs: { ar: "اتصل بنا", en: "Call Us" },
+  // Home Page About Preview Translations
+  aboutPreviewEyebrow: { ar: "تعرف علينا", en: "Get to Know Us" },
+  aboutPreviewTitle: { ar: "Pearly Smile Dental Center proudly serves the Abu Dhabi community", en: "Pearly Smile Dental Center proudly serves the Abu Dhabi community" },
+  aboutPreviewText: {
+    ar: "منذ عام 2018، نقدم رعاية أسنان استثنائية تجمع بين أحدث التقنيات والرعاية الإنسانية المتميزة.",
+    en: "Since 2018, we have been providing exceptional dental care that combines the latest technology with outstanding human care."
+  },
+  coreValues: { ar: "قيمنا الأساسية: رعاية • دقة • ثقة", en: "Core Values: Care • Precision • Trust" },
+  previewStatPatients: { ar: "مريض راضٍ", en: "Satisfied Patients" },
+  previewStatDoctors: { ar: "طبيب متخصص", en: "Specialized Doctors" },
+  previewStatStaff: { ar: "موظف داعم", en: "Support Staff" },
+  learnMore: { ar: "تعرف أكثر عنّا", en: "Learn More About Us" },
+  previewImageAlt: { ar: "مركز بيرلي سمايل لطب الأسنان", en: "Pearly Smile Dental Center" },
 };
 
 // ============================================================================
@@ -441,10 +551,21 @@ class BookingManager {
     return [
       '09:00',
       '10:00',
+      '10:30',
       '11:30',
+      '12:00',
+      '12:30',
       '13:00',
+      '13:30',
+      '14:00',
+      '14:30',
+      '15:00',
       '15:30',
-      '17:00'
+      '16:00',
+      '16:30',
+      '17:00',
+      '17:30',
+      '18:00',
     ];
   }
 
@@ -567,9 +688,22 @@ class ThemeManager {
 
 class CounterAnimator {
   static animateCounters() {
+    // Animate home page counters
     const counters = document.querySelectorAll(".counter");
     counters.forEach((counter) => {
       this.animateCounter(counter);
+    });
+    
+    // Animate about page stat numbers
+    const statNumbers = document.querySelectorAll(".stat-number[data-count]");
+    statNumbers.forEach((stat) => {
+      this.animateStat(stat);
+    });
+    
+    // Animate preview stat numbers
+    const previewStats = document.querySelectorAll(".preview-stat-number[data-count]");
+    previewStats.forEach((stat) => {
+      this.animateStat(stat);
     });
   }
 
@@ -592,6 +726,27 @@ class CounterAnimator {
     };
 
     requestAnimationFrame(updateCounter);
+  }
+
+  static animateStat(stat) {
+    const target = +stat.dataset.count;
+    const duration = CONFIG.animation.counterDuration;
+    let startTime = null;
+
+    const updateStat = (time) => {
+      if (!startTime) startTime = time;
+      const progress = Math.min((time - startTime) / duration, 1);
+      const currentNumber = Math.floor(progress * target);
+      stat.textContent = currentNumber.toLocaleString("en-US");
+
+      if (progress < 1) {
+        requestAnimationFrame(updateStat);
+      } else {
+        stat.textContent = target.toLocaleString("en-US");
+      }
+    };
+
+    requestAnimationFrame(updateStat);
   }
 }
 
