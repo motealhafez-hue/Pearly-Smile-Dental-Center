@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="service_gums">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" data-translate="serviceGumsMetaDescription" content="علاج اللثة لدى Pearly Smile Dental Center: تنظيف عميق، علاج الالتهابات، وخطة وقائية لتحسين صحة الفم." />
+    <meta name="theme-color" content="#2563eb" />
+    <title data-translate="serviceGumsPageTitle">علاج اللثة | Pearly Smile Dental Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const storedTheme = localStorage.getItem("ps-theme");
+      const storedLanguage = localStorage.getItem("ps-lang");
+      if (storedTheme === "dark") document.documentElement.classList.add("dark-theme");
+      if (storedLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="mobile-nav">
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav id="mobileNav" aria-label="Primary">
+        <button type="button" class="mobile-menu-backdrop" id="mobileMenuBackdrop" aria-label="Close menu"></button>
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+          <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+            <span aria-hidden="true">✕</span>
+          </button>
+          <ul>
+            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
+            <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
+            <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button type="button" id="mobileMenuToggle" class="mobile-menu-toggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+          <span class="mobile-menu-icon" aria-hidden="true"></span>
+        </button>
+        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <button type="button" id="languageToggle" class="lang-toggle">EN</button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">اتصل الآن</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero service-detail-hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="servicesHeroEyebrow">كل التخصصات في مكان واحد</p>
+          <h1 data-translate="service4Title">اختصاص لثة</h1>
+          <p data-translate="serviceGumsHeroText">
+            علاج التهاب اللثة وتنظيف عميق للجذور لتحسين الصحة وتقليل النزيف والرائحة بخطة وقائية.
+          </p>
+          <div class="hero-actions">
+            <a href="services.html" class="btn btn-secondary" data-translate="serviceBackToServices">العودة إلى الخدمات</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="service-detail">
+        <div class="container service-detail-layout">
+          <div class="service-detail-media" aria-label="Service image">
+            <img
+              class="service-detail-image"
+              src="Images/services/gums.jpg"
+              alt="Gum care"
+              loading="lazy"
+              decoding="async"
+              onerror="this.hidden=true;this.parentElement.classList.add('no-image');"
+            />
+            <div class="service-detail-image-fallback" aria-hidden="true">
+              <span data-translate="serviceImageFallback">صورة الخدمة</span>
+            </div>
+          </div>
+
+          <article class="service-detail-content">
+            <h2 data-translate="serviceDetailOverviewTitle">نظرة عامة</h2>
+            <p data-translate="serviceGumsOverview">
+              نقيّم صحة اللثة ونستخدم تقنيات تنظيف وعلاج تساعد على تقليل الالتهابات وحماية الأسنان على المدى الطويل.
+            </p>
+
+            <h2 data-translate="serviceDetailWhoForTitle">لمن تناسب؟</h2>
+            <p data-translate="serviceGumsWhoFor">
+              لمن يعاني من نزيف أثناء التفريش، رائحة فم مستمرة، أو حساسية/تراجع في اللثة — ولمن يريد وقاية مبكرة.
+            </p>
+
+            <h2 data-translate="serviceDetailWhatExpectTitle">ماذا تتوقع في الزيارة؟</h2>
+            <p data-translate="serviceGumsWhatExpect">
+              فحص وتقييم ثم تنظيف علاجي عند الحاجة، مع خطة متابعة ونصائح يومية تساعد على تثبيت النتائج.
+            </p>
+
+            <h2 data-translate="serviceDetailBenefitsTitle">لماذا يختارنا المرضى؟</h2>
+            <ul class="service-detail-list">
+              <li data-translate="serviceGumsBenefit1">تحسين صحة اللثة وتقليل النزيف بشكل ملحوظ.</li>
+              <li data-translate="serviceGumsBenefit2">تنظيف علاجي يساعد على تقليل الالتهابات والرائحة.</li>
+              <li data-translate="serviceGumsBenefit3">خطة وقائية طويلة المدى لتجنب تدهور الحالة.</li>
+              <li data-translate="serviceGumsBenefit4">إرشادات منزلية عملية وسهلة الالتزام.</li>
+            </ul>
+
+            <h2 data-translate="serviceDetailStepsTitle">خطوات الخدمة</h2>
+            <ol class="service-detail-steps">
+              <li data-translate="serviceGumsStep1">تقييم اللثة وتحديد مستوى الالتهاب.</li>
+              <li data-translate="serviceGumsStep2">تنظيف علاجي وإزالة الترسبات تحت اللثة عند الحاجة.</li>
+              <li data-translate="serviceGumsStep3">تخفيف الالتهاب بخطة علاج مناسبة.</li>
+              <li data-translate="serviceGumsStep4">متابعة وقائية لضمان استقرار النتائج.</li>
+            </ol>
+
+            <div class="service-detail-callout">
+              <h3 data-translate="serviceDetailAftercareTitle">بعد الزيارة</h3>
+              <p data-translate="serviceGumsAftercare">
+                سنعطيك روتينًا بسيطًا للتفريش والخيط وغسول مناسب إن لزم، مع مواعيد متابعة تضمن ثبات النتائج وتحسنها.
+              </p>
+            </div>
+
+            <section class="service-detail-faq" aria-label="FAQ">
+              <h2 data-translate="serviceDetailFaqTitle">أسئلة شائعة</h2>
+              <details class="service-faq-item">
+                <summary data-translate="serviceGumsFaqQ1">هل نزيف اللثة أمر طبيعي؟</summary>
+                <p data-translate="serviceGumsFaqA1">النزيف المتكرر غالبًا علامة التهاب. العلاج والتنظيف والالتزام بروتين العناية يساعدان على التحسن.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceGumsFaqQ2">هل التنظيف العميق مؤلم؟</summary>
+                <p data-translate="serviceGumsFaqA2">نسعى لراحة المريض قدر الإمكان، وقد نستخدم وسائل مساعدة حسب الحالة. نوضح كل خطوة قبل البدء.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceGumsFaqQ3">كم تحتاج اللثة لتتحسن؟</summary>
+                <p data-translate="serviceGumsFaqA3">يختلف حسب شدة الالتهاب والالتزام المنزلي. غالبًا تبدأ النتائج خلال أسابيع مع المتابعة.</p>
+              </details>
+            </section>
+
+            <section class="service-detail-cta" aria-label="Call to action">
+              <h2 data-translate="serviceCtaTitle">جاهز لتحسين صحة لثتك؟</h2>
+              <p data-translate="serviceCtaText">احجز موعدك اليوم لنقيّم الحالة ونضع خطة علاج ووقاية مناسبة لك.</p>
+              <div class="service-cta-actions">
+                <a class="btn btn-primary" href="index.html#booking" data-translate="serviceCtaBook">احجز الآن</a>
+                <a class="btn btn-secondary" href="tel:+966500000000" data-translate="serviceCtaCall">اتصل بنا</a>
+              </div>
+            </section>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-translate="footerText">© 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

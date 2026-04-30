@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="service_general">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" data-translate="serviceGeneralMetaDescription" content="خدمة طب الأسنان العام لدى Pearly Smile Dental Center: فحص شامل، تنظيف، علاج تسوس، وخطة عناية مخصصة لابتسامة صحية." />
+    <meta name="theme-color" content="#2563eb" />
+    <title data-translate="serviceGeneralPageTitle">طب الأسنان العام | Pearly Smile Dental Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const storedTheme = localStorage.getItem("ps-theme");
+      const storedLanguage = localStorage.getItem("ps-lang");
+      if (storedTheme === "dark") document.documentElement.classList.add("dark-theme");
+      if (storedLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="mobile-nav">
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav id="mobileNav" aria-label="Primary">
+        <button type="button" class="mobile-menu-backdrop" id="mobileMenuBackdrop" aria-label="Close menu"></button>
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+          <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+            <span aria-hidden="true">✕</span>
+          </button>
+          <ul>
+            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
+            <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
+            <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button type="button" id="mobileMenuToggle" class="mobile-menu-toggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+          <span class="mobile-menu-icon" aria-hidden="true"></span>
+        </button>
+        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <button type="button" id="languageToggle" class="lang-toggle">EN</button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">اتصل الآن</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero service-detail-hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="servicesHeroEyebrow">كل التخصصات في مكان واحد</p>
+          <h1 data-translate="service1Title">طبيب عام</h1>
+          <p data-translate="serviceGeneralHeroText">
+            رعاية يومية متكاملة لصحة الفم والأسنان — فحص شامل، تنظيف، وعلاج تسوس بخطة واضحة تناسب احتياجك.
+          </p>
+          <div class="hero-actions">
+            <a href="services.html" class="btn btn-secondary" data-translate="serviceBackToServices">العودة إلى الخدمات</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="service-detail">
+        <div class="container service-detail-layout">
+          <div class="service-detail-media" aria-label="Service image">
+            <img
+              class="service-detail-image"
+              src="Images/services/general.jpg"
+              alt="General dentistry"
+              loading="lazy"
+              decoding="async"
+              onerror="this.hidden=true;this.parentElement.classList.add('no-image');"
+            />
+            <div class="service-detail-image-fallback" aria-hidden="true">
+              <span data-translate="serviceImageFallback">صورة الخدمة</span>
+            </div>
+          </div>
+
+          <article class="service-detail-content">
+            <h2 data-translate="serviceDetailOverviewTitle">نظرة عامة</h2>
+            <p data-translate="serviceGeneralOverview">
+              نساعدك على الحفاظ على صحة الفم والأسنان عبر فحوصات دورية وتنظيف احترافي، مع علاج مبكر للمشكلات لتفادي تفاقمها.
+            </p>
+
+            <h2 data-translate="serviceDetailWhoForTitle">لمن تناسب؟</h2>
+            <p data-translate="serviceGeneralWhoFor">
+              مناسبة للجميع: زيارات دورية، تنظيف، متابعة حساسية الأسنان، ومعالجة التسوس البسيط — لكل الأعمار.
+            </p>
+
+            <h2 data-translate="serviceDetailWhatExpectTitle">ماذا تتوقع في الزيارة؟</h2>
+            <p data-translate="serviceGeneralWhatExpect">
+              تقييم الحالة، شرح الخيارات، ثم تنفيذ الإجراء بخطوات مريحة. ستحصل على توصيات واضحة للعناية المنزلية والمتابعة.
+            </p>
+
+            <h2 data-translate="serviceDetailBenefitsTitle">لماذا يختارنا المرضى؟</h2>
+            <ul class="service-detail-list">
+              <li data-translate="serviceGeneralBenefit1">خطة واضحة خطوة بخطوة، بدون مفاجآت في العلاج.</li>
+              <li data-translate="serviceGeneralBenefit2">تركيز على الوقاية وتقليل الحاجة لإجراءات أكبر لاحقًا.</li>
+              <li data-translate="serviceGeneralBenefit3">تنظيف احترافي بلطف مع نصائح عملية للعناية اليومية.</li>
+              <li data-translate="serviceGeneralBenefit4">متابعة منظمة للحالات الحساسة والتسوس المبكر.</li>
+            </ul>
+
+            <h2 data-translate="serviceDetailStepsTitle">خطوات الخدمة</h2>
+            <ol class="service-detail-steps">
+              <li data-translate="serviceGeneralStep1">فحص شامل وتقييم اللثة والأسنان.</li>
+              <li data-translate="serviceGeneralStep2">تنظيف احترافي وإزالة الترسبات بلطف.</li>
+              <li data-translate="serviceGeneralStep3">علاج موجه للتسوس أو الحساسية عند الحاجة.</li>
+              <li data-translate="serviceGeneralStep4">خطة متابعة وتوصيات منزلية قابلة للتطبيق.</li>
+            </ol>
+
+            <div class="service-detail-callout">
+              <h3 data-translate="serviceDetailAftercareTitle">بعد الزيارة</h3>
+              <p data-translate="serviceGeneralAftercare">
+                سنقترح روتينًا بسيطًا للتفريش والخيط، ونحدد مواعيد متابعة حسب حالتك. الهدف: ابتسامة صحية بثقة وراحة على المدى الطويل.
+              </p>
+            </div>
+
+            <section class="service-detail-faq" aria-label="FAQ">
+              <h2 data-translate="serviceDetailFaqTitle">أسئلة شائعة</h2>
+              <details class="service-faq-item">
+                <summary data-translate="serviceGeneralFaqQ1">كم مرة أحتاج لزيارة الطبيب العام؟</summary>
+                <p data-translate="serviceGeneralFaqA1">غالبًا كل 6 أشهر، وقد تختلف حسب صحة اللثة والتسوس السابق. سنقترح ما يناسبك بعد الفحص.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceGeneralFaqQ2">هل التنظيف يسبب ألمًا؟</summary>
+                <p data-translate="serviceGeneralFaqA2">عادة يكون مريحًا، وقد تشعر بحساسية بسيطة إذا كانت اللثة ملتهبة. نعمل بلطف ونشرح كل خطوة.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceGeneralFaqQ3">متى أحتاج علاجًا إضافيًا؟</summary>
+                <p data-translate="serviceGeneralFaqA3">إذا وُجد تسوس أو التهاب، سنوضح الخيارات والبدائل ونبدأ بأقل إجراء مناسب للحالة.</p>
+              </details>
+            </section>
+
+            <section class="service-detail-cta" aria-label="Call to action">
+              <h2 data-translate="serviceCtaTitle">جاهز لتحسين صحة أسنانك؟</h2>
+              <p data-translate="serviceCtaText">احجز موعدك اليوم لنضع لك خطة بسيطة وواضحة — ونبدأ بخطوة مريحة نحو ابتسامة صحية.</p>
+              <div class="service-cta-actions">
+                <a class="btn btn-primary" href="index.html#booking" data-translate="serviceCtaBook">احجز الآن</a>
+                <a class="btn btn-secondary" href="tel:+966500000000" data-translate="serviceCtaCall">اتصل بنا</a>
+              </div>
+            </section>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-translate="footerText">© 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

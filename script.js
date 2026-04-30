@@ -31,6 +31,38 @@ const TRANSLATIONS = {
       ar: "خدمات بيرلي سمايل | Pearly Smile Dental Center",
       en: "Pearly Smile Services | Pearly Smile Dental Center",
     },
+    service_general: {
+      ar: "طب الأسنان العام | Pearly Smile Dental Center",
+      en: "General Dentistry | Pearly Smile Dental Center",
+    },
+    service_xray: {
+      ar: "التصوير بالأشعة | Pearly Smile Dental Center",
+      en: "Dental X-Ray Imaging | Pearly Smile Dental Center",
+    },
+    service_restorations: {
+      ar: "حشوات وترميمات | Pearly Smile Dental Center",
+      en: "Fillings & Restorations | Pearly Smile Dental Center",
+    },
+    service_gums: {
+      ar: "علاج اللثة | Pearly Smile Dental Center",
+      en: "Gum Care | Pearly Smile Dental Center",
+    },
+    service_implants: {
+      ar: "زراعة الأسنان | Pearly Smile Dental Center",
+      en: "Dental Implants | Pearly Smile Dental Center",
+    },
+    service_oral_surgery: {
+      ar: "جراحة الفم | Pearly Smile Dental Center",
+      en: "Oral Surgery | Pearly Smile Dental Center",
+    },
+    service_pediatric: {
+      ar: "طب أسنان الأطفال | Pearly Smile Dental Center",
+      en: "Pediatric Dentistry | Pearly Smile Dental Center",
+    },
+    service_endodontics: {
+      ar: "علاج العصب | Pearly Smile Dental Center",
+      en: "Root Canal Treatment | Pearly Smile Dental Center",
+    },
     offers: {
       ar: "عروض عيد الأضحى | Pearly Smile Dental Center",
       en: "Eid Al-Adha Offers | Pearly Smile Dental Center",
@@ -91,44 +123,416 @@ const TRANSLATIONS = {
   },
   service1Title: { ar: "طبيب عام", en: "General Dentistry" },
   service1Text: {
-    ar: "فحص أسنان كامل، تنظيف، علاج تسوس، وترتيب خطة العناية اليومية.",
-    en: "Comprehensive dental exams, cleanings, cavity care, and daily oral health planning.",
+    ar: "فحص دوري، تنظيف، علاج تسوس، وخطة صحة أسنان مستمرة لكل العائلة.",
+    en: "Routine check-ups, cleanings, cavity care, and an ongoing oral health plan for the whole family.",
   },
   service2Title: { ar: "صور إكس رِي", en: "X-Ray Imaging" },
   service2Text: {
-    ar: "تصوير رقمي سريع ودقيق لتشخيص حالة الأسنان والفم قبل العلاج.",
-    en: "Fast and accurate digital imaging to diagnose dental and oral conditions before treatment.",
+    ar: "أشعة دقيقة لعرض حالة الفم كاملة قبل أي علاج أو عملية.",
+    en: "Accurate imaging to assess your oral health before any treatment or procedure.",
   },
   seeAllServices: { ar: "شوف الكل", en: "See All" },
   service3Title: { ar: "حشوات وترميمات", en: "Fillings & Restorations" },
   service3Text: {
-    ar: "حشوات تجميلية وقوية لاستعادة شكل الأسنان وحمايتها من التسوس.",
-    en: "Cosmetic and strong fillings to restore tooth shape and protect against decay.",
+    ar: "حشوات تجميلية وتقويمية لاستعادة الأسنان وتقوية مظهرها.",
+    en: "Cosmetic fillings and restorations to rebuild strength and improve appearance.",
   },
   service4Title: { ar: "اختصاص لثة", en: "Periodontal Care" },
   service4Text: {
-    ar: "علاج اللثة والتهاباتها، وتنظيف عميق لجذور الأسنان واستعادة الصحة.",
-    en: "Gum disease treatment and deep root cleaning to restore oral health.",
+    ar: "علاج لثة والتهاباتها مع تنظيف عميق وحماية للأسنان.",
+    en: "Gum care, inflammation treatment, and deep cleaning to protect teeth.",
   },
   service5Title: { ar: "اختصاص زراعة", en: "Implant Specialist" },
   service5Text: {
-    ar: "زراعة أسنان ثابتة مع متابعة دقيقة لضمان نتيجة طبيعية وقوية.",
-    en: "Fixed dental implants with precise follow-up for a natural, durable result.",
+    ar: "زراعة أسنان ثابتة تدوم طويلاً وتبدو طبيعية للغاية.",
+    en: "Fixed implants designed to last and look natural.",
   },
   service6Title: { ar: "اختصاص جراحة فم", en: "Oral Surgery" },
   service6Text: {
-    ar: "جراحة فم متقدمة لحالات معقدة مع عناية آمنة ومهنية عالية.",
-    en: "Advanced oral surgery for complex cases with safe and professional care.",
+    ar: "جراحات فم متقدمة لحالات معقدة والأخراج بالراحة والأمان.",
+    en: "Advanced oral procedures for complex cases with comfort and safety.",
   },
   service7Title: { ar: "اختصاص أطفال", en: "Pediatric Dentistry" },
   service7Text: {
-    ar: "رعاية ممتعة للأطفال مع تعامل لطيف يساعد الطفل على الشعور بالأمان.",
-    en: "Fun pediatric care with gentle handling to make children feel safe.",
+    ar: "رعاية لطيفة ومشجعة للأطفال لتجربة زيارة سهلة ومريحة.",
+    en: "Gentle, encouraging care for an easy and comfortable visit.",
   },
   service8Title: { ar: "اختصاص عصب", en: "Endodontics" },
   service8Text: {
-    ar: "علاج جذور الحديث لتخفيف الألم وحفظ السن باستخدام تقنيات حديثة.",
-    en: "Modern root canal treatment to relieve pain and preserve the tooth.",
+    ar: "علاج جذور حديث لتخفيف الألم وحفظ الأسنان باستخدام تقنيات متطورة.",
+    en: "Modern root canal treatment to relieve pain and preserve teeth.",
+  },
+
+  /* Services cards (expanded back side) */
+  service1More: {
+    ar: "متابعة شاملة لصحة الفم والأسنان مع خطة علاج واضحة ونصائح يومية بسيطة للحفاظ على الابتسامة.",
+    en: "Comprehensive follow-up with a clear plan and simple daily guidance to maintain a healthy smile.",
+  },
+  service2More: {
+    ar: "تصوير رقمي سريع يساعد على تشخيص أدق وخطة علاج آمنة، مع تقارير واضحة ومتابعة أفضل للحالة.",
+    en: "Fast digital imaging for more accurate diagnosis, safer planning, and clearer follow-up.",
+  },
+  service3More: {
+    ar: "حلول ترميمية بمواد عالية الجودة لتقوية السن وتحسين الشكل والوظيفة مع نتائج طبيعية ومريحة.",
+    en: "High-quality restorative options to strengthen the tooth and improve look and function with natural results.",
+  },
+  service4More: {
+    ar: "علاج التهاب اللثة وتنظيف عميق للجذور لتحسين الصحة وتقليل النزيف والرائحة، مع خطة وقائية طويلة المدى.",
+    en: "Gum inflammation care and deep cleaning to improve health and reduce bleeding/odor, with a long-term prevention plan.",
+  },
+  service5More: {
+    ar: "تقييم دقيق وخطة زراعة مناسبة لحالتك لاستعادة الابتسامة والمضغ بثبات، مع متابعة لضمان أفضل نتيجة.",
+    en: "A precise assessment and tailored implant plan to restore your smile and bite with confident follow-up.",
+  },
+  service6More: {
+    ar: "إجراءات جراحية دقيقة مع تخطيط مسبق وتعليمات واضحة قبل وبعد، لتجربة آمنة وتقليل الانزعاج.",
+    en: "Carefully planned procedures with clear before/after guidance for a safer, more comfortable experience.",
+  },
+  service7More: {
+    ar: "بيئة ودودة وخطوات علاج بسيطة تساعد الطفل على الشعور بالأمان، مع إرشادات للأهل للعناية اليومية.",
+    en: "A friendly environment and simple steps to help kids feel safe—plus guidance for parents at home.",
+  },
+  service8More: {
+    ar: "علاج جذور يركز على تقليل الألم وحفظ السن، مع خطوات دقيقة وشرح واضح لما تحتاجه قبل وبعد الجلسة.",
+    en: "Root canal care focused on pain relief and tooth preservation, with clear steps and guidance before and after.",
+  },
+
+  /* Shared labels (services system) */
+  serviceBackToServices: { ar: "العودة إلى الخدمات", en: "Back to Services" },
+  serviceImageFallback: { ar: "صورة الخدمة", en: "Service image" },
+  serviceDetailOverviewTitle: { ar: "نظرة عامة", en: "Overview" },
+  serviceDetailWhoForTitle: { ar: "لمن تناسب؟", en: "Who is it for?" },
+  serviceDetailWhatExpectTitle: { ar: "ماذا تتوقع في الزيارة؟", en: "What to expect" },
+  serviceDetailBenefitsTitle: { ar: "لماذا يختارنا المرضى؟", en: "Why patients choose us" },
+  serviceDetailStepsTitle: { ar: "خطوات الخدمة", en: "How it works" },
+  serviceDetailAftercareTitle: { ar: "بعد الزيارة", en: "Aftercare" },
+  serviceDetailFaqTitle: { ar: "أسئلة شائعة", en: "FAQs" },
+  serviceCtaTitle: { ar: "جاهز لخطوتك التالية؟", en: "Ready for your next step?" },
+  serviceCtaText: {
+    ar: "احجز موعدك اليوم لنضع لك خطة واضحة ومريحة — ونبدأ بخطوة بثقة نحو ابتسامة صحية.",
+    en: "Book today for a clear, comfort-first plan—and take the next step toward a healthier smile.",
+  },
+  serviceCtaBook: { ar: "احجز الآن", en: "Book now" },
+  serviceCtaCall: { ar: "اتصل بنا", en: "Call us" },
+
+  /* Detail pages hero + body copy */
+  serviceGeneralHeroText: {
+    ar: "رعاية يومية متكاملة لصحة الفم والأسنان — فحص شامل، تنظيف، وعلاج تسوس بخطة واضحة تناسب احتياجك.",
+    en: "Everyday comprehensive care—check-ups, cleanings, and cavity treatment with a clear plan tailored to you.",
+  },
+  serviceGeneralOverview: {
+    ar: "نساعدك على الحفاظ على صحة الفم والأسنان عبر فحوصات دورية وتنظيف احترافي، مع علاج مبكر للمشكلات لتفادي تفاقمها.",
+    en: "We help you maintain oral health with routine exams and professional cleanings—catching issues early before they grow.",
+  },
+  serviceGeneralWhoFor: {
+    ar: "مناسبة للجميع: زيارات دورية، تنظيف، متابعة حساسية الأسنان، ومعالجة التسوس البسيط — لكل الأعمار.",
+    en: "For everyone—routine visits, cleanings, sensitivity follow-up, and early cavity care across all ages.",
+  },
+  serviceGeneralWhatExpect: {
+    ar: "تقييم الحالة، شرح الخيارات، ثم تنفيذ الإجراء بخطوات مريحة. ستحصل على توصيات واضحة للعناية المنزلية والمتابعة.",
+    en: "Assessment, clear options, then comfortable treatment steps—plus simple at-home guidance and follow-up recommendations.",
+  },
+  serviceGeneralBenefit1: {
+    ar: "خطة واضحة خطوة بخطوة، بدون مفاجآت في العلاج.",
+    en: "A clear step-by-step plan—no surprises.",
+  },
+  serviceGeneralBenefit2: {
+    ar: "تركيز على الوقاية وتقليل الحاجة لإجراءات أكبر لاحقًا.",
+    en: "Prevention-first to reduce the need for bigger procedures later.",
+  },
+  serviceGeneralBenefit3: {
+    ar: "تنظيف احترافي بلطف مع نصائح عملية للعناية اليومية.",
+    en: "Gentle professional cleaning with practical daily-care tips.",
+  },
+  serviceGeneralBenefit4: {
+    ar: "متابعة منظمة للحالات الحساسة والتسوس المبكر.",
+    en: "Structured follow-up for sensitivity and early decay.",
+  },
+  serviceGeneralStep1: {
+    ar: "فحص شامل وتقييم اللثة والأسنان.",
+    en: "Comprehensive exam of teeth and gums.",
+  },
+  serviceGeneralStep2: {
+    ar: "تنظيف احترافي وإزالة الترسبات بلطف.",
+    en: "Professional cleaning with gentle plaque/tartar removal.",
+  },
+  serviceGeneralStep3: {
+    ar: "علاج موجه للتسوس أو الحساسية عند الحاجة.",
+    en: "Targeted care for cavities or sensitivity when needed.",
+  },
+  serviceGeneralStep4: {
+    ar: "خطة متابعة وتوصيات منزلية قابلة للتطبيق.",
+    en: "A follow-up plan with simple at-home guidance.",
+  },
+  serviceGeneralAftercare: {
+    ar: "سنقترح روتينًا بسيطًا للتفريش والخيط، ونحدد مواعيد متابعة حسب حالتك. الهدف: ابتسامة صحية بثقة وراحة على المدى الطويل.",
+    en: "We’ll recommend a simple brushing/flossing routine and schedule follow-ups based on your needs—so your smile stays healthy long-term.",
+  },
+  serviceGeneralFaqQ1: { ar: "كم مرة أحتاج لزيارة الطبيب العام؟", en: "How often should I come in?" },
+  serviceGeneralFaqA1: {
+    ar: "غالبًا كل 6 أشهر، وقد تختلف حسب صحة اللثة والتسوس السابق. سنقترح ما يناسبك بعد الفحص.",
+    en: "Often every 6 months, but it depends on gum health and past decay. We’ll recommend the right interval after your exam.",
+  },
+  serviceGeneralFaqQ2: { ar: "هل التنظيف يسبب ألمًا؟", en: "Does cleaning hurt?" },
+  serviceGeneralFaqA2: {
+    ar: "عادة يكون مريحًا، وقد تشعر بحساسية بسيطة إذا كانت اللثة ملتهبة. نعمل بلطف ونشرح كل خطوة.",
+    en: "It’s usually comfortable. Mild sensitivity can happen if gums are inflamed—we work gently and explain each step.",
+  },
+  serviceGeneralFaqQ3: { ar: "متى أحتاج علاجًا إضافيًا؟", en: "When do I need additional treatment?" },
+  serviceGeneralFaqA3: {
+    ar: "إذا وُجد تسوس أو التهاب، سنوضح الخيارات والبدائل ونبدأ بأقل إجراء مناسب للحالة.",
+    en: "If decay or inflammation is found, we’ll explain options and start with the least appropriate step for your case.",
+  },
+
+  serviceXrayHeroText: {
+    ar: "تصوير رقمي سريع يساعد على تشخيص أدق وخطة علاج آمنة، مع نتائج واضحة يسهل متابعتها.",
+    en: "Fast digital imaging for more accurate diagnosis and safer planning—with clear results you can follow.",
+  },
+  serviceXrayOverview: {
+    ar: "نستخدم التصوير الرقمي لتوضيح حالة الأسنان والعظم بدقة، مما يساعد في اختيار الخطة الأنسب للعلاج وتقييم النتائج.",
+    en: "Digital imaging provides a clear view of teeth and bone, supporting the best plan and better outcome evaluation.",
+  },
+  serviceXrayWhoFor: {
+    ar: "مناسبة قبل الحشوات، علاج العصب، الزراعة، أو عند وجود ألم غير واضح السبب — لتشخيص أدق بأسرع وقت.",
+    en: "Helpful before fillings, root canal, implants, or when pain is unclear—so we can diagnose faster and more accurately.",
+  },
+  serviceXrayWhatExpect: {
+    ar: "تصوير سريع وخفيف، ثم شرح النتائج بصورة واضحة وربطها بخطة العلاج المقترحة مع إجابة أسئلتك.",
+    en: "A quick scan, then a clear explanation of findings and how they connect to your recommended plan.",
+  },
+  serviceXrayBenefit1: { ar: "صور واضحة تساعد على اتخاذ قرار علاجي أدق.", en: "Clear images support better decisions." },
+  serviceXrayBenefit2: { ar: "سرعة في التنفيذ ونتائج يمكن شرحها بسهولة.", en: "Fast process with easy-to-explain results." },
+  serviceXrayBenefit3: { ar: "ربط النتائج بخطة علاج واقعية ومفهومة.", en: "Findings tied to a practical, understandable plan." },
+  serviceXrayBenefit4: { ar: "متابعة أفضل لتطور الحالة قبل/بعد العلاج.", en: "Better before/after tracking of progress." },
+  serviceXrayStep1: { ar: "تقييم سريع لما تحتاجه من تصوير.", en: "Quick assessment of what imaging is needed." },
+  serviceXrayStep2: { ar: "التقاط الصور بوقت قصير وبشكل مريح.", en: "Capture images quickly and comfortably." },
+  serviceXrayStep3: { ar: "مراجعة النتائج وشرحها بطريقة بسيطة.", en: "Review results and explain them simply." },
+  serviceXrayStep4: { ar: "توصية واضحة بخطوة العلاج التالية إن لزم.", en: "Clear recommendation for the next step if needed." },
+  serviceXrayAftercare: {
+    ar: "قد نستخدم الصور كمرجع للمتابعة. ستغادر ومعك فهم واضح لما تعنيه النتائج وما هي الخطوة التالية.",
+    en: "We may use the images for follow-up. You’ll leave with a clear understanding of what they mean and what comes next.",
+  },
+  serviceXrayFaqQ1: { ar: "هل التصوير بالأشعة آمن؟", en: "Is dental X-ray imaging safe?" },
+  serviceXrayFaqA1: {
+    ar: "نستخدم تصويرًا رقميًا بجرعات منخفضة قدر الإمكان، ويتم تحديد الحاجة إليه حسب الحالة.",
+    en: "We use digital imaging with the lowest reasonable exposure and only when clinically needed.",
+  },
+  serviceXrayFaqQ2: { ar: "هل أحتاج أشعة لكل زيارة؟", en: "Do I need X-rays every visit?" },
+  serviceXrayFaqA2: {
+    ar: "ليس دائمًا. نعتمد على الأعراض والخطة العلاجية، ونستخدم التصوير عند وجود فائدة تشخيصية واضحة.",
+    en: "Not always. It depends on symptoms and your plan—we image when there’s a clear diagnostic benefit.",
+  },
+  serviceXrayFaqQ3: { ar: "هل يمكنني فهم النتائج؟", en: "Will I understand the results?" },
+  serviceXrayFaqA3: {
+    ar: "نعم. نعرض النتائج ونشرحها بلغة بسيطة مع ما تعنيه على الخطة العلاجية.",
+    en: "Yes—we’ll show and explain them in plain language and how they affect your plan.",
+  },
+
+  serviceRestorationsBenefit1: { ar: "نتائج طبيعية من حيث اللون والملمس.", en: "Natural-looking results in color and texture." },
+  serviceRestorationsBenefit2: { ar: "حماية للسن وتقوية للوظيفة اليومية.", en: "Protects the tooth and strengthens daily function." },
+  serviceRestorationsBenefit3: { ar: "شرح واضح للخيارات قبل البدء.", en: "Clear options explained before we begin." },
+  serviceRestorationsBenefit4: { ar: "تشطيب دقيق لراحة أفضل عند المضغ.", en: "Precise finishing for a more comfortable bite." },
+  serviceRestorationsStep1: { ar: "فحص وتشخيص لتحديد نوع الترميم المناسب.", en: "Exam and diagnosis to choose the right restoration." },
+  serviceRestorationsStep2: { ar: "تحضير بسيط وإزالة التسوس عند الحاجة.", en: "Simple preparation and decay removal if needed." },
+  serviceRestorationsStep3: { ar: "تطبيق الترميم واختيار اللون المناسب.", en: "Place the restoration and match the shade." },
+  serviceRestorationsStep4: { ar: "تشطيب وتلميع مع إرشادات للحفاظ على النتيجة.", en: "Finish and polish with guidance to maintain results." },
+  serviceRestorationsAftercare: {
+    ar: "سنوضح ما يجب تجنبه خلال أول 24 ساعة إن لزم، وكيف تحافظ على الحشوة/الترميم عبر روتين تنظيف بسيط وفحوصات دورية.",
+    en: "We’ll explain what to avoid in the first 24 hours if needed and how to maintain your restoration with simple care and regular check-ups.",
+  },
+  serviceRestorationsFaqQ1: { ar: "هل شكل الحشوة سيكون واضحًا؟", en: "Will the filling be noticeable?" },
+  serviceRestorationsFaqA1: { ar: "نختار اللون بعناية ونقوم بتشطيب دقيق لتبدو النتيجة طبيعية قدر الإمكان.", en: "We match the shade carefully and finish precisely so it looks as natural as possible." },
+  serviceRestorationsFaqQ2: { ar: "كم تدوم الحشوات والترميمات؟", en: "How long do fillings/restorations last?" },
+  serviceRestorationsFaqA2: { ar: "تعتمد على العناية اليومية ونمط المضغ. المتابعة الدورية تساعد على إطالة العمر الافتراضي.", en: "It depends on daily care and biting habits. Regular follow-ups help extend longevity." },
+  serviceRestorationsFaqQ3: { ar: "هل أحتاج أكثر من جلسة؟", en: "Will I need more than one visit?" },
+  serviceRestorationsFaqA3: { ar: "في الغالب جلسة واحدة تكفي للحشوات البسيطة، وقد نحتاج أكثر حسب حجم الحالة ونوع الترميم.", en: "Most simple fillings are done in one visit. Larger cases may require more depending on the restoration type." },
+
+  serviceGumsBenefit1: { ar: "تحسين صحة اللثة وتقليل النزيف بشكل ملحوظ.", en: "Improves gum health and reduces bleeding." },
+  serviceGumsBenefit2: { ar: "تنظيف علاجي يساعد على تقليل الالتهابات والرائحة.", en: "Therapeutic cleaning that helps reduce inflammation and odor." },
+  serviceGumsBenefit3: { ar: "خطة وقائية طويلة المدى لتجنب تدهور الحالة.", en: "Long-term prevention plan to avoid worsening." },
+  serviceGumsBenefit4: { ar: "إرشادات منزلية عملية وسهلة الالتزام.", en: "Practical at-home guidance that’s easy to follow." },
+  serviceGumsStep1: { ar: "تقييم اللثة وتحديد مستوى الالتهاب.", en: "Assess gums and determine inflammation level." },
+  serviceGumsStep2: { ar: "تنظيف علاجي وإزالة الترسبات تحت اللثة عند الحاجة.", en: "Therapeutic cleaning and sub-gum deposits removal if needed." },
+  serviceGumsStep3: { ar: "تخفيف الالتهاب بخطة علاج مناسبة.", en: "Reduce inflammation with an appropriate care plan." },
+  serviceGumsStep4: { ar: "متابعة وقائية لضمان استقرار النتائج.", en: "Preventive follow-up to keep results stable." },
+  serviceGumsAftercare: {
+    ar: "سنعطيك روتينًا بسيطًا للتفريش والخيط وغسول مناسب إن لزم، مع مواعيد متابعة تضمن ثبات النتائج وتحسنها.",
+    en: "We’ll provide a simple brushing/flossing routine and a suitable rinse if needed, plus follow-ups to maintain and improve results.",
+  },
+  serviceGumsFaqQ1: { ar: "هل نزيف اللثة أمر طبيعي؟", en: "Is gum bleeding normal?" },
+  serviceGumsFaqA1: { ar: "النزيف المتكرر غالبًا علامة التهاب. العلاج والتنظيف والالتزام بروتين العناية يساعدان على التحسن.", en: "Frequent bleeding is often a sign of inflammation. Treatment, cleaning, and consistent care usually improve it." },
+  serviceGumsFaqQ2: { ar: "هل التنظيف العميق مؤلم؟", en: "Is deep cleaning painful?" },
+  serviceGumsFaqA2: { ar: "نسعى لراحة المريض قدر الإمكان، وقد نستخدم وسائل مساعدة حسب الحالة. نوضح كل خطوة قبل البدء.", en: "We aim for maximum comfort and may use supportive measures depending on your case. We explain each step beforehand." },
+  serviceGumsFaqQ3: { ar: "كم تحتاج اللثة لتتحسن؟", en: "How long does improvement take?" },
+  serviceGumsFaqA3: { ar: "يختلف حسب شدة الالتهاب والالتزام المنزلي. غالبًا تبدأ النتائج خلال أسابيع مع المتابعة.", en: "It depends on severity and at-home consistency. Many patients see improvement within weeks with follow-up." },
+
+  serviceImplantsBenefit1: { ar: "خطة زراعة واضحة مبنية على تقييم وتشخيص دقيق.", en: "A clear implant plan built on precise evaluation." },
+  serviceImplantsBenefit2: { ar: "تركيز على النتيجة الطبيعية والثبات في المضغ.", en: "Focus on natural results and stable chewing." },
+  serviceImplantsBenefit3: { ar: "شرح مبسط للمراحل والمدة المتوقعة قبل البدء.", en: "Simple explanation of stages and expected timeline." },
+  serviceImplantsBenefit4: { ar: "متابعة بعدية منظمة لضمان أفضل اندماج وراحة.", en: "Structured follow-up for optimal healing and comfort." },
+  serviceImplantsStep1: { ar: "تقييم شامل وصور تشخيصية لتحديد الخطة.", en: "Comprehensive evaluation and imaging to plan." },
+  serviceImplantsStep2: { ar: "تجهيز الخطة (المراحل، الزمن، والتكلفة المتوقعة).", en: "Prepare the plan (stages, timeline, expected cost)." },
+  serviceImplantsStep3: { ar: "تنفيذ الزراعة وفق المعايير المناسبة للحالة.", en: "Perform the implant procedure based on your case." },
+  serviceImplantsStep4: { ar: "متابعة وتركيب الترميم النهائي لتحقيق نتيجة طبيعية.", en: "Follow-up and final restoration for a natural result." },
+  serviceImplantsAftercare: {
+    ar: "نتابع معك خطوة بخطوة ونوضح تعليمات العناية بعد كل مرحلة. الالتزام بالتعليمات والمتابعة يرفع نسبة النجاح ويحسن الراحة.",
+    en: "We follow up step-by-step and provide guidance after each stage. Consistent care and follow-up improve success and comfort.",
+  },
+  serviceImplantsFaqQ1: { ar: "هل زراعة الأسنان مناسبة للجميع؟", en: "Are implants suitable for everyone?" },
+  serviceImplantsFaqA1: { ar: "تعتمد على صحة العظم واللثة والحالة العامة. نحدد ذلك بعد فحص وتصوير مناسب.", en: "It depends on bone/gum health and overall condition. We confirm suitability after exam and imaging." },
+  serviceImplantsFaqQ2: { ar: "كم تستغرق مراحل الزراعة؟", en: "How long do implant stages take?" },
+  serviceImplantsFaqA2: { ar: "تختلف حسب الحالة. سنوضح لك المدة المتوقعة وخطوات المتابعة قبل البدء.", en: "It varies by case. We’ll explain the expected timeline and follow-up steps before starting." },
+  serviceImplantsFaqQ3: { ar: "هل النتيجة ستكون طبيعية؟", en: "Will it look natural?" },
+  serviceImplantsFaqA3: { ar: "نستهدف نتيجة قريبة جدًا من الطبيعي من حيث الشكل والوظيفة، مع اختيار ترميم مناسب لحالتك.", en: "We aim for a highly natural look and function with a restoration tailored to your case." },
+
+  serviceOralSurgeryBenefit1: { ar: "تقييم دقيق وخطة واضحة قبل أي إجراء.", en: "Accurate evaluation and a clear plan before any procedure." },
+  serviceOralSurgeryBenefit2: { ar: "تركيز على الراحة وتقليل القلق أثناء الزيارة.", en: "Comfort-first approach to reduce anxiety." },
+  serviceOralSurgeryBenefit3: { ar: "تعليمات مكتوبة وواضحة لما قبل/بعد الإجراء.", en: "Clear written guidance before and after the procedure." },
+  serviceOralSurgeryBenefit4: { ar: "متابعة منظمة لضمان التعافي بشكل أفضل.", en: "Structured follow-up for smoother recovery." },
+  serviceOralSurgeryStep1: { ar: "تشخيص وتخطيط اعتمادًا على الفحص والصور.", en: "Diagnosis and planning based on exam and imaging." },
+  serviceOralSurgeryStep2: { ar: "شرح الإجراء والبدائل وتوقعات التعافي.", en: "Explain the procedure, alternatives, and recovery expectations." },
+  serviceOralSurgeryStep3: { ar: "تنفيذ آمن بخطوات مريحة قدر الإمكان.", en: "Perform safely with comfort in mind." },
+  serviceOralSurgeryStep4: { ar: "متابعة بعدية وتعليمات تساعد على الشفاء.", en: "Aftercare and follow-up instructions to support healing." },
+  serviceOralSurgeryAftercare: { ar: "سنعطيك إرشادات واضحة للأدوية والعناية والغذاء مؤقتًا إن لزم، مع موعد متابعة لضمان سير التعافي بالشكل الصحيح.", en: "We provide clear guidance on meds, care, and temporary diet if needed, plus a follow-up to ensure proper healing." },
+  serviceOralSurgeryFaqQ1: { ar: "هل سأشعر بألم بعد الإجراء؟", en: "Will I have pain after the procedure?" },
+  serviceOralSurgeryFaqA1: { ar: "قد يحدث انزعاج بسيط يختلف حسب الحالة. سنوضح خطة الراحة/الأدوية لتقليل الألم قدر الإمكان.", en: "Some discomfort can occur depending on the case. We’ll explain a comfort/medication plan to minimize pain." },
+  serviceOralSurgeryFaqQ2: { ar: "كم يستغرق التعافي؟", en: "How long is recovery?" },
+  serviceOralSurgeryFaqA2: { ar: "يعتمد على نوع الإجراء. سنعطيك توقعًا واضحًا ونقاطًا تساعدك على التعافي بسرعة.", en: "It depends on the procedure. We’ll give clear expectations and tips to recover faster." },
+  serviceOralSurgeryFaqQ3: { ar: "هل أحتاج صورًا قبل الجراحة؟", en: "Do I need imaging before surgery?" },
+  serviceOralSurgeryFaqA3: { ar: "غالبًا نعم لتخطيط أدق. نحدد ذلك حسب الحالة ونشرح السبب بوضوح.", en: "Often yes for precise planning. We’ll decide based on your case and explain why." },
+
+  servicePediatricBenefit1: { ar: "أسلوب لطيف يخفف قلق الطفل ويزيد تعاونه.", en: "A gentle approach that reduces anxiety and improves cooperation." },
+  servicePediatricBenefit2: { ar: "شرح مبسط للأهل وخطة متابعة واضحة.", en: "Simple explanations for parents and a clear follow-up plan." },
+  servicePediatricBenefit3: { ar: "تركيز على الوقاية والتعليم اليومي.", en: "Strong focus on prevention and daily habits." },
+  servicePediatricBenefit4: { ar: "زيارات منظمة تحافظ على صحة الأسنان مبكرًا.", en: "Structured visits that protect dental health early." },
+  servicePediatricStep1: { ar: "تعارف وتهيئة للطفل قبل الفحص.", en: "Warm welcome and preparation before the exam." },
+  servicePediatricStep2: { ar: "فحص بسيط مع شرح لطيف ومناسب للعمر.", en: "Simple exam with age-appropriate explanations." },
+  servicePediatricStep3: { ar: "خطة علاج/وقاية حسب الحالة.", en: "A prevention/treatment plan based on the case." },
+  servicePediatricStep4: { ar: "إرشادات للأهل لروتين يومي يدعم النتائج.", en: "Parent guidance for a daily routine that supports results." },
+  servicePediatricAftercare: { ar: "سنحدد مواعيد متابعة مناسبة لعمر الطفل، ونشارك نصائح بسيطة تساعد على تقليل التسوس وتحسين العادات اليومية.", en: "We’ll schedule age-appropriate follow-ups and share simple tips to reduce cavities and improve daily habits." },
+  servicePediatricFaqQ1: { ar: "متى تكون أول زيارة للطفل؟", en: "When should the first visit be?" },
+  servicePediatricFaqA1: { ar: "يفضل مبكرًا مع بداية ظهور الأسنان أو خلال السنة الأولى، ثم زيارات متابعة حسب توصية الطبيب.", en: "Early—when teeth start to appear or within the first year—then follow-ups as recommended." },
+  servicePediatricFaqQ2: { ar: "كيف نخفف خوف الطفل؟", en: "How can we reduce fear?" },
+  servicePediatricFaqA2: { ar: "نستخدم أسلوبًا تدريجيًا ولطيفًا، ونشرح للطفل بطريقة مبسطة. وجود الأهل يساعد أيضًا.", en: "We use a gradual, gentle approach and explain simply. A parent’s presence often helps too." },
+  servicePediatricFaqQ3: { ar: "هل الوقاية أفضل من العلاج؟", en: "Is prevention better than treatment?" },
+  servicePediatricFaqA3: { ar: "نعم، الوقاية والمتابعة تقللان الحاجة لإجراءات أكبر. نساعدك بروتين بسيط يناسب الطفل.", en: "Yes—prevention and follow-ups reduce the need for bigger procedures. We’ll help with a simple child-friendly routine." },
+
+  serviceEndodonticsBenefit1: { ar: "تركيز على تخفيف الألم بسرعة وبخطوات واضحة.", en: "Focused on fast pain relief with clear steps." },
+  serviceEndodonticsBenefit2: { ar: "تقنيات حديثة تساعد على الدقة وتقليل الانزعاج.", en: "Modern techniques for precision and comfort." },
+  serviceEndodonticsBenefit3: { ar: "شرح مبسط لما يحدث داخل السن ولماذا نحتاج العلاج.", en: "Simple explanation of what’s happening and why treatment is needed." },
+  serviceEndodonticsBenefit4: { ar: "تعليمات بعدية تساعد على التعافي والمتابعة بثقة.", en: "Aftercare guidance to recover and follow up confidently." },
+  serviceEndodonticsStep1: { ar: "تشخيص لتحديد سبب الألم وخطة العلاج.", en: "Diagnosis to identify pain cause and plan treatment." },
+  serviceEndodonticsStep2: { ar: "تنظيف القنوات وإزالة الالتهاب بدقة.", en: "Clean canals and remove inflammation precisely." },
+  serviceEndodonticsStep3: { ar: "حشو وحماية القنوات للحفاظ على السن.", en: "Fill and protect canals to preserve the tooth." },
+  serviceEndodonticsStep4: { ar: "متابعة وتوجيهات لاستكمال الترميم إن لزم.", en: "Follow-up and guidance to complete restoration if needed." },
+  serviceEndodonticsAftercare: { ar: "قد تشعر بحساسية بسيطة لفترة قصيرة. سنوضح لك ما هو طبيعي وما يستدعي التواصل، ونحدد الخطوة التالية لحماية السن.", en: "You may feel mild sensitivity briefly. We’ll explain what’s normal, what to watch for, and the next step to protect the tooth." },
+  serviceEndodonticsFaqQ1: { ar: "هل علاج العصب مؤلم؟", en: "Is a root canal painful?" },
+  serviceEndodonticsFaqA1: { ar: "الهدف الأساسي هو إزالة الألم. مع التخدير والخطوات الحديثة، تكون الجلسة غالبًا مريحة.", en: "The goal is pain relief. With anesthesia and modern steps, treatment is usually comfortable." },
+  serviceEndodonticsFaqQ2: { ar: "هل يمكن حفظ السن بدل الخلع؟", en: "Can the tooth be saved instead of extracted?" },
+  serviceEndodonticsFaqA2: { ar: "في كثير من الحالات نعم. بعد التشخيص نوضح أفضل خيار للحفاظ على السن ووظيفته.", en: "Often yes. After diagnosis we’ll recommend the best option to preserve the tooth and function." },
+  serviceEndodonticsFaqQ3: { ar: "متى أحتاج ترميمًا بعد العلاج؟", en: "When do I need restoration after treatment?" },
+  serviceEndodonticsFaqA3: { ar: "قد تحتاج حشوة أو تاج حسب الحالة. نوضح الخطة بعد الجلسة لضمان حماية السن.", en: "You may need a filling or crown depending on the case. We’ll outline the plan to protect the tooth." },
+
+  serviceRestorationsHeroText: {
+    ar: "حلول ترميمية بمواد عالية الجودة لتحسين الشكل والوظيفة مع نتائج طبيعية ومريحة.",
+    en: "High-quality restorations that improve look and function with natural, comfortable results.",
+  },
+  serviceRestorationsOverview: {
+    ar: "نستخدم حشوات تجميلية وترميمات حديثة لإصلاح التسوس أو الكسر، مع اختيار اللون والشكل الأقرب لطبيعة الأسنان.",
+    en: "We use modern fillings and restorations to repair decay or small fractures, matching color and shape naturally.",
+  },
+  serviceRestorationsWhoFor: {
+    ar: "لمن لديهم تسوس، تآكل، أو كسر بسيط، أو يرغبون بتحسين شكل السن مع الحفاظ على وظيفته.",
+    en: "For decay, wear, or minor fractures—or anyone improving a tooth’s appearance while preserving function.",
+  },
+  serviceRestorationsWhatExpect: {
+    ar: "تقييم الحالة ثم تحضير بسيط للحشوة/الترميم، مع إنهاء مريح وتوجيهات للحفاظ على النتيجة.",
+    en: "Assessment, a simple preparation, then comfortable finishing—plus guidance to protect your results.",
+  },
+
+  serviceGumsHeroText: {
+    ar: "علاج التهاب اللثة وتنظيف عميق للجذور لتحسين الصحة وتقليل النزيف والرائحة بخطة وقائية.",
+    en: "Gum inflammation care and deep cleaning to improve health and reduce bleeding/odor with prevention in mind.",
+  },
+  serviceGumsOverview: {
+    ar: "نقيّم صحة اللثة ونستخدم تقنيات تنظيف وعلاج تساعد على تقليل الالتهابات وحماية الأسنان على المدى الطويل.",
+    en: "We assess gum health and use cleaning/treatment techniques that reduce inflammation and protect teeth long-term.",
+  },
+  serviceGumsWhoFor: {
+    ar: "لمن يعاني من نزيف أثناء التفريش، رائحة فم مستمرة، أو حساسية/تراجع في اللثة — ولمن يريد وقاية مبكرة.",
+    en: "For bleeding while brushing, persistent bad breath, or gum sensitivity/recession—and for early prevention.",
+  },
+  serviceGumsWhatExpect: {
+    ar: "فحص وتقييم ثم تنظيف علاجي عند الحاجة، مع خطة متابعة ونصائح يومية تساعد على تثبيت النتائج.",
+    en: "Evaluation, therapeutic cleaning when needed, and a follow-up plan with daily tips to keep results stable.",
+  },
+
+  serviceImplantsHeroText: {
+    ar: "تقييم دقيق وخطة زراعة مناسبة لحالتك لاستعادة الابتسامة والمضغ بثبات، مع متابعة لضمان أفضل نتيجة.",
+    en: "A precise assessment and tailored implant plan to restore your smile and bite—with careful follow-up.",
+  },
+  serviceImplantsOverview: {
+    ar: "تساعد زراعة الأسنان على تعويض الأسنان المفقودة بشكل ثابت. نبدأ بتقييم شامل ثم نحدد الخطة الأنسب للحصول على نتيجة طبيعية وآمنة.",
+    en: "Dental implants replace missing teeth with a stable solution. We assess thoroughly and build a plan for safe, natural results.",
+  },
+  serviceImplantsWhoFor: {
+    ar: "لمن فقد سنًا أو أكثر ويريد حلاً ثابتًا، أو لا يناسبه الحل المتحرك — بعد تقييم صحة العظم واللثة.",
+    en: "For missing teeth when you want a fixed solution—after evaluating bone and gum health.",
+  },
+  serviceImplantsWhatExpect: {
+    ar: "فحص وصور تشخيصية، ثم شرح مراحل الزراعة والمدة المتوقعة، مع إرشادات واضحة قبل وبعد كل مرحلة.",
+    en: "Exam and imaging, then an explanation of stages and timelines—with clear guidance before and after each step.",
+  },
+
+  serviceOralSurgeryHeroText: {
+    ar: "إجراءات جراحية دقيقة مع تخطيط مسبق وتعليمات واضحة قبل وبعد، لتجربة آمنة وتقليل الانزعاج.",
+    en: "Carefully planned oral procedures with clear before/after guidance for a safer, more comfortable experience.",
+  },
+  serviceOralSurgeryOverview: {
+    ar: "نوفر إجراءات جراحية للفم في حالات محددة بعد تقييم دقيق، مع شرح الخطة وتقليل القلق عبر خطوات واضحة.",
+    en: "We provide oral procedures for specific cases after careful evaluation, with a clear plan to reduce anxiety.",
+  },
+  serviceOralSurgeryWhoFor: {
+    ar: "للحالات التي تحتاج تدخلاً جراحيًا مثل بعض الخلع المعقد أو مشكلات معينة — بعد تقييم الطبيب.",
+    en: "For cases requiring surgical intervention—such as certain complex extractions—after your dentist’s evaluation.",
+  },
+  serviceOralSurgeryWhatExpect: {
+    ar: "شرح مبسط للإجراء، خطة الألم/الراحة، وتعليمات بعد العملية تساعد على تعافٍ أفضل ومتابعة منظمة.",
+    en: "A simple explanation, comfort/pain plan, and post-care instructions to support smoother recovery and follow-up.",
+  },
+
+  servicePediatricHeroText: {
+    ar: "بيئة ودودة وخطوات علاج بسيطة تساعد الطفل على الشعور بالأمان، مع إرشادات للأهل للعناية اليومية.",
+    en: "A friendly environment and simple steps to help kids feel safe—plus at-home guidance for parents.",
+  },
+  servicePediatricOverview: {
+    ar: "نركز على راحة الطفل وبناء تجربة إيجابية. نشرح الخطوات بطريقة بسيطة ونختار حلولًا مناسبة لعمر الطفل وحالته.",
+    en: "We focus on comfort and a positive experience—explaining steps simply and choosing age-appropriate solutions.",
+  },
+  servicePediatricWhoFor: {
+    ar: "للأطفال من أول زيارة وحتى المتابعة الدورية، ولعلاج التسوس أو الوقاية، ولتعليم العناية اليومية بأسلوب لطيف.",
+    en: "From first visits to routine follow-ups—prevention, cavity care, and gentle daily-care education.",
+  },
+  servicePediatricWhatExpect: {
+    ar: "استقبال هادئ، فحص بسيط، ثم شرح للأهل وخطة متابعة. هدفنا أن يخرج الطفل مرتاحًا وواثقًا.",
+    en: "A calm welcome, simple exam, then a clear plan for parents—so your child leaves comfortable and confident.",
+  },
+
+  serviceEndodonticsHeroText: {
+    ar: "علاج جذور يركز على تقليل الألم وحفظ السن، مع خطوات دقيقة وشرح واضح لما تحتاجه قبل وبعد الجلسة.",
+    en: "Root canal care focused on pain relief and tooth preservation, with clear guidance before and after.",
+  },
+  serviceEndodonticsOverview: {
+    ar: "يساعد علاج العصب على إزالة الألم وحفظ السن عند التهاب العصب. نستخدم تقنيات حديثة لراحة أكبر ودقة أعلى.",
+    en: "Root canal treatment relieves pain and preserves the tooth when the nerve is inflamed, using modern techniques for comfort and precision.",
+  },
+  serviceEndodonticsWhoFor: {
+    ar: "لمن يعاني من ألم مستمر، حساسية قوية، أو التهاب عصب — بعد فحص وتشخيص يحدد العلاج المناسب.",
+    en: "For persistent pain, strong sensitivity, or nerve inflammation—after an exam confirms the right approach.",
+  },
+  serviceEndodonticsWhatExpect: {
+    ar: "تخفيف الألم ثم تنفيذ خطوات العلاج بشكل مريح، مع تعليمات بعد الجلسة لمساعدتك على التعافي والمتابعة.",
+    en: "Comfortable treatment steps focused on pain relief, plus aftercare instructions to support recovery and follow-up.",
   },
   teamLabel: { ar: "فريقنا", en: "Our Team" },
   teamTitle: {
@@ -367,15 +771,36 @@ const TRANSLATIONS = {
   callUs: { ar: "اتصل بنا", en: "Call Us" },
   // Home Page About Preview Translations
   aboutPreviewEyebrow: { ar: "تعرف علينا", en: "Get to Know Us" },
-  aboutPreviewTitle: { ar: "Pearly Smile Dental Center proudly serves the Abu Dhabi community", en: "Pearly Smile Dental Center proudly serves the Abu Dhabi community" },
+  aboutPreviewTitle: {
+    ar: "Pearly Smile Dental Center — رعاية أسنان مميزة في أبوظبي",
+    en: "Pearly Smile Dental Center — premium dental care in Abu Dhabi",
+  },
   aboutPreviewText: {
-    ar: "منذ عام 2018، نقدم رعاية أسنان استثنائية تجمع بين أحدث التقنيات والرعاية الإنسانية المتميزة.",
-    en: "Since 2018, we have been providing exceptional dental care that combines the latest technology with outstanding human care."
+    ar: "رعاية أسنان متقدمة بتجربة مريحة وخطة علاج واضحة — من الفحص وحتى التجميل والزرعات.",
+    en: "Advanced dental care with a comfort-first experience and a clear treatment plan—from check-ups to cosmetic dentistry and implants.",
   },
   coreValues: { ar: "قيمنا الأساسية: رعاية • دقة • ثقة", en: "Core Values: Care • Precision • Trust" },
-  previewStatPatients: { ar: "مريض راضٍ", en: "Satisfied Patients" },
-  previewStatDoctors: { ar: "طبيب متخصص", en: "Specialized Doctors" },
-  previewStatStaff: { ar: "موظف داعم", en: "Support Staff" },
+  aboutPreviewBadge1: { ar: "تشخيص رقمي", en: "Digital diagnostics" },
+  aboutPreviewBadge2: { ar: "راحة وخصوصية", en: "Comfort & privacy" },
+  aboutPreviewBadge3: { ar: "نتائج طبيعية", en: "Natural results" },
+  aboutPreviewViewStats: { ar: "شوف أرقامنا", en: "View our stats" },
+  aboutPreviewPanel1Title: { ar: "عناية شاملة في مكان واحد", en: "Comprehensive care in one place" },
+  aboutPreviewPanel1Text: {
+    ar: "فحوصات، تنظيف، تجميل، تقويم، زرعات، وجراحة — بخطة علاج مدروسة تناسب احتياجك.",
+    en: "Check-ups, cleanings, cosmetic dentistry, orthodontics, implants, and surgery—guided by a thoughtful plan tailored to you.",
+  },
+  aboutPreviewPanel2Title: { ar: "معايير عالية للسلامة", en: "High safety standards" },
+  aboutPreviewPanel2Text: {
+    ar: "تعقيم دقيق وإجراءات واضحة لضمان تجربة آمنة ومطمئنة في كل زيارة.",
+    en: "Strict sterilization and clear protocols to ensure a safe, reassuring visit every time.",
+  },
+  aboutPreviewGlanceLabel: { ar: "لمحة سريعة", en: "At a glance" },
+  aboutPreviewGlance1Title: { ar: "منذ 2018", en: "Since 2018" },
+  aboutPreviewGlance1Text: { ar: "ثقة المجتمع وخبرة متراكمة", en: "Trusted locally with years of experience" },
+  aboutPreviewGlance2Title: { ar: "لغتان", en: "Bilingual" },
+  aboutPreviewGlance2Text: { ar: "خدمة عربية وإنجليزية", en: "Arabic & English care" },
+  aboutPreviewGlance3Title: { ar: "تقنيات حديثة", en: "Modern tech" },
+  aboutPreviewGlance3Text: { ar: "تشخيص وعلاج بدقة أعلى", en: "More precise diagnosis and treatment" },
   learnMore: { ar: "تعرف أكثر عنّا", en: "Learn More About Us" },
   previewImageAlt: { ar: "مركز بيرلي سمايل لطب الأسنان", en: "Pearly Smile Dental Center" },
 };
@@ -791,15 +1216,32 @@ class FAQAccordion {
 
   static attachListener(item) {
     const btn = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
     if (!btn) return;
 
-    btn.addEventListener("click", () => {
-      FAQAccordion.toggleItem(item);
-    });
+    // Initialize ARIA + collapsed state
+    btn.setAttribute("aria-expanded", item.classList.contains("active") ? "true" : "false");
+    if (answer && !item.classList.contains("active")) {
+      answer.style.maxHeight = "0px";
+    }
+
+    btn.addEventListener("click", () => FAQAccordion.toggleItem(item));
   }
 
   static toggleItem(item) {
-    item.classList.toggle("active");
+    const btn = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+    const isOpen = item.classList.toggle("active");
+
+    if (btn) btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    if (!answer) return;
+
+    // Smooth height animation (no heavy JS)
+    if (isOpen) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    } else {
+      answer.style.maxHeight = "0px";
+    }
   }
 }
 
@@ -841,6 +1283,8 @@ class App {
     this.initializeTheme();
     this.initializeLanguage();
     this.initializeAnimations();
+    this.initializeMobileNavbar();
+    this.initializeServicesCards();
     this.attachEventListeners();
     // initialize booking manager after language/DOM are ready
     if (typeof BookingManager !== 'undefined' && BookingManager.init) {
@@ -859,6 +1303,144 @@ class App {
   initializeAnimations() {
     RevealObserver.init();
     CounterAnimator.animateCounters();
+  }
+
+  initializeMobileNavbar() {
+    const header = document.querySelector("header.mobile-nav");
+    if (!header) return;
+
+    const toggleBtn = header.querySelector("#mobileMenuToggle");
+    const nav = header.querySelector("#mobileNav");
+    const closeBtn = header.querySelector("#mobileMenuClose");
+    const backdropBtn = header.querySelector("#mobileMenuBackdrop");
+    const panel = nav?.querySelector(".mobile-menu-panel");
+
+    if (!toggleBtn || !nav) return;
+
+    const mql = window.matchMedia("(max-width: 768px)");
+    const isMobile = () => mql.matches;
+
+    const setOpen = (open) => {
+      document.documentElement.classList.toggle("mobile-nav-open", open);
+      toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      toggleBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      if (!open) return;
+      const firstLink = nav.querySelector("a");
+      if (firstLink) firstLink.focus({ preventScroll: true });
+    };
+
+    const toggle = () => {
+      if (!isMobile()) return;
+      const open = document.documentElement.classList.contains("mobile-nav-open");
+      setOpen(!open);
+    };
+
+    const close = () => setOpen(false);
+
+    toggleBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggle();
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        close();
+      });
+    }
+
+    // Backdrop button closes (reliable tap-outside close).
+    if (backdropBtn) {
+      backdropBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        close();
+      });
+    }
+
+    // Close after selecting a link (better mobile UX).
+    nav.addEventListener("click", (e) => {
+      if (!isMobile()) return;
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("a")) close();
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (!isMobile()) return;
+      if (e.key === "Escape") close();
+    });
+
+    // Reset only when leaving the mobile breakpoint (avoid mobile address-bar resize issues)
+    if (typeof mql.addEventListener === "function") {
+      mql.addEventListener("change", (e) => {
+        if (!e.matches) close();
+      });
+    } else if (typeof mql.addListener === "function") {
+      // Safari <14
+      mql.addListener((e) => {
+        if (!e.matches) close();
+      });
+    }
+  }
+
+  initializeServicesCards() {
+    if ((appState.pageType || "home") !== "services") return;
+
+    const grid = document.querySelector(".services-grid--cards");
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll(".service-card.flip-card"));
+    if (cards.length === 0) return;
+
+    const isTouch = () =>
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+      window.matchMedia("(max-width: 768px)").matches;
+
+    const setExpanded = (card, expanded) => {
+      card.classList.toggle("is-expanded", expanded);
+      card.setAttribute("aria-expanded", expanded ? "true" : "false");
+    };
+
+    const collapseAllExcept = (keep) => {
+      cards.forEach((c) => {
+        if (c === keep) return;
+        setExpanded(c, false);
+      });
+    };
+
+    const toggleCard = (card) => {
+      if (!isTouch()) return;
+      const expanded = card.classList.contains("is-expanded");
+      collapseAllExcept(card);
+      setExpanded(card, !expanded);
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener("click", (e) => {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+        // Don't hijack navigation clicks.
+        if (target.closest("a, button")) return;
+        toggleCard(card);
+      });
+
+      card.addEventListener("keydown", (e) => {
+        if (!isTouch()) return;
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault();
+        toggleCard(card);
+      });
+    });
+
+    // Close expanded cards when tapping outside the grid (mobile ergonomics).
+    document.addEventListener("click", (e) => {
+      if (!isTouch()) return;
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest(".services-grid--cards")) return;
+      collapseAllExcept(null);
+    });
   }
 
   attachEventListeners() {

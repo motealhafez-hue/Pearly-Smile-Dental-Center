@@ -43,24 +43,50 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
+    <header class="mobile-nav">
       <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
-      <nav>
-        <ul>
-          <li><a href="#home" data-translate="navHome">الرئيسية</a></li>
-          <li><a href="#stats" data-translate="navStats">إحصائيات</a></li>
-          <li>
-            <a href="services.html" data-translate="navServices">خدماتنا</a>
-          </li>
-          <li>
-            <a href="offers.html" data-translate="navOffers">عروضنا</a>
-          </li>
-          <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
-          <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
-          <li><a href="#booking" data-translate="navBooking">حجز</a></li>
-        </ul>
+      <nav id="mobileNav" aria-label="Primary">
+        <button
+          type="button"
+          class="mobile-menu-backdrop"
+          id="mobileMenuBackdrop"
+          aria-label="Close menu"
+        ></button>
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+          <button
+            type="button"
+            class="mobile-menu-close"
+            id="mobileMenuClose"
+            aria-label="Close menu"
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
+          <ul>
+            <li><a href="#home" data-translate="navHome">الرئيسية</a></li>
+            <li><a href="#stats" data-translate="navStats">إحصائيات</a></li>
+            <li>
+              <a href="services.html" data-translate="navServices">خدماتنا</a>
+            </li>
+            <li>
+              <a href="offers.html" data-translate="navOffers">عروضنا</a>
+            </li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li><a href="#booking" data-translate="navBooking">حجز</a></li>
+          </ul>
+        </div>
       </nav>
       <div class="header-actions">
+        <button
+          type="button"
+          id="mobileMenuToggle"
+          class="mobile-menu-toggle"
+          aria-controls="mobileNav"
+          aria-expanded="false"
+          aria-label="Open menu"
+        >
+          <span class="mobile-menu-icon" aria-hidden="true"></span>
+        </button>
         <button
           type="button"
           id="themeToggle"
@@ -115,21 +141,70 @@
         </div>
       </section>
 
-      <!-- About Us Preview Section -->
-      <section class="about-preview reveal">
+      <!-- Get to Know Us -->
+      <section class="about-preview reveal about-preview-premium" aria-labelledby="aboutPreviewHeading">
         <div class="container">
-          <div class="about-preview-content centered">
-            <div class="about-preview-text">
+          <div class="about-preview-layout">
+            <header class="about-preview-head">
               <p class="eyebrow eyebrow-dark" data-translate="aboutPreviewEyebrow">تعرف علينا</p>
-              <h2 data-translate="aboutPreviewTitle">Pearly Smile Dental Center proudly serves the Abu Dhabi community</h2>
+              <h2 id="aboutPreviewHeading" data-translate="aboutPreviewTitle">
+                Pearly Smile Dental Center — premium dental care in Abu Dhabi
+              </h2>
               <p class="about-preview-description" data-translate="aboutPreviewText">
-                منذ عام 2018، نقدم رعاية أسنان استثنائية تجمع بين أحدث التقنيات والرعاية الإنسانية المتميزة.
+                رعاية أسنان متقدمة بتجربة مريحة وخطة علاج واضحة — من الفحص وحتى التجميل والزرعات.
               </p>
-              <div class="core-values">
-                <span class="core-values-text" data-translate="coreValues">Core Values: Care • Precision • Trust</span>
+
+              <ul class="about-preview-badges" aria-label="Key benefits">
+                <li class="about-badge" data-translate="aboutPreviewBadge1">تشخيص رقمي</li>
+                <li class="about-badge" data-translate="aboutPreviewBadge2">راحة وخصوصية</li>
+                <li class="about-badge" data-translate="aboutPreviewBadge3">نتائج طبيعية</li>
+              </ul>
+
+              <div class="about-preview-actions">
+                <a href="about.html" class="btn btn-secondary" data-translate="learnMore">تعرف أكثر عنّا</a>
+                <a href="#stats" class="btn btn-primary about-preview-stats-link" data-translate="aboutPreviewViewStats">شوف أرقامنا</a>
               </div>
-              <a href="about.html" class="btn btn-secondary" data-translate="learnMore">تعرف أكثر عنّا</a>
+            </header>
+
+            <div class="about-preview-panels" aria-label="What makes us different">
+              <article class="about-panel about-preview-glass">
+                <h3 class="about-panel-title" data-translate="aboutPreviewPanel1Title">عناية شاملة في مكان واحد</h3>
+                <p class="about-panel-text" data-translate="aboutPreviewPanel1Text">
+                  فحوصات، تنظيف، تجميل، تقويم، زرعات، وجراحة — بخطة علاج مدروسة تناسب احتياجك.
+                </p>
+              </article>
+
+              <article class="about-panel about-preview-glass">
+                <h3 class="about-panel-title" data-translate="aboutPreviewPanel2Title">معايير عالية للسلامة</h3>
+                <p class="about-panel-text" data-translate="aboutPreviewPanel2Text">
+                  تعقيم دقيق وإجراءات واضحة لضمان تجربة آمنة ومطمئنة في كل زيارة.
+                </p>
+              </article>
             </div>
+
+            <div class="about-preview-at-a-glance" aria-label="At a glance">
+              <p class="about-glance-label" data-translate="aboutPreviewGlanceLabel">لمحة سريعة</p>
+              <div class="about-glance-grid">
+                <div class="stat-card about-glance-card">
+                  <h3 data-translate="aboutPreviewGlance1Title">منذ 2018</h3>
+                  <p data-translate="aboutPreviewGlance1Text">ثقة المجتمع وخبرة متراكمة</p>
+                </div>
+                <div class="stat-card about-glance-card">
+                  <h3 data-translate="aboutPreviewGlance2Title">لغتان</h3>
+                  <p data-translate="aboutPreviewGlance2Text">خدمة عربية وإنجليزية</p>
+                </div>
+                <div class="stat-card about-glance-card">
+                  <h3 data-translate="aboutPreviewGlance3Title">تقنيات حديثة</h3>
+                  <p data-translate="aboutPreviewGlance3Text">تشخيص وعلاج بدقة أعلى</p>
+                </div>
+              </div>
+            </div>
+
+            <aside class="about-preview-visual about-preview-glass" aria-label="Clinic visual">
+              <div class="about-visual-inner">
+                <span class="about-visual-chip" data-translate="previewImageAlt">مركز بيرلي سمايل لطب الأسنان</span>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
@@ -203,40 +278,7 @@
         </div>
       </section>
 
-      <!-- About Us Preview Section -->
-      <section class="about-preview">
-        <div class="container">
-          <div class="about-preview-content">
-            <div class="about-preview-text">
-              <p class="eyebrow eyebrow-dark" data-translate="aboutPreviewEyebrow">تعرف علينا</p>
-              <h2 data-translate="aboutPreviewTitle">Pearly Smile Dental Center proudly serves the Abu Dhabi community</h2>
-              <p data-translate="aboutPreviewText">
-                منذ عام 2018، نقدم رعاية أسنان استثنائية تجمع بين أحدث التقنيات والرعاية الإنسانية المتميزة. نحن فخورون بخدمة مجتمع أبوظبي ونسعى جاهدين لجعل تجربة علاج الأسنان مريحة ومريحة لكل مريض.
-              </p>
-              <div class="preview-stats">
-                <div class="preview-stat">
-                  <div class="preview-stat-number" data-count="8500">0</div>
-                  <div class="preview-stat-label" data-translate="previewStatPatients">مريض راضٍ</div>
-                </div>
-                <div class="preview-stat">
-                  <div class="preview-stat-number" data-count="15">0</div>
-                  <div class="preview-stat-label" data-translate="previewStatDoctors">طبيب متخصص</div>
-                </div>
-                <div class="preview-stat">
-                  <div class="preview-stat-number" data-count="45">0</div>
-                  <div class="preview-stat-label" data-translate="previewStatStaff">موظف داعم</div>
-                </div>
-              </div>
-              <a href="about.html" class="btn btn-secondary" data-translate="learnMore">تعرف أكثر عنّا</a>
-            </div>
-            <div class="about-preview-image">
-              <div class="preview-image-placeholder">
-                <span data-translate="previewImageAlt">مركز بيرلي سمايل لطب الأسنان</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- (Removed duplicate Get to Know Us section) -->
 
       <section id="faq" class="faq-section">
         <div class="section-head">
@@ -245,25 +287,25 @@
           </p>
           <h2 data-translate="faqTitle">كل ما تود معرفته عن خدماتنا</h2>
         </div>
-        <div class="faq-container">
-          <div class="faq-item">
-            <button class="faq-question">
+        <div class="faq-container" aria-label="FAQ">
+          <div class="faq-item" id="faq-item-1">
+            <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
               <span data-translate="faqQ1">كم تستغرق عملية تبييض الأسنان؟</span>
-              <i class="arrow-icon"></i>
+              <i class="arrow-icon" aria-hidden="true"></i>
             </button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-question-1">
               <p data-translate="faqA1">
                 تستغرق الجلسة حوالي 45 إلى 60 دقيقة باستخدام تقنية الزووم
                 الحديثة.
               </p>
             </div>
           </div>
-          <div class="faq-item">
-            <button class="faq-question">
+          <div class="faq-item" id="faq-item-2">
+            <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
               <span data-translate="faqQ2">هل تقبل العيادة التأمين الطبي؟</span>
-              <i class="arrow-icon"></i>
+              <i class="arrow-icon" aria-hidden="true"></i>
             </button>
-            <div class="faq-answer">
+            <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-question-2">
               <p data-translate="faqA2">
                 نعم، نحن نتعامل مع كبرى شركات التأمين الطبي لتغطية أغلب
                 العلاجات.

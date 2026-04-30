@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="service_xray">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" data-translate="serviceXrayMetaDescription" content="التصوير بالأشعة الرقمية لدى Pearly Smile Dental Center: تشخيص أدق وخطة علاج آمنة بوقت سريع ونتائج واضحة." />
+    <meta name="theme-color" content="#2563eb" />
+    <title data-translate="serviceXrayPageTitle">التصوير بالأشعة | Pearly Smile Dental Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const storedTheme = localStorage.getItem("ps-theme");
+      const storedLanguage = localStorage.getItem("ps-lang");
+      if (storedTheme === "dark") document.documentElement.classList.add("dark-theme");
+      if (storedLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="mobile-nav">
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav id="mobileNav" aria-label="Primary">
+        <button type="button" class="mobile-menu-backdrop" id="mobileMenuBackdrop" aria-label="Close menu"></button>
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+          <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+            <span aria-hidden="true">✕</span>
+          </button>
+          <ul>
+            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
+            <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
+            <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button type="button" id="mobileMenuToggle" class="mobile-menu-toggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+          <span class="mobile-menu-icon" aria-hidden="true"></span>
+        </button>
+        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <button type="button" id="languageToggle" class="lang-toggle">EN</button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">اتصل الآن</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero service-detail-hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="servicesHeroEyebrow">كل التخصصات في مكان واحد</p>
+          <h1 data-translate="service2Title">صور إكس رِي</h1>
+          <p data-translate="serviceXrayHeroText">
+            تصوير رقمي سريع يساعد على تشخيص أدق وخطة علاج آمنة، مع نتائج واضحة يسهل متابعتها.
+          </p>
+          <div class="hero-actions">
+            <a href="services.html" class="btn btn-secondary" data-translate="serviceBackToServices">العودة إلى الخدمات</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="service-detail">
+        <div class="container service-detail-layout">
+          <div class="service-detail-media" aria-label="Service image">
+            <img
+              class="service-detail-image"
+              src="Images/services/xray.jpg"
+              alt="Dental X-ray"
+              loading="lazy"
+              decoding="async"
+              onerror="this.hidden=true;this.parentElement.classList.add('no-image');"
+            />
+            <div class="service-detail-image-fallback" aria-hidden="true">
+              <span data-translate="serviceImageFallback">صورة الخدمة</span>
+            </div>
+          </div>
+
+          <article class="service-detail-content">
+            <h2 data-translate="serviceDetailOverviewTitle">نظرة عامة</h2>
+            <p data-translate="serviceXrayOverview">
+              نستخدم التصوير الرقمي لتوضيح حالة الأسنان والعظم بدقة، مما يساعد في اختيار الخطة الأنسب للعلاج وتقييم النتائج.
+            </p>
+
+            <h2 data-translate="serviceDetailWhoForTitle">لمن تناسب؟</h2>
+            <p data-translate="serviceXrayWhoFor">
+              مناسبة قبل الحشوات، علاج العصب، الزراعة، أو عند وجود ألم غير واضح السبب — لتشخيص أدق بأسرع وقت.
+            </p>
+
+            <h2 data-translate="serviceDetailWhatExpectTitle">ماذا تتوقع في الزيارة؟</h2>
+            <p data-translate="serviceXrayWhatExpect">
+              تصوير سريع وخفيف، ثم شرح النتائج بصورة واضحة وربطها بخطة العلاج المقترحة مع إجابة أسئلتك.
+            </p>
+
+            <h2 data-translate="serviceDetailBenefitsTitle">لماذا يختارنا المرضى؟</h2>
+            <ul class="service-detail-list">
+              <li data-translate="serviceXrayBenefit1">صور واضحة تساعد على اتخاذ قرار علاجي أدق.</li>
+              <li data-translate="serviceXrayBenefit2">سرعة في التنفيذ ونتائج يمكن شرحها بسهولة.</li>
+              <li data-translate="serviceXrayBenefit3">ربط النتائج بخطة علاج واقعية ومفهومة.</li>
+              <li data-translate="serviceXrayBenefit4">متابعة أفضل لتطور الحالة قبل/بعد العلاج.</li>
+            </ul>
+
+            <h2 data-translate="serviceDetailStepsTitle">خطوات الخدمة</h2>
+            <ol class="service-detail-steps">
+              <li data-translate="serviceXrayStep1">تقييم سريع لما تحتاجه من تصوير.</li>
+              <li data-translate="serviceXrayStep2">التقاط الصور بوقت قصير وبشكل مريح.</li>
+              <li data-translate="serviceXrayStep3">مراجعة النتائج وشرحها بطريقة بسيطة.</li>
+              <li data-translate="serviceXrayStep4">توصية واضحة بخطوة العلاج التالية إن لزم.</li>
+            </ol>
+
+            <div class="service-detail-callout">
+              <h3 data-translate="serviceDetailAftercareTitle">بعد الزيارة</h3>
+              <p data-translate="serviceXrayAftercare">
+                قد نستخدم الصور كمرجع للمتابعة. ستغادر ومعك فهم واضح لما تعنيه النتائج وما هي الخطوة التالية.
+              </p>
+            </div>
+
+            <section class="service-detail-faq" aria-label="FAQ">
+              <h2 data-translate="serviceDetailFaqTitle">أسئلة شائعة</h2>
+              <details class="service-faq-item">
+                <summary data-translate="serviceXrayFaqQ1">هل التصوير بالأشعة آمن؟</summary>
+                <p data-translate="serviceXrayFaqA1">نستخدم تصويرًا رقميًا بجرعات منخفضة قدر الإمكان، ويتم تحديد الحاجة إليه حسب الحالة.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceXrayFaqQ2">هل أحتاج أشعة لكل زيارة؟</summary>
+                <p data-translate="serviceXrayFaqA2">ليس دائمًا. نعتمد على الأعراض والخطة العلاجية، ونستخدم التصوير عند وجود فائدة تشخيصية واضحة.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceXrayFaqQ3">هل يمكنني فهم النتائج؟</summary>
+                <p data-translate="serviceXrayFaqA3">نعم. نعرض النتائج ونشرحها بلغة بسيطة مع ما تعنيه على الخطة العلاجية.</p>
+              </details>
+            </section>
+
+            <section class="service-detail-cta" aria-label="Call to action">
+              <h2 data-translate="serviceCtaTitle">جاهز لبدء التشخيص بدقة؟</h2>
+              <p data-translate="serviceCtaText">احجز موعدك اليوم لنحدد احتياجك بدقة ونختصر عليك الوقت بخطة واضحة.</p>
+              <div class="service-cta-actions">
+                <a class="btn btn-primary" href="index.html#booking" data-translate="serviceCtaBook">احجز الآن</a>
+                <a class="btn btn-secondary" href="tel:+966500000000" data-translate="serviceCtaCall">اتصل بنا</a>
+              </div>
+            </section>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-translate="footerText">© 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

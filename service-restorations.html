@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="service_restorations">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" data-translate="serviceRestorationsMetaDescription" content="حشوات وترميمات لدى Pearly Smile Dental Center: حلول تجميلية وتقوية للأسنان بمواد حديثة ونتائج طبيعية." />
+    <meta name="theme-color" content="#2563eb" />
+    <title data-translate="serviceRestorationsPageTitle">حشوات وترميمات | Pearly Smile Dental Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const storedTheme = localStorage.getItem("ps-theme");
+      const storedLanguage = localStorage.getItem("ps-lang");
+      if (storedTheme === "dark") document.documentElement.classList.add("dark-theme");
+      if (storedLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="mobile-nav">
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav id="mobileNav" aria-label="Primary">
+        <button type="button" class="mobile-menu-backdrop" id="mobileMenuBackdrop" aria-label="Close menu"></button>
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+          <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+            <span aria-hidden="true">✕</span>
+          </button>
+          <ul>
+            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
+            <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
+            <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button type="button" id="mobileMenuToggle" class="mobile-menu-toggle" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+          <span class="mobile-menu-icon" aria-hidden="true"></span>
+        </button>
+        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <button type="button" id="languageToggle" class="lang-toggle">EN</button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">اتصل الآن</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero service-detail-hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="servicesHeroEyebrow">كل التخصصات في مكان واحد</p>
+          <h1 data-translate="service3Title">حشوات وترميمات</h1>
+          <p data-translate="serviceRestorationsHeroText">
+            حلول ترميمية بمواد عالية الجودة لتحسين الشكل والوظيفة مع نتائج طبيعية ومريحة.
+          </p>
+          <div class="hero-actions">
+            <a href="services.html" class="btn btn-secondary" data-translate="serviceBackToServices">العودة إلى الخدمات</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="service-detail">
+        <div class="container service-detail-layout">
+          <div class="service-detail-media" aria-label="Service image">
+            <img
+              class="service-detail-image"
+              src="Images/services/restorations.jpg"
+              alt="Restorations and fillings"
+              loading="lazy"
+              decoding="async"
+              onerror="this.hidden=true;this.parentElement.classList.add('no-image');"
+            />
+            <div class="service-detail-image-fallback" aria-hidden="true">
+              <span data-translate="serviceImageFallback">صورة الخدمة</span>
+            </div>
+          </div>
+
+          <article class="service-detail-content">
+            <h2 data-translate="serviceDetailOverviewTitle">نظرة عامة</h2>
+            <p data-translate="serviceRestorationsOverview">
+              نستخدم حشوات تجميلية وترميمات حديثة لإصلاح التسوس أو الكسر، مع اختيار اللون والشكل الأقرب لطبيعة الأسنان.
+            </p>
+
+            <h2 data-translate="serviceDetailWhoForTitle">لمن تناسب؟</h2>
+            <p data-translate="serviceRestorationsWhoFor">
+              لمن لديهم تسوس، تآكل، أو كسر بسيط، أو يرغبون بتحسين شكل السن مع الحفاظ على وظيفته.
+            </p>
+
+            <h2 data-translate="serviceDetailWhatExpectTitle">ماذا تتوقع في الزيارة؟</h2>
+            <p data-translate="serviceRestorationsWhatExpect">
+              تقييم الحالة ثم تحضير بسيط للحشوة/الترميم، مع إنهاء مريح وتوجيهات للحفاظ على النتيجة.
+            </p>
+
+            <h2 data-translate="serviceDetailBenefitsTitle">لماذا يختارنا المرضى؟</h2>
+            <ul class="service-detail-list">
+              <li data-translate="serviceRestorationsBenefit1">نتائج طبيعية من حيث اللون والملمس.</li>
+              <li data-translate="serviceRestorationsBenefit2">حماية للسن وتقوية للوظيفة اليومية.</li>
+              <li data-translate="serviceRestorationsBenefit3">شرح واضح للخيارات قبل البدء.</li>
+              <li data-translate="serviceRestorationsBenefit4">تشطيب دقيق لراحة أفضل عند المضغ.</li>
+            </ul>
+
+            <h2 data-translate="serviceDetailStepsTitle">خطوات الخدمة</h2>
+            <ol class="service-detail-steps">
+              <li data-translate="serviceRestorationsStep1">فحص وتشخيص لتحديد نوع الترميم المناسب.</li>
+              <li data-translate="serviceRestorationsStep2">تحضير بسيط وإزالة التسوس عند الحاجة.</li>
+              <li data-translate="serviceRestorationsStep3">تطبيق الترميم واختيار اللون المناسب.</li>
+              <li data-translate="serviceRestorationsStep4">تشطيب وتلميع مع إرشادات للحفاظ على النتيجة.</li>
+            </ol>
+
+            <div class="service-detail-callout">
+              <h3 data-translate="serviceDetailAftercareTitle">بعد الزيارة</h3>
+              <p data-translate="serviceRestorationsAftercare">
+                سنوضح ما يجب تجنبه خلال أول 24 ساعة إن لزم، وكيف تحافظ على الحشوة/الترميم عبر روتين تنظيف بسيط وفحوصات دورية.
+              </p>
+            </div>
+
+            <section class="service-detail-faq" aria-label="FAQ">
+              <h2 data-translate="serviceDetailFaqTitle">أسئلة شائعة</h2>
+              <details class="service-faq-item">
+                <summary data-translate="serviceRestorationsFaqQ1">هل شكل الحشوة سيكون واضحًا؟</summary>
+                <p data-translate="serviceRestorationsFaqA1">نختار اللون بعناية ونقوم بتشطيب دقيق لتبدو النتيجة طبيعية قدر الإمكان.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceRestorationsFaqQ2">كم تدوم الحشوات والترميمات؟</summary>
+                <p data-translate="serviceRestorationsFaqA2">تعتمد على العناية اليومية ونمط المضغ. المتابعة الدورية تساعد على إطالة العمر الافتراضي.</p>
+              </details>
+              <details class="service-faq-item">
+                <summary data-translate="serviceRestorationsFaqQ3">هل أحتاج أكثر من جلسة؟</summary>
+                <p data-translate="serviceRestorationsFaqA3">في الغالب جلسة واحدة تكفي للحشوات البسيطة، وقد نحتاج أكثر حسب حجم الحالة ونوع الترميم.</p>
+              </details>
+            </section>
+
+            <section class="service-detail-cta" aria-label="Call to action">
+              <h2 data-translate="serviceCtaTitle">جاهز لترميم أسنانك بثقة؟</h2>
+              <p data-translate="serviceCtaText">احجز موعدك اليوم لنختار الحل الأنسب ونحصل على نتيجة طبيعية ومريحة.</p>
+              <div class="service-cta-actions">
+                <a class="btn btn-primary" href="index.html#booking" data-translate="serviceCtaBook">احجز الآن</a>
+                <a class="btn btn-secondary" href="tel:+966500000000" data-translate="serviceCtaCall">اتصل بنا</a>
+              </div>
+            </section>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-translate="footerText">© 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+

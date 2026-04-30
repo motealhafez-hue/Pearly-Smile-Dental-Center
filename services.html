@@ -42,28 +42,54 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
+    <header class="mobile-nav">
       <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
-      <nav>
-        <ul>
-          <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
-          <li>
-            <a href="index.html#stats" data-translate="navStats">إحصائيات</a>
-          </li>
-          <li>
-            <a href="services.html" data-translate="navServices">خدماتنا</a>
-          </li>
-          <li>
-            <a href="offers.html" data-translate="navOffers">عروضنا</a>
-          </li>
-          <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
-          <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
-          <li>
-            <a href="index.html#booking" data-translate="navBooking">حجز</a>
-          </li>
-        </ul>
+      <nav id="mobileNav" aria-label="Primary">
+        <button
+          type="button"
+          class="mobile-menu-backdrop"
+          id="mobileMenuBackdrop"
+          aria-label="Close menu"
+        ></button>
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+          <button
+            type="button"
+            class="mobile-menu-close"
+            id="mobileMenuClose"
+            aria-label="Close menu"
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
+          <ul>
+            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+            <li>
+              <a href="index.html#stats" data-translate="navStats">إحصائيات</a>
+            </li>
+            <li>
+              <a href="services.html" data-translate="navServices">خدماتنا</a>
+            </li>
+            <li>
+              <a href="offers.html" data-translate="navOffers">عروضنا</a>
+            </li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li>
+              <a href="index.html#booking" data-translate="navBooking">حجز</a>
+            </li>
+          </ul>
+        </div>
       </nav>
       <div class="header-actions">
+        <button
+          type="button"
+          id="mobileMenuToggle"
+          class="mobile-menu-toggle"
+          aria-controls="mobileNav"
+          aria-expanded="false"
+          aria-label="Open menu"
+        >
+          <span class="mobile-menu-icon" aria-hidden="true"></span>
+        </button>
         <button
           type="button"
           id="themeToggle"
@@ -106,54 +132,173 @@
             نقدم العلاج الكامل لكل احتياجات الأسنان
           </h2>
         </div>
-        <div class="services-grid">
-          <article class="service-card">
-            <h3 data-translate="service1Title">طبيب عام</h3>
-            <p data-translate="service1Text">
-              فحص دوري، تنظيف، علاج تسوس، وخطة صحة أسنان مستمرة لكل العائلة.
-            </p>
+        <div class="services-grid services-grid--cards" aria-label="Services">
+          <article class="service-card flip-card" data-service="general" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">🦷</div>
+                <h3 data-translate="service1Title">طبيب عام</h3>
+                <p data-translate="service1Text">
+                  فحص دوري، تنظيف، علاج تسوس، وخطة صحة أسنان مستمرة لكل العائلة.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service1Title">طبيب عام</h3>
+                  <p data-translate="service1More">
+                    متابعة شاملة لصحة الفم والأسنان مع خطة علاج واضحة ونصائح يومية بسيطة للحفاظ على الابتسامة.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-general.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service2Title">صور إكس رِي</h3>
-            <p data-translate="service2Text">
-              أشعة دقيقة لعرض حالة الفم كاملة قبل أي علاج أو عملية.
-            </p>
+
+          <article class="service-card flip-card" data-service="xray" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">📷</div>
+                <h3 data-translate="service2Title">صور إكس رِي</h3>
+                <p data-translate="service2Text">
+                  أشعة دقيقة لعرض حالة الفم كاملة قبل أي علاج أو عملية.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service2Title">صور إكس رِي</h3>
+                  <p data-translate="service2More">
+                    تصوير رقمي سريع يساعد على تشخيص أدق وخطة علاج آمنة، مع تقارير واضحة ومتابعة أفضل للحالة.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-xray.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service3Title">حشوات وترميمات</h3>
-            <p data-translate="service3Text">
-              حشوات تجميلية وتقويمية لاستعادة الأسنان وتقوية مظهرها.
-            </p>
+
+          <article class="service-card flip-card" data-service="restorations" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">🧩</div>
+                <h3 data-translate="service3Title">حشوات وترميمات</h3>
+                <p data-translate="service3Text">
+                  حشوات تجميلية وتقويمية لاستعادة الأسنان وتقوية مظهرها.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service3Title">حشوات وترميمات</h3>
+                  <p data-translate="service3More">
+                    حلول ترميمية بمواد عالية الجودة لتقوية السن وتحسين الشكل والوظيفة مع نتائج طبيعية ومريحة.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-restorations.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service4Title">اختصاص لثة</h3>
-            <p data-translate="service4Text">
-              علاج لثة والتهاباتها مع تنظيف عميق وحماية للأسنان.
-            </p>
+
+          <article class="service-card flip-card" data-service="gums" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">🩺</div>
+                <h3 data-translate="service4Title">اختصاص لثة</h3>
+                <p data-translate="service4Text">
+                  علاج لثة والتهاباتها مع تنظيف عميق وحماية للأسنان.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service4Title">اختصاص لثة</h3>
+                  <p data-translate="service4More">
+                    علاج التهاب اللثة وتنظيف عميق للجذور لتحسين الصحة وتقليل النزيف والرائحة، مع خطة وقائية طويلة المدى.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-gums.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service5Title">اختصاص زراعة</h3>
-            <p data-translate="service5Text">
-              زراعة أسنان ثابتة تدوم طويلاً وتبدو طبيعية للغاية.
-            </p>
+
+          <article class="service-card flip-card" data-service="implants" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">🔩</div>
+                <h3 data-translate="service5Title">اختصاص زراعة</h3>
+                <p data-translate="service5Text">
+                  زراعة أسنان ثابتة تدوم طويلاً وتبدو طبيعية للغاية.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service5Title">اختصاص زراعة</h3>
+                  <p data-translate="service5More">
+                    تقييم دقيق وخطة زراعة مناسبة لحالتك لاستعادة الابتسامة والمضغ بثبات، مع متابعة لضمان أفضل نتيجة.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-implants.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service6Title">اختصاص جراحة فم</h3>
-            <p data-translate="service6Text">
-              جراحات فم متقدمة لحالات معقدة والأخراج بالراحة والأمان.
-            </p>
+
+          <article class="service-card flip-card" data-service="oral-surgery" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">🩹</div>
+                <h3 data-translate="service6Title">اختصاص جراحة فم</h3>
+                <p data-translate="service6Text">
+                  جراحات فم متقدمة لحالات معقدة والأخراج بالراحة والأمان.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service6Title">اختصاص جراحة فم</h3>
+                  <p data-translate="service6More">
+                    إجراءات جراحية دقيقة مع تخطيط مسبق وتعليمات واضحة قبل وبعد، لتجربة آمنة وتقليل الانزعاج.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-oral-surgery.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service7Title">اختصاص أطفال</h3>
-            <p data-translate="service7Text">
-              رعاية لطيفة ومشجعة للأطفال لتجربة زيارة سهلة ومريحة.
-            </p>
+
+          <article class="service-card flip-card" data-service="pediatric" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">🧒</div>
+                <h3 data-translate="service7Title">اختصاص أطفال</h3>
+                <p data-translate="service7Text">
+                  رعاية لطيفة ومشجعة للأطفال لتجربة زيارة سهلة ومريحة.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service7Title">اختصاص أطفال</h3>
+                  <p data-translate="service7More">
+                    بيئة ودودة وخطوات علاج بسيطة تساعد الطفل على الشعور بالأمان، مع إرشادات للأهل للعناية اليومية.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-pediatric.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service8Title">اختصاص عصب</h3>
-            <p data-translate="service8Text">
-              علاج جذور حديث لتخفيف الألم وحفظ الأسنان باستخدام تقنيات متطورة.
-            </p>
+
+          <article class="service-card flip-card" data-service="endodontics" tabindex="0" aria-expanded="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="service-icon" aria-hidden="true">🧠</div>
+                <h3 data-translate="service8Title">اختصاص عصب</h3>
+                <p data-translate="service8Text">
+                  علاج جذور حديث لتخفيف الألم وحفظ الأسنان باستخدام تقنيات متطورة.
+                </p>
+              </div>
+              <div class="flip-back">
+                <div class="service-back-content">
+                  <h3 data-translate="service8Title">اختصاص عصب</h3>
+                  <p data-translate="service8More">
+                    علاج جذور يركز على تقليل الألم وحفظ السن، مع خطوات دقيقة وشرح واضح لما تحتاجه قبل وبعد الجلسة.
+                  </p>
+                  <a class="btn btn-secondary read-more-btn" href="service-endodontics.html" data-translate="readMore">اقرأ المزيد</a>
+                </div>
+              </div>
+            </div>
           </article>
         </div>
       </section>
