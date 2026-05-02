@@ -74,6 +74,7 @@
             <li>
               <a href="offers.html" data-translate="navOffers">عروضنا</a>
             </li>
+            <li><a href="blog.html">Blog</a></li>
             <li>
               <a href="team.html" data-translate="navTeam">فريقنا</a>
             </li>
@@ -137,7 +138,7 @@
           <h2 data-translate="teamSectionTitle">أطباء متخصصون لمختلف الحالات</h2>
         </div>
 
-        <div class="doctors-grid" aria-label="Clinic doctors">
+        <div class="doctors-grid" id="cms-team-doctors" aria-label="Clinic doctors">
           <article class="doctor-card flip-card reveal" data-reveal-delay="0" tabindex="0" aria-labelledby="doc-1-name">
             <div class="flip-inner">
               <div class="flip-front">
@@ -390,6 +391,41 @@
         ]
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalClinic",
+            "name": "Pearly Smile Dental Center",
+            "url": "/",
+            "telephone": "+966500000000",
+            "address": { "@type": "PostalAddress", "addressCountry": "SA", "addressLocality": "Riyadh" },
+            "keywords": ["doctors", "physicians", "dentist", "orthodontics", "implants"]
+          },
+          {
+            "@type": "Dataset",
+            "name": "Pearly Smile AI index",
+            "description": "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+            "url": "/api/ai-index",
+            "keywords": ["doctors", "services", "blog", "offers"]
+          }
+        ]
+      }
+    </script>
+    <script>
+      try {
+        window.__API_BASE__ =
+          typeof window.__API_BASE__ !== "undefined"
+            ? window.__API_BASE__
+            : location.protocol === "file:"
+              ? "http://127.0.0.1:8000"
+              : location.origin;
+      } catch (e) {
+        window.__API_BASE__ = "http://127.0.0.1:8000";
+      }
+    </script>
+    <script src="site-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

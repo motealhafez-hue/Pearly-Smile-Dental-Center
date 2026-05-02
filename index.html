@@ -70,6 +70,7 @@
             <li>
               <a href="offers.html" data-translate="navOffers">عروضنا</a>
             </li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
             <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
             <li><a href="#booking" data-translate="navBooking">حجز</a></li>
@@ -128,84 +129,23 @@
 
       <section id="stats" class="stats-bar">
         <div class="stat-card">
-          <h3 class="counter" data-target="5000">0</h3>
+          <h3 class="counter" data-stat="patients" data-target="5000">0</h3>
           <p data-translate="patients">مريض</p>
         </div>
         <div class="stat-card">
-          <h3 class="counter" data-target="15">0</h3>
+          <h3 class="counter" data-stat="doctors" data-target="15">0</h3>
           <p data-translate="doctors">دكتور</p>
         </div>
         <div class="stat-card">
-          <h3 class="counter" data-target="50">0</h3>
+          <h3 class="counter" data-stat="staff" data-target="50">0</h3>
           <p data-translate="staff">موظف</p>
         </div>
       </section>
 
-      <!-- Get to Know Us -->
-      <section class="about-preview reveal about-preview-premium" aria-labelledby="aboutPreviewHeading">
+      <!-- About Us (homepage) — content from CMS via site-data.js (#cms-home-about) -->
+      <section class="about-preview about-showcase reveal about-preview-premium" aria-labelledby="aboutPreviewHeading">
         <div class="container">
-          <div class="about-preview-layout">
-            <header class="about-preview-head">
-              <p class="eyebrow eyebrow-dark" data-translate="aboutPreviewEyebrow">تعرف علينا</p>
-              <h2 id="aboutPreviewHeading" data-translate="aboutPreviewTitle">
-                Pearly Smile Dental Center — premium dental care in Abu Dhabi
-              </h2>
-              <p class="about-preview-description" data-translate="aboutPreviewText">
-                رعاية أسنان متقدمة بتجربة مريحة وخطة علاج واضحة — من الفحص وحتى التجميل والزرعات.
-              </p>
-
-              <ul class="about-preview-badges" aria-label="Key benefits">
-                <li class="about-badge" data-translate="aboutPreviewBadge1">تشخيص رقمي</li>
-                <li class="about-badge" data-translate="aboutPreviewBadge2">راحة وخصوصية</li>
-                <li class="about-badge" data-translate="aboutPreviewBadge3">نتائج طبيعية</li>
-              </ul>
-
-              <div class="about-preview-actions">
-                <a href="about.html" class="btn btn-secondary" data-translate="learnMore">تعرف أكثر عنّا</a>
-                <a href="#stats" class="btn btn-primary about-preview-stats-link" data-translate="aboutPreviewViewStats">شوف أرقامنا</a>
-              </div>
-            </header>
-
-            <div class="about-preview-panels" aria-label="What makes us different">
-              <article class="about-panel about-preview-glass">
-                <h3 class="about-panel-title" data-translate="aboutPreviewPanel1Title">عناية شاملة في مكان واحد</h3>
-                <p class="about-panel-text" data-translate="aboutPreviewPanel1Text">
-                  فحوصات، تنظيف، تجميل، تقويم، زرعات، وجراحة — بخطة علاج مدروسة تناسب احتياجك.
-                </p>
-              </article>
-
-              <article class="about-panel about-preview-glass">
-                <h3 class="about-panel-title" data-translate="aboutPreviewPanel2Title">معايير عالية للسلامة</h3>
-                <p class="about-panel-text" data-translate="aboutPreviewPanel2Text">
-                  تعقيم دقيق وإجراءات واضحة لضمان تجربة آمنة ومطمئنة في كل زيارة.
-                </p>
-              </article>
-            </div>
-
-            <div class="about-preview-at-a-glance" aria-label="At a glance">
-              <p class="about-glance-label" data-translate="aboutPreviewGlanceLabel">لمحة سريعة</p>
-              <div class="about-glance-grid">
-                <div class="stat-card about-glance-card">
-                  <h3 data-translate="aboutPreviewGlance1Title">منذ 2018</h3>
-                  <p data-translate="aboutPreviewGlance1Text">ثقة المجتمع وخبرة متراكمة</p>
-                </div>
-                <div class="stat-card about-glance-card">
-                  <h3 data-translate="aboutPreviewGlance2Title">لغتان</h3>
-                  <p data-translate="aboutPreviewGlance2Text">خدمة عربية وإنجليزية</p>
-                </div>
-                <div class="stat-card about-glance-card">
-                  <h3 data-translate="aboutPreviewGlance3Title">تقنيات حديثة</h3>
-                  <p data-translate="aboutPreviewGlance3Text">تشخيص وعلاج بدقة أعلى</p>
-                </div>
-              </div>
-            </div>
-
-            <aside class="about-preview-visual about-preview-glass" aria-label="Clinic visual">
-              <div class="about-visual-inner">
-                <span class="about-visual-chip" data-translate="previewImageAlt">مركز بيرلي سمايل لطب الأسنان</span>
-              </div>
-            </aside>
-          </div>
+          <div id="cms-home-about" data-cms-bound="1"></div>
         </div>
       </section>
 
@@ -218,7 +158,7 @@
             أحدث خدمات طب الأسنان في مكان واحد
           </h2>
         </div>
-        <div class="services-grid">
+        <div class="services-grid" id="cms-home-services">
           <article class="service-card">
             <h3 data-translate="service1Title">طبيب عام</h3>
             <p data-translate="service1Text">
@@ -259,7 +199,7 @@
           <p class="eyebrow eyebrow-dark" data-translate="teamLabel">فريقنا</p>
           <h2 data-translate="teamTitle">أطباء ذوي خبرة عالية</h2>
         </div>
-        <div class="doctors-grid">
+        <div class="doctors-grid" id="cms-home-doctors">
           <div class="doctor-card">
             <div class="doc-img"></div>
             <h4 data-translate="doctor1Name">د. ريم العبدالله</h4>
@@ -445,6 +385,41 @@
         "priceRange": "متوسط"
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalClinic",
+            "name": "Pearly Smile Dental Center",
+            "url": "/",
+            "telephone": "+966500000000",
+            "address": { "@type": "PostalAddress", "addressCountry": "SA", "addressLocality": "Riyadh" },
+            "keywords": ["dental clinic", "dentist", "dental implants", "teeth whitening", "orthodontics"]
+          },
+          {
+            "@type": "Dataset",
+            "name": "Pearly Smile AI index",
+            "description": "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+            "url": "/api/ai-index",
+            "keywords": ["services", "doctors", "offers", "blog"]
+          }
+        ]
+      }
+    </script>
+    <script>
+      try {
+        window.__API_BASE__ =
+          typeof window.__API_BASE__ !== "undefined"
+            ? window.__API_BASE__
+            : location.protocol === "file:"
+              ? "http://127.0.0.1:8000"
+              : location.origin;
+      } catch (e) {
+        window.__API_BASE__ = "http://127.0.0.1:8000";
+      }
+    </script>
+    <script src="site-data.js"></script>
     <script src="script.js"></script>
     <script type="application/ld+json">
       {

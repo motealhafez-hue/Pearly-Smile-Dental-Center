@@ -37,6 +37,7 @@
             <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
             <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
             <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
             <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
             <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
@@ -154,6 +155,29 @@
     <footer>
       <p data-translate="footerText">© 2026 Pearly Smile Dental Center. جميع الحقوق محفوظة.</p>
     </footer>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalClinic",
+            "name": "Pearly Smile Dental Center",
+            "url": "/",
+            "telephone": "+966500000000",
+            "address": { "@type": "PostalAddress", "addressCountry": "SA", "addressLocality": "Riyadh" },
+            "keywords": ["fillings", "restorations", "cosmetic fillings", "dentist", "Riyadh"]
+          },
+          {
+            "@type": "Dataset",
+            "name": "Pearly Smile AI index",
+            "description": "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+            "url": "/api/ai-index",
+            "keywords": ["restorations", "services"]
+          }
+        ]
+      }
+    </script>
 
     <script src="script.js"></script>
   </body>

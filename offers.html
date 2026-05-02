@@ -71,6 +71,7 @@
             <li>
               <a href="offers.html" data-translate="navOffers">عروضنا</a>
             </li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
             <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
             <li>
@@ -110,10 +111,10 @@
     <main>
       <section class="hero offers-hero">
         <div class="hero-content">
-          <p class="eyebrow" data-translate="offersTitle">
+          <p class="eyebrow" id="cms-offers-hero-eyebrow" data-translate="offersTitle">
             عروض خاصة بمناسبة عيد الأضحى
           </p>
-          <h1 data-translate="offersSubtitle">
+          <h1 id="cms-offers-hero-title" data-translate="offersSubtitle">
             استفد من التخفيضات على زراعة الأسنان، قشور الفينير، التبييض،
             والتنظيف.
           </h1>
@@ -130,14 +131,14 @@
 
       <section class="offers-section">
         <div class="section-head">
-          <p class="eyebrow eyebrow-dark" data-translate="offersTitle">
+          <p class="eyebrow eyebrow-dark" id="cms-offers-section-eyebrow" data-translate="offersTitle">
             عروض عيد الأضحى
           </p>
-          <h2 data-translate="offersSubtitle">
+          <h2 id="cms-offers-section-title" data-translate="offersSubtitle">
             استمتع بتخفيضات حصرية على أفضل خدمات الأسنان.
           </h2>
         </div>
-        <div class="offers-grid">
+        <div class="offers-grid" id="cms-offers-grid">
           <article class="offer-card">
             <div class="offer-image" aria-hidden="true"></div>
             <div class="offer-content">
@@ -219,6 +220,46 @@
       </p>
     </footer>
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalClinic",
+            "name": "Pearly Smile Dental Center",
+            "url": "/",
+            "telephone": "+966500000000",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "SA",
+              "addressLocality": "Riyadh"
+            },
+            "keywords": ["offers", "dental implants", "veneers", "teeth whitening", "cleaning"]
+          },
+          {
+            "@type": "Dataset",
+            "name": "Pearly Smile AI index",
+            "description": "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+            "url": "/api/ai-index",
+            "keywords": ["offers", "promotions", "discounts"]
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      try {
+        window.__API_BASE__ =
+          typeof window.__API_BASE__ !== "undefined"
+            ? window.__API_BASE__
+            : location.protocol === "file:"
+              ? "http://127.0.0.1:8000"
+              : location.origin;
+      } catch (e) {
+        window.__API_BASE__ = "http://127.0.0.1:8000";
+      }
+    </script>
+    <script src="site-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

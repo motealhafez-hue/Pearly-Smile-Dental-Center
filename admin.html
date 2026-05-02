@@ -1,0 +1,3654 @@
+<!doctype html>
+<html lang="en" class="admin-root theme-dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clinic Console | Pearly Smile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .admin-root {
+        --font-sans: "Inter", system-ui, sans-serif;
+        --font-display: "Poppins", var(--font-sans);
+        --radius: 14px;
+        --radius-sm: 10px;
+        --shadow: 0 8px 32px rgba(15, 23, 42, 0.12);
+        --shadow-lg: 0 24px 48px rgba(15, 23, 42, 0.18);
+        --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        --sidebar-w: 268px;
+      }
+
+      .admin-root.theme-dark {
+        --bg0: #0c1222;
+        --bg1: #111827;
+        --surface: rgba(30, 41, 59, 0.55);
+        --surface-solid: #1e293b;
+        --glass-border: rgba(148, 163, 184, 0.12);
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+        --accent: #38bdf8;
+        --accent-dim: rgba(56, 189, 248, 0.15);
+        --success: #4ade80;
+        --danger: #f87171;
+        --warning: #fbbf24;
+        --input-bg: rgba(15, 23, 42, 0.65);
+        --topbar-bg: rgba(17, 24, 39, 0.72);
+      }
+
+      .admin-root.theme-light {
+        --bg0: #f0f4f8;
+        --bg1: #e2e8f0;
+        --surface: rgba(255, 255, 255, 0.72);
+        --surface-solid: #ffffff;
+        --glass-border: rgba(15, 23, 42, 0.08);
+        --text: #0f172a;
+        --text-muted: #64748b;
+        --accent: #0284c7;
+        --accent-dim: rgba(2, 132, 199, 0.1);
+        --success: #16a34a;
+        --danger: #dc2626;
+        --warning: #d97706;
+        --input-bg: rgba(255, 255, 255, 0.95);
+        --topbar-bg: rgba(255, 255, 255, 0.82);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-sans);
+        background: linear-gradient(145deg, var(--bg0) 0%, var(--bg1) 48%, var(--bg0) 100%);
+        background-attachment: fixed;
+        color: var(--text);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Prevent unwanted text selection/caret on admin UI */
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      p,
+      span,
+      strong,
+      div,
+      article,
+      section,
+      button,
+      a,
+      label {
+        -webkit-user-select: none;
+        user-select: none;
+        caret-color: transparent;
+      }
+
+      input,
+      textarea,
+      select,
+      option {
+        -webkit-user-select: text;
+        user-select: text;
+        caret-color: auto;
+      }
+
+      .glass {
+        background: var(--surface);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow);
+      }
+
+      .glass-strong {
+        background: var(--surface);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow-lg);
+      }
+
+      /* ——— Login ——— */
+      .login-screen {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        animation: fadeIn 0.45s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .login-card {
+        width: 100%;
+        max-width: 420px;
+        border-radius: calc(var(--radius) + 4px);
+        padding: 2rem 2rem 1.75rem;
+        animation: slideUp 0.5s ease;
+      }
+
+      .login-card h1 {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 0 0.35rem;
+        letter-spacing: -0.02em;
+      }
+
+      .login-card .sub {
+        color: var(--text-muted);
+        font-size: 0.875rem;
+        margin: 0 0 1.5rem;
+        line-height: 1.5;
+      }
+
+      .login-card label {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+      }
+
+      .login-card input {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
+      /* ——— App shell ——— */
+      .app-shell {
+        display: flex;
+        min-height: 100vh;
+        animation: fadeIn 0.35s ease;
+      }
+
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        padding: 1.25rem 0.85rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border-right: 1px solid var(--glass-border);
+      }
+
+      .sidebar-brand {
+        padding: 0.5rem 0.85rem 1.25rem;
+        border-bottom: 1px solid var(--glass-border);
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar-brand .logo {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.05rem;
+        letter-spacing: -0.02em;
+      }
+
+      .sidebar-brand .tag {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-top: 0.2rem;
+      }
+
+      .nav-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        width: 100%;
+        padding: 0.65rem 0.9rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text-muted);
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: left;
+        transition: background var(--transition), color var(--transition), transform 0.15s ease;
+      }
+
+      .nav-btn:hover {
+        background: var(--accent-dim);
+        color: var(--text);
+        transform: translateX(2px);
+      }
+
+      .nav-btn.active {
+        background: var(--accent-dim);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .nav-btn .ico {
+        width: 1.25rem;
+        text-align: center;
+        opacity: 0.85;
+      }
+
+      .sidebar-foot {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid var(--glass-border);
+      }
+
+      .main-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 0.85rem 1.35rem;
+        border-bottom: 1px solid var(--glass-border);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: var(--topbar-bg);
+      }
+
+      .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 42px;
+        height: 42px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 1.1rem;
+      }
+
+      .save-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        background: var(--accent-dim);
+      }
+
+      .save-status.saving {
+        color: var(--warning);
+      }
+
+      .save-status.saved {
+        color: var(--success);
+      }
+
+      .save-status.error {
+        color: var(--danger);
+      }
+
+      .save-status .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.85;
+      }
+
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow var(--transition), background var(--transition);
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), #0ea5e9);
+        border-color: transparent;
+        color: #fff;
+      }
+
+      .theme-light .btn-primary {
+        color: #fff;
+      }
+
+      .btn-ghost {
+        background: transparent;
+      }
+
+      .btn-danger {
+        border-color: rgba(248, 113, 113, 0.35);
+        color: var(--danger);
+        background: rgba(248, 113, 113, 0.08);
+      }
+
+      .btn-icon {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border-radius: var(--radius-sm);
+      }
+
+      .main-scroll {
+        flex: 1;
+        overflow: auto;
+        padding: 1.35rem 1.5rem 2.5rem;
+        animation: slideUp 0.4s ease;
+      }
+
+      .page-head {
+        margin-bottom: 1.35rem;
+      }
+
+      .page-head h2 {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 0 0.35rem;
+        letter-spacing: -0.02em;
+      }
+
+      .page-head p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .grid-kpi {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      @media (max-width: 1100px) {
+        .grid-kpi {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 520px) {
+        .grid-kpi {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .kpi-card {
+        border-radius: var(--radius);
+        padding: 1.15rem 1.25rem;
+        transition: transform var(--transition), box-shadow var(--transition);
+      }
+
+      .kpi-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .kpi-card .label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+      }
+
+      .kpi-card .value {
+        font-family: var(--font-display);
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .kpi-card .hint {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 0.35rem;
+      }
+
+      .card {
+        border-radius: var(--radius);
+        padding: 1.25rem 1.35rem;
+        margin-bottom: 1rem;
+        transition: box-shadow var(--transition);
+      }
+
+      .card:hover {
+        box-shadow: var(--shadow);
+      }
+
+      .section-title {
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0 0 1rem;
+        color: var(--text);
+      }
+
+      .toolbar-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .search-input {
+        flex: 1;
+        min-width: 180px;
+        max-width: 320px;
+        padding: 0.55rem 0.85rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--input-bg);
+        color: var(--text);
+        font: inherit;
+        font-size: 0.875rem;
+      }
+
+      .search-input:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+      }
+
+      select.filter-select {
+        padding: 0.55rem 0.75rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--input-bg);
+        color: var(--text);
+        font: inherit;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+
+      label.floating-label {
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+      }
+
+      input.field,
+      textarea.field {
+        width: 100%;
+        padding: 0.55rem 0.75rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--input-bg);
+        color: var(--text);
+        font: inherit;
+        font-size: 0.875rem;
+        transition: border-color var(--transition), box-shadow var(--transition);
+      }
+
+      input.field:focus,
+      textarea.field:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-dim);
+      }
+
+      textarea.field {
+        min-height: 4.5rem;
+        resize: vertical;
+      }
+
+      .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+      }
+
+      @media (max-width: 640px) {
+        .row-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .item {
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        padding: 1rem 1.1rem;
+        margin-bottom: 0.75rem;
+        background: var(--input-bg);
+        transition: border-color var(--transition);
+      }
+
+      .item:hover {
+        border-color: rgba(56, 189, 248, 0.25);
+      }
+
+      .item-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 0.85rem;
+        flex-wrap: wrap;
+      }
+
+      .item-head strong {
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+      }
+
+      table.data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--glass-border);
+      }
+
+      .data-table th {
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        font-weight: 600;
+        background: var(--accent-dim);
+      }
+
+      .data-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .data-table tbody tr {
+        transition: background var(--transition);
+      }
+
+      .data-table tbody tr:hover {
+        background: var(--accent-dim);
+      }
+
+      .empty-hint {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .help-text {
+        margin: -0.5rem 0 0.75rem;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        background: var(--accent-dim);
+        color: var(--accent);
+      }
+
+      /* Uploader (shared) */
+      .uploader {
+        --uploader-w: 72px;
+        --uploader-h: 72px;
+        display: flex;
+        gap: 0.65rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .uploader-preview {
+        width: var(--uploader-w);
+        height: var(--uploader-h);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--input-bg);
+        overflow: hidden;
+        flex: 0 0 auto;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+      }
+
+      .uploader-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .uploader-status {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        display: none;
+      }
+
+      .uploader-drop {
+        flex: 1;
+        min-height: var(--uploader-h);
+        border-radius: var(--radius-sm);
+        border: 1px dashed var(--glass-border);
+        background: rgba(2, 132, 199, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.65rem 0.75rem;
+        min-width: 220px;
+      }
+
+      .uploader-drop .title {
+        font-weight: 700;
+      }
+
+      .uploader-drop .sub {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+
+      .uploader-drop.is-dragover {
+        border-color: rgba(56, 189, 248, 0.55);
+        background: rgba(56, 189, 248, 0.06);
+      }
+
+      @media (max-width: 520px) {
+        .uploader-drop {
+          min-width: 100%;
+        }
+      }
+
+      .doctor-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+      }
+
+      .doctor-chip {
+        border-radius: var(--radius-sm);
+        padding: 0.75rem 1rem;
+        min-width: 140px;
+        flex: 1 1 160px;
+        max-width: 220px;
+        transition: transform var(--transition), box-shadow var(--transition);
+      }
+
+      .doctor-chip:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      .doctor-chip .n {
+        font-weight: 600;
+        font-size: 0.88rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .doctor-chip .r {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.85rem;
+      }
+
+      @media (max-width: 720px) {
+        .quick-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .analytics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .stat-block {
+        border-radius: var(--radius-sm);
+        padding: 1rem 1.1rem;
+        text-align: center;
+      }
+
+      .stat-block .num {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .stat-block .lbl {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+
+      /* Mobile sidebar */
+      @media (max-width: 900px) {
+        .menu-toggle {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          z-index: 100;
+          transform: translateX(-102%);
+          transition: transform var(--transition);
+          box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar.open {
+          transform: translateX(0);
+        }
+
+        .sidebar-backdrop {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.45);
+          z-index: 99;
+          backdrop-filter: blur(2px);
+        }
+
+        .sidebar-backdrop.show {
+          display: block;
+        }
+      }
+
+      /* Toasts */
+      .toast-stack {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        max-width: min(400px, 92vw);
+        pointer-events: none;
+      }
+
+      .toast {
+        padding: 0.75rem 1.1rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.875rem;
+        font-weight: 500;
+        box-shadow: var(--shadow-lg);
+        transform: translateX(120%);
+        opacity: 0;
+        transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.3s ease;
+        pointer-events: auto;
+        border: 1px solid var(--glass-border);
+      }
+
+      .toast.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .toast.ok {
+        background: rgba(22, 101, 52, 0.92);
+        color: #ecfdf5;
+        border-color: rgba(74, 222, 128, 0.35);
+      }
+
+      .toast.err {
+        background: rgba(127, 29, 29, 0.92);
+        color: #fef2f2;
+        border-color: rgba(248, 113, 113, 0.35);
+      }
+
+      .login-error {
+        color: var(--danger);
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+      }
+
+      a.link-site {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+
+      a.link-site:hover {
+        text-decoration: underline;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      .login-card code,
+      .sub code {
+        font-size: 0.85em;
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+        background: var(--accent-dim);
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loginScreen" class="login-screen">
+      <div class="login-card glass-strong">
+        <h1>Pearly Smile</h1>
+        <p class="sub">Clinic console — manage public site content. Saves to <code>api/data.json</code> on the server.</p>
+        <label for="u">Username</label>
+        <input id="u" class="field" autocomplete="username" />
+        <label for="p">Password</label>
+        <input id="p" class="field" type="password" autocomplete="current-password" />
+        <p class="sub" style="margin-bottom: 1rem; font-size: 0.8rem">
+          Default: <strong>admin</strong> / <strong>pearly-admin</strong>
+        </p>
+        <button type="button" class="btn btn-primary" id="btnLogin" style="width: 100%">Sign in</button>
+        <p class="login-error" id="loginErr"></p>
+      </div>
+    </div>
+
+    <div id="appDash" class="app-shell hidden">
+      <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+      <aside class="sidebar glass" id="sidebar">
+        <div class="sidebar-brand">
+          <div class="logo">Pearly Smile</div>
+          <div class="tag">Dental · Admin</div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav" aria-label="Main"></nav>
+        <div class="sidebar-foot">
+          <button type="button" class="nav-btn" id="btnLogout">
+            <span class="ico">⎋</span> Log out
+          </button>
+          <a class="nav-btn" href="index.html" style="text-decoration: none; color: inherit">
+            <span class="ico">↗</span> View website
+          </a>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button type="button" class="menu-toggle glass" id="menuToggle" aria-label="Open menu">☰</button>
+            <div id="saveStatus" class="save-status" aria-live="polite">
+              <span class="dot"></span>
+              <span id="saveStatusText">Saved</span>
+            </div>
+          </div>
+          <div class="topbar-actions">
+            <button type="button" class="btn btn-ghost" id="btnReload" title="Reload from server">Reload</button>
+            <button type="button" class="btn btn-primary" id="btnSave">Save changes</button>
+            <button type="button" class="btn btn-icon glass" id="btnTheme" title="Toggle theme">◐</button>
+          </div>
+        </header>
+        <div class="main-scroll">
+          <div class="page-head" id="pageHead"></div>
+          <div id="mainContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+    <script>
+      (function () {
+        const TOKEN_KEY = "ps_admin_token";
+        const THEME_KEY = "ps_admin_theme";
+
+        const apiBase = (function () {
+          try {
+            return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+          } catch (e) {
+            return "http://127.0.0.1:8000";
+          }
+        })();
+
+        let state = null;
+        let token = sessionStorage.getItem(TOKEN_KEY);
+        let activeRoute = "overview";
+        let dirty = false;
+        let saveState = "saved";
+
+        const $ = (id) => document.getElementById(id);
+
+        function setTheme(dark) {
+          const root = document.documentElement;
+          root.classList.toggle("theme-dark", dark);
+          root.classList.toggle("theme-light", !dark);
+          localStorage.setItem(THEME_KEY, dark ? "dark" : "light");
+        }
+
+        function initTheme() {
+          const t = localStorage.getItem(THEME_KEY);
+          if (t === "light") setTheme(false);
+          else setTheme(true);
+        }
+        initTheme();
+
+        $("btnTheme").addEventListener("click", () => {
+          const dark = !document.documentElement.classList.contains("theme-dark");
+          setTheme(dark);
+        });
+
+        function markDirty() {
+          dirty = true;
+          saveState = "unsaved";
+          updateSaveStatus();
+        }
+
+        function markSaved() {
+          dirty = false;
+          saveState = "saved";
+          updateSaveStatus();
+        }
+
+        function updateSaveStatus() {
+          const el = $("saveStatus");
+          const txt = $("saveStatusText");
+          el.classList.remove("saving", "saved", "error");
+          if (saveState === "saving") {
+            el.classList.add("saving");
+            txt.textContent = "Saving…";
+          } else if (saveState === "error") {
+            el.classList.add("error");
+            txt.textContent = "Save failed";
+          } else if (dirty) {
+            txt.textContent = "Unsaved changes";
+          } else {
+            el.classList.add("saved");
+            txt.textContent = "Saved";
+          }
+        }
+
+        function showToast(msg, ok) {
+          const stack = $("toastStack");
+          const t = document.createElement("div");
+          t.className = "toast " + (ok ? "ok" : "err");
+          t.textContent = msg;
+          stack.appendChild(t);
+          requestAnimationFrame(() => t.classList.add("show"));
+          setTimeout(() => {
+            t.classList.remove("show");
+            setTimeout(() => t.remove(), 350);
+          }, 3200);
+        }
+
+        function authHeaders() {
+          const h = { "Content-Type": "application/json" };
+          if (token) h["Authorization"] = "Bearer " + token;
+          return h;
+        }
+
+        async function apiGet() {
+          const r = await fetch(apiBase + "/api/data");
+          if (!r.ok) throw new Error("Failed to load data");
+          return r.json();
+        }
+
+        async function apiSave(body) {
+          const r = await fetch(apiBase + "/api/data", {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify(body),
+          });
+          if (r.status === 401) {
+            token = null;
+            sessionStorage.removeItem(TOKEN_KEY);
+            throw new Error("Session expired — sign in again");
+          }
+          if (!r.ok) {
+            const t = await r.text();
+            throw new Error(t || "Save failed");
+          }
+          return r.json();
+        }
+
+        async function apiLogin(user, pass) {
+          const r = await fetch(apiBase + "/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: user, password: pass }),
+          });
+          if (!r.ok) throw new Error("Invalid credentials");
+          const j = await r.json();
+          return j.token;
+        }
+
+        // -----------------------------
+        // Bookings API (separate store)
+        // -----------------------------
+        let bookingsCache = [];
+
+        async function apiGetBookings() {
+          const r = await fetch(apiBase + "/api/bookings", { headers: authHeaders() });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) throw new Error("Failed to load bookings");
+          const rows = await r.json();
+          return Array.isArray(rows) ? rows : [];
+        }
+
+        async function apiUpsertBooking(booking) {
+          const r = await fetch(apiBase + "/api/bookings", {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify(booking),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) {
+            const t = await r.text();
+            throw new Error(t || "Failed to save booking");
+          }
+          return r.json();
+        }
+
+        async function apiDeleteBooking(id) {
+          const r = await fetch(apiBase + "/api/bookings/" + encodeURIComponent(id), {
+            method: "DELETE",
+            headers: authHeaders(),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (r.status === 404) throw new Error("Booking not found");
+          if (!r.ok) throw new Error("Failed to delete booking");
+          return r.json();
+        }
+
+        async function refreshBookings() {
+          bookingsCache = await apiGetBookings();
+          return bookingsCache;
+        }
+
+        // -----------------------------
+        // Events API (separate store)
+        // -----------------------------
+        async function apiPostEvent(evt) {
+          try {
+            const r = await fetch(apiBase + "/api/events", {
+              method: "POST",
+              headers: authHeaders(),
+              body: JSON.stringify(evt),
+            });
+            return r.ok;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        async function apiGetEvents() {
+          const r = await fetch(apiBase + "/api/events", { headers: authHeaders() });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) throw new Error("Failed to load events");
+          const rows = await r.json();
+          return Array.isArray(rows) ? rows : [];
+        }
+
+        // -----------------------------
+        // Blog API (separate store)
+        // -----------------------------
+        async function apiAdminGetBlog() {
+          const r = await fetch(apiBase + "/api/admin/blog", { headers: authHeaders() });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) throw new Error("Failed to load blog posts");
+          const rows = await r.json();
+          return Array.isArray(rows) ? rows : [];
+        }
+
+        async function apiAdminCreateBlog(post) {
+          const r = await fetch(apiBase + "/api/admin/blog", {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify(post),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (r.status === 409) throw new Error("Slug already exists");
+          if (!r.ok) throw new Error("Failed to create post");
+          return r.json();
+        }
+
+        async function apiAdminUpdateBlog(slug, post) {
+          const r = await fetch(apiBase + "/api/admin/blog/" + encodeURIComponent(slug), {
+            method: "PUT",
+            headers: authHeaders(),
+            body: JSON.stringify(post),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (r.status === 409) throw new Error("Slug already exists");
+          if (r.status === 404) throw new Error("Post not found");
+          if (!r.ok) throw new Error("Failed to update post");
+          return r.json();
+        }
+
+        async function apiAdminDeleteBlog(slug) {
+          const r = await fetch(apiBase + "/api/admin/blog/" + encodeURIComponent(slug), {
+            method: "DELETE",
+            headers: authHeaders(),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (r.status === 404) throw new Error("Post not found");
+          if (!r.ok) throw new Error("Failed to delete post");
+          return r.json();
+        }
+
+        async function apiGenerateBlog(topic) {
+          const r = await fetch(apiBase + "/api/generate-blog", {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify({ topic: topic || null }),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) {
+            let msg = "Failed to generate blog";
+            try {
+              const j = await r.json();
+              if (j && j.detail) msg = String(j.detail);
+            } catch (e) {}
+            throw new Error(msg);
+          }
+          return r.json();
+        }
+
+        function track(type, fields) {
+          apiPostEvent(Object.assign({ type }, fields || {}));
+        }
+
+        async function uploadImageFile(file) {
+          const fd = new FormData();
+          fd.append("file", file);
+          const r = await fetch(apiBase + "/api/upload", {
+            method: "POST",
+            headers: token ? { Authorization: "Bearer " + token } : {},
+            body: fd,
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) {
+            let msg = "Upload failed";
+            try {
+              const j = await r.json();
+              if (j && j.detail) msg = String(j.detail);
+            } catch (e) {}
+            throw new Error(msg);
+          }
+          const j = await r.json();
+          if (!j || !j.url) throw new Error("Upload failed: missing url");
+          // Return absolute URL for convenience
+          return j.url.startsWith("http") ? j.url : apiBase + j.url;
+        }
+
+        function createImageUploader(opts) {
+          const get = opts.get;
+          const set = opts.set;
+          const label = opts.label || "Image";
+          const size = opts.size || { w: 72, h: 72 };
+
+          const wrap = document.createElement("div");
+          const lab = document.createElement("span");
+          lab.className = "floating-label";
+          lab.textContent = label;
+          wrap.appendChild(lab);
+
+          const row = document.createElement("div");
+          row.className = "uploader";
+          row.style.setProperty("--uploader-w", String(size.w) + "px");
+          row.style.setProperty("--uploader-h", String(size.h) + "px");
+
+          const preview = document.createElement("div");
+          preview.className = "uploader-preview";
+
+          const status = document.createElement("span");
+          status.className = "pill uploader-status";
+          preview.appendChild(status);
+
+          const drop = document.createElement("div");
+          drop.className = "uploader-drop";
+          drop.innerHTML =
+            '<div style="min-width:0"><div class="title">Drag & drop</div><div class="sub">or use the button</div></div>';
+
+          const inp = document.createElement("input");
+          inp.type = "file";
+          inp.accept = "image/*";
+          inp.style.display = "none";
+
+          const btnUp = document.createElement("button");
+          btnUp.type = "button";
+          btnUp.className = "btn btn-ghost";
+
+          const btnClear = document.createElement("button");
+          btnClear.type = "button";
+          btnClear.className = "btn btn-ghost";
+          btnClear.textContent = "Remove";
+
+          let localPreviewUrl = "";
+          let busy = false;
+
+          function paintPreview() {
+            const url = get() ? String(get()) : "";
+            const showUrl = localPreviewUrl || url;
+            preview.querySelectorAll("img").forEach((n) => n.remove());
+            const oldTxt = preview.querySelector(".uploader-empty");
+            if (oldTxt) oldTxt.remove();
+
+            if (showUrl) {
+              const img = document.createElement("img");
+              img.alt = "";
+              img.src = showUrl;
+              preview.insertBefore(img, status);
+              btnUp.textContent = "Change image";
+            } else {
+              const t = document.createElement("div");
+              t.className = "uploader-empty";
+              t.textContent = "No image";
+              preview.insertBefore(t, status);
+              btnUp.textContent = "Upload image";
+            }
+          }
+
+          function setStatus(kind, text) {
+            status.style.display = "inline-block";
+            status.textContent = text;
+            if (kind === "warn") {
+              status.style.background = "rgba(251, 191, 36, 0.15)";
+              status.style.color = "var(--warning)";
+            } else if (kind === "ok") {
+              status.style.background = "rgba(74, 222, 128, 0.14)";
+              status.style.color = "var(--success)";
+            } else if (kind === "err") {
+              status.style.background = "rgba(248, 113, 113, 0.14)";
+              status.style.color = "var(--danger)";
+            } else {
+              status.style.background = "var(--accent-dim)";
+              status.style.color = "var(--accent)";
+            }
+          }
+
+          async function handleFile(file) {
+            if (!file) return;
+            if (busy) return;
+            busy = true;
+            btnUp.disabled = true;
+            btnClear.disabled = true;
+            setStatus("warn", "Uploading…");
+
+            if (localPreviewUrl) {
+              try {
+                URL.revokeObjectURL(localPreviewUrl);
+              } catch (e) {}
+              localPreviewUrl = "";
+            }
+            try {
+              localPreviewUrl = URL.createObjectURL(file);
+            } catch (e) {
+              localPreviewUrl = "";
+            }
+            paintPreview();
+
+            try {
+              const url = await uploadImageFile(file);
+              set(url);
+              if (localPreviewUrl) {
+                try {
+                  URL.revokeObjectURL(localPreviewUrl);
+                } catch (e) {}
+                localPreviewUrl = "";
+              }
+              paintPreview();
+              markDirty();
+              showToast("Image uploaded", true);
+              setStatus("ok", "Saved");
+              setTimeout(() => (status.style.display = "none"), 1400);
+            } catch (e) {
+              showToast(e.message || "Upload failed", false);
+              setStatus("err", "Failed");
+            }
+
+            busy = false;
+            btnUp.disabled = false;
+            btnClear.disabled = false;
+          }
+
+          btnUp.addEventListener("click", () => inp.click());
+          inp.addEventListener("change", () => {
+            const file = inp.files && inp.files[0];
+            inp.value = "";
+            handleFile(file);
+          });
+
+          btnClear.addEventListener("click", () => {
+            set("");
+            if (localPreviewUrl) {
+              try {
+                URL.revokeObjectURL(localPreviewUrl);
+              } catch (e) {}
+              localPreviewUrl = "";
+            }
+            paintPreview();
+            markDirty();
+          });
+
+          drop.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            drop.classList.add("is-dragover");
+          });
+          drop.addEventListener("dragleave", () => {
+            drop.classList.remove("is-dragover");
+          });
+          drop.addEventListener("drop", (e) => {
+            e.preventDefault();
+            drop.classList.remove("is-dragover");
+            const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+            handleFile(file);
+          });
+
+          paintPreview();
+
+          row.appendChild(preview);
+          row.appendChild(drop);
+          row.appendChild(btnUp);
+          row.appendChild(btnClear);
+          wrap.appendChild(row);
+          wrap.appendChild(inp);
+          return wrap;
+        }
+
+        function ensureHomeAboutShape(st) {
+          if (!st.homeAbout || typeof st.homeAbout !== "object") {
+            st.homeAbout = {};
+          }
+          const ha = st.homeAbout;
+          ["eyebrow", "title", "description", "highlightsLabel"].forEach((k) => {
+            if (!ha[k]) ha[k] = { ar: "", en: "" };
+          });
+          if (!ha.visual || typeof ha.visual !== "object") ha.visual = {};
+          ["kicker", "sub", "chip"].forEach((k) => {
+            if (!ha.visual[k]) ha.visual[k] = { ar: "", en: "" };
+          });
+          if (ha.visual.image == null) ha.visual.image = "";
+          if (!ha.cta || typeof ha.cta !== "object") ha.cta = {};
+          ["primaryLabel", "secondaryLabel", "tertiaryLabel"].forEach((k) => {
+            if (!ha.cta[k]) ha.cta[k] = { ar: "", en: "" };
+          });
+          if (!ha.cta.primaryHref) ha.cta.primaryHref = "#booking";
+          if (!ha.cta.secondaryHref) ha.cta.secondaryHref = "about.html";
+          if (!ha.cta.tertiaryHref) ha.cta.tertiaryHref = "#stats";
+          if (!Array.isArray(ha.pills)) ha.pills = [];
+          if (!Array.isArray(ha.cards)) ha.cards = [];
+          if (!Array.isArray(ha.tags)) ha.tags = [];
+        }
+
+        function flattenHomeAboutForAdmin(st) {
+          ensureHomeAboutShape(st);
+          st.homeAboutPills = st.homeAbout.pills.slice();
+          st.homeAboutCards = st.homeAbout.cards.slice();
+          st.homeAboutTags = st.homeAbout.tags.slice();
+        }
+
+        function nestHomeAboutBeforeSave(st) {
+          if (!st.homeAbout) st.homeAbout = {};
+          if (Array.isArray(st.homeAboutPills)) st.homeAbout.pills = JSON.parse(JSON.stringify(st.homeAboutPills));
+          if (Array.isArray(st.homeAboutCards)) st.homeAbout.cards = JSON.parse(JSON.stringify(st.homeAboutCards));
+          if (Array.isArray(st.homeAboutTags)) st.homeAbout.tags = JSON.parse(JSON.stringify(st.homeAboutTags));
+        }
+
+        function prepareStateForSave(st) {
+          nestHomeAboutBeforeSave(st);
+          const payload = JSON.parse(JSON.stringify(st));
+          delete payload.homeAboutPills;
+          delete payload.homeAboutCards;
+          delete payload.homeAboutTags;
+          return payload;
+        }
+
+        const navItems = [
+          { id: "overview", label: "Overview", icon: "◈" },
+          { id: "stats", label: "Statistics", icon: "▤" },
+          { id: "homepage", label: "Homepage", icon: "⌂" },
+          { id: "services", label: "Services", icon: "◇" },
+          { id: "doctors", label: "Doctors", icon: "◎" },
+          { id: "offers", label: "Offers", icon: "★" },
+          { id: "bookings", label: "Bookings", icon: "▣" },
+          { id: "blog", label: "Blog", icon: "✎" },
+          { id: "analytics", label: "Analytics", icon: "◧" },
+        ];
+
+        function renderSidebar() {
+          const nav = $("sidebarNav");
+          nav.innerHTML = "";
+          navItems.forEach((item) => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "nav-btn" + (item.id === activeRoute ? " active" : "");
+            b.innerHTML = '<span class="ico">' + item.icon + "</span> " + item.label;
+            b.addEventListener("click", () => navigate(item.id));
+            nav.appendChild(b);
+          });
+        }
+
+        function setPageHead(title, subtitle) {
+          $("pageHead").innerHTML =
+            "<h2>" +
+            escapeHtml(title) +
+            "</h2>" +
+            (subtitle ? "<p>" + escapeHtml(subtitle) + "</p>" : "");
+        }
+
+        function escapeHtml(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function field(label, value, onInput) {
+          const wrap = document.createElement("div");
+          const lab = document.createElement("span");
+          lab.className = "floating-label";
+          lab.textContent = label;
+          const inp = document.createElement("input");
+          inp.className = "field";
+          inp.value = value != null ? String(value) : "";
+          inp.addEventListener("input", () => {
+            onInput(inp.value);
+            markDirty();
+          });
+          wrap.appendChild(lab);
+          wrap.appendChild(inp);
+          return wrap;
+        }
+
+        function textLang(labelAr, labelEn, obj, onChange) {
+          const wrap = document.createElement("div");
+          wrap.className = "row-2";
+          const a = document.createElement("div");
+          const b = document.createElement("div");
+          const la = document.createElement("span");
+          la.className = "floating-label";
+          la.textContent = labelAr;
+          const ta = document.createElement("textarea");
+          ta.className = "field";
+          ta.value = (obj && obj.ar) || "";
+          ta.addEventListener("input", () => {
+            onChange("ar", ta.value);
+            markDirty();
+          });
+          const lb = document.createElement("span");
+          lb.className = "floating-label";
+          lb.textContent = labelEn;
+          const tb = document.createElement("textarea");
+          tb.className = "field";
+          tb.value = (obj && obj.en) || "";
+          tb.addEventListener("input", () => {
+            onChange("en", tb.value);
+            markDirty();
+          });
+          a.appendChild(la);
+          a.appendChild(ta);
+          b.appendChild(lb);
+          b.appendChild(tb);
+          wrap.appendChild(a);
+          wrap.appendChild(b);
+          return wrap;
+        }
+
+        /* ——— Demo bookings (UI only; not sent to API) ——— */
+        function getDemoBookings() {
+          try {
+            const raw = localStorage.getItem("ps_admin_demo_bookings");
+            if (raw) return JSON.parse(raw);
+          } catch (e) {}
+          return [
+            {
+              id: "b1",
+              date: "2026-05-02",
+              patient: "A. Hassan",
+              service: "Cleaning",
+              doctor: "Dr. Sara Yousef",
+              status: "Confirmed",
+            },
+            {
+              id: "b2",
+              date: "2026-05-03",
+              patient: "M. Ali",
+              service: "Implant consult",
+              doctor: "Dr. Shadi Almoghayer",
+              status: "Pending",
+            },
+            {
+              id: "b3",
+              date: "2026-05-04",
+              patient: "R. Omar",
+              service: "Whitening",
+              doctor: "Dr. Nada Alawadhi",
+              status: "Confirmed",
+            },
+          ];
+        }
+
+        function saveDemoBookings(rows) {
+          localStorage.setItem("ps_admin_demo_bookings", JSON.stringify(rows));
+        }
+
+        function renderOverview(root) {
+          setPageHead("Overview", "Key metrics and quick actions for your clinic.");
+          root.innerHTML = "";
+          const s = state.stats || {};
+          const kpi = document.createElement("div");
+          kpi.className = "grid-kpi";
+          kpi.innerHTML =
+            '<article class="kpi-card glass"><div class="label">Patients</div><div class="value">' +
+            escapeHtml(String(s.patients ?? "—")) +
+            '</div><div class="hint">Public site stat</div></article>' +
+            '<article class="kpi-card glass"><div class="label">Doctors</div><div class="value">' +
+            escapeHtml(String(s.doctors ?? "—")) +
+            '</div><div class="hint">Team count</div></article>' +
+            '<article class="kpi-card glass"><div class="label">Bookings</div><div class="value">' +
+            escapeHtml(String(bookingsCache.length)) +
+            '</div><div class="hint">Tracked bookings</div></article>' +
+            '<article class="kpi-card glass"><div class="label">Revenue</div><div class="value">—</div><div class="hint">Connect billing later</div></article>';
+          root.appendChild(kpi);
+
+          const quick = document.createElement("div");
+          quick.className = "card glass";
+          quick.innerHTML = '<h3 class="section-title">Quick edit · homepage stats</h3>';
+          const qg = document.createElement("div");
+          qg.className = "quick-grid";
+          [
+            ["patients", "Patients (home bar)"],
+            ["doctors", "Doctors (home bar)"],
+            ["staff", "Staff (home bar)"],
+          ].forEach(([k, lab]) => {
+            qg.appendChild(
+              field(lab, s[k], (v) => {
+                s[k] = Number(v) || 0;
+              })
+            );
+          });
+          quick.appendChild(qg);
+          root.appendChild(quick);
+
+          const topDoc = document.createElement("div");
+          topDoc.className = "card glass";
+          topDoc.innerHTML = '<h3 class="section-title">Top doctors</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted)">From your team list (first five).</p>';
+          const chips = document.createElement("div");
+          chips.className = "doctor-chips";
+          (state.doctors || []).slice(0, 5).forEach((d) => {
+            const el = document.createElement("div");
+            el.className = "doctor-chip glass";
+            el.innerHTML =
+              '<div class="n">' +
+              escapeHtml(d.name?.en || d.name?.ar || d.id) +
+              '</div><div class="r">' +
+              escapeHtml(d.role?.en || d.role?.ar || "") +
+              "</div>";
+            el.addEventListener("click", () => {
+              track("doctor_click", { doctor: d.name?.en || d.name?.ar || d.id });
+            });
+            chips.appendChild(el);
+          });
+          topDoc.appendChild(chips);
+          root.appendChild(topDoc);
+
+          const bookingsPreview = document.createElement("div");
+          bookingsPreview.className = "card glass";
+          bookingsPreview.innerHTML =
+            '<h3 class="section-title">Recent bookings</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted)">Latest tracked bookings.</p>';
+          const rows = bookingsCache.slice(0, 5).map((r) => ({
+            date: r.date,
+            patient: r.patient_name,
+            service: r.service,
+            doctor: r.doctor,
+            status: "—",
+          }));
+          const tw = document.createElement("div");
+          tw.className = "table-wrap";
+          if (!rows.length) {
+            tw.innerHTML = '<div class="empty-hint">No bookings yet.</div>';
+          } else {
+            tw.innerHTML =
+              "<table class=\"data-table\"><thead><tr><th>Date</th><th>Patient</th><th>Service</th><th>Doctor</th><th>Status</th></tr></thead><tbody>" +
+              rows
+                .map(
+                  (r) =>
+                    "<tr><td>" +
+                    escapeHtml(r.date) +
+                    "</td><td>" +
+                    escapeHtml(r.patient) +
+                    "</td><td>" +
+                    escapeHtml(r.service) +
+                    "</td><td>" +
+                    escapeHtml(r.doctor) +
+                    "</td><td><span class=\"pill\">" +
+                    escapeHtml(r.status) +
+                    "</span></td></tr>"
+                )
+                .join("") +
+              "</tbody></table>";
+          }
+          bookingsPreview.appendChild(tw);
+          root.appendChild(bookingsPreview);
+        }
+
+        function renderStats(root) {
+          setPageHead("Statistics", "Numbers shown on the homepage stats bar and About page.");
+          root.innerHTML = "";
+          const s = state.stats;
+          const card = document.createElement("div");
+          card.className = "card glass";
+          card.innerHTML = '<h3 class="section-title">Homepage stats bar</h3>';
+          const grid = document.createElement("div");
+          grid.className = "row-2";
+          [
+            ["patients", "Patients"],
+            ["doctors", "Doctors"],
+            ["staff", "Staff"],
+          ].forEach(([k, lab]) => {
+            grid.appendChild(
+              field(lab, s[k], (v) => {
+                s[k] = Number(v) || 0;
+              })
+            );
+          });
+          card.appendChild(grid);
+          root.appendChild(card);
+
+          const card2 = document.createElement("div");
+          card2.className = "card glass";
+          card2.innerHTML = '<h3 class="section-title">About page</h3>';
+          const grid2 = document.createElement("div");
+          grid2.className = "row-2";
+          [
+            ["aboutPatients", "Patients"],
+            ["aboutDoctors", "Doctors"],
+            ["aboutStaff", "Staff"],
+            ["aboutSatisfaction", "Satisfaction %"],
+          ].forEach(([k, lab]) => {
+            grid2.appendChild(
+              field(lab, s[k], (v) => {
+                s[k] = Number(v) || 0;
+              })
+            );
+          });
+          card2.appendChild(grid2);
+          root.appendChild(card2);
+        }
+
+        function appendOffersPageCard(parent) {
+          const card = document.createElement("div");
+          card.className = "card glass";
+          const ht = document.createElement("h3");
+          ht.className = "section-title";
+          ht.textContent = "Offers page · headings";
+          card.appendChild(ht);
+          if (!state.offersPage) state.offersPage = {};
+          const p = state.offersPage;
+          const keys = [
+            ["heroEyebrow", "Hero eyebrow"],
+            ["heroTitle", "Hero title"],
+            ["sectionEyebrow", "Section eyebrow"],
+            ["sectionTitle", "Section title"],
+          ];
+          keys.forEach(([key, title]) => {
+            if (!p[key]) p[key] = { ar: "", en: "" };
+            card.appendChild(
+              textLang(title + " · AR", title + " · EN", p[key], (lang, val) => {
+                p[key][lang] = val;
+              })
+            );
+          });
+          parent.appendChild(card);
+        }
+
+        function listEditor(parent, key, title, fields) {
+          const card = document.createElement("div");
+          card.className = "card glass";
+          if (title) {
+            const h = document.createElement("h3");
+            h.className = "section-title";
+            h.textContent = title;
+            card.appendChild(h);
+          }
+
+          const toolbar = document.createElement("div");
+          toolbar.className = "toolbar-inline";
+          const search = document.createElement("input");
+          search.type = "search";
+          search.className = "search-input";
+          search.placeholder = "Search…";
+          search.setAttribute("aria-label", "Search list");
+          toolbar.appendChild(search);
+
+          const addBtn = document.createElement("button");
+          addBtn.type = "button";
+          addBtn.className = "btn btn-primary";
+          addBtn.textContent = "+ Add";
+          addBtn.addEventListener("click", () => {
+            const id = "new-" + Date.now();
+            const row = { id };
+            fields.forEach((f) => {
+              if (f.type === "lang") row[f.key] = { ar: "", en: "" };
+              else row[f.key] = f.default != null ? f.default : "";
+            });
+            state[key].push(row);
+            markDirty();
+            navigate(activeRoute);
+          });
+          toolbar.appendChild(addBtn);
+          card.appendChild(toolbar);
+
+          const listHost = document.createElement("div");
+          listHost.className = "list-host";
+
+          function itemMatches(item, q) {
+            if (!q) return true;
+            const hay = JSON.stringify(item).toLowerCase();
+            return hay.includes(q);
+          }
+
+          function paint() {
+            listHost.innerHTML = "";
+            const q = (search.value || "").trim().toLowerCase();
+            state[key].forEach((item) => {
+              if (!itemMatches(item, q)) return;
+
+              const it = document.createElement("div");
+              it.className = "item";
+              const head = document.createElement("div");
+              head.className = "item-head";
+              const strong = document.createElement("strong");
+              strong.textContent = item.title
+                ? item.title.en || item.title.ar || item.id
+                : item.name
+                  ? item.name.en || item.name.ar || item.id
+                  : item.id;
+              const del = document.createElement("button");
+              del.type = "button";
+              del.className = "btn btn-danger";
+              del.textContent = "Delete";
+              del.addEventListener("click", () => {
+                if (!confirm("Delete this row?")) return;
+                const i = state[key].indexOf(item);
+                if (i !== -1) state[key].splice(i, 1);
+                markDirty();
+                navigate(activeRoute);
+              });
+              head.appendChild(strong);
+              head.appendChild(del);
+              it.appendChild(head);
+
+              fields.forEach((f) => {
+                if (f.type === "lang") {
+                  if (!item[f.key]) item[f.key] = { ar: "", en: "" };
+                  it.appendChild(
+                    textLang(f.labelAr, f.labelEn, item[f.key], (lang, val) => {
+                      item[f.key][lang] = val;
+                      strong.textContent = item.title
+                        ? item.title.en || item.title.ar || item.id
+                        : item.name
+                          ? item.name.en || item.name.ar || item.id
+                          : item.id;
+                    })
+                  );
+                } else if (f.type === "text") {
+                  it.appendChild(
+                    field(f.label, item[f.key], (v) => {
+                      item[f.key] = v;
+                    })
+                  );
+                } else if (f.type === "image") {
+                  it.appendChild(
+                    createImageUploader({
+                      label: f.label || "Image",
+                      size: { w: 72, h: 72 },
+                      get: () => item[f.key],
+                      set: (v) => {
+                        item[f.key] = v;
+                      },
+                    })
+                  );
+                }
+              });
+              listHost.appendChild(it);
+            });
+          }
+
+          search.addEventListener("input", paint);
+          paint();
+          card.appendChild(listHost);
+          parent.appendChild(card);
+        }
+
+        function renderServicesTab(root) {
+          setPageHead("Services", "Manage service cards and homepage featured order.");
+          track("service_click", { service: "services_tab" });
+          root.innerHTML = "";
+          listEditor(root, "services", "All services", [
+            { type: "text", key: "id", label: "Slug id" },
+            { type: "text", key: "icon", label: "Icon (emoji)" },
+            { type: "image", key: "image", label: "Card image (optional)" },
+            { type: "text", key: "href", label: "Detail page URL" },
+            { type: "lang", key: "title", labelAr: "Title AR", labelEn: "Title EN" },
+            { type: "lang", key: "text", labelAr: "Short AR", labelEn: "Short EN" },
+            { type: "lang", key: "more", labelAr: "More AR", labelEn: "More EN" },
+          ]);
+          const extra = document.createElement("div");
+          extra.className = "card glass";
+          extra.innerHTML =
+            '<h3 class="section-title">Homepage · featured service IDs</h3><p class="help-text">Comma-separated, must match service slugs.</p>';
+          const ta = document.createElement("input");
+          ta.className = "field";
+          ta.value = (state.homeFeaturedServiceIds || []).join(", ");
+          ta.addEventListener("input", () => {
+            state.homeFeaturedServiceIds = ta.value
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean);
+            markDirty();
+          });
+          extra.appendChild(ta);
+          root.appendChild(extra);
+        }
+
+        function renderDoctorsTab(root) {
+          setPageHead("Doctors", "Team directory and homepage spotlight.");
+          track("doctor_click", { doctor: "doctors_tab" });
+          root.innerHTML = "";
+          listEditor(root, "doctors", "Team (booking dropdown)", [
+            { type: "text", key: "id", label: "Id" },
+            { type: "image", key: "image", label: "Doctor photo (optional)" },
+            { type: "lang", key: "name", labelAr: "Name AR", labelEn: "Name EN" },
+            { type: "lang", key: "role", labelAr: "Role AR", labelEn: "Role EN" },
+          ]);
+          listEditor(root, "homeDoctors", "Homepage · spotlight doctors", [
+            { type: "text", key: "id", label: "Id" },
+            { type: "image", key: "image", label: "Doctor photo (optional)" },
+            { type: "lang", key: "name", labelAr: "Name AR", labelEn: "Name EN" },
+            { type: "lang", key: "role", labelAr: "Role AR", labelEn: "Role EN" },
+          ]);
+          const idsCard = document.createElement("div");
+          idsCard.className = "card glass";
+          idsCard.innerHTML =
+            '<h3 class="section-title">Homepage doctor IDs</h3><p class="help-text">Comma order · must match spotlight ids.</p>';
+          const inp = document.createElement("input");
+          inp.className = "field";
+          inp.value = (state.homeDoctorIds || []).join(", ");
+          inp.addEventListener("input", () => {
+            state.homeDoctorIds = inp.value
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean);
+            markDirty();
+          });
+          idsCard.appendChild(inp);
+          root.appendChild(idsCard);
+        }
+
+        function renderHomepageTab(root) {
+          setPageHead("Homepage", "About section on the home page — text, highlight cards, visual image, and CTAs.");
+          flattenHomeAboutForAdmin(state);
+          root.innerHTML = "";
+          const ha = state.homeAbout;
+
+          const copyCard = document.createElement("div");
+          copyCard.className = "card glass";
+          copyCard.innerHTML = '<h3 class="section-title">About section · copy</h3>';
+          copyCard.appendChild(
+            textLang("Eyebrow · AR", "Eyebrow · EN", ha.eyebrow, (lang, val) => {
+              ha.eyebrow[lang] = val;
+            })
+          );
+          copyCard.appendChild(
+            textLang("Section title · AR", "Section title · EN", ha.title, (lang, val) => {
+              ha.title[lang] = val;
+            })
+          );
+          copyCard.appendChild(
+            textLang("Description · AR", "Description · EN", ha.description, (lang, val) => {
+              ha.description[lang] = val;
+            })
+          );
+          copyCard.appendChild(
+            textLang("Highlights label · AR", "Highlights label · EN", ha.highlightsLabel, (lang, val) => {
+              ha.highlightsLabel[lang] = val;
+            })
+          );
+          root.appendChild(copyCard);
+
+          const visCard = document.createElement("div");
+          visCard.className = "card glass";
+          visCard.innerHTML = '<h3 class="section-title">About section · visual</h3>';
+          visCard.appendChild(
+            createImageUploader({
+              label: "Hero image (optional — overlays gradient)",
+              size: { w: 240, h: 150 },
+              get: () => ha.visual.image,
+              set: (v) => {
+                ha.visual.image = v;
+              },
+            })
+          );
+          visCard.appendChild(
+            textLang("Visual headline · AR", "Visual headline · EN", ha.visual.kicker, (lang, val) => {
+              ha.visual.kicker[lang] = val;
+            })
+          );
+          visCard.appendChild(
+            textLang("Visual subline · AR", "Visual subline · EN", ha.visual.sub, (lang, val) => {
+              ha.visual.sub[lang] = val;
+            })
+          );
+          visCard.appendChild(
+            textLang("Chip text · AR", "Chip text · EN", ha.visual.chip, (lang, val) => {
+              ha.visual.chip[lang] = val;
+            })
+          );
+          root.appendChild(visCard);
+
+          const ctaCard = document.createElement("div");
+          ctaCard.className = "card glass";
+          ctaCard.innerHTML =
+            '<h3 class="section-title">Buttons</h3><p style="font-size:0.85rem;color:var(--text-muted);margin:-0.25rem 0 1rem;line-height:1.45">Leave button text empty to use the site default translation. URLs are relative to the site (e.g. <code>#booking</code>, <code>about.html</code>).</p>';
+          ctaCard.appendChild(
+            textLang("Primary · AR", "Primary · EN", ha.cta.primaryLabel, (lang, val) => {
+              ha.cta.primaryLabel[lang] = val;
+            })
+          );
+          ctaCard.appendChild(
+            textLang("Secondary · AR", "Secondary · EN", ha.cta.secondaryLabel, (lang, val) => {
+              ha.cta.secondaryLabel[lang] = val;
+            })
+          );
+          ctaCard.appendChild(
+            textLang("Tertiary · AR", "Tertiary · EN", ha.cta.tertiaryLabel, (lang, val) => {
+              ha.cta.tertiaryLabel[lang] = val;
+            })
+          );
+          ctaCard.appendChild(
+            field("Primary URL", ha.cta.primaryHref, (v) => {
+              ha.cta.primaryHref = v;
+            })
+          );
+          ctaCard.appendChild(
+            field("Secondary URL", ha.cta.secondaryHref, (v) => {
+              ha.cta.secondaryHref = v;
+            })
+          );
+          ctaCard.appendChild(
+            field("Tertiary URL", ha.cta.tertiaryHref, (v) => {
+              ha.cta.tertiaryHref = v;
+            })
+          );
+          root.appendChild(ctaCard);
+
+          listEditor(root, "homeAboutPills", "Quick pills", [
+            { type: "lang", key: "title", labelAr: "Text · AR", labelEn: "Text · EN" },
+          ]);
+          listEditor(root, "homeAboutCards", "Highlight cards", [
+            { type: "text", key: "id", label: "Id" },
+            { type: "text", key: "icon", label: "Icon / emoji" },
+            { type: "lang", key: "title", labelAr: "Title · AR", labelEn: "Title · EN" },
+            { type: "lang", key: "text", labelAr: "Description · AR", labelEn: "Description · EN" },
+          ]);
+          listEditor(root, "homeAboutTags", "Lines under visual (optional)", [
+            { type: "lang", key: "title", labelAr: "Line · AR", labelEn: "Line · EN" },
+          ]);
+        }
+
+        function renderOffersTab(root) {
+          setPageHead("Offers", "Public offers page copy and cards.");
+          root.innerHTML = "";
+          appendOffersPageCard(root);
+          listEditor(root, "offers", "Offer cards", [
+            { type: "text", key: "id", label: "Id" },
+            { type: "image", key: "image", label: "Offer image (optional)" },
+            { type: "lang", key: "title", labelAr: "Title AR", labelEn: "Title EN" },
+            { type: "lang", key: "text", labelAr: "Text AR", labelEn: "Text EN" },
+          ]);
+        }
+
+        function renderBookings(root) {
+          setPageHead("Bookings", "Tracked bookings — stored on the server.");
+          root.innerHTML = "";
+          const card = document.createElement("div");
+          card.className = "card glass";
+
+          const toolbar = document.createElement("div");
+          toolbar.className = "toolbar-inline";
+          const search = document.createElement("input");
+          search.type = "search";
+          search.className = "search-input";
+          search.placeholder = "Search patient, service, doctor…";
+          const fDoc = document.createElement("select");
+          fDoc.className = "filter-select";
+          fDoc.innerHTML =
+            '<option value="">All doctors</option>' +
+            (state.doctors || [])
+              .map(
+                (d) =>
+                  '<option value="' +
+                  escapeHtml(d.name?.en || d.name?.ar || "") +
+                  '">' +
+                  escapeHtml(d.name?.en || d.name?.ar || d.id) +
+                  "</option>"
+              )
+              .join("");
+          const fDate = document.createElement("input");
+          fDate.type = "date";
+          fDate.className = "filter-select";
+          const fSvc = document.createElement("select");
+          fSvc.className = "filter-select";
+          fSvc.innerHTML =
+            '<option value="">All services</option><option>Cleaning</option><option>Implant consult</option><option>Whitening</option><option>Check-up</option>';
+          toolbar.appendChild(search);
+          toolbar.appendChild(fDoc);
+          toolbar.appendChild(fDate);
+          toolbar.appendChild(fSvc);
+          card.appendChild(toolbar);
+
+          const tw = document.createElement("div");
+          tw.className = "table-wrap";
+
+          function paintTable() {
+            let rows = bookingsCache.map((r) => ({
+              id: r.id,
+              date: r.date,
+              patient: r.patient_name,
+              service: r.service,
+              doctor: r.doctor,
+              status: r.timestamp ? "Saved" : "—",
+              timestamp: r.timestamp || "",
+              patient_id: r.patient_id || "",
+            }));
+            const q = search.value.trim().toLowerCase();
+            if (q) {
+              rows = rows.filter(
+                (r) =>
+                  (r.patient + r.service + r.doctor + r.status + r.date).toLowerCase().indexOf(q) !== -1
+              );
+            }
+            if (fDoc.value) rows = rows.filter((r) => r.doctor === fDoc.value);
+            if (fDate.value) rows = rows.filter((r) => r.date === fDate.value);
+            if (fSvc.value) rows = rows.filter((r) => r.service === fSvc.value);
+            if (fDoc.value) track("doctor_click", { doctor: fDoc.value });
+            if (fSvc.value) track("service_click", { service: fSvc.value });
+
+            if (!rows.length) {
+              tw.innerHTML = '<div class="empty-hint">No rows match your filters.</div>';
+              return;
+            }
+            tw.innerHTML =
+              "<table class=\"data-table\"><thead><tr><th>Date</th><th>Patient</th><th>Service</th><th>Doctor</th><th>Status</th><th></th></tr></thead><tbody>" +
+              rows
+                .map(
+                  (r) =>
+                    "<tr data-id=\"" +
+                    escapeHtml(r.id) +
+                    "\"><td><input type=\"date\" class=\"field\" value=\"" +
+                    escapeHtml(r.date) +
+                    "\" /></td><td><input class=\"field\" value=\"" +
+                    escapeHtml(r.patient) +
+                    "\" /></td><td><input class=\"field\" value=\"" +
+                    escapeHtml(r.service) +
+                    "\" /></td><td><input class=\"field\" value=\"" +
+                    escapeHtml(r.doctor) +
+                    "\" /></td><td><input class=\"field\" value=\"" +
+                    escapeHtml(r.status) +
+                    "\" /></td><td><button type=\"button\" class=\"btn btn-danger row-del\">Remove</button></td></tr>"
+                )
+                .join("") +
+              "</tbody></table>";
+
+            tw.querySelectorAll("tr[data-id]").forEach((tr) => {
+              const id = tr.getAttribute("data-id");
+              const inputs = tr.querySelectorAll("input.field");
+              const del = tr.querySelector(".row-del");
+              async function persistRow() {
+                const isNew = !bookingsCache.some((b) => b.id === id);
+                const payload = {
+                  id,
+                  date: inputs[0].value,
+                  patient_name: inputs[1].value,
+                  service: inputs[2].value,
+                  doctor: inputs[3].value,
+                  timestamp: inputs[4].value || undefined,
+                };
+                try {
+                  const res = await apiUpsertBooking(payload);
+                  await refreshBookings();
+                  paintTable();
+                  showToast("Saved booking", true);
+                  const saved = res && res.booking ? res.booking : payload;
+                  if (isNew) {
+                    track("booking_created", {
+                      doctor: saved.doctor,
+                      service: saved.service,
+                      patient_id: saved.patient_id,
+                    });
+                  }
+                } catch (e) {
+                  showToast(e.message || "Save failed", false);
+                }
+              }
+              inputs.forEach((inp) => inp.addEventListener("change", persistRow));
+              del.addEventListener("click", async () => {
+                try {
+                  await apiDeleteBooking(id);
+                  await refreshBookings();
+                  paintTable();
+                  showToast("Booking removed", true);
+                } catch (e) {
+                  showToast(e.message || "Delete failed", false);
+                }
+              });
+            });
+          }
+
+          search.addEventListener("input", paintTable);
+          fDoc.addEventListener("change", paintTable);
+          fDate.addEventListener("change", paintTable);
+          fSvc.addEventListener("change", paintTable);
+          paintTable();
+          card.appendChild(tw);
+
+          const addRow = document.createElement("button");
+          addRow.type = "button";
+          addRow.className = "btn btn-primary";
+          addRow.style.marginTop = "0.85rem";
+          addRow.textContent = "+ Add booking";
+          addRow.addEventListener("click", async () => {
+            const id = "b" + Date.now();
+            const payload = {
+              id,
+              date: new Date().toISOString().slice(0, 10),
+              patient_name: "New patient",
+              service: "Check-up",
+              doctor:
+                (state.doctors && state.doctors[0] && (state.doctors[0].name?.en || state.doctors[0].name?.ar)) ||
+                "Doctor",
+              timestamp: new Date().toISOString(),
+            };
+            try {
+              const res = await apiUpsertBooking(payload);
+              await refreshBookings();
+              paintTable();
+              showToast("Booking added", true);
+              const saved = res && res.booking ? res.booking : payload;
+              track("booking_created", {
+                doctor: saved.doctor,
+                service: saved.service,
+                patient_id: saved.patient_id,
+              });
+            } catch (e) {
+              showToast(e.message || "Add failed", false);
+            }
+          });
+          card.appendChild(addRow);
+          root.appendChild(card);
+        }
+
+        function renderBlog(root) {
+          setPageHead("Blog", "Create and publish SEO-friendly posts. Stored on the server.");
+          root.innerHTML = "";
+
+          const shell = document.createElement("div");
+          shell.className = "card glass";
+          shell.innerHTML =
+            '<h3 class="section-title">Posts</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted)">Public pages: <code>/blog</code> and <code>/blog/&lt;slug&gt;</code></p>';
+          root.appendChild(shell);
+
+          const toolbar = document.createElement("div");
+          toolbar.className = "toolbar-inline";
+          const search = document.createElement("input");
+          search.type = "search";
+          search.className = "search-input";
+          search.placeholder = "Search title, tag, slug…";
+          toolbar.appendChild(search);
+
+          const btnNew = document.createElement("button");
+          btnNew.type = "button";
+          btnNew.className = "btn btn-primary";
+          btnNew.textContent = "+ New post";
+          toolbar.appendChild(btnNew);
+
+          const btnAi = document.createElement("button");
+          btnAi.type = "button";
+          btnAi.className = "btn btn-ghost";
+          btnAi.textContent = "Generate AI Blog";
+          toolbar.appendChild(btnAi);
+          shell.appendChild(toolbar);
+
+          const listHost = document.createElement("div");
+          shell.appendChild(listHost);
+
+          const editor = document.createElement("div");
+          editor.className = "card glass";
+          editor.innerHTML = '<h3 class="section-title">Editor</h3>';
+          root.appendChild(editor);
+
+          let posts = [];
+          let active = null;
+
+          function slugify(s) {
+            s = String(s || "").trim().toLowerCase();
+            let out = "";
+            let dash = false;
+            for (const ch of s) {
+              const ok = (ch >= "a" && ch <= "z") || (ch >= "0" && ch <= "9");
+              if (ok) {
+                out += ch;
+                dash = false;
+              } else if (!dash) {
+                out += "-";
+                dash = true;
+              }
+            }
+            out = out.replace(/^-+|-+$/g, "");
+            return out || "post-" + Date.now();
+          }
+
+          function paintList() {
+            listHost.innerHTML = "";
+            const q = String(search.value || "").trim().toLowerCase();
+            const rows = posts.filter((p) => {
+              if (!p) return false;
+              if (!q) return true;
+              const hay = JSON.stringify(p).toLowerCase();
+              return hay.includes(q);
+            });
+            if (!rows.length) {
+              listHost.innerHTML = '<div class="empty-hint">No posts yet.</div>';
+              return;
+            }
+            const tw = document.createElement("div");
+            tw.className = "table-wrap";
+            tw.innerHTML =
+              '<table class="data-table"><thead><tr><th>Title</th><th>Slug</th><th>Tag</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody>' +
+              rows
+                .map((p) => {
+                  const st = p.published === false ? "Draft" : "Published";
+                  const title = p.title && typeof p.title === "object" ? (p.title.en || p.title.ar || "Untitled") : (p.title || "Untitled");
+                  const tag = p.tag && typeof p.tag === "object" ? (p.tag.en || p.tag.ar || "—") : (p.tag || "—");
+                  return (
+                    "<tr>" +
+                    "<td>" +
+                    escapeHtml(title) +
+                    "</td><td><code>" +
+                    escapeHtml(p.slug || "") +
+                    "</code></td><td>" +
+                    escapeHtml(tag) +
+                    "</td><td><span class=\"pill\">" +
+                    escapeHtml(st) +
+                    "</span></td><td>" +
+                    escapeHtml((p.updated_at || p.published_at || "").slice(0, 10) || "—") +
+                    "</td><td>" +
+                    "<button type=\"button\" class=\"btn btn-ghost edit\" data-slug=\"" +
+                    escapeHtml(p.slug || "") +
+                    "\">Edit</button> " +
+                    "<button type=\"button\" class=\"btn btn-danger del\" data-slug=\"" +
+                    escapeHtml(p.slug || "") +
+                    "\">Delete</button>" +
+                    "</td></tr>"
+                  );
+                })
+                .join("") +
+              "</tbody></table>";
+            listHost.appendChild(tw);
+
+            tw.querySelectorAll("button.edit").forEach((b) => {
+              b.addEventListener("click", () => {
+                const slug = b.getAttribute("data-slug") || "";
+                active = posts.find((p) => String(p.slug) === slug) || null;
+                paintEditor();
+              });
+            });
+            tw.querySelectorAll("button.del").forEach((b) => {
+              b.addEventListener("click", async () => {
+                const slug = b.getAttribute("data-slug") || "";
+                if (!slug) return;
+                if (!confirm("Delete this post?")) return;
+                try {
+                  await apiAdminDeleteBlog(slug);
+                  showToast("Post deleted", true);
+                  posts = await apiAdminGetBlog();
+                  if (active && String(active.slug) === slug) active = null;
+                  paintList();
+                  paintEditor();
+                } catch (e) {
+                  showToast(e.message || "Delete failed", false);
+                }
+              });
+            });
+          }
+
+          function editorField(label, value, onInput, opts) {
+            const wrap = document.createElement("div");
+            const lab = document.createElement("span");
+            lab.className = "floating-label";
+            lab.textContent = label;
+            wrap.appendChild(lab);
+            const multiline = opts && opts.multiline;
+            const el = multiline ? document.createElement("textarea") : document.createElement("input");
+            el.className = "field";
+            if (multiline) el.style.minHeight = opts.height || "10rem";
+            el.value = value != null ? String(value) : "";
+            el.addEventListener("input", () => onInput(el.value));
+            wrap.appendChild(el);
+            return wrap;
+          }
+
+          function paintEditor() {
+            editor.innerHTML = '<h3 class="section-title">Editor</h3>';
+            if (!active) {
+              editor.innerHTML +=
+                '<div class="empty-hint">Select a post to edit, or create a new post.</div>';
+              return;
+            }
+
+            const row = active;
+            const grid = document.createElement("div");
+            grid.className = "row-2";
+
+            grid.appendChild(
+              textLang("Title · AR", "Title · EN", row.title || { ar: "", en: "" }, (lang, val) => {
+                if (!row.title || typeof row.title !== "object") row.title = { ar: "", en: "" };
+                row.title[lang] = val;
+                if (!row.slug) row.slug = slugify(row.title.en || row.title.ar || "");
+              })
+            );
+            grid.appendChild(
+              editorField("Slug (SEO)", row.slug || "", (v) => {
+                row.slug = slugify(v);
+              })
+            );
+            editor.appendChild(grid);
+
+            editor.appendChild(
+              textLang("Excerpt · AR", "Excerpt · EN", row.excerpt || { ar: "", en: "" }, (lang, val) => {
+                if (!row.excerpt || typeof row.excerpt !== "object") row.excerpt = { ar: "", en: "" };
+                row.excerpt[lang] = val;
+              })
+            );
+
+            const grid2 = document.createElement("div");
+            grid2.className = "row-2";
+            grid2.appendChild(
+              textLang("Tag · AR", "Tag · EN", row.tag || { ar: "", en: "" }, (lang, val) => {
+                if (!row.tag || typeof row.tag !== "object") row.tag = { ar: "", en: "" };
+                row.tag[lang] = val;
+              })
+            );
+            grid2.appendChild(
+              editorField("Read time (minutes)", row.read_time || "", (v) => {
+                row.read_time = Number(v) || null;
+              })
+            );
+            editor.appendChild(grid2);
+
+            editor.appendChild(
+              editorField("Hero image URL", row.hero_image || "", (v) => {
+                row.hero_image = v;
+              })
+            );
+
+            // Hero image uploader (drag & drop + preview)
+            (function () {
+              const up = createImageUploader({
+                label: "Hero image upload",
+                size: { w: 140, h: 90 },
+                get: () => row.hero_image,
+                set: (v) => {
+                  row.hero_image = v;
+                },
+              });
+              up.classList.add("item");
+              editor.appendChild(up);
+            })();
+            editor.appendChild(
+              textLang("Meta title · AR", "Meta title · EN", row.meta_title || { ar: "", en: "" }, (lang, val) => {
+                if (!row.meta_title || typeof row.meta_title !== "object") row.meta_title = { ar: "", en: "" };
+                row.meta_title[lang] = val;
+              })
+            );
+            editor.appendChild(
+              textLang("Meta description · AR", "Meta description · EN", row.meta_description || { ar: "", en: "" }, (lang, val) => {
+                if (!row.meta_description || typeof row.meta_description !== "object") row.meta_description = { ar: "", en: "" };
+                row.meta_description[lang] = val;
+              })
+            );
+
+            editor.appendChild(
+              editorField(
+                "Related slugs (comma-separated)",
+                Array.isArray(row.related_slugs) ? row.related_slugs.join(", ") : "",
+                (v) => {
+                  row.related_slugs = String(v || "")
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean);
+                }
+              )
+            );
+
+            const pubRow = document.createElement("div");
+            pubRow.className = "toolbar-inline";
+            const chk = document.createElement("input");
+            chk.type = "checkbox";
+            chk.checked = row.published !== false;
+            const lbl = document.createElement("span");
+            lbl.style.color = "var(--text-muted)";
+            lbl.style.fontSize = "0.9rem";
+            lbl.textContent = "Published (uncheck to keep as draft)";
+            chk.addEventListener("change", () => {
+              row.published = chk.checked;
+            });
+            pubRow.appendChild(chk);
+            pubRow.appendChild(lbl);
+            editor.appendChild(pubRow);
+
+            editor.appendChild(
+              textLang("Content (HTML) · AR", "Content (HTML) · EN", row.content_html || { ar: "", en: "" }, (lang, val) => {
+                if (!row.content_html || typeof row.content_html !== "object") row.content_html = { ar: "", en: "" };
+                row.content_html[lang] = val;
+              })
+            );
+
+            const actions = document.createElement("div");
+            actions.className = "toolbar-inline";
+            const btnSavePost = document.createElement("button");
+            btnSavePost.type = "button";
+            btnSavePost.className = "btn btn-primary";
+            btnSavePost.textContent = "Save post";
+
+            const btnPreview = document.createElement("a");
+            btnPreview.className = "btn btn-ghost";
+            btnPreview.textContent = "Preview";
+            btnPreview.href = apiBase + "/blog/" + encodeURIComponent(row.slug || "");
+            btnPreview.target = "_blank";
+            btnPreview.rel = "noreferrer";
+
+            btnSavePost.addEventListener("click", async () => {
+              const payload = Object.assign(
+                {
+                  slug: row.slug || slugify((row.title && (row.title.en || row.title.ar)) || ""),
+                  title: row.title || { ar: "بدون عنوان", en: "Untitled" },
+                  excerpt: row.excerpt || { ar: "", en: "" },
+                  tag: row.tag || { ar: "", en: "" },
+                  read_time: row.read_time || null,
+                  hero_image: row.hero_image || null,
+                  meta_title: row.meta_title || { ar: "", en: "" },
+                  meta_description: row.meta_description || { ar: "", en: "" },
+                  content_html: row.content_html || { ar: "", en: "" },
+                  related_slugs: Array.isArray(row.related_slugs) ? row.related_slugs : [],
+                  published: row.published !== false,
+                  published_at: row.published_at || null,
+                  updated_at: row.updated_at || null,
+                },
+                row
+              );
+
+              try {
+                const exists = posts.some((p) => p && String(p.slug) === String(row.slug));
+                if (!exists) {
+                  await apiAdminCreateBlog(payload);
+                } else {
+                  await apiAdminUpdateBlog(row.slug, payload);
+                }
+                showToast("Post saved", true);
+                posts = await apiAdminGetBlog();
+                active = posts.find((p) => p && p.slug === payload.slug) || null;
+                paintList();
+                paintEditor();
+              } catch (e) {
+                showToast(e.message || "Save failed", false);
+              }
+            });
+
+            actions.appendChild(btnSavePost);
+            actions.appendChild(btnPreview);
+            editor.appendChild(actions);
+          }
+
+          btnNew.addEventListener("click", () => {
+            const nowSlug = "post-" + Date.now();
+            active = {
+              slug: nowSlug,
+              title: { ar: "مقال جديد", en: "New post" },
+              excerpt: { ar: "ملخص قصير يظهر في صفحة المدونة…", en: "Short summary shown on the blog listing…" },
+              tag: { ar: "نصائح الأسنان", en: "Dental tips" },
+              read_time: 4,
+              hero_image: "",
+              meta_title: { ar: "مقال جديد | Pearly Smile", en: "New post | Pearly Smile" },
+              meta_description: { ar: "وصف مختصر للسيو…", en: "Meta description for SEO…" },
+              content_html: {
+                ar: "<h2>نظرة عامة</h2><p>اكتب مقالك هنا. استخدم عناوين (H2/H3)، وفقرات، وصور.</p><img src=\"https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=60\" alt=\"\" /><h2>خطوة تالية</h2><p>أضف دعوة واضحة للحجز.</p>",
+                en: "<h2>Overview</h2><p>Write your article here. Use headings (H2/H3), paragraphs, and images.</p><img src=\"https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=60\" alt=\"\" /><h2>CTA</h2><p>Add a clear next step for booking.</p>",
+              },
+              related_slugs: [],
+              published: true,
+              published_at: null,
+              updated_at: null,
+            };
+            paintEditor();
+          });
+
+          btnAi.addEventListener("click", async () => {
+            let topic = "";
+            try {
+              topic = prompt("AI topic (optional). مثال: تبييض الأسنان / Dental implants") || "";
+            } catch (e) {
+              topic = "";
+            }
+
+            const prev = btnAi.textContent;
+            btnAi.disabled = true;
+            btnAi.textContent = "Generating…";
+            try {
+              const res = await apiGenerateBlog(topic);
+              const post = res && res.post ? res.post : null;
+              if (!post) throw new Error("Invalid response");
+              posts = [post].concat(posts || []);
+              active = post;
+              paintList();
+              paintEditor();
+              showToast("Draft generated", true);
+            } catch (e) {
+              showToast(e.message || "Generation failed", false);
+            }
+            btnAi.disabled = false;
+            btnAi.textContent = prev;
+          });
+
+          search.addEventListener("input", paintList);
+
+          apiAdminGetBlog()
+            .then((rows) => {
+              posts = rows;
+              paintList();
+              paintEditor();
+            })
+            .catch((e) => {
+              listHost.innerHTML = '<div class="empty-hint">' + escapeHtml(e.message || "Failed to load blog") + "</div>";
+            });
+        }
+
+        function renderAnalytics(root) {
+          setPageHead("Analytics", "Actionable analytics from real user events + bookings.");
+          root.innerHTML = "";
+          const bookings = bookingsCache || [];
+
+          const toolbar = document.createElement("div");
+          toolbar.style.display = "flex";
+          toolbar.style.flexWrap = "wrap";
+          toolbar.style.alignItems = "center";
+          toolbar.style.justifyContent = "flex-end";
+          toolbar.style.gap = "0.5rem";
+          toolbar.style.marginBottom = "0.75rem";
+          const refreshBtn = document.createElement("button");
+          refreshBtn.type = "button";
+          refreshBtn.className = "btn btn-ghost";
+          refreshBtn.textContent = "Refresh data";
+          refreshBtn.addEventListener("click", () => renderAnalytics(root));
+          toolbar.appendChild(refreshBtn);
+          root.appendChild(toolbar);
+
+          if (window.__psAnalyticsRefresh) {
+            clearInterval(window.__psAnalyticsRefresh);
+            window.__psAnalyticsRefresh = null;
+          }
+          window.__psAnalyticsRefresh = setInterval(() => {
+            if (typeof activeRoute !== "undefined" && activeRoute !== "analytics") {
+              clearInterval(window.__psAnalyticsRefresh);
+              window.__psAnalyticsRefresh = null;
+              return;
+            }
+            renderAnalytics(root);
+          }, 45000);
+
+          const host = document.createElement("div");
+          host.innerHTML = '<div class="card glass"><div class="empty-hint">Loading events…</div></div>';
+          root.appendChild(host);
+
+          function isoDayUtc(iso) {
+            const d = new Date(iso);
+            if (Number.isNaN(d.getTime())) return "";
+            const y = d.getUTCFullYear();
+            const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+            const dd = String(d.getUTCDate()).padStart(2, "0");
+            return y + "-" + m + "-" + dd;
+          }
+
+          function drawLine(canvas, labels, values, color) {
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+            const w = canvas.width;
+            const h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
+
+            const pad = 18;
+            const max = Math.max(1, ...values);
+            const n = Math.max(2, values.length);
+            const xFor = (i) => pad + (i * (w - pad * 2)) / (n - 1);
+            const yFor = (v) => h - pad - (v * (h - pad * 2)) / (max || 1);
+
+            ctx.strokeStyle = "rgba(148,163,184,0.18)";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(pad, h - pad);
+            ctx.lineTo(w - pad, h - pad);
+            ctx.stroke();
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            values.forEach((v, i) => {
+              const x = xFor(i);
+              const y = yFor(v);
+              if (i === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            ctx.fillStyle = color;
+            values.forEach((v, i) => {
+              const x = xFor(i);
+              const y = yFor(v);
+              ctx.beginPath();
+              ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+              ctx.fill();
+            });
+
+            ctx.fillStyle = "rgba(148,163,184,0.85)";
+            ctx.font = "12px Inter, system-ui, sans-serif";
+            if (labels.length) {
+              ctx.fillText(String(labels[0]), pad, h - 4);
+              const last = String(labels[labels.length - 1]);
+              const tw = ctx.measureText(last).width;
+              ctx.fillText(last, w - pad - tw, h - 4);
+            }
+          }
+
+          function lastNDaysSeries(map, n) {
+            const days = [];
+            const vals = [];
+            const now = new Date();
+            for (let i = n - 1; i >= 0; i--) {
+              const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+              d.setUTCDate(d.getUTCDate() - i);
+              const key = isoDayUtc(d.toISOString());
+              days.push(key.slice(5)); // MM-DD
+              vals.push(map[key] || 0);
+            }
+            return { days, vals };
+          }
+
+          apiGetEvents()
+            .then((events) => {
+              host.innerHTML = "";
+
+              const sessions = new Set();
+              let totalEvents = 0;
+              let pageViews = 0;
+              const pageCounts = Object.create(null);
+              const doctorClicks = Object.create(null);
+              const serviceClicks = Object.create(null);
+              const offerViews = Object.create(null);
+              let offerViewEvents = 0;
+              const bookingCompletedSessions = new Set();
+              const dailyEvents = Object.create(null);
+              const perSessionEvents = Object.create(null);
+
+              (events || []).forEach((ev) => {
+                if (!ev || typeof ev !== "object") return;
+                totalEvents += 1;
+                if (ev.session_id) sessions.add(String(ev.session_id));
+
+                if (ev.type === "page_view") {
+                  pageViews += 1;
+                  const p = String(ev.page || "unknown");
+                  pageCounts[p] = (pageCounts[p] || 0) + 1;
+                }
+                if (ev.type === "doctor_click") {
+                  const d = String(ev.doctor || "Unknown").trim();
+                  doctorClicks[d] = (doctorClicks[d] || 0) + 1;
+                }
+                if (ev.type === "service_click") {
+                  const s = String(ev.service || "Unknown").trim();
+                  serviceClicks[s] = (serviceClicks[s] || 0) + 1;
+                }
+                if (ev.type === "offer_view") {
+                  offerViewEvents += 1;
+                  const oid = String(ev.offer_id || "unknown").trim();
+                  offerViews[oid] = (offerViews[oid] || 0) + 1;
+                }
+                if (ev.type === "booking_completed" && ev.session_id) {
+                  bookingCompletedSessions.add(String(ev.session_id));
+                }
+
+                const day = isoDayUtc(ev.timestamp || "");
+                if (day) dailyEvents[day] = (dailyEvents[day] || 0) + 1;
+
+                // For strict funnel + time-to-conversion analytics
+                const sid = ev.session_id ? String(ev.session_id) : "";
+                if (sid) {
+                  const ts = Date.parse(String(ev.timestamp || ""));
+                  if (!Number.isNaN(ts)) {
+                    (perSessionEvents[sid] || (perSessionEvents[sid] = [])).push({
+                      type: String(ev.type || ""),
+                      ts,
+                    });
+                  }
+                }
+              });
+
+              const totalSessions = sessions.size;
+              const totalBookings = bookings.length;
+              const conversionRate = totalSessions ? totalBookings / totalSessions : 0;
+              const dropOffRate = totalSessions ? (totalSessions - bookingCompletedSessions.size) / totalSessions : 0;
+
+              function normPath(p) {
+                return String(p || "").trim().toLowerCase();
+              }
+              function countPageViewsIf(pred) {
+                let n = 0;
+                (events || []).forEach((ev2) => {
+                  if (!ev2 || ev2.type !== "page_view") return;
+                  if (pred(normPath(ev2.page))) n += 1;
+                });
+                return n;
+              }
+              const kpiOffersPageViews = countPageViewsIf((p) => p.includes("offers"));
+              const kpiServicesPageViews = countPageViewsIf((p) => p.includes("services") || p.includes("service-"));
+              const kpiBlogPageViews = countPageViewsIf((p) => p.includes("blog"));
+
+              function pct(n, d) {
+                if (!d) return 0;
+                return (n / d) * 100;
+              }
+
+              function fmtMs(ms) {
+                if (!Number.isFinite(ms) || ms < 0) return "—";
+                const s = Math.round(ms / 1000);
+                const m = Math.floor(s / 60);
+                const h = Math.floor(m / 60);
+                const mm = m % 60;
+                const ss = s % 60;
+                if (h > 0) return h + "h " + String(mm).padStart(2, "0") + "m";
+                if (m > 0) return m + "m " + String(ss).padStart(2, "0") + "s";
+                return ss + "s";
+              }
+
+              // Strict funnel progression per session:
+              // page_view → doctor_click → booking_started → booking_completed
+              const strict = {
+                step1: new Set(),
+                step2: new Set(),
+                step3: new Set(),
+                step4: new Set(),
+                times: Object.create(null), // session_id -> {pv, dc, bs, bc}
+              };
+
+              Object.keys(perSessionEvents).forEach((sid) => {
+                const evs = perSessionEvents[sid];
+                if (!Array.isArray(evs) || evs.length === 0) return;
+                evs.sort((a, b) => a.ts - b.ts);
+
+                let pv = null;
+                let dc = null;
+                let bs = null;
+                let bc = null;
+
+                for (let i = 0; i < evs.length; i++) {
+                  const e = evs[i];
+                  if (!pv && e.type === "page_view") {
+                    pv = e.ts;
+                    continue;
+                  }
+                  if (pv && !dc && e.type === "doctor_click" && e.ts >= pv) {
+                    dc = e.ts;
+                    continue;
+                  }
+                  if (dc && !bs && e.type === "booking_started" && e.ts >= dc) {
+                    bs = e.ts;
+                    continue;
+                  }
+                  if (bs && !bc && e.type === "booking_completed" && e.ts >= bs) {
+                    bc = e.ts;
+                    break;
+                  }
+                }
+
+                if (pv) {
+                  strict.step1.add(sid);
+                  strict.times[sid] = { pv, dc, bs, bc };
+                }
+                if (pv && dc) strict.step2.add(sid);
+                if (pv && dc && bs) strict.step3.add(sid);
+                if (pv && dc && bs && bc) strict.step4.add(sid);
+              });
+
+              const funnel = [
+                { key: "page_view", label: "Visited (page_view)", sessions: strict.step1 },
+                { key: "doctor_click", label: "Clicked doctor", sessions: strict.step2 },
+                { key: "booking_started", label: "Started booking", sessions: strict.step3 },
+                { key: "booking_completed", label: "Completed booking", sessions: strict.step4 },
+              ];
+
+              const funnelBase = strict.step1.size;
+
+              const bookingsPerDoctor = Object.create(null);
+              const bookingsPerService = Object.create(null);
+              const dailyBookings = Object.create(null);
+
+              bookings.forEach((b) => {
+                const d = String(b.doctor || "Unknown").trim();
+                bookingsPerDoctor[d] = (bookingsPerDoctor[d] || 0) + 1;
+                const s = String(b.service || "Unknown").trim();
+                bookingsPerService[s] = (bookingsPerService[s] || 0) + 1;
+                const day = (b.date || "").trim() || isoDayUtc(b.timestamp || "");
+                if (day) dailyBookings[day] = (dailyBookings[day] || 0) + 1;
+              });
+
+              // Funnel visualization (strict progression)
+              const funnelCard = document.createElement("div");
+              funnelCard.className = "card glass";
+              funnelCard.style.marginTop = "1rem";
+              funnelCard.innerHTML =
+                '<h3 class="section-title">Funnel</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted)">Session flow: <code>page_view → doctor_click → booking_started → booking_completed</code></p>';
+
+              if (!funnelBase) {
+                funnelCard.innerHTML += '<div class="empty-hint">No page views tracked yet.</div>';
+              } else {
+                const rows = document.createElement("div");
+                rows.style.display = "grid";
+                rows.style.gap = "0.75rem";
+
+                funnel.forEach((step, idx) => {
+                  const count = step.sessions.size;
+                  const prev = idx === 0 ? funnelBase : funnel[idx - 1].sessions.size;
+                  const stepRate = idx === 0 ? 100 : pct(count, prev);
+                  const overallRate = pct(count, funnelBase);
+                  const barPct = pct(count, funnelBase);
+
+                  const row = document.createElement("div");
+                  row.className = "item";
+                  row.style.marginBottom = "0";
+                  row.innerHTML =
+                    '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;flex-wrap:wrap">' +
+                    '<div><div style="font-weight:700">' +
+                    escapeHtml(step.label) +
+                    '</div><div style="margin-top:0.15rem;font-size:0.8rem;color:var(--text-muted)">' +
+                    escapeHtml(String(count)) +
+                    ' sessions · ' +
+                    (idx === 0
+                      ? "100% of visitors"
+                      : escapeHtml(stepRate.toFixed(1) + "% step") + " · " + escapeHtml(overallRate.toFixed(1) + "% overall")) +
+                    "</div></div>" +
+                    '<div class="pill" style="white-space:nowrap">' +
+                    escapeHtml(overallRate.toFixed(1) + "%") +
+                    "</div>" +
+                    "</div>" +
+                    '<div style="margin-top:0.65rem;height:10px;border-radius:999px;overflow:hidden;border:1px solid var(--glass-border);background:rgba(148,163,184,0.12)">' +
+                    '<div style="height:100%;width:' +
+                    escapeHtml(String(Math.max(0, Math.min(100, barPct)).toFixed(1))) +
+                    '%;background:linear-gradient(90deg,var(--accent),rgba(56,189,248,0.35))"></div></div>';
+                  rows.appendChild(row);
+                });
+
+                funnelCard.appendChild(rows);
+
+                // Explicit percentages requested
+                const pClickedDoctor = pct(strict.step2.size, strict.step1.size);
+                const pStartedBooking = pct(strict.step3.size, strict.step1.size);
+                const pCompletedBooking = pct(strict.step4.size, strict.step1.size);
+                const note = document.createElement("div");
+                note.style.marginTop = "0.85rem";
+                note.style.fontSize = "0.85rem";
+                note.style.color = "var(--text-muted)";
+                note.innerHTML =
+                  "<div><strong style=\"color:var(--text)\">Visitors →</strong> " +
+                  "doctor click: <span class=\"pill\">" +
+                  escapeHtml(pClickedDoctor.toFixed(1) + "%") +
+                  "</span> · booking started: <span class=\"pill\">" +
+                  escapeHtml(pStartedBooking.toFixed(1) + "%") +
+                  "</span> · booking completed: <span class=\"pill\">" +
+                  escapeHtml(pCompletedBooking.toFixed(1) + "%") +
+                  "</span></div>";
+                funnelCard.appendChild(note);
+
+                // Step drop-offs (strict progression)
+                const d1 = pct(strict.step1.size - strict.step2.size, strict.step1.size); // visited but didn't click doctor
+                const d2 = pct(strict.step2.size - strict.step3.size, strict.step2.size); // clicked but didn't start booking
+                const d3 = pct(strict.step3.size - strict.step4.size, strict.step3.size); // started but didn't complete
+
+                const warn = document.createElement("div");
+                warn.style.marginTop = "0.6rem";
+                warn.style.fontSize = "0.85rem";
+                warn.style.color = "var(--text-muted)";
+                warn.innerHTML =
+                  '<div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center">' +
+                  '<strong style="color:var(--text)">Drop-off:</strong>' +
+                  '<span class="pill" style="background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)">' +
+                  escapeHtml(d1.toFixed(1) + "%") +
+                  "</span>" +
+                  '<span style="color:var(--text-muted)">visited → no doctor click</span>' +
+                  '<span class="pill" style="background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)">' +
+                  escapeHtml(d2.toFixed(1) + "%") +
+                  "</span>" +
+                  '<span style="color:var(--text-muted)">click → no booking start</span>' +
+                  '<span class="pill" style="background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)">' +
+                  escapeHtml(d3.toFixed(1) + "%") +
+                  "</span>" +
+                  '<span style="color:var(--text-muted)">start → no completion</span>' +
+                  "</div>";
+                funnelCard.appendChild(warn);
+              }
+              host.appendChild(funnelCard);
+
+              // Time-to-conversion analytics (strict sessions only)
+              const durations = {
+                pv_to_dc: [],
+                dc_to_bs: [],
+                bs_to_bc: [],
+                pv_to_bc: [],
+              };
+
+              const completedRows = [];
+              strict.step4.forEach((sid) => {
+                const t = strict.times[sid];
+                if (!t || !t.pv || !t.dc || !t.bs || !t.bc) return;
+                durations.pv_to_dc.push(t.dc - t.pv);
+                durations.dc_to_bs.push(t.bs - t.dc);
+                durations.bs_to_bc.push(t.bc - t.bs);
+                durations.pv_to_bc.push(t.bc - t.pv);
+                completedRows.push({ sid, total: t.bc - t.pv });
+              });
+
+              function avg(arr) {
+                if (!arr || !arr.length) return NaN;
+                let sum = 0;
+                for (let i = 0; i < arr.length; i++) sum += arr[i];
+                return sum / arr.length;
+              }
+
+              completedRows.sort((a, b) => a.total - b.total);
+              const fastest = completedRows[0] || null;
+              const slowest = completedRows.length ? completedRows[completedRows.length - 1] : null;
+
+              const timeCard = document.createElement("div");
+              timeCard.className = "card glass";
+              timeCard.innerHTML = '<h3 class="section-title">Time to conversion</h3>';
+              if (!completedRows.length) {
+                timeCard.innerHTML += '<div class="empty-hint">No completed funnel sessions yet.</div>';
+              } else {
+                const aTotal = fmtMs(avg(durations.pv_to_bc));
+                const a1 = fmtMs(avg(durations.pv_to_dc));
+                const a2 = fmtMs(avg(durations.dc_to_bs));
+                const a3 = fmtMs(avg(durations.bs_to_bc));
+
+                timeCard.innerHTML +=
+                  '<div class="row-2">' +
+                  '<div class="item"><div class="floating-label">Avg page_view → booking_completed</div><div style="font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin-top:0.25rem">' +
+                  escapeHtml(aTotal) +
+                  "</div></div>" +
+                  '<div class="item"><div class="floating-label">Avg time per step</div><div style="margin-top:0.35rem;font-size:0.9rem;line-height:1.6">' +
+                  "<div><span class=\"pill\">visit → click</span> " +
+                  escapeHtml(a1) +
+                  "</div>" +
+                  "<div><span class=\"pill\">click → start</span> " +
+                  escapeHtml(a2) +
+                  "</div>" +
+                  "<div><span class=\"pill\">start → complete</span> " +
+                  escapeHtml(a3) +
+                  "</div>" +
+                  "</div></div>" +
+                  "</div>";
+
+                timeCard.innerHTML +=
+                  '<div style="margin-top:0.85rem" class="table-wrap"><table class="data-table"><thead><tr><th>Fastest session</th><th>Time</th><th>Slowest session</th><th>Time</th></tr></thead><tbody><tr><td>' +
+                  escapeHtml(fastest ? fastest.sid : "—") +
+                  "</td><td>" +
+                  escapeHtml(fastest ? fmtMs(fastest.total) : "—") +
+                  "</td><td>" +
+                  escapeHtml(slowest ? slowest.sid : "—") +
+                  "</td><td>" +
+                  escapeHtml(slowest ? fmtMs(slowest.total) : "—") +
+                  "</td></tr></tbody></table></div>";
+              }
+              host.appendChild(timeCard);
+
+              // Insights layer (actionable recommendations)
+              (function addInsights() {
+                const insights = [];
+                const recs = [];
+
+                // Helper: build severity pills
+                function sevStyle(sev) {
+                  if (sev === "red")
+                    return "background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)";
+                  if (sev === "yellow")
+                    return "background:rgba(251,191,36,0.12);color:var(--warning);border:1px solid rgba(251,191,36,0.25)";
+                  return "background:rgba(74,222,128,0.12);color:var(--success);border:1px solid rgba(74,222,128,0.25)";
+                }
+
+                const clicked = strict.step2.size;
+                const started = strict.step3.size;
+                const completed = strict.step4.size;
+
+                const clickToComplete = clicked ? completed / clicked : 0;
+                const viewToComplete = funnelBase ? completed / funnelBase : 0;
+
+                // 1) Conversion issues: doctor_click high but booking low
+                if (clicked >= 20 && clickToComplete < 0.2) {
+                  insights.push({
+                    sev: "red",
+                    title: "Conversion issue",
+                    text:
+                      "Doctor clicks are high but completed bookings are low. This suggests the doctor experience isn’t convincing enough after interest is shown.",
+                  });
+                  recs.push("Improve doctor profiles: add clearer credentials, before/after examples, and stronger trust signals near the booking CTA.");
+                  recs.push("Make booking CTA more prominent on doctor sections (sticky CTA, clearer ‘Next available time’, WhatsApp/call fallback).");
+                } else if (clicked >= 10 && clickToComplete < 0.35) {
+                  insights.push({
+                    sev: "yellow",
+                    title: "Conversion opportunity",
+                    text:
+                      "Many users click doctors, but a smaller portion completes booking. Small UX improvements could lift conversion.",
+                  });
+                  recs.push("Reduce booking friction: fewer fields, better defaults, and inline validation/feedback.");
+                } else if (clicked >= 10 && clickToComplete >= 0.35) {
+                  insights.push({
+                    sev: "green",
+                    title: "Doctor conversion looks healthy",
+                    text: "Users who click doctors often proceed to booking completion. Keep iterating on what’s working.",
+                  });
+                }
+
+                // 2) Service issues: high service_click but low bookings
+                const totalServiceClicks = Object.values(serviceClicks).reduce((a, b) => a + b, 0);
+                const serviceToBooking = totalServiceClicks ? totalBookings / totalServiceClicks : 0;
+                if (totalServiceClicks >= 30 && serviceToBooking < 0.08) {
+                  insights.push({
+                    sev: "red",
+                    title: "Service interest not converting",
+                    text:
+                      "Services are being clicked frequently, but bookings remain low. This often means pricing/info is unclear or the value isn’t landing.",
+                  });
+                  recs.push("Add clearer service info: starting price ranges, what’s included, duration, and expected outcomes.");
+                  recs.push("Add stronger service CTAs: ‘Book this service’ buttons on service cards and detail pages.");
+                } else if (totalServiceClicks >= 15 && serviceToBooking < 0.15) {
+                  insights.push({
+                    sev: "yellow",
+                    title: "Service conversion opportunity",
+                    text:
+                      "Service clicks are solid, but bookings could be higher. Improve clarity and reduce decision anxiety.",
+                  });
+                }
+
+                // 2b) Offers: impressions vs funnel completion
+                if (offerViewEvents >= 25 && funnelBase >= 30 && viewToComplete < 0.08) {
+                  insights.push({
+                    sev: "yellow",
+                    title: "Offer visibility not converting",
+                    text:
+                      "Users are seeing offers, but few strict journeys end in a completed booking. Add stronger CTAs from offer cards to booking with the right doctor/service preselected.",
+                  });
+                  recs.push("Link each offer card to a one-click booking preset (doctor/service/date hints) and repeat the offer details inside the booking flow.");
+                }
+
+                // 3) Biggest drop-off step in funnel (strict)
+                const d1 = pct(strict.step1.size - strict.step2.size, strict.step1.size);
+                const d2 = pct(strict.step2.size - strict.step3.size, strict.step2.size);
+                const d3 = pct(strict.step3.size - strict.step4.size, strict.step3.size);
+                const drops = [
+                  { key: "visit→click", label: "Visited → no doctor click", value: d1 },
+                  { key: "click→start", label: "Doctor click → no booking start", value: d2 },
+                  { key: "start→complete", label: "Booking started → no completion", value: d3 },
+                ].filter((x) => Number.isFinite(x.value));
+
+                if (drops.length) {
+                  drops.sort((a, b) => b.value - a.value);
+                  const top = drops[0];
+                  const sev = top.value >= 55 ? "red" : top.value >= 35 ? "yellow" : "green";
+                  insights.push({
+                    sev,
+                    title: "Biggest drop-off",
+                    text: top.label + " is the largest leakage point (" + top.value.toFixed(1) + "%).",
+                  });
+                  if (top.key === "visit→click") {
+                    recs.push("Make doctors more discoverable on landing pages: above-the-fold doctor highlights + social proof + clear ‘Choose a doctor’ prompt.");
+                  } else if (top.key === "click→start") {
+                    recs.push("After a doctor click, open/anchor the booking form automatically and preselect that doctor to reduce steps.");
+                  } else if (top.key === "start→complete") {
+                    recs.push("Fix booking completion friction: simplify form, ensure mobile-friendly inputs, and make submission feedback immediate.");
+                  }
+                }
+
+                // 4) Recommendations (limit 2–3, dedupe)
+                const seen = new Set();
+                const finalRecs = [];
+                recs.forEach((r) => {
+                  const key = String(r).trim();
+                  if (!key || seen.has(key)) return;
+                  seen.add(key);
+                  finalRecs.push(key);
+                });
+
+                // Render
+                const insightsCard = document.createElement("div");
+                insightsCard.className = "card glass";
+                insightsCard.innerHTML = '<h3 class="section-title">Insights</h3>';
+
+                if (!funnelBase) {
+                  insightsCard.innerHTML += '<div class="empty-hint">Not enough event data yet to generate insights.</div>';
+                  host.appendChild(insightsCard);
+                  return;
+                }
+
+                // Quick health summary
+                insightsCard.innerHTML +=
+                  '<p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted);line-height:1.55">Based on strict journeys. Overall conversion: <span class="pill">' +
+                  escapeHtml((viewToComplete * 100).toFixed(1) + "%") +
+                  "</span></p>";
+
+                const grid = document.createElement("div");
+                grid.style.display = "grid";
+                grid.style.gridTemplateColumns = "repeat(auto-fit, minmax(240px, 1fr))";
+                grid.style.gap = "0.85rem";
+
+                (insights.length ? insights : [{ sev: "green", title: "All good", text: "No major issues detected with current thresholds." }]).forEach(
+                  (it) => {
+                    const box = document.createElement("div");
+                    box.className = "item";
+                    box.style.marginBottom = "0";
+                    box.innerHTML =
+                      '<div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-bottom:0.5rem;flex-wrap:wrap">' +
+                      "<strong>" +
+                      escapeHtml(it.title) +
+                      "</strong>" +
+                      '<span class="pill" style="' +
+                      sevStyle(it.sev) +
+                      '">' +
+                      escapeHtml(it.sev.toUpperCase()) +
+                      "</span></div>" +
+                      '<div style="font-size:0.88rem;color:var(--text-muted);line-height:1.55">' +
+                      escapeHtml(it.text) +
+                      "</div>";
+                    grid.appendChild(box);
+                  }
+                );
+                insightsCard.appendChild(grid);
+
+                const recWrap = document.createElement("div");
+                recWrap.style.marginTop = "1rem";
+                recWrap.innerHTML = '<div class="floating-label">Recommended next actions</div>';
+                if (!finalRecs.length) {
+                  recWrap.innerHTML += '<div class="empty-hint" style="padding:1rem 0">No recommendations yet.</div>';
+                } else {
+                  recWrap.innerHTML +=
+                    "<ul style=\"margin:0.6rem 0 0;padding-left:1.2rem;color:var(--text);line-height:1.6\">" +
+                    finalRecs
+                      .slice(0, 3)
+                      .map((r) => "<li style=\"margin:0.35rem 0\"><span style=\"color:var(--text-muted)\">" + escapeHtml(r) + "</span></li>")
+                      .join("") +
+                    "</ul>";
+                }
+                insightsCard.appendChild(recWrap);
+
+                host.appendChild(insightsCard);
+              })();
+
+              const kpi = document.createElement("div");
+              kpi.className = "grid-kpi";
+              kpi.innerHTML =
+                '<article class="kpi-card glass"><div class="label">Total sessions</div><div class="value">' +
+                escapeHtml(String(totalSessions)) +
+                '</div><div class="hint">Unique session_id</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Total events</div><div class="value">' +
+                escapeHtml(String(totalEvents)) +
+                '</div><div class="hint">All tracked actions</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Page views</div><div class="value">' +
+                escapeHtml(String(pageViews)) +
+                '</div><div class="hint">page_view events</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Conversion rate</div><div class="value">' +
+                escapeHtml((conversionRate * 100).toFixed(1) + "%") +
+                '</div><div class="hint">Bookings / Sessions</div></article>';
+              host.appendChild(kpi);
+
+              const kpi2 = document.createElement("div");
+              kpi2.className = "grid-kpi";
+              kpi2.style.marginTop = "1rem";
+              kpi2.innerHTML =
+                '<article class="kpi-card glass"><div class="label">Bookings</div><div class="value">' +
+                escapeHtml(String(totalBookings)) +
+                '</div><div class="hint">From bookings.json</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Drop-off rate</div><div class="value">' +
+                escapeHtml((dropOffRate * 100).toFixed(1) + "%") +
+                '</div><div class="hint">Sessions without booking_completed</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Most visited page</div><div class="value">' +
+                escapeHtml((Object.entries(pageCounts).sort((a, b) => b[1] - a[1])[0] || ["—"])[0]) +
+                '</div><div class="hint">By page_view</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Top doctor</div><div class="value">' +
+                escapeHtml((Object.entries(doctorClicks).sort((a, b) => b[1] - a[1])[0] || ["—"])[0]) +
+                '</div><div class="hint">By doctor_click</div></article>';
+              host.appendChild(kpi2);
+
+              const kpi3 = document.createElement("div");
+              kpi3.className = "grid-kpi";
+              kpi3.style.marginTop = "1rem";
+              const topOfferEntry = Object.entries(offerViews).sort((a, b) => b[1] - a[1])[0] || null;
+              const bottomOfferEntry = Object.entries(offerViews).sort((a, b) => a[1] - b[1])[0] || null;
+              kpi3.innerHTML =
+                '<article class="kpi-card glass"><div class="label">Offers page views</div><div class="value">' +
+                escapeHtml(String(kpiOffersPageViews)) +
+                '</div><div class="hint">page_view on /offers…</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Services page views</div><div class="value">' +
+                escapeHtml(String(kpiServicesPageViews)) +
+                '</div><div class="hint">services + service detail paths</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Blog page views</div><div class="value">' +
+                escapeHtml(String(kpiBlogPageViews)) +
+                '</div><div class="hint">page_view paths containing blog</div></article>' +
+                '<article class="kpi-card glass"><div class="label">Offer impressions</div><div class="value">' +
+                escapeHtml(String(offerViewEvents)) +
+                '</div><div class="hint">offer_view events · top: ' +
+                escapeHtml(topOfferEntry ? topOfferEntry[0] + " (" + topOfferEntry[1] + ")" : "—") +
+                "</div></article>";
+              host.appendChild(kpi3);
+
+              const highlightsCard = document.createElement("div");
+              highlightsCard.className = "card glass";
+              highlightsCard.style.marginTop = "1rem";
+              highlightsCard.innerHTML =
+                '<h3 class="section-title">Traffic highlights</h3>' +
+                '<p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted);line-height:1.55">Key URLs from <code>page_view</code> plus offer visibility from <code>offer_view</code>.</p>' +
+                '<div class="row-2">' +
+                '<div class="item" style="margin-bottom:0"><div class="floating-label">Offers / Services / Blog (views)</div>' +
+                "<div style=\"margin-top:0.35rem;font-size:0.9rem;line-height:1.65\">" +
+                '<div><span class="pill">Offers</span> ' +
+                escapeHtml(String(kpiOffersPageViews)) +
+                "</div>" +
+                '<div><span class="pill">Services</span> ' +
+                escapeHtml(String(kpiServicesPageViews)) +
+                "</div>" +
+                '<div><span class="pill">Blog</span> ' +
+                escapeHtml(String(kpiBlogPageViews)) +
+                "</div></div></div>" +
+                '<div class="item" style="margin-bottom:0"><div class="floating-label">Offers (in-view)</div>' +
+                "<div style=\"margin-top:0.35rem;font-size:0.9rem;line-height:1.65\">" +
+                "<div><strong style=\"color:var(--text)\">Most viewed</strong> · " +
+                escapeHtml(topOfferEntry ? topOfferEntry[0] + " — " + topOfferEntry[1] + " views" : "—") +
+                "</div>" +
+                "<div style=\"margin-top:0.35rem\"><strong style=\"color:var(--text)\">Least viewed</strong> · " +
+                escapeHtml(
+                  bottomOfferEntry && Object.keys(offerViews).length > 1
+                    ? bottomOfferEntry[0] + " — " + bottomOfferEntry[1] + " views"
+                    : bottomOfferEntry
+                      ? bottomOfferEntry[0] + " — " + bottomOfferEntry[1] + " views"
+                      : "—"
+                ) +
+                "</div></div></div></div>";
+              host.appendChild(highlightsCard);
+
+              const chartCard = document.createElement("div");
+              chartCard.className = "card glass";
+              chartCard.style.marginTop = "1rem";
+              chartCard.innerHTML = '<h3 class="section-title">Trends (last 14 days)</h3>';
+
+              const wrap = document.createElement("div");
+              wrap.className = "row-2";
+
+              const evBox = document.createElement("div");
+              evBox.innerHTML = '<div class="floating-label">Daily events</div>';
+              const evCanvas = document.createElement("canvas");
+              evCanvas.width = 640;
+              evCanvas.height = 180;
+              evCanvas.style.width = "100%";
+              evCanvas.style.borderRadius = "12px";
+              evCanvas.style.border = "1px solid var(--glass-border)";
+              evCanvas.style.background = "var(--input-bg)";
+              evBox.appendChild(evCanvas);
+
+              const bkBox = document.createElement("div");
+              bkBox.innerHTML = '<div class="floating-label">Daily bookings</div>';
+              const bkCanvas = document.createElement("canvas");
+              bkCanvas.width = 640;
+              bkCanvas.height = 180;
+              bkCanvas.style.width = "100%";
+              bkCanvas.style.borderRadius = "12px";
+              bkCanvas.style.border = "1px solid var(--glass-border)";
+              bkCanvas.style.background = "var(--input-bg)";
+              bkBox.appendChild(bkCanvas);
+
+              wrap.appendChild(evBox);
+              wrap.appendChild(bkBox);
+              chartCard.appendChild(wrap);
+              host.appendChild(chartCard);
+
+              const evSeries = lastNDaysSeries(dailyEvents, 14);
+              const bkSeries = lastNDaysSeries(dailyBookings, 14);
+              drawLine(evCanvas, evSeries.days, evSeries.vals, "rgba(56,189,248,0.95)");
+              drawLine(bkCanvas, bkSeries.days, bkSeries.vals, "rgba(74,222,128,0.95)");
+
+              const docCard = document.createElement("div");
+              docCard.className = "card glass";
+              docCard.innerHTML = '<h3 class="section-title">Top doctors</h3>';
+              const docAll = Array.from(new Set([...Object.keys(doctorClicks), ...Object.keys(bookingsPerDoctor)])).map((name) => ({
+                name,
+                clicks: doctorClicks[name] || 0,
+                bookings: bookingsPerDoctor[name] || 0,
+              }));
+              const docRows = [...docAll].sort((a, b) => b.clicks - a.clicks || b.bookings - a.bookings).slice(0, 12);
+              const docLeast = [...docAll].sort((a, b) => a.clicks - b.clicks || a.bookings - b.bookings).slice(0, 5);
+              if (!docRows.length) {
+                docCard.innerHTML += '<div class="empty-hint">No doctor interactions yet.</div>';
+              } else {
+                docCard.innerHTML +=
+                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Doctor</th><th>Clicks</th><th>Bookings</th></tr></thead><tbody>' +
+                  docRows
+                    .map((r) => "<tr><td>" + escapeHtml(r.name) + "</td><td>" + escapeHtml(String(r.clicks)) + "</td><td>" + escapeHtml(String(r.bookings)) + "</td></tr>")
+                    .join("") +
+                  "</tbody></table></div>";
+                docCard.innerHTML +=
+                  '<h4 style="margin:1rem 0 0.5rem;font-size:0.95rem;color:var(--text)">Lowest click volume (needs attention)</h4>' +
+                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Doctor</th><th>Clicks</th><th>Bookings</th></tr></thead><tbody>' +
+                  docLeast
+                    .map((r) => "<tr><td>" + escapeHtml(r.name) + "</td><td>" + escapeHtml(String(r.clicks)) + "</td><td>" + escapeHtml(String(r.bookings)) + "</td></tr>")
+                    .join("") +
+                  "</tbody></table></div>";
+              }
+              host.appendChild(docCard);
+
+              const svcCard = document.createElement("div");
+              svcCard.className = "card glass";
+              svcCard.innerHTML = '<h3 class="section-title">Most popular services</h3>';
+              const svcRows = Array.from(new Set([...Object.keys(serviceClicks), ...Object.keys(bookingsPerService)]))
+                .map((name) => ({
+                  name,
+                  clicks: serviceClicks[name] || 0,
+                  bookings: bookingsPerService[name] || 0,
+                }))
+                .sort((a, b) => b.clicks - a.clicks || b.bookings - a.bookings)
+                .slice(0, 12);
+              if (!svcRows.length) {
+                svcCard.innerHTML += '<div class="empty-hint">No service interactions yet.</div>';
+              } else {
+                svcCard.innerHTML +=
+                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Service</th><th>Clicks</th><th>Bookings</th></tr></thead><tbody>' +
+                  svcRows
+                    .map((r) => "<tr><td>" + escapeHtml(r.name) + "</td><td>" + escapeHtml(String(r.clicks)) + "</td><td>" + escapeHtml(String(r.bookings)) + "</td></tr>")
+                    .join("") +
+                  "</tbody></table></div>";
+              }
+              host.appendChild(svcCard);
+
+              const pagesCard = document.createElement("div");
+              pagesCard.className = "card glass";
+              pagesCard.innerHTML = '<h3 class="section-title">Most visited pages</h3>';
+              const pageRows = Object.entries(pageCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 12);
+              if (!pageRows.length) {
+                pagesCard.innerHTML += '<div class="empty-hint">No page views tracked yet.</div>';
+              } else {
+                pagesCard.innerHTML +=
+                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Page</th><th>Views</th></tr></thead><tbody>' +
+                  pageRows.map(([p, n]) => "<tr><td>" + escapeHtml(p) + "</td><td>" + escapeHtml(String(n)) + "</td></tr>").join("") +
+                  "</tbody></table></div>";
+              }
+              host.appendChild(pagesCard);
+
+              const offersCard = document.createElement("div");
+              offersCard.className = "card glass";
+              offersCard.innerHTML = '<h3 class="section-title">Offer visibility (offer_view)</h3>';
+              const offerRows = Object.entries(offerViews).sort((a, b) => b[1] - a[1]);
+              if (!offerRows.length) {
+                offersCard.innerHTML += '<div class="empty-hint">No offer_view events yet. Open the public Offers page to generate impressions.</div>';
+              } else {
+                offersCard.innerHTML +=
+                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Offer ID</th><th>Views</th><th>Share</th></tr></thead><tbody>' +
+                  offerRows
+                    .slice(0, 20)
+                    .map(([id, n]) => {
+                      const share = offerViewEvents ? ((n / offerViewEvents) * 100).toFixed(1) + "%" : "—";
+                      return "<tr><td>" + escapeHtml(id) + "</td><td>" + escapeHtml(String(n)) + "</td><td>" + escapeHtml(share) + "</td></tr>";
+                    })
+                    .join("") +
+                  "</tbody></table></div>";
+                if (offerRows.length > 1) {
+                  const tail = offerRows.slice(-5).reverse();
+                  offersCard.innerHTML +=
+                    '<h4 style="margin:1rem 0 0.5rem;font-size:0.95rem;color:var(--text)">Lowest visibility</h4>' +
+                    '<div class="table-wrap"><table class="data-table"><thead><tr><th>Offer ID</th><th>Views</th></tr></thead><tbody>' +
+                    tail.map(([id, n]) => "<tr><td>" + escapeHtml(id) + "</td><td>" + escapeHtml(String(n)) + "</td></tr>").join("") +
+                    "</tbody></table></div>";
+                }
+              }
+              host.appendChild(offersCard);
+            })
+            .catch((e) => {
+              host.innerHTML = '<div class="card glass"><div class="empty-hint">' + escapeHtml(e.message || "Failed to load events") + "</div></div>";
+            });
+        }
+
+        const routes = {
+          overview: renderOverview,
+          stats: renderStats,
+          homepage: renderHomepageTab,
+          services: renderServicesTab,
+          doctors: renderDoctorsTab,
+          offers: renderOffersTab,
+          bookings: renderBookings,
+          blog: renderBlog,
+          analytics: renderAnalytics,
+        };
+
+        function navigate(id) {
+          if (window.__psAnalyticsRefresh) {
+            clearInterval(window.__psAnalyticsRefresh);
+            window.__psAnalyticsRefresh = null;
+          }
+          activeRoute = id;
+          renderSidebar();
+          const main = $("mainContent");
+          main.innerHTML = "";
+          const fn = routes[id];
+          if (fn && state) fn(main);
+          closeSidebarMobile();
+          track("page_visit", { service: id });
+        }
+
+        function closeSidebarMobile() {
+          $("sidebar").classList.remove("open");
+          $("sidebarBackdrop").classList.remove("show");
+        }
+
+        $("menuToggle").addEventListener("click", () => {
+          $("sidebar").classList.toggle("open");
+          $("sidebarBackdrop").classList.toggle("show");
+        });
+        $("sidebarBackdrop").addEventListener("click", closeSidebarMobile);
+
+        function showDash() {
+          $("loginScreen").classList.add("hidden");
+          $("appDash").classList.remove("hidden");
+          renderSidebar();
+          navigate(activeRoute);
+          markSaved();
+          track("page_visit", { service: "dashboard" });
+        }
+
+        function showLogin() {
+          $("appDash").classList.add("hidden");
+          $("loginScreen").classList.remove("hidden");
+          closeSidebarMobile();
+        }
+
+        $("btnLogin").addEventListener("click", async () => {
+          $("loginErr").textContent = "";
+          try {
+            token = await apiLogin($("u").value.trim(), $("p").value);
+            sessionStorage.setItem(TOKEN_KEY, token);
+            state = await apiGet();
+            flattenHomeAboutForAdmin(state);
+            await refreshBookings();
+            showDash();
+            showToast("Welcome back", true);
+          } catch (e) {
+            $("loginErr").textContent = e.message || "Login failed";
+          }
+        });
+
+        $("btnLogout").addEventListener("click", () => {
+          token = null;
+          sessionStorage.removeItem(TOKEN_KEY);
+          state = null;
+          showLogin();
+        });
+
+        $("btnReload").addEventListener("click", async () => {
+          try {
+            state = await apiGet();
+            flattenHomeAboutForAdmin(state);
+            await refreshBookings();
+            navigate(activeRoute);
+            markSaved();
+            showToast("Reloaded from server", true);
+          } catch (e) {
+            saveState = "error";
+            updateSaveStatus();
+            showToast(e.message, false);
+          }
+        });
+
+        $("btnSave").addEventListener("click", async () => {
+          saveState = "saving";
+          updateSaveStatus();
+          try {
+            await apiSave(prepareStateForSave(state));
+            saveState = "saved";
+            markSaved();
+            showToast("Saved · refresh the public site to publish", true);
+          } catch (e) {
+            saveState = "error";
+            updateSaveStatus();
+            showToast(e.message, false);
+          }
+        });
+
+        async function bootstrap() {
+          if (token) {
+            try {
+              state = await apiGet();
+              flattenHomeAboutForAdmin(state);
+              await refreshBookings();
+              showDash();
+              return;
+            } catch (e) {
+              token = null;
+              sessionStorage.removeItem(TOKEN_KEY);
+            }
+          }
+          showLogin();
+        }
+
+        bootstrap();
+      })();
+    </script>
+  </body>
+</html>

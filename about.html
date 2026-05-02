@@ -70,6 +70,7 @@
             <li>
               <a href="offers.html" data-translate="navOffers">عروضنا</a>
             </li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
             <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
             <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
@@ -240,19 +241,19 @@
           </p>
           <div class="stats-grid">
             <div class="stat-item">
-              <div class="stat-number" data-count="8500">0</div>
+              <div class="stat-number" data-stat="aboutPatients" data-count="8500">0</div>
               <div class="stat-label" data-translate="statPatients">مريض راضٍ</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number" data-count="15">0</div>
+              <div class="stat-number" data-stat="aboutDoctors" data-count="15">0</div>
               <div class="stat-label" data-translate="statDoctors">طبيب متخصص</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number" data-count="45">0</div>
+              <div class="stat-number" data-stat="aboutStaff" data-count="45">0</div>
               <div class="stat-label" data-translate="statStaff">موظف داعم</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number" data-count="98">0</div>
+              <div class="stat-number" data-stat="aboutSatisfaction" data-count="98">0</div>
               <div class="stat-label" data-translate="statSatisfaction">% رضا المرضى</div>
             </div>
           </div>
@@ -342,12 +343,12 @@
         "@context": "https://schema.org",
         "@type": "Dentist",
         "name": "Pearly Smile Dental Center",
-        "description": "مركز طب الأسنان الرائد في أبوظبي يقدم رعاية أسنان متكاملة بتقنيات حديثة وطاقم طبي محترف.",
+        "description": "عيادة أسنان حديثة تقدم رعاية متكاملة وتقنيات متطورة للحجز السريع باللغة العربية والإنجليزية.",
         "foundingDate": "2018",
         "address": {
           "@type": "PostalAddress",
-          "addressCountry": "AE",
-          "addressLocality": "Abu Dhabi",
+          "addressCountry": "SA",
+          "addressLocality": "Riyadh",
           "streetAddress": "Pearly Smile Dental Center"
         },
         "telephone": "+966500000000",
@@ -356,6 +357,41 @@
         "medicalSpecialty": "Dentistry"
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalClinic",
+            "name": "Pearly Smile Dental Center",
+            "url": "/",
+            "telephone": "+966500000000",
+            "address": { "@type": "PostalAddress", "addressCountry": "SA", "addressLocality": "Riyadh" },
+            "keywords": ["about", "dental clinic", "dentist", "services", "doctors"]
+          },
+          {
+            "@type": "Dataset",
+            "name": "Pearly Smile AI index",
+            "description": "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+            "url": "/api/ai-index",
+            "keywords": ["clinic", "services", "doctors", "offers", "blog"]
+          }
+        ]
+      }
+    </script>
+    <script>
+      try {
+        window.__API_BASE__ =
+          typeof window.__API_BASE__ !== "undefined"
+            ? window.__API_BASE__
+            : location.protocol === "file:"
+              ? "http://127.0.0.1:8000"
+              : location.origin;
+      } catch (e) {
+        window.__API_BASE__ = "http://127.0.0.1:8000";
+      }
+    </script>
+    <script src="site-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -17,6 +17,161 @@ const CONFIG = {
 };
 
 // ============================================================================
+// LIGHTWEIGHT EVENT TRACKING (PUBLIC SITE)
+// ============================================================================
+
+const Analytics = (function () {
+  const apiBase = (function () {
+    try {
+      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+    } catch (e) {
+      return "http://127.0.0.1:8000";
+    }
+  })();
+
+  let sessionId = localStorage.getItem("ps_session");
+
+  if (!sessionId) {
+    sessionId = "sess_" + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem("ps_session", sessionId);
+  }
+
+  function trackEvent(type, data = {}) {
+    try {
+      fetch(apiBase + "/api/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: true,
+        body: JSON.stringify({
+          type,
+          session_id: sessionId,
+          timestamp: new Date().toISOString(),
+          page: window.location.pathname,
+          ...data,
+        }),
+      });
+    } catch (e) {
+      // No-op: tracking must never break UX.
+    }
+  }
+
+  function textFrom(el, selector) {
+    if (!el) return "";
+    const n = selector ? el.querySelector(selector) : el;
+    const t = n && n.textContent ? n.textContent : "";
+    return String(t).trim();
+  }
+
+  const _offerCardsObserved = typeof WeakSet !== "undefined" ? new WeakSet() : null;
+
+  function offerViewSeenIds() {
+    try {
+      const raw = sessionStorage.getItem("ps_offer_viewed");
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function rememberOfferView(id) {
+    const key = String(id || "").trim();
+    if (!key) return false;
+    try {
+      const seen = offerViewSeenIds();
+      if (seen.includes(key)) return false;
+      seen.push(key);
+      sessionStorage.setItem("ps_offer_viewed", JSON.stringify(seen.slice(-300)));
+      return true;
+    } catch (e) {
+      return true;
+    }
+  }
+
+  function setupOfferViewTracking() {
+    const path = (window.location.pathname || "").toLowerCase();
+    const isOffers =
+      path.endsWith("/offers.html") ||
+      path.endsWith("offers.html") ||
+      (document.documentElement.dataset && document.documentElement.dataset.page === "offers");
+    if (!isOffers) return;
+
+    const cards = document.querySelectorAll(".offer-card[data-offer-id]");
+    if (!cards.length || typeof IntersectionObserver === "undefined") return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((ent) => {
+          if (!ent.isIntersecting) return;
+          const el = ent.target;
+          if (!(el instanceof Element)) return;
+          const id = el.getAttribute("data-offer-id");
+          if (!id || !rememberOfferView(id)) return;
+          trackEvent("offer_view", { offer_id: id });
+        });
+      },
+      { root: null, threshold: [0.2, 0.35], rootMargin: "0px 0px -5% 0px" }
+    );
+
+    cards.forEach((c) => {
+      if (_offerCardsObserved && _offerCardsObserved.has(c)) return;
+      if (_offerCardsObserved) _offerCardsObserved.add(c);
+      io.observe(c);
+    });
+  }
+
+  function init() {
+    // Page load
+    trackEvent("page_view");
+
+    // Delegated click tracking for doctors and services (covers index/team/services pages)
+    document.addEventListener(
+      "click",
+      (e) => {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+
+        const docCard = target.closest(".doctor-card");
+        if (docCard) {
+          const doctor =
+            docCard.getAttribute("data-doctor") ||
+            textFrom(docCard, "h4") ||
+            textFrom(docCard, "h3") ||
+            textFrom(docCard, "[aria-labelledby]") ||
+            "Unknown";
+          trackEvent("doctor_click", { doctor });
+          return;
+        }
+
+        const svcCard = target.closest(".service-card");
+        if (svcCard) {
+          const service = (svcCard.getAttribute("data-service") || textFrom(svcCard, "h3") || "Unknown").trim();
+          trackEvent("service_click", { service });
+        }
+      },
+      { passive: true }
+    );
+
+    // Offer impressions (offers page; cards injected by CMS — re-run on cms-data-applied)
+    const runOfferViews = () => {
+      try {
+        setupOfferViewTracking();
+      } catch (e) {
+        /* no-op */
+      }
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", runOfferViews, { once: true });
+    } else {
+      requestAnimationFrame(runOfferViews);
+    }
+    document.addEventListener("cms-data-applied", runOfferViews);
+  }
+
+  return { sessionId, trackEvent, init };
+})();
+
+// ============================================================================
 // TRANSLATION OBJECT
 // ============================================================================
 
@@ -71,6 +226,18 @@ const TRANSLATIONS = {
       ar: "فريق الأطباء | Pearly Smile Dental Center",
       en: "Our Team | Pearly Smile Dental Center",
     },
+    about: {
+      ar: "عنّا | Pearly Smile Dental Center",
+      en: "About Us | Pearly Smile Dental Center",
+    },
+    blog: {
+      ar: "المدونة | Pearly Smile Dental Center",
+      en: "Blog | Pearly Smile Dental Center",
+    },
+    blog_post: {
+      ar: "مقال | Pearly Smile Dental Center",
+      en: "Article | Pearly Smile Dental Center",
+    },
   },
   title: {
     ar: "Pearly Smile Dental Center | مركز بيرلي سمايل لطب الأسنان",
@@ -84,9 +251,49 @@ const TRANSLATIONS = {
   navStats: { ar: "إحصائيات", en: "Statistics" },
   navServices: { ar: "خدماتنا", en: "Services" },
   navOffers: { ar: "عروضنا", en: "Offers" },
+  navBlog: { ar: "المدونة", en: "Blog" },
   navTeam: { ar: "فريقنا", en: "Our Team" },
   navAbout: { ar: "عنّا", en: "About Us" },
   navBooking: { ar: "حجز", en: "Booking" },
+  blogHeroTitle: {
+    ar: "نصائح، أدلة، وتحديثات تساعدك على اتخاذ قرار أفضل",
+    en: "Dental tips, guides, and clinic updates",
+  },
+  blogHeroText: {
+    ar: "مقالات قصيرة وواضحة — هدفها تبسيط الخيارات وتشجيعك على حجز موعد بثقة.",
+    en: "Clear, practical articles designed to help you decide and book with confidence.",
+  },
+  blogPageTitle: { ar: "المدونة | Pearly Smile Dental Center", en: "Blog | Pearly Smile Dental Center" },
+  blogPageDescription: {
+    ar: "أدلة ونصائح وتحديثات من Pearly Smile Dental Center تساعدك على العناية بصحة الفم واتخاذ قرار مناسب.",
+    en: "Dental guides, clinic updates, and practical tips from Pearly Smile Dental Center.",
+  },
+  blogSectionEyebrow: { ar: "المقالات", en: "Articles" },
+  blogSectionTitle: { ar: "أحدث المقالات", en: "Latest articles" },
+  blogSearchLabel: { ar: "ابحث عن مقال…", en: "Search articles…" },
+  blogTagLabel: { ar: "التصنيف", en: "Tag" },
+  blogAllTags: { ar: "كل التصنيفات", en: "All tags" },
+  blogPrev: { ar: "السابق", en: "Prev" },
+  blogNext: { ar: "التالي", en: "Next" },
+  blogReadMore: { ar: "اقرأ المزيد", en: "Read more" },
+  blogReadTimeSuffix: { ar: "دقائق قراءة", en: "min read" },
+  blogQuickRead: { ar: "قراءة سريعة", en: "Quick read" },
+  blogNoArticles: { ar: "لا توجد مقالات مطابقة.", en: "No articles found." },
+  blogNoRelated: { ar: "لا توجد مقالات ذات صلة بعد.", en: "No related articles yet." },
+  blogStartApi: { ar: "تعذر تحميل المقالات. شغّل السيرفر.", en: "Unable to load blog posts. Start the API server." },
+  blogMissingSlug: { ar: "الرابط غير صحيح (slug مفقود).", en: "Missing article slug." },
+  blogNotFound: { ar: "المقال غير موجود.", en: "Article not found." },
+  blogLoading: { ar: "جارٍ التحميل…", en: "Loading…" },
+  blogBackToBlog: { ar: "العودة إلى المدونة", en: "Back to Blog" },
+  blogRelatedEyebrow: { ar: "مقترحات", en: "Recommended" },
+  blogRelatedTitle: { ar: "مقالات ذات صلة", en: "Related articles" },
+  blogCtaTitle: { ar: "جاهز لخطوتك التالية؟", en: "Ready for your next step?" },
+  blogCtaText: {
+    ar: "احجز موعدك اليوم لنضع لك خطة واضحة ومريحة — ونبدأ بخطوة بثقة نحو ابتسامة صحية.",
+    en: "Book today for a clear, comfort-first plan—and take the next step toward a healthier smile.",
+  },
+  blogCtaBook: { ar: "احجز الآن", en: "Book now" },
+  blogCtaDoctors: { ar: "تعرف على الأطباء", en: "Meet our doctors" },
   callNow: { ar: "اتصل الآن", en: "Call Now" },
   heroEyebrow: {
     ar: "عيادة أسنان مودرن وراحة لا مثيل لها",
@@ -805,6 +1012,10 @@ const TRANSLATIONS = {
   previewImageAlt: { ar: "مركز بيرلي سمايل لطب الأسنان", en: "Pearly Smile Dental Center" },
 };
 
+if (typeof window !== "undefined") {
+  window.TRANSLATIONS = TRANSLATIONS;
+}
+
 // ============================================================================
 // STATE MANAGEMENT
 // ============================================================================
@@ -857,9 +1068,16 @@ class LanguageManager {
     this.updateLanguageToggle(lang);
     this.updateTranslatableElements(lang);
     this.appState.setLanguage(lang);
+    if (typeof SiteData !== "undefined" && SiteData.refreshLanguage) {
+      SiteData.refreshLanguage();
+    }
     // update booking selects if present
     if (typeof BookingManager !== 'undefined' && BookingManager.updateForLanguage) {
       BookingManager.updateForLanguage(lang);
+    }
+    // update blog UI if present
+    if (typeof window !== "undefined" && window.Blog && typeof window.Blog.refreshLanguage === "function") {
+      window.Blog.refreshLanguage(lang);
     }
   }
 
@@ -888,6 +1106,8 @@ class LanguageManager {
   updateTranslatableElements(lang) {
     const translatableItems = document.querySelectorAll("[data-translate]");
     translatableItems.forEach((item) => {
+      if (item.dataset.cmsBound) return;
+      if (item.closest("[data-cms-bound]")) return;
       const key = item.dataset.translate;
       if (!key) return;
       const translation = this.getTranslation(key, lang);
@@ -915,6 +1135,7 @@ class BookingManager {
     this.dateInput = document.getElementById('date');
     this.form = document.querySelector('.modern-form');
     this.bookingMessage = document.getElementById('bookingMessage');
+    this._bookingStartedTracked = false;
     this.populateAll(this.appLang());
     this.attachListeners();
   }
@@ -941,7 +1162,9 @@ class BookingManager {
     placeholder.textContent = TRANSLATIONS.bookingDoctorPlaceholder?.[lang] || 'اختر الدكتور';
     select.appendChild(placeholder);
 
-    for (let i = 1; i <= 9; i++) {
+    const cmsDocs = typeof window !== "undefined" && window.__SITE_DATA__ && window.__SITE_DATA__.doctors;
+    const maxDocs = cmsDocs && cmsDocs.length ? cmsDocs.length : 9;
+    for (let i = 1; i <= maxDocs; i++) {
       const key = `teamDoctor${i}Name`;
       if (TRANSLATIONS[key]) {
         const opt = document.createElement('option');
@@ -1026,6 +1249,19 @@ class BookingManager {
       this.dateInput.addEventListener('change', () => this.renderTimes(this.appLang()));
     }
     if (this.form) {
+      // Booking form open / first interaction
+      this.form.addEventListener(
+        'focusin',
+        () => {
+          if (this._bookingStartedTracked) return;
+          this._bookingStartedTracked = true;
+          if (typeof Analytics !== "undefined" && Analytics.trackEvent) {
+            Analytics.trackEvent("booking_started");
+          }
+        },
+        { passive: true }
+      );
+
       this.form.addEventListener('submit', (e) => {
         e.preventDefault();
         this.handleSubmit();
@@ -1051,6 +1287,13 @@ class BookingManager {
     // Simulate a successful booking submission (progressive enhancement).
     const successText = TRANSLATIONS.bookingSuccess?.[this.appLang()] || 'تم إرسال طلبكم بنجاح! سنعاود الاتصال لتأكيد الموعد.';
     this.showMessage(successText, 'success');
+
+    if (typeof Analytics !== "undefined" && Analytics.trackEvent) {
+      Analytics.trackEvent("booking_completed", {
+        doctor: doctorName || undefined,
+        service: "consultation",
+      });
+    }
     // reset form while preserving language and re-populate selects
     this.form.reset();
     this.populateAll(this.appLang());
@@ -1200,6 +1443,17 @@ class RevealObserver {
 
     items.forEach((item) => io.observe(item));
   }
+
+  /** After CMS replaces `#cms-team-doctors`, new `.reveal` nodes stay opacity:0 until `.visible` is set (init() already ran). */
+  static refresh() {
+    document.querySelectorAll("#cms-team-doctors .reveal").forEach((el) => {
+      el.classList.add("visible");
+    });
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.RevealObserver = RevealObserver;
 }
 
 // ============================================================================
@@ -1455,9 +1709,41 @@ class App {
 // ============================================================================
 
 const initializeApp = () => {
-  const app = new App();
-  app.init();
+  const start = () => {
+    const app = new App();
+    app.init();
+  };
+  if (typeof SiteData !== "undefined" && SiteData.load) {
+    SiteData.load().finally(start);
+  } else {
+    start();
+  }
 };
+
+// Global UX fix: clear accidental text selection on non-input clicks.
+// Keeps forms and article reading selectable.
+(function () {
+  function isEditableTarget(t) {
+    if (!(t instanceof Element)) return false;
+    return Boolean(
+      t.closest(
+        'input, textarea, select, option, [contenteditable="true"], #articleContent, .service-detail-content'
+      )
+    );
+  }
+  document.addEventListener(
+    "mousedown",
+    (e) => {
+      const t = e.target;
+      if (isEditableTarget(t)) return;
+      const sel = window.getSelection && window.getSelection();
+      if (sel && typeof sel.removeAllRanges === "function" && sel.type === "Range") {
+        sel.removeAllRanges();
+      }
+    },
+    { passive: true }
+  );
+})();
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initializeApp);
@@ -1465,7 +1751,268 @@ if (document.readyState === "loading") {
   initializeApp();
 }
 
-// Re-animate counters on page fully loaded
-window.addEventListener("load", () => {
-  CounterAnimator.animateCounters();
-});
+// Start tracking as soon as DOM is ready (doesn't block app init).
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => Analytics.init());
+} else {
+  Analytics.init();
+}
+
+// ============================================================================
+// AI + SEO DISCOVERY (JSON-LD + keywords)
+// ============================================================================
+
+const Discovery = (function () {
+  const apiBase = (function () {
+    try {
+      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+    } catch (e) {
+      return "http://127.0.0.1:8000";
+    }
+  })();
+
+  const cacheKey = "ps_ai_index_cache_v1";
+  const cacheTtlMs = 10 * 60 * 1000; // 10 min
+
+  function now() {
+    return Date.now ? Date.now() : +new Date();
+  }
+
+  function currentLang() {
+    return localStorage.getItem("ps-lang") || document.documentElement.lang || "ar";
+  }
+
+  function pickLang(val, lang) {
+    if (val == null) return "";
+    if (typeof val === "string") return val;
+    if (typeof val === "object") return val[lang] || val.ar || val.en || "";
+    return String(val);
+  }
+
+  function absUrl(path) {
+    if (!path) return "";
+    if (String(path).startsWith("http")) return String(path);
+    const base = location.protocol === "file:" ? apiBase : location.origin;
+    const p = String(path).startsWith("/") ? String(path) : "/" + String(path);
+    return base + p;
+  }
+
+  async function fetchAiIndex() {
+    try {
+      const raw = sessionStorage.getItem(cacheKey);
+      if (raw) {
+        const cached = JSON.parse(raw);
+        if (cached && cached.t && cached.v && now() - cached.t < cacheTtlMs) {
+          return cached.v;
+        }
+      }
+    } catch (e) {}
+
+    const r = await fetch(apiBase + "/api/ai-index", { headers: { Accept: "application/json" } });
+    if (!r.ok) throw new Error("ai-index fetch failed");
+    const v = await r.json();
+    try {
+      sessionStorage.setItem(cacheKey, JSON.stringify({ t: now(), v }));
+    } catch (e) {}
+    return v;
+  }
+
+  function ensureMeta(name) {
+    let el = document.querySelector('meta[name="' + name + '"]');
+    if (!el) {
+      el = document.createElement("meta");
+      el.setAttribute("name", name);
+      document.head.appendChild(el);
+    }
+    return el;
+  }
+
+  function setKeywords(keys) {
+    if (!Array.isArray(keys) || keys.length === 0) return;
+    // Keep it compact; meta keywords isn't a ranking factor, but helps AI/extractors.
+    const compact = keys
+      .map((k) => String(k || "").trim())
+      .filter(Boolean)
+      .slice(0, 40)
+      .join(", ");
+    if (!compact) return;
+    ensureMeta("keywords").setAttribute("content", compact);
+  }
+
+  function upsertJsonLd(id, payload) {
+    if (!payload) return;
+    let el = document.getElementById(id);
+    if (!el) {
+      el = document.createElement("script");
+      el.type = "application/ld+json";
+      el.id = id;
+      document.head.appendChild(el);
+    }
+    try {
+      el.textContent = JSON.stringify(payload);
+    } catch (e) {
+      // No-op
+    }
+  }
+
+  function buildGraph(ai) {
+    const lang = currentLang();
+    const origin = location.protocol === "file:" ? apiBase : location.origin;
+    const pageUrl = origin + (location.pathname || "/");
+    const page = document.documentElement && document.documentElement.dataset ? document.documentElement.dataset.page : "";
+
+    const clinic = ai && ai.clinic ? ai.clinic : {};
+    const clinicUrl = clinic.url ? String(clinic.url) : origin + "/";
+
+    const graph = [];
+
+    graph.push({
+      "@type": "MedicalClinic",
+      "@id": clinicUrl + "#clinic",
+      name: clinic.name || "Pearly Smile Dental Center",
+      description: clinic.description || "",
+      url: clinicUrl,
+      image: clinic.image ? absUrl(clinic.image) : undefined,
+      telephone: clinic.telephone || undefined,
+      address: clinic.location
+        ? {
+            "@type": "PostalAddress",
+            addressCountry: (clinic.location.country || "").toString(),
+            addressLocality: (clinic.location.city || "").toString(),
+          }
+        : undefined,
+      keywords: Array.isArray(ai.keywords) ? ai.keywords.slice(0, 30).join(", ") : undefined,
+    });
+
+    // Page node (ties the page to the clinic)
+    graph.push({
+      "@type": "WebPage",
+      "@id": pageUrl + "#webpage",
+      url: pageUrl,
+      name: document.title || "",
+      isPartOf: { "@id": clinicUrl + "#clinic" },
+    });
+
+    // Dataset pointing to the AI index (helps non-JS parsers discover everything)
+    graph.push({
+      "@type": "Dataset",
+      "@id": clinicUrl + "#ai-index",
+      name: "Pearly Smile AI index",
+      description: "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+      url: absUrl("/api/ai-index"),
+      keywords: Array.isArray(ai.keywords) ? ai.keywords.slice(0, 50) : undefined,
+    });
+
+    if (page === "services" && Array.isArray(ai.services)) {
+      graph.push({
+        "@type": "ItemList",
+        name: "Dental services",
+        itemListElement: ai.services.slice(0, 50).map((s, idx) => ({
+          "@type": "ListItem",
+          position: idx + 1,
+          url: s.url || undefined,
+          item: {
+            "@type": "MedicalService",
+            name: pickLang(s.name, lang),
+            description: pickLang(s.description, lang),
+            url: s.url || undefined,
+            image: s.image ? absUrl(s.image) : undefined,
+            keywords: Array.isArray(s.keywords) ? s.keywords.join(", ") : undefined,
+          },
+        })),
+      });
+    }
+
+    if ((page === "team" || page === "about" || page === "home") && Array.isArray(ai.doctors)) {
+      graph.push({
+        "@type": "ItemList",
+        name: "Clinic doctors",
+        itemListElement: ai.doctors.slice(0, 50).map((d, idx) => ({
+          "@type": "ListItem",
+          position: idx + 1,
+          url: d.url || undefined,
+          item: {
+            "@type": "Physician",
+            name: pickLang(d.name, lang),
+            description: pickLang(d.description, lang),
+            url: d.url || undefined,
+            image: d.image ? absUrl(d.image) : undefined,
+            keywords: Array.isArray(d.keywords) ? d.keywords.join(", ") : undefined,
+          },
+        })),
+      });
+    }
+
+    if (page === "offers" && Array.isArray(ai.offers)) {
+      graph.push({
+        "@type": "ItemList",
+        name: "Clinic offers",
+        itemListElement: ai.offers.slice(0, 50).map((o, idx) => ({
+          "@type": "ListItem",
+          position: idx + 1,
+          url: o.url || undefined,
+          item: {
+            "@type": "Offer",
+            name: pickLang(o.name, lang),
+            description: pickLang(o.description, lang),
+            url: o.url || undefined,
+            image: o.image ? absUrl(o.image) : undefined,
+            keywords: Array.isArray(o.keywords) ? o.keywords.join(", ") : undefined,
+          },
+        })),
+      });
+    }
+
+    if (page === "blog" && Array.isArray(ai.blogs)) {
+      graph.push({
+        "@type": "Blog",
+        name: "Pearly Smile Blog",
+        url: absUrl("/blog"),
+        blogPost: ai.blogs.slice(0, 50).map((b) => ({
+          "@type": "BlogPosting",
+          headline: pickLang(b.name, lang),
+          description: pickLang(b.description, lang),
+          url: b.url || undefined,
+          image: b.image ? absUrl(b.image) : undefined,
+          keywords: Array.isArray(b.keywords) ? b.keywords.join(", ") : undefined,
+        })),
+      });
+    }
+
+    // Service detail pages (data-page is like service_implants, etc.)
+    if (page && String(page).startsWith("service_") && Array.isArray(ai.services)) {
+      const hit = ai.services.find((s) => s && s.url && s.url.indexOf(location.pathname.replace(/^\//, "")) !== -1);
+      if (hit) {
+        graph.push({
+          "@type": "MedicalService",
+          name: pickLang(hit.name, lang),
+          description: pickLang(hit.description, lang),
+          url: hit.url || undefined,
+          image: hit.image ? absUrl(hit.image) : undefined,
+          keywords: Array.isArray(hit.keywords) ? hit.keywords.join(", ") : undefined,
+          provider: { "@id": clinicUrl + "#clinic" },
+        });
+      }
+    }
+
+    return { "@context": "https://schema.org", "@graph": graph.filter(Boolean) };
+  }
+
+  async function init() {
+    try {
+      const ai = await fetchAiIndex();
+      if (ai && Array.isArray(ai.keywords)) setKeywords(ai.keywords);
+      upsertJsonLd("ps-jsonld-ai", buildGraph(ai || {}));
+    } catch (e) {
+      // Must never break UX
+    }
+  }
+
+  return { init };
+})();
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => Discovery.init());
+} else {
+  Discovery.init();
+}

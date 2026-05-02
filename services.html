@@ -71,6 +71,7 @@
             <li>
               <a href="offers.html" data-translate="navOffers">عروضنا</a>
             </li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
             <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
             <li>
@@ -132,7 +133,11 @@
             نقدم العلاج الكامل لكل احتياجات الأسنان
           </h2>
         </div>
-        <div class="services-grid services-grid--cards" aria-label="Services">
+        <div
+          class="services-grid services-grid--cards"
+          id="cms-services-grid"
+          aria-label="Services"
+        >
           <article class="service-card flip-card" data-service="general" tabindex="0" aria-expanded="false">
             <div class="flip-inner">
               <div class="flip-front">
@@ -335,6 +340,52 @@
       </p>
     </footer>
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalClinic",
+            "name": "Pearly Smile Dental Center",
+            "url": "/",
+            "telephone": "+966500000000",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "SA",
+              "addressLocality": "Riyadh"
+            },
+            "keywords": [
+              "dental implants",
+              "teeth whitening",
+              "orthodontics",
+              "gum treatment",
+              "oral surgery"
+            ]
+          },
+          {
+            "@type": "Dataset",
+            "name": "Pearly Smile AI index",
+            "description": "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+            "url": "/api/ai-index",
+            "keywords": ["services", "doctors", "offers", "blog"]
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      try {
+        window.__API_BASE__ =
+          typeof window.__API_BASE__ !== "undefined"
+            ? window.__API_BASE__
+            : location.protocol === "file:"
+              ? "http://127.0.0.1:8000"
+              : location.origin;
+      } catch (e) {
+        window.__API_BASE__ = "http://127.0.0.1:8000";
+      }
+    </script>
+    <script src="site-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

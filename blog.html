@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-page="blog">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <title data-translate="blogPageTitle"></title>
+    <meta
+      name="description"
+      data-translate="blogPageDescription"
+      content=""
+    />
+    <link rel="canonical" href="blog.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      const storedTheme = localStorage.getItem("ps-theme");
+      const storedLanguage = localStorage.getItem("ps-lang");
+      if (storedTheme === "dark") document.documentElement.classList.add("dark-theme");
+      if (storedLanguage === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      } else {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="mobile-nav">
+      <div class="brand" data-translate="brand">Pearly Smile Dental Center</div>
+      <nav id="mobileNav" aria-label="Primary">
+        <button
+          type="button"
+          class="mobile-menu-backdrop"
+          id="mobileMenuBackdrop"
+          aria-label="Close menu"
+        ></button>
+        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu">
+          <button
+            type="button"
+            class="mobile-menu-close"
+            id="mobileMenuClose"
+            aria-label="Close menu"
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
+          <ul>
+            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
+            <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
+            <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
+            <li><a href="blog.html" data-translate="navBlog" aria-current="page">المدونة</a></li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button
+          type="button"
+          id="mobileMenuToggle"
+          class="mobile-menu-toggle"
+          aria-controls="mobileNav"
+          aria-expanded="false"
+          aria-label="Open menu"
+        >
+          <span class="mobile-menu-icon" aria-hidden="true"></span>
+        </button>
+        <button
+          type="button"
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Toggle theme"
+        >
+          🌙
+        </button>
+        <button type="button" id="languageToggle" class="lang-toggle">EN</button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">اتصل الآن</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-translate="navBlog"></p>
+          <h1 data-translate="blogHeroTitle"></h1>
+          <p data-translate="blogHeroText"></p>
+          <div class="hero-actions">
+            <a href="index.html#booking" class="btn btn-secondary" data-translate="heroBook">احجز موعدك</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="offers-section">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-dark" data-translate="blogSectionEyebrow"></p>
+          <h2 data-translate="blogSectionTitle"></h2>
+        </div>
+
+        <div class="blog-filterbar modern-form">
+          <div class="input-group">
+            <input id="blogSearch" type="search" placeholder=" " autocomplete="off" />
+            <label for="blogSearch" data-translate="blogSearchLabel"></label>
+          </div>
+          <div class="input-group">
+            <select id="blogTag" aria-label="Filter by tag">
+              <option value="" data-translate="blogAllTags"></option>
+            </select>
+            <label for="blogTag" data-translate="blogTagLabel"></label>
+          </div>
+        </div>
+
+        <div id="blogGrid" class="offers-grid" aria-live="polite"></div>
+
+        <div class="blog-pager hero-actions">
+          <button id="blogPrev" class="btn btn-secondary" type="button" data-translate="blogPrev"></button>
+          <span id="blogPageInfo" class="blog-pageinfo"></span>
+          <button id="blogNext" class="btn btn-primary" type="button" data-translate="blogNext"></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 Pearly Smile Dental Center. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalClinic",
+            "name": "Pearly Smile Dental Center",
+            "url": "/",
+            "telephone": "+966500000000",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "SA",
+              "addressLocality": "Riyadh"
+            },
+            "keywords": ["blog", "dental tips", "teeth whitening", "implants", "orthodontics"]
+          },
+          {
+            "@type": "Dataset",
+            "name": "Pearly Smile AI index",
+            "description": "Machine-readable clinic content: services, doctors, offers, and blog posts.",
+            "url": "/api/ai-index",
+            "keywords": ["blog posts", "articles", "services"]
+          }
+        ]
+      }
+    </script>
+
+    <script src="site-data.js"></script>
+    <script src="script.js"></script>
+    <script src="blog.js"></script>
+  </body>
+</html>
+
