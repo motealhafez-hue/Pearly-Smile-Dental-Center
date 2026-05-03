@@ -1,6 +1,6 @@
 /**
  * Loads CMS JSON from the API and hydrates the DOM without changing layout/CSS hooks.
- * Expects window.__API_BASE__ (e.g. same origin when served via uvicorn). If unset, uses location.origin.
+ * Expects window.__API_BASE__ (e.g. uvicorn). If unset: production uses location.origin; localhost/file uses :8000.
  */
 (function (global) {
   "use strict";
@@ -8,7 +8,20 @@
   function apiRoot() {
     if (global.__API_BASE__ === false || global.__API_BASE__ === "") return null;
     const raw = global.__API_BASE__ != null ? String(global.__API_BASE__) : "";
-    const base = raw.replace(/\/$/, "") || (global.location && global.location.origin) || "";
+    let base = raw.replace(/\/$/, "");
+    if (!base && global.location) {
+      try {
+        const h = String(global.location.hostname || "").toLowerCase();
+        const p = String(global.location.protocol || "");
+        if (p === "file:" || h === "127.0.0.1" || h === "localhost" || h === "[::1]") {
+          base = "http://127.0.0.1:8000";
+        } else {
+          base = String(global.location.origin || "").replace(/\/$/, "");
+        }
+      } catch (e0) {
+        base = "http://127.0.0.1:8000";
+      }
+    }
     return base || null;
   }
 
@@ -18,7 +31,18 @@
   }
 
   function currentLang() {
-    return global.localStorage.getItem("ps-lang") || document.documentElement.lang || "ar";
+    try {
+      const as = global.appState;
+      if (as && (as.currentLang === "ar" || as.currentLang === "en")) return as.currentLang;
+    } catch (e) {
+      /* no-op */
+    }
+    const stored = global.localStorage.getItem("ps-lang");
+    if (stored === "ar" || stored === "en") return stored;
+    const tag =
+      (global.document && global.document.documentElement && global.document.documentElement.lang) || "";
+    if (tag === "ar" || tag === "en") return tag;
+    return "ar";
   }
 
   function markCms(el) {

@@ -47,18 +47,34 @@ const CONFIG = {
   };
 })();
 
+/** JSON/API host: `window.__API_BASE__` if set; else file/localhost → `http://127.0.0.1:8000`. */
+function psResolveApiBase() {
+  try {
+    if (
+      typeof window.__API_BASE__ !== "undefined" &&
+      window.__API_BASE__ !== "" &&
+      window.__API_BASE__ !== false &&
+      window.__API_BASE__ !== null
+    ) {
+      return String(window.__API_BASE__).replace(/\/$/, "");
+    }
+    if (location.protocol === "file:") return "http://127.0.0.1:8000";
+    const h = String(location.hostname || "").toLowerCase();
+    if (h === "127.0.0.1" || h === "localhost" || h === "[::1]") {
+      return "http://127.0.0.1:8000";
+    }
+    return String(location.origin || "").replace(/\/$/, "");
+  } catch (e) {
+    return "http://127.0.0.1:8000";
+  }
+}
+
 // ============================================================================
 // LIGHTWEIGHT EVENT TRACKING (PUBLIC SITE)
 // ============================================================================
 
 const Analytics = (function () {
-  const apiBase = (function () {
-    try {
-      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
-    } catch (e) {
-      return "http://127.0.0.1:8000";
-    }
-  })();
+  const apiBase = psResolveApiBase();
 
   let sessionId = localStorage.getItem("ps_session");
 
@@ -841,8 +857,20 @@ const TRANSLATIONS = {
   bookingDoctorLabel: { ar: "اختر الطبيب", en: "Choose Doctor" },
   bookingDoctorPlaceholder: { ar: "اختر الدكتور", en: "Select a doctor" },
   bookingBranchLabel: { ar: "اختر الفرع", en: "Choose Branch" },
-  branchMain: { ar: "الفرع الرئيسي", en: "Main Branch" },
-  branchOne: { ar: "الفرع الأول", en: "Branch One" },
+  branchMain: { ar: "فرع الخالدية", en: "Khalidiyah Branch" },
+  branchKhalidiya: { ar: "فرع مدينة خليفة أ", en: "Khalifa City A Branch" },
+  bookingDoctorNotAtBranch: {
+    ar: "الطبيب المختار غير متوفر في هذا الفرع. يرجى اختيار طبيب آخر.",
+    en: "Selected doctor is not available in this branch. Please choose another doctor.",
+  },
+  bookingDayNotAvailable: {
+    ar: "هذا اليوم غير متاح للحجز.",
+    en: "This day is not available for booking.",
+  },
+  bookingAvailabilityError: {
+    ar: "تعذر تحميل المواعيد. تحقق من الاتصال أو حدّث الصفحة.",
+    en: "Could not load availability. Check your connection or refresh the page.",
+  },
   bookingBenefit1: { ar: "استجابة سريعة خلال 24 ساعة", en: "Fast response within 24 hours" },
   bookingBenefit2: {
     ar: "تأكيد الحجز الفوري عبر الهاتف أو الواتساب",
@@ -1080,11 +1108,29 @@ class AppState {
   }
 
   getStoredLanguage() {
-    return localStorage.getItem(CONFIG.storageKeys.language) || CONFIG.defaults.language;
+    try {
+      const stored = localStorage.getItem(CONFIG.storageKeys.language);
+      if (stored === "ar" || stored === "en") return stored;
+    } catch (e) {
+      /* private mode */
+    }
+    const nav = (typeof navigator !== "undefined" && navigator.languages?.[0]) || navigator?.language || "";
+    const tag = String(nav).toLowerCase();
+    if (tag === "ar" || tag.startsWith("ar-")) return "ar";
+    return "en";
   }
 
   getStoredTheme() {
-    return localStorage.getItem(CONFIG.storageKeys.theme) || CONFIG.defaults.theme;
+    try {
+      const stored = localStorage.getItem(CONFIG.storageKeys.theme);
+      if (stored === "dark" || stored === "light") return stored;
+    } catch (e) {
+      /* private mode */
+    }
+    if (typeof window.matchMedia === "function" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return CONFIG.defaults.theme;
   }
 
   setLanguage(lang) {
@@ -1099,6 +1145,9 @@ class AppState {
 }
 
 const appState = new AppState();
+if (typeof window !== "undefined") {
+  window.appState = appState;
+}
 
 // ============================================================================
 // HOMEPAGE IN-PAGE NAVIGATION (hash targets + scroll restoration)
@@ -1191,15 +1240,38 @@ initHomePageNavigation();
 function preserveViewportDuring(fn) {
   const sx = window.scrollX;
   const sy = window.scrollY;
+  function restore() {
+    try {
+      if (typeof window.scrollTo === "function") {
+        window.scrollTo({ left: sx, top: sy, behavior: "instant" });
+      } else {
+        window.scrollTo(sx, sy);
+      }
+    } catch (e) {
+      try {
+        window.scrollTo(sx, sy);
+      } catch (e2) {
+        /* no-op */
+      }
+    }
+  }
   try {
     fn();
   } finally {
+    /* Immediate restore: some engines reset scroll after dir/class changes before the next paint. */
+    restore();
     requestAnimationFrame(() => {
-      window.scrollTo(sx, sy);
+      restore();
       requestAnimationFrame(() => {
-        window.scrollTo(sx, sy);
+        restore();
+        requestAnimationFrame(restore);
       });
     });
+    /* Catch late layout: blog nav padding sync, async booking selects, fonts, ResizeObserver, etc. */
+    window.setTimeout(restore, 0);
+    window.setTimeout(restore, 48);
+    window.setTimeout(restore, 160);
+    window.setTimeout(restore, 320);
   }
 }
 
@@ -1218,12 +1290,14 @@ class LanguageManager {
   }
 
   setLanguage(lang) {
+    if (lang !== "ar" && lang !== "en") return;
     preserveViewportDuring(() => {
-      this.updateDocumentLanguage(lang);
+      /* Persist first so SiteData/Blog/Discovery read one canonical language. */
+      this.appState.setLanguage(lang);
+      /* Update all visible copy while dir/lang stay at previous values (avoids bidi mojibake flash). */
+      this.updateTranslatableElements(lang);
       this.updatePageTitle(lang);
       this.updateLanguageToggle(lang);
-      this.updateTranslatableElements(lang);
-      this.appState.setLanguage(lang);
       if (typeof SiteData !== "undefined" && SiteData.refreshLanguage) {
         SiteData.refreshLanguage();
       }
@@ -1236,12 +1310,25 @@ class LanguageManager {
       if (typeof window !== "undefined" && window.HomeBlogTeaser && typeof window.HomeBlogTeaser.refresh === "function") {
         window.HomeBlogTeaser.refresh();
       }
+      /* Apply document direction + root lang last for one atomic visual commit. */
+      this.updateDocumentLanguage(lang);
     });
   }
 
   updateDocumentLanguage(lang) {
     document.documentElement.lang = this.translations.htmlLang[lang];
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    try {
+      let cl = document.querySelector('meta[http-equiv="content-language"]');
+      if (!cl) {
+        cl = document.createElement("meta");
+        cl.setAttribute("http-equiv", "content-language");
+        document.head.appendChild(cl);
+      }
+      cl.setAttribute("content", lang === "ar" ? "ar" : "en");
+    } catch (e) {
+      /* no-op */
+    }
   }
 
   updatePageTitle(lang) {
@@ -1262,14 +1349,18 @@ class LanguageManager {
   }
 
   updateTranslatableElements(lang) {
+    const fallback = lang === "ar" ? "en" : "ar";
     const translatableItems = document.querySelectorAll("[data-translate]");
     translatableItems.forEach((item) => {
       if (item.dataset.cmsBound) return;
       if (item.closest("[data-cms-bound]")) return;
       const key = item.dataset.translate;
       if (!key) return;
-      const translation = this.getTranslation(key, lang);
-      if (translation) {
+      let translation = this.getTranslation(key, lang);
+      if (translation == null || translation === "") {
+        translation = this.getTranslation(key, fallback);
+      }
+      if (translation != null && translation !== "") {
         item.textContent = translation;
       }
     });
@@ -1309,7 +1400,13 @@ const PremiumSelect = (() => {
     if (!vis.length) return;
     st.kbIndex = Math.max(0, Math.min(idx, vis.length - 1));
     vis.forEach((li, i) => li.classList.toggle("premium-select__option--kb", i === st.kbIndex));
-    vis[st.kbIndex].scrollIntoView({ block: "nearest" });
+    /* Never scroll the window while the panel is closed (language/theme refresh rebuilds the list). */
+    if (!st.open || (st.panel && st.panel.hidden)) return;
+    try {
+      vis[st.kbIndex].scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
+    } catch (e) {
+      /* no-op */
+    }
   }
 
   function syncKbToValue(st) {
@@ -1568,29 +1665,90 @@ class BookingManager {
     this.dateInput = document.getElementById('date');
     this.form = document.querySelector('.modern-form');
     this.bookingMessage = document.getElementById('bookingMessage');
+    this.scheduleNotice = document.getElementById('bookingScheduleNotice');
+    this.doctorBranchErrorEl = document.getElementById('bookingDoctorBranchError');
+    this.doctorGroupEl = document.getElementById('bookingDoctorGroup');
     this._bookingStartedTracked = false;
-    this.populateAll(this.appLang());
+    this._schedulePollId = null;
+    this._scheduleChannel = null;
     PremiumSelect.mount(this.doctorSelect, { searchable: true });
     PremiumSelect.mount(this.branchSelect, { searchable: false });
     PremiumSelect.mount(this.timeSelect, { searchable: true });
     this.attachListeners();
+    this.bindScheduleRefresh();
+    void this.populateAll(this.appLang());
     document.addEventListener('cms-data-applied', () => {
       this.syncDoctorPreviewPanel();
     });
+  }
+
+  static bindScheduleRefresh() {
+    if (this._scheduleListenersBound) return;
+    this._scheduleListenersBound = true;
+    try {
+      this._scheduleChannel = new BroadcastChannel('ps-schedule');
+      this._scheduleChannel.onmessage = () => {
+        void this.renderTimes(this.appLang());
+      };
+    } catch (e) {
+      this._scheduleChannel = null;
+    }
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'ps-schedule-rev') void this.renderTimes(this.appLang());
+    });
+    this._schedulePollId = window.setInterval(() => {
+      if (document.hidden) return;
+      if (!document.getElementById('time')) return;
+      void this.renderTimes(this.appLang());
+    }, 45000);
   }
 
   static appLang() {
     return appState.currentLang || CONFIG.defaults.language;
   }
 
-  static populateAll(lang) {
-    this.renderDoctors(lang);
-    this.renderBranches(lang);
-    this.renderTimes(lang);
+  static clearDoctorBranchError() {
+    const err = this.doctorBranchErrorEl || document.getElementById('bookingDoctorBranchError');
+    const grp = this.doctorGroupEl || document.getElementById('bookingDoctorGroup');
+    if (err) {
+      err.hidden = true;
+      err.textContent = '';
+    }
+    if (grp) grp.classList.remove('has-field-error');
+  }
+
+  static setDoctorBranchError(message) {
+    const err = this.doctorBranchErrorEl || document.getElementById('bookingDoctorBranchError');
+    const grp = this.doctorGroupEl || document.getElementById('bookingDoctorGroup');
+    if (!err || !grp) return;
+    err.textContent = message || '';
+    err.hidden = !message;
+    grp.classList.toggle('has-field-error', !!message);
+  }
+
+  static async populateAll(lang) {
+    const prevDoc =
+      this.doctorSelect && this.doctorSelect.value && !String(this.doctorSelect.value).startsWith('teamDoctor')
+        ? this.doctorSelect.value
+        : '';
+    await this.renderBranches(lang);
+    await this.renderDoctors(lang);
+    const docNow =
+      this.doctorSelect && this.doctorSelect.value && !String(this.doctorSelect.value).startsWith('teamDoctor')
+        ? this.doctorSelect.value
+        : '';
+    if (prevDoc && prevDoc !== docNow) {
+      this.setDoctorBranchError(
+        TRANSLATIONS.bookingDoctorNotAtBranch?.[lang] || TRANSLATIONS.bookingDoctorNotAtBranch?.en || ''
+      );
+    } else {
+      this.clearDoctorBranchError();
+    }
+    await this.renderTimes(lang);
     this.syncDoctorPreviewPanel();
   }
 
-  static renderDoctors(lang) {
+  static async renderDoctors(lang) {
     const select = this.doctorSelect;
     if (!select) return;
     select.innerHTML = '';
@@ -1602,37 +1760,80 @@ class BookingManager {
     placeholder.textContent = TRANSLATIONS.bookingDoctorPlaceholder?.[lang] || 'اختر الدكتور';
     select.appendChild(placeholder);
 
-    const cmsDocs = typeof window !== "undefined" && window.__SITE_DATA__ && window.__SITE_DATA__.doctors;
-    const maxDocs = cmsDocs && cmsDocs.length ? cmsDocs.length : 9;
-    for (let i = 1; i <= maxDocs; i++) {
-      const key = `teamDoctor${i}Name`;
-      if (TRANSLATIONS[key]) {
+    const branchId = this.branchSelect?.value || 'main';
+    let apiDocs = null;
+    try {
+      const r = await fetch(
+        this.bookingApiBase() + '/api/booking/doctors?branch_id=' + encodeURIComponent(branchId),
+        { credentials: 'omit' }
+      );
+      if (r.ok) apiDocs = await r.json();
+    } catch (e) {
+      apiDocs = null;
+    }
+    if (Array.isArray(apiDocs) && apiDocs.length) {
+      apiDocs.forEach((doc) => {
+        if (!doc || !doc.id) return;
         const opt = document.createElement('option');
-        opt.value = key;
-        opt.dataset.translate = key;
-        opt.textContent = TRANSLATIONS[key]?.[lang] || TRANSLATIONS[key]?.en || key;
+        opt.value = String(doc.id);
+        const nm = doc.name?.[lang] || doc.name?.en || doc.name?.ar || doc.id;
+        opt.textContent = nm;
         select.appendChild(opt);
+      });
+    } else {
+      const cmsDocs = typeof window !== "undefined" && window.__SITE_DATA__ && window.__SITE_DATA__.doctors;
+      const maxDocs = cmsDocs && cmsDocs.length ? cmsDocs.length : 9;
+      for (let i = 1; i <= maxDocs; i++) {
+        const key = `teamDoctor${i}Name`;
+        if (TRANSLATIONS[key]) {
+          const opt = document.createElement('option');
+          opt.value = key;
+          opt.dataset.translate = key;
+          opt.textContent = TRANSLATIONS[key]?.[lang] || TRANSLATIONS[key]?.en || key;
+          select.appendChild(opt);
+        }
       }
     }
     PremiumSelect.refresh(select);
   }
 
-  static renderBranches(lang) {
+  static async renderBranches(lang) {
     const select = this.branchSelect;
     if (!select) return;
+    const prev = select.value;
     select.innerHTML = '';
-    const b1 = document.createElement('option');
-    b1.value = 'main';
-    b1.dataset.translate = 'branchMain';
-    b1.textContent = TRANSLATIONS.branchMain?.[lang] || 'Main Branch';
-    select.appendChild(b1);
-
-    const b2 = document.createElement('option');
-    b2.value = 'one';
-    b2.dataset.translate = 'branchOne';
-    b2.textContent = TRANSLATIONS.branchOne?.[lang] || 'Branch One';
-    select.appendChild(b2);
+    let list = [
+      { id: 'main', name: TRANSLATIONS.branchMain?.[lang] || TRANSLATIONS.branchMain?.en || 'Main Branch' },
+      {
+        id: 'khalidiya',
+        name: TRANSLATIONS.branchKhalidiya?.[lang] || TRANSLATIONS.branchKhalidiya?.en || 'Khalidiya Branch',
+      },
+    ];
+    try {
+      const r = await fetch(this.bookingApiBase() + '/api/booking/branches', { credentials: 'omit' });
+      if (r.ok) {
+        const j = await r.json();
+        if (Array.isArray(j) && j.length) {
+          list = j.map((b) => ({
+            id: String(b.id || '').trim() || 'main',
+            name: (b.name && (b.name[lang] || b.name.en || b.name.ar)) || b.id,
+          }));
+        }
+      }
+    } catch (e) {
+      /* keep defaults */
+    }
+    list.forEach((b) => {
+      const opt = document.createElement('option');
+      opt.value = b.id;
+      opt.textContent = b.name;
+      select.appendChild(opt);
+    });
     PremiumSelect.refresh(select);
+    if (prev && Array.from(select.options).some((o) => o.value === prev)) {
+      select.value = prev;
+      PremiumSelect.refresh(select);
+    }
   }
 
   static timeSlotsFor(date, doctorKey, branch) {
@@ -1659,9 +1860,24 @@ class BookingManager {
     ];
   }
 
-  static renderTimes(lang) {
+  static setScheduleNotice(text, variant = 'warn') {
+    const el = this.scheduleNotice || document.getElementById('bookingScheduleNotice');
+    if (!el) return;
+    if (!text) {
+      el.hidden = true;
+      el.textContent = '';
+      el.className = 'booking-schedule-notice';
+      return;
+    }
+    el.hidden = false;
+    el.textContent = text;
+    el.className = 'booking-schedule-notice booking-schedule-notice--' + variant;
+  }
+
+  static async renderTimes(lang) {
     const select = this.timeSelect;
     if (!select) return;
+    const prev = select.value;
     select.innerHTML = '';
     const placeholder = document.createElement('option');
     placeholder.value = '';
@@ -1671,7 +1887,103 @@ class BookingManager {
     placeholder.textContent = TRANSLATIONS.bookingTimePlaceholder?.[lang] || 'اختر الوقت';
     select.appendChild(placeholder);
 
-    const slots = this.timeSlotsFor(this.dateInput?.value, this.doctorSelect?.value, this.branchSelect?.value);
+    const dateVal = this.dateInput?.value;
+    const docVal = this.doctorSelect?.value;
+    const branchId = this.branchSelect?.value || 'main';
+    let slots = [];
+    let apiOk = false;
+    let dayUnavailable = false;
+    let doctorWrongBranch = false;
+    let noticeText = '';
+
+    const useServerSlots =
+      !!dateVal && !!docVal && !String(docVal).startsWith('teamDoctor');
+    const legacyTeamDoctor = !!dateVal && !!docVal && String(docVal).startsWith('teamDoctor');
+
+    if (useServerSlots) {
+      try {
+        const u =
+          this.bookingApiBase() +
+          '/api/booking/availability?date=' +
+          encodeURIComponent(dateVal) +
+          '&doctor_id=' +
+          encodeURIComponent(docVal) +
+          '&branch_id=' +
+          encodeURIComponent(branchId);
+        const r = await fetch(u, { credentials: 'omit' });
+        if (r.ok) {
+          apiOk = true;
+          const j = await r.json();
+          slots = Array.isArray(j.slots) ? j.slots : [];
+          if (j.global_paused) {
+            dayUnavailable = true;
+            noticeText =
+              lang === 'ar'
+                ? 'الحجز الإلكتروني متوقف مؤقتاً. يرجى الاتصال بالعيادة.'
+                : 'Online booking is temporarily paused. Please call the clinic.';
+          } else if (j.day_unavailable === true || j.branch_closed === true || j.reason === 'clinic_closed') {
+            dayUnavailable = true;
+            const c = j.closure;
+            const fromApi =
+              c &&
+              (lang === 'ar' ? c.message_ar || c.message_en : c.message_en || c.message_ar);
+            noticeText =
+              fromApi ||
+              TRANSLATIONS.bookingDayNotAvailable?.[lang] ||
+              TRANSLATIONS.bookingDayNotAvailable?.en ||
+              '';
+          } else if (j.doctor_at_branch === false || j.reason === 'doctor_not_at_branch') {
+            doctorWrongBranch = true;
+            slots = [];
+            this.setDoctorBranchError(
+              TRANSLATIONS.bookingDoctorNotAtBranch?.[lang] || TRANSLATIONS.bookingDoctorNotAtBranch?.en || ''
+            );
+          } else if (!slots.length) {
+            noticeText =
+              lang === 'ar'
+                ? 'لا توجد أوقات متاحة لهذا الاختيار. جرّب تاريخاً أو طبيباً آخر.'
+                : 'No times are available for this selection. Try another date or doctor.';
+          }
+        }
+      } catch (e) {
+        slots = [];
+      }
+    }
+
+    if (dayUnavailable) {
+      this.setScheduleNotice(
+        noticeText ||
+          TRANSLATIONS.bookingDayNotAvailable?.[lang] ||
+          TRANSLATIONS.bookingDayNotAvailable?.en ||
+          '',
+        'blocked'
+      );
+      slots = [];
+    } else if (doctorWrongBranch) {
+      this.setScheduleNotice('', 'blocked');
+      slots = [];
+    } else if (apiOk) {
+      if (noticeText) {
+        this.setScheduleNotice(noticeText, 'muted');
+      } else {
+        this.setScheduleNotice('');
+      }
+    } else if (useServerSlots) {
+      this.setScheduleNotice(
+        TRANSLATIONS.bookingAvailabilityError?.[lang] || TRANSLATIONS.bookingAvailabilityError?.en || '',
+        'blocked'
+      );
+      slots = [];
+    } else {
+      this.setScheduleNotice('');
+      if (legacyTeamDoctor && !slots.length) {
+        slots = this.timeSlotsFor(dateVal, docVal, branchId);
+      }
+    }
+
+    const blockTimes = dayUnavailable || doctorWrongBranch || (useServerSlots && !legacyTeamDoctor && !slots.length);
+    select.disabled = !!(dateVal && docVal && blockTimes);
+
     slots.forEach((t) => {
       const opt = document.createElement('option');
       opt.value = t;
@@ -1679,20 +1991,25 @@ class BookingManager {
       select.appendChild(opt);
     });
     PremiumSelect.refresh(select);
+    if (prev && Array.from(select.options).some((o) => o.value === prev)) {
+      select.value = prev;
+      PremiumSelect.refresh(select);
+    }
   }
 
   static attachListeners() {
     if (this.doctorSelect) {
       this.doctorSelect.addEventListener('change', () => {
+        this.clearDoctorBranchError();
         this.syncDoctorPreviewPanel();
-        this.renderTimes(this.appLang());
+        void this.renderTimes(this.appLang());
       });
     }
     if (this.branchSelect) {
-      this.branchSelect.addEventListener('change', () => this.renderTimes(this.appLang()));
+      this.branchSelect.addEventListener('change', () => void this.populateAll(this.appLang()));
     }
     if (this.dateInput) {
-      this.dateInput.addEventListener('change', () => this.renderTimes(this.appLang()));
+      this.dateInput.addEventListener('change', () => void this.renderTimes(this.appLang()));
     }
     if (this.form) {
       // Booking form open / first interaction
@@ -1716,28 +2033,57 @@ class BookingManager {
   }
 
   static bookingApiBase() {
-    try {
-      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
-    } catch (e) {
-      return "http://127.0.0.1:8000";
-    }
+    return psResolveApiBase();
   }
 
   static async handleSubmit() {
     const name = document.getElementById('name')?.value.trim();
     const phone = document.getElementById('phone')?.value.trim();
     const doctorKey = this.doctorSelect?.value;
-    const doctorName = doctorKey ? (TRANSLATIONS[doctorKey]?.[this.appLang()] || doctorKey) : '';
+    const lang = this.appLang();
+    const rec = doctorKey ? this.getDoctorRecordByValue(doctorKey) : null;
+    let doctorName = '';
+    let doctorId = '';
+    if (rec) {
+      doctorId = String(rec.id || '').trim();
+      doctorName = this.tField(rec.name, lang);
+    } else if (doctorKey) {
+      doctorName = TRANSLATIONS[doctorKey]?.[lang] || doctorKey;
+      doctorId = this.doctorIdFromLegacySelect(doctorKey) || '';
+    }
     const branch = this.branchSelect?.value;
     const date = this.dateInput?.value;
     const time = this.timeSelect?.value;
     const notesRaw = document.getElementById('notes')?.value.trim() || '';
-    const lang = this.appLang();
 
     if (!name || !phone || !doctorName || !date || !time) {
       const msg = lang === 'ar' ? 'يرجى تعبئة جميع الحقول المطلوبة' : 'Please fill all required fields';
       this.showMessage(msg, 'error');
       return;
+    }
+
+    if (doctorId && doctorKey && !String(doctorKey).startsWith('teamDoctor') && branch) {
+      try {
+        const r = await fetch(
+          this.bookingApiBase() + '/api/booking/doctors?branch_id=' + encodeURIComponent(branch),
+          { credentials: 'omit' }
+        );
+        const list = r.ok ? await r.json() : [];
+        const allowed = Array.isArray(list) && list.some((d) => d && String(d.id) === String(doctorId));
+        if (!allowed) {
+          const msg =
+            TRANSLATIONS.bookingDoctorNotAtBranch?.[lang] || TRANSLATIONS.bookingDoctorNotAtBranch?.en || '';
+          this.setDoctorBranchError(msg);
+          this.showMessage(msg, 'error');
+          return;
+        }
+      } catch (e) {
+        this.showMessage(
+          lang === 'ar' ? 'تعذر التحقق من الطبيب والفرع.' : 'Could not verify doctor for this branch.',
+          'error'
+        );
+        return;
+      }
     }
 
     const serviceLabel =
@@ -1747,17 +2093,19 @@ class BookingManager {
 
     let branchLabel = '';
     if (branch === 'main') branchLabel = TRANSLATIONS.branchMain?.[lang] || 'Main';
-    else if (branch === 'one') branchLabel = TRANSLATIONS.branchOne?.[lang] || '';
+    else if (branch === 'khalidiya') branchLabel = TRANSLATIONS.branchKhalidiya?.[lang] || '';
 
     const payload = {
       patient_name: name,
       phone,
       doctor: doctorName,
+      doctor_id: doctorId || undefined,
       service: serviceLabel,
       date,
       time,
       notes: notesRaw || undefined,
       branch: branchLabel || undefined,
+      branch_id: branch || undefined,
     };
 
     try {
@@ -1766,12 +2114,23 @@ class BookingManager {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const data = res.ok ? await res.json().catch(() => ({})) : null;
+      const raw = await res.text();
+      let data = null;
+      try {
+        data = raw ? JSON.parse(raw) : null;
+      } catch (eParse) {
+        data = null;
+      }
       if (!res.ok) {
-        const errMsg =
+        let errMsg =
           lang === 'ar'
             ? 'تعذر إرسال الطلب. تحقق من الاتصال وحاول مرة أخرى.'
             : 'Could not submit your request. Check your connection and try again.';
+        const det = data && data.detail != null ? String(data.detail) : '';
+        if (det) errMsg = det;
+        if (/not available at this branch/i.test(errMsg) || /الطبيب المختار غير متوفر/i.test(errMsg)) {
+          this.setDoctorBranchError(errMsg);
+        }
         this.showMessage(errMsg, 'error');
         return;
       }
@@ -1790,7 +2149,7 @@ class BookingManager {
       }
 
       this.form.reset();
-      this.populateAll(lang);
+      void this.populateAll(lang);
       BookingManager.syncDoctorPreviewPanel();
     } catch (e) {
       const errMsg =
@@ -1818,8 +2177,29 @@ class BookingManager {
       this.branchSelect = document.getElementById('branch');
       this.timeSelect = document.getElementById('time');
       this.dateInput = document.getElementById('date');
+      this.scheduleNotice = document.getElementById('bookingScheduleNotice');
+      this.doctorBranchErrorEl = document.getElementById('bookingDoctorBranchError');
+      this.doctorGroupEl = document.getElementById('bookingDoctorGroup');
     }
-    this.populateAll(lang);
+    void this.populateAll(lang);
+  }
+
+  static doctorIdFromLegacySelect(value) {
+    const idx = this.doctorIndexFromSelectValue(value);
+    if (idx < 0) return '';
+    const list = typeof window !== 'undefined' && window.__SITE_DATA__ && window.__SITE_DATA__.doctors;
+    if (!Array.isArray(list) || !list[idx]) return '';
+    return String(list[idx].id || '').trim();
+  }
+
+  static getDoctorRecordByValue(value) {
+    if (!value) return null;
+    const list = typeof window !== 'undefined' && window.__SITE_DATA__ && window.__SITE_DATA__.doctors;
+    if (Array.isArray(list)) {
+      const byId = list.find((d) => d && String(d.id) === String(value));
+      if (byId) return byId;
+    }
+    return this.getDoctorRecord(value);
   }
 
   /** Same absolute URL rules as site-data.js `absMediaUrl`. */
@@ -1830,9 +2210,7 @@ class BookingManager {
     const base =
       typeof window !== 'undefined' && window.__API_BASE__ != null && window.__API_BASE__ !== ''
         ? String(window.__API_BASE__).replace(/\/$/, '')
-        : typeof window !== 'undefined' && window.location
-          ? window.location.origin.replace(/\/$/, '')
-          : '';
+        : psResolveApiBase();
     const normalized = p.charAt(0) === '/' ? p : '/' + p;
     return base ? base + normalized : normalized;
   }
@@ -1877,7 +2255,7 @@ class BookingManager {
 
     const val = select && select.value ? select.value : '';
     const lang = this.appLang();
-    let doc = val ? this.getDoctorRecord(val) : null;
+    let doc = val ? this.getDoctorRecordByValue(val) : null;
 
     let name = '';
     let role = '';
@@ -2116,7 +2494,7 @@ if (typeof window !== "undefined") {
   window.HomeServiceScrollReveal = HomeServiceScrollReveal;
 }
 
-/** Homepage blog teaser: latest 3 posts from `/api/blog`; matches blog.js card markup & URLs. */
+/** Homepage blog teaser: latest 3 posts from `/api/blog`; markup aligned with `blog.js` ps-blog-card. */
 const HomeBlogTeaser = (function () {
   const DEFAULT_COVER =
     "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=960&q=75";
@@ -2126,11 +2504,7 @@ const HomeBlogTeaser = (function () {
 
   function apiRoot() {
     try {
-      if (typeof window.__API_BASE__ !== "undefined" && window.__API_BASE__) {
-        const b = String(window.__API_BASE__).replace(/\/$/, "");
-        if (b) return b;
-      }
-      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+      return psResolveApiBase();
     } catch (e) {
       return "http://127.0.0.1:8000";
     }
@@ -2167,6 +2541,94 @@ const HomeBlogTeaser = (function () {
       .replace(/"/g, "&quot;");
   }
 
+  function postUrlTeaser(slug) {
+    if (typeof window.psBlogPostUrl === "function") {
+      return window.psBlogPostUrl(slug);
+    }
+    return "blog-post.html?slug=" + encodeURIComponent(String(slug || "").trim());
+  }
+
+  function safeSlugId(slug) {
+    const s = String(slug || "post")
+      .replace(/[^a-zA-Z0-9_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    return (s || "post").slice(0, 64);
+  }
+
+  function absolutePostHref(slug) {
+    const path = postUrlTeaser(slug);
+    try {
+      return new URL(path, location.href).href;
+    } catch (e) {
+      return path;
+    }
+  }
+
+  function resolveTeaserCover(p) {
+    const v = p && (p.hero_image || p.image || p.cover_image);
+    return v ? String(v) : DEFAULT_COVER;
+  }
+
+  function htmlPsBlogCard(p, lang) {
+    const title = pickLang(p.title, lang);
+    const excerpt = (pickLang(p.excerpt, lang) || "").trim();
+    const tagText = pickLang(p.tag, lang);
+    const coverSrc = resolveTeaserCover(p);
+    const href = postUrlTeaser(p.slug);
+    const urlProp = absolutePostHref(p.slug);
+    const titleId = "ps-blog-card-title-" + safeSlugId(p.slug);
+    const readMore = tr("blogReadMore") || "Read more";
+    const rt = p.read_time
+      ? String(p.read_time) + " " + (tr("blogReadTimeSuffix") || "")
+      : tr("blogQuickRead") || "";
+
+    const metaParts = [];
+    if (tagText) {
+      metaParts.push('<span class="ps-blog-card__tag">' + escapeHtml(tagText) + "</span>");
+    }
+    if (rt) {
+      metaParts.push('<span class="ps-blog-card__readtime">' + escapeHtml(rt) + "</span>");
+    }
+    const metaRow = metaParts.length
+      ? '<div class="ps-blog-card__meta">' + metaParts.join("") + "</div>"
+      : "";
+
+    const excerptBlock = excerpt
+      ? '<p class="ps-blog-card__excerpt" itemprop="description">' + escapeHtml(excerpt) + "</p>"
+      : "";
+
+    return (
+      '<article class="ps-blog-card" itemscope itemtype="https://schema.org/BlogPosting">' +
+      '<link itemprop="url" href="' +
+      escapeHtml(urlProp) +
+      '" />' +
+      '<a class="ps-blog-card__surface" href="' +
+      escapeHtml(href) +
+      '" aria-labelledby="' +
+      escapeHtml(titleId) +
+      '">' +
+      '<figure class="ps-blog-card__figure">' +
+      '<img class="ps-blog-card__img" src="' +
+      escapeHtml(coverSrc) +
+      '" alt="' +
+      escapeHtml(title || readMore) +
+      '" width="960" height="540" loading="lazy" decoding="async" itemprop="image" />' +
+      "</figure>" +
+      '<div class="ps-blog-card__body">' +
+      metaRow +
+      '<h3 class="ps-blog-card__title" id="' +
+      escapeHtml(titleId) +
+      '" itemprop="headline">' +
+      escapeHtml(title || "") +
+      "</h3>" +
+      excerptBlock +
+      '<span class="ps-blog-card__cta"><span class="ps-blog-card__cta-text">' +
+      escapeHtml(readMore) +
+      "</span></span>" +
+      "</div></a></article>"
+    );
+  }
+
   function paint(host, posts) {
     const lang = currentLang();
     if (!host) return;
@@ -2176,50 +2638,9 @@ const HomeBlogTeaser = (function () {
         '<p class="empty-hint blog-teaser-empty">' + escapeHtml(tr("blogNoArticles") || "") + "</p>";
       return;
     }
-    host.innerHTML = list
-      .map(function (p) {
-        const title = pickLang(p.title, lang);
-        const excerpt = pickLang(p.excerpt, lang);
-        const tagText = pickLang(p.tag, lang);
-        const coverSrc = p.hero_image ? String(p.hero_image) : DEFAULT_COVER;
-        const imgStyle = "background-image:url('" + coverSrc.replace(/'/g, "%27") + "')";
-        const rt = p.read_time
-          ? String(p.read_time) +
-            " " +
-            (lang === "ar"
-              ? tr("blogReadTimeSuffix") || ""
-              : tr("blogReadTimeSuffix") || "")
-          : tr("blogQuickRead") || "";
-        const tg = tagText ? '<span class="offer-tag">' + escapeHtml(tagText) + "</span>" : "";
-        const href =
-          typeof window.psBlogPostUrl === "function"
-            ? window.psBlogPostUrl(p.slug)
-            : "blog-post.html?slug=" + encodeURIComponent(p.slug || "");
-        return (
-          '<a class="offer-card blog-card blog-teaser-card" href="' +
-          escapeHtml(href) +
-          '">' +
-          '<div class="offer-image" aria-hidden="true" style="' +
-          escapeHtml(imgStyle) +
-          '"></div>' +
-          '<div class="offer-content">' +
-          tg +
-          "<h3>" +
-          escapeHtml(title || "") +
-          "</h3>" +
-          '<p style="margin-top:10px">' +
-          escapeHtml(excerpt || "") +
-          "</p>" +
-          '<span style="margin-top:12px;color:var(--muted);font-weight:700">' +
-          escapeHtml(rt) +
-          "</span>" +
-          '<span class="btn btn-secondary" style="margin-top:14px">' +
-          escapeHtml(tr("blogReadMore") || "") +
-          "</span>" +
-          "</div></a>"
-        );
-      })
-      .join("");
+    host.innerHTML = list.map(function (p) {
+      return htmlPsBlogCard(p, lang);
+    }).join("");
   }
 
   function loadPosts() {
@@ -2438,9 +2859,26 @@ class App {
     this.initializeServicesCards();
     this.attachEventListeners();
     // initialize booking manager after language/DOM are ready
-    if (typeof BookingManager !== 'undefined' && BookingManager.init) {
+    if (typeof BookingManager !== "undefined" && BookingManager.init) {
       BookingManager.init();
     }
+    try {
+      document.documentElement.classList.remove("ps-i18n-pending");
+      const st = document.getElementById("ps-i18n-pending-style");
+      if (st) st.remove();
+    } catch (e) {
+      /* no-op */
+    }
+    /* Blog article: navbar height changes after LanguageManager updates links — blog.js re-measures padding */
+    requestAnimationFrame(function () {
+      try {
+        if (typeof window.Blog !== "undefined" && typeof window.Blog.resyncArticleMainPad === "function") {
+          window.Blog.resyncArticleMainPad();
+        }
+      } catch (eBlogPad) {
+        /* no-op */
+      }
+    });
   }
 
   initializeTheme() {
@@ -2681,13 +3119,7 @@ if (document.readyState === "loading") {
 // ============================================================================
 
 const Discovery = (function () {
-  const apiBase = (function () {
-    try {
-      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
-    } catch (e) {
-      return "http://127.0.0.1:8000";
-    }
-  })();
+  const apiBase = psResolveApiBase();
 
   const cacheKey = "ps_ai_index_cache_v1";
   const cacheTtlMs = 10 * 60 * 1000; // 10 min
@@ -2697,7 +3129,17 @@ const Discovery = (function () {
   }
 
   function currentLang() {
-    return localStorage.getItem("ps-lang") || document.documentElement.lang || "ar";
+    try {
+      const as = window.appState;
+      if (as && (as.currentLang === "ar" || as.currentLang === "en")) return as.currentLang;
+    } catch (e) {
+      /* no-op */
+    }
+    const stored = localStorage.getItem("ps-lang");
+    if (stored === "ar" || stored === "en") return stored;
+    const tag = (document.documentElement && document.documentElement.lang) || "";
+    if (tag === "ar" || tag === "en") return tag;
+    return "ar";
   }
 
   function pickLang(val, lang) {

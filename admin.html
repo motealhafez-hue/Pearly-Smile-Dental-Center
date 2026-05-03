@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="en" class="admin-root theme-dark">
+<html lang="en" class="admin-root">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="site-prefs-boot.js"></script>
     <title>Clinic Console | Pearly Smile</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -990,6 +991,161 @@
       }
 
       /* Bookings tab — readable cards (no cramped table) */
+      .sched-cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 6px;
+        margin-top: 0.75rem;
+      }
+      .sched-cal-h {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        text-align: center;
+      }
+      .sched-cal-cell {
+        min-height: 38px;
+        border-radius: 10px;
+        border: 1px solid var(--glass-border);
+        background: var(--surface);
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .sched-cal-day.is-closed {
+        background: rgba(248, 113, 113, 0.2);
+        border-color: rgba(248, 113, 113, 0.45);
+      }
+      .sched-cal-day.is-today {
+        outline: 2px solid var(--accent);
+      }
+      .sched-chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 0.5rem;
+      }
+      .sched-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--glass-border);
+        font-size: 0.85rem;
+      }
+      .sched-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .sched-wd-row,
+      .sched-wd-mini {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .sched-doc-card {
+        margin-bottom: 0.85rem;
+      }
+      .sched-toggle input {
+        width: 18px;
+        height: 18px;
+      }
+      .schedule-admin-v2.sched-admin-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .schedule-admin-v2.sched-admin-stack > .card.glass {
+        margin: 0;
+      }
+      .schedule-admin-v2 .sched-branch-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 0;
+      }
+      .sched-branch-pill {
+        border-radius: 999px;
+        font-weight: 600;
+      }
+      .sched-branch-pill--main.is-active {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(59, 130, 246, 0.12));
+        border-color: rgba(59, 130, 246, 0.55);
+      }
+      .sched-branch-pill--khalidiya.is-active {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(16, 185, 129, 0.12));
+        border-color: rgba(16, 185, 129, 0.55);
+      }
+      .sched-v2-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+      @media (max-width: 900px) {
+        .sched-v2-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .sched-branch-tag {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+      }
+      .sched-branch-tag--main {
+        background: rgba(59, 130, 246, 0.2);
+        color: var(--text, #e2e8f0);
+      }
+      .sched-branch-tag--khalidiya {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--text, #e2e8f0);
+      }
+      .sched-closed-editor {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 0.75rem;
+      }
+      .sched-closed-card {
+        border-radius: var(--radius-sm, 12px);
+        border: 1px solid var(--glass-border);
+        padding: 0.75rem 1rem;
+        background: var(--surface, rgba(255, 255, 255, 0.04));
+      }
+      .sched-closed-card__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 0.5rem;
+      }
+      .sched-cal-nav-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 0.5rem 0;
+      }
+      .sched-cal-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      .sched-toggle--inline {
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .btn-xs {
+        padding: 0 6px;
+        font-size: 0.85rem;
+        min-height: auto;
+      }
       .bookings-wrap {
         border-radius: var(--radius-sm);
         border: 1px solid var(--glass-border);
@@ -1193,7 +1349,7 @@
       .uploader-preview img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         display: block;
       }
 
@@ -1489,11 +1645,16 @@
     <script>
       (function () {
         const TOKEN_KEY = "ps_admin_token";
-        const THEME_KEY = "ps_admin_theme";
+        const THEME_KEY = "ps-theme";
 
         const apiBase = (function () {
           try {
-            return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+            if (location.protocol === "file:") return "http://127.0.0.1:8000";
+            var h = String(location.hostname || "").toLowerCase();
+            if (h === "127.0.0.1" || h === "localhost" || h === "[::1]") {
+              return "http://127.0.0.1:8000";
+            }
+            return location.origin;
           } catch (e) {
             return "http://127.0.0.1:8000";
           }
@@ -1677,6 +1838,36 @@
           return r.json();
         }
 
+        async function apiGetSchedule() {
+          const r = await fetch(apiBase + "/api/admin/schedule", { headers: authHeaders() });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) throw new Error("Failed to load schedule");
+          return r.json();
+        }
+
+        async function apiPutSchedule(s) {
+          const r = await fetch(apiBase + "/api/admin/schedule", {
+            method: "PUT",
+            headers: Object.assign({}, authHeaders(), { "Content-Type": "application/json" }),
+            body: JSON.stringify(s),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) {
+            const t = await r.text();
+            throw new Error(t || "Failed to save schedule");
+          }
+          return r.json();
+        }
+
+        function notifyScheduleChanged() {
+          try {
+            localStorage.setItem("ps-schedule-rev", String(Date.now()));
+          } catch (e) {}
+          try {
+            new BroadcastChannel("ps-schedule").postMessage({ type: "update" });
+          } catch (e) {}
+        }
+
         let bookingsPollId = null;
 
         function startBookingsPolling() {
@@ -1702,12 +1893,33 @@
         // -----------------------------
         // Events API (separate store)
         // -----------------------------
+        function adminAnalyticsSessionId() {
+          try {
+            var k = "ps_admin_evt_sid";
+            var s = sessionStorage.getItem(k);
+            if (!s) {
+              s = "adm_" + Math.random().toString(36).slice(2, 14);
+              sessionStorage.setItem(k, s);
+            }
+            return s;
+          } catch (e) {
+            return "adm_local";
+          }
+        }
+
         async function apiPostEvent(evt) {
           try {
+            var payload = Object.assign(
+              {
+                session_id: adminAnalyticsSessionId(),
+                page: location.pathname || "/admin",
+              },
+              evt || {}
+            );
             const r = await fetch(apiBase + "/api/events", {
               method: "POST",
               headers: authHeaders(),
-              body: JSON.stringify(evt),
+              body: JSON.stringify(payload),
             });
             return r.ok;
           } catch (e) {
@@ -1770,15 +1982,40 @@
           return r.json();
         }
 
-        async function apiGenerateBlog(topic) {
+        async function apiGenerateBlog(topic, draft) {
           const r = await fetch(apiBase + "/api/generate-blog", {
             method: "POST",
             headers: authHeaders(),
-            body: JSON.stringify({ topic: topic || null }),
+            body: JSON.stringify({ topic: topic || null, draft: Boolean(draft) }),
           });
           if (r.status === 401) throw new Error("Session expired — sign in again");
           if (!r.ok) {
             let msg = "Failed to generate blog";
+            try {
+              const j = await r.json();
+              if (j && j.detail) msg = String(j.detail);
+            } catch (e) {}
+            throw new Error(msg);
+          }
+          return r.json();
+        }
+
+        async function apiGetOpenAIKeyStatus() {
+          const r = await fetch(apiBase + "/api/admin/openai-key", { headers: authHeaders() });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) throw new Error("Failed to read OpenAI key status");
+          return r.json();
+        }
+
+        async function apiSetOpenAIKey(apiKey) {
+          const r = await fetch(apiBase + "/api/admin/openai-key", {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify({ api_key: String(apiKey || "").trim() }),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) {
+            let msg = "Failed to save key";
             try {
               const j = await r.json();
               if (j && j.detail) msg = String(j.detail);
@@ -1819,7 +2056,8 @@
           const get = opts.get;
           const set = opts.set;
           const label = opts.label || "Image";
-          const size = opts.size || { w: 72, h: 72 };
+          const emptySize = opts.size || { w: 72, h: 72 };
+          const maxPreview = opts.maxPreview || { w: 280, h: 210 };
 
           const wrap = document.createElement("div");
           const lab = document.createElement("span");
@@ -1829,8 +2067,25 @@
 
           const row = document.createElement("div");
           row.className = "uploader";
-          row.style.setProperty("--uploader-w", String(size.w) + "px");
-          row.style.setProperty("--uploader-h", String(size.h) + "px");
+
+          function resetPreviewBoxEmpty() {
+            row.style.setProperty("--uploader-w", String(emptySize.w) + "px");
+            row.style.setProperty("--uploader-h", String(emptySize.h) + "px");
+          }
+
+          function applyPreviewBoxFromNatural(nw, nh) {
+            if (!nw || !nh) {
+              resetPreviewBoxEmpty();
+              return;
+            }
+            const scale = Math.min(1, maxPreview.w / nw, maxPreview.h / nh);
+            const w = Math.max(48, Math.round(nw * scale));
+            const h = Math.max(48, Math.round(nh * scale));
+            row.style.setProperty("--uploader-w", w + "px");
+            row.style.setProperty("--uploader-h", h + "px");
+          }
+
+          resetPreviewBoxEmpty();
 
           const preview = document.createElement("div");
           preview.className = "uploader-preview";
@@ -1871,10 +2126,18 @@
             if (showUrl) {
               const img = document.createElement("img");
               img.alt = "";
+              img.decoding = "async";
+              img.addEventListener("load", function () {
+                applyPreviewBoxFromNatural(img.naturalWidth, img.naturalHeight);
+              });
+              img.addEventListener("error", function () {
+                resetPreviewBoxEmpty();
+              });
               img.src = showUrl;
               preview.insertBefore(img, status);
               btnUp.textContent = "Change image";
             } else {
+              resetPreviewBoxEmpty();
               const t = document.createElement("div");
               t.className = "uploader-empty";
               t.textContent = "No image";
@@ -2044,6 +2307,7 @@
           { id: "homepage", label: "Homepage", icon: "⌂" },
           { id: "services", label: "Services", icon: "◇" },
           { id: "doctors", label: "Doctors", icon: "◎" },
+          { id: "schedule", label: "Schedule", icon: "▦" },
           { id: "offers", label: "Offers", icon: "★" },
           { id: "bookings", label: "Bookings", icon: "▣" },
           { id: "blog", label: "Blog", icon: "✎" },
@@ -2380,6 +2644,7 @@
             const row = { id };
             fields.forEach((f) => {
               if (f.type === "lang") row[f.key] = { ar: "", en: "" };
+              else if (f.type === "branches") row[f.key] = ["main", "khalidiya"];
               else row[f.key] = f.default != null ? f.default : "";
             });
             state[key].push(row);
@@ -2453,12 +2718,45 @@
                     createImageUploader({
                       label: f.label || "Image",
                       size: { w: 72, h: 72 },
+                      maxPreview: { w: 128, h: 128 },
                       get: () => item[f.key],
                       set: (v) => {
                         item[f.key] = v;
                       },
                     })
                   );
+                } else if (f.type === "branches") {
+                  if (!Array.isArray(item[f.key])) item[f.key] = ["main", "khalidiya"];
+                  const brCard = document.createElement("div");
+                  brCard.className = "help-text";
+                  brCard.style.marginTop = "8px";
+                  brCard.innerHTML =
+                    "<strong>Booking · branches</strong><br />Uncheck a location if this doctor does not see patients there.";
+                  const rowCh = document.createElement("div");
+                  rowCh.className = "sched-inline";
+                  rowCh.style.marginTop = "8px";
+                  [
+                    { id: "main", lab: "Khalidiyah Branch" },
+                    { id: "khalidiya", lab: "Khalifa City A Branch" },
+                  ].forEach(function (bo) {
+                    const lab = document.createElement("label");
+                    lab.className = "sched-chip";
+                    const cb = document.createElement("input");
+                    cb.type = "checkbox";
+                    cb.checked = item[f.key].indexOf(bo.id) !== -1;
+                    cb.addEventListener("change", function () {
+                      const set = new Set(item[f.key]);
+                      if (cb.checked) set.add(bo.id);
+                      else set.delete(bo.id);
+                      item[f.key] = Array.from(set);
+                      markDirty();
+                    });
+                    lab.appendChild(cb);
+                    lab.appendChild(document.createTextNode(" " + bo.lab));
+                    rowCh.appendChild(lab);
+                  });
+                  brCard.appendChild(rowCh);
+                  it.appendChild(brCard);
                 }
               });
               listHost.appendChild(it);
@@ -2511,6 +2809,7 @@
             { type: "image", key: "image", label: "Doctor photo (optional)" },
             { type: "lang", key: "name", labelAr: "Name AR", labelEn: "Name EN" },
             { type: "lang", key: "role", labelAr: "Role AR", labelEn: "Role EN" },
+            { type: "branches", key: "branch_ids" },
           ]);
           listEditor(root, "homeDoctors", "Homepage · spotlight doctors", [
             { type: "text", key: "id", label: "Id" },
@@ -2573,7 +2872,8 @@
           visCard.appendChild(
             createImageUploader({
               label: "Hero image (optional — overlays gradient)",
-              size: { w: 240, h: 150 },
+              size: { w: 200, h: 120 },
+              maxPreview: { w: 380, h: 240 },
               get: () => ha.visual.image,
               set: (v) => {
                 ha.visual.image = v;
@@ -2667,6 +2967,553 @@
           } catch (e) {
             return String(iso);
           }
+        }
+
+        const SCHED_WD = [
+          { v: 6, lab: "Sun" },
+          { v: 0, lab: "Mon" },
+          { v: 1, lab: "Tue" },
+          { v: 2, lab: "Wed" },
+          { v: 3, lab: "Thu" },
+          { v: 4, lab: "Fri" },
+          { v: 5, lab: "Sat" },
+        ];
+
+        function renderSchedule(root) {
+          setPageHead(
+            "Schedule",
+            "Per-branch hours, closed days with reasons, and doctor availability. Changes apply only to the selected branch."
+          );
+          root.innerHTML = '<div class="card glass"><p class="empty-hint">Loading schedule…</p></div>';
+          (async () => {
+            let sch;
+            try {
+              sch = await apiGetSchedule();
+            } catch (e) {
+              root.innerHTML =
+                '<div class="card glass"><p class="empty-hint">' + escapeHtml(e.message || "Load failed") + "</p></div>";
+              return;
+            }
+            if (!sch || !sch.branches) {
+              root.innerHTML =
+                '<div class="card glass"><p class="empty-hint">Schedule file must be v2 with branches. Restart the API to migrate, or restore schedule.json.</p></div>';
+              return;
+            }
+            const fullSch = JSON.parse(JSON.stringify(sch));
+            let activeBranchId = "main";
+            let calMonthOffset = 0;
+
+            function bsched() {
+              return fullSch.branches[activeBranchId];
+            }
+
+            function defaultClosedDay(dateStr) {
+              return {
+                date: dateStr,
+                reason_type: "holiday",
+                message_en: "",
+                message_ar: "",
+                show_message: true,
+                custom_detail: "",
+              };
+            }
+
+            function commitActiveFromDom() {
+              const b = fullSch.branches[activeBranchId];
+              if (!b) return;
+              const gp = wrap.querySelector("#schedGlobalPause");
+              fullSch.global_paused = !!(gp && gp.checked);
+              const panel = wrap.querySelector("#schedBranchPanelHost");
+              if (!panel) return;
+              const slotsTa = panel.querySelector("#schedSlotsTa");
+              b.time_slots = (slotsTa && slotsTa.value ? slotsTa.value : "")
+                .split(/\r?\n/)
+                .map(function (s) {
+                  return s.trim();
+                })
+                .filter(Boolean);
+              b.weekly_open_weekdays = Array.from(panel.querySelectorAll("input.sched-weekly:checked")).map(function (el) {
+                return Number(el.getAttribute("data-wd"));
+              });
+              const drows = [];
+              panel.querySelectorAll(".sched-doc-card").forEach(function (card) {
+                const did = card.dataset.docId;
+                const acc = card.querySelector(".sched-acc");
+                const bd = card
+                  .querySelector(".sched-bd")
+                  .value.split(/\r?\n/)
+                  .map(function (s) {
+                    return s.trim();
+                  })
+                  .filter(Boolean);
+                const rs = card.querySelector(".sched-br-s").value;
+                const re = card.querySelector(".sched-br-e").value;
+                const ranges = [];
+                if (rs && re) ranges.push({ start: rs, end: re });
+                const awd = Array.from(card.querySelectorAll("input.sched-awd:checked")).map(function (el) {
+                  return Number(el.getAttribute("data-wd"));
+                });
+                const sel = card.querySelector(".sched-slots");
+                const allowed = Array.from(sel.selectedOptions).map(function (o) {
+                  return o.value;
+                });
+                drows.push({
+                  doctor_id: did,
+                  accepts_bookings: !!(acc && acc.checked),
+                  blocked_dates: bd,
+                  blocked_ranges: ranges,
+                  allowed_weekdays: awd.length ? awd : null,
+                  allowed_slots: allowed.length ? allowed : null,
+                });
+              });
+              b.doctors = drows;
+            }
+
+            function doctorRow(doc, b) {
+              const did = String(doc.id || "").trim();
+              if (!did) return null;
+              const cur =
+                (b.doctors || []).find(function (x) {
+                  return x && String(x.doctor_id) === did;
+                }) || {
+                  doctor_id: did,
+                  accepts_bookings: true,
+                  allowed_slots: null,
+                  allowed_weekdays: null,
+                  blocked_dates: [],
+                  blocked_ranges: [],
+                };
+              const row = document.createElement("div");
+              row.className = "card glass sched-doc-card";
+              row.dataset.docId = did;
+              const nm = escapeHtml((doc.name && (doc.name.en || doc.name.ar)) || did);
+              row.innerHTML =
+                '<div class="sched-doc-head"><h4 class="section-title" style="margin:0">' +
+                nm +
+                '</h4><label class="sched-toggle"><input type="checkbox" class="sched-acc" ' +
+                (cur.accepts_bookings !== false ? "checked" : "") +
+                ' /><span>Accepts online bookings</span></label></div>' +
+                '<p class="help-text" style="margin:0.35rem 0 0.5rem">Blocked dates (one YYYY-MM-DD per line)</p>' +
+                '<textarea class="field sched-bd" rows="2" placeholder="2026-12-25">' +
+                escapeHtml((cur.blocked_dates || []).join("\n")) +
+                '</textarea>' +
+                '<p class="help-text" style="margin:0.75rem 0 0.35rem">Blocked range (optional)</p>' +
+                '<div class="row-2"><input type="date" class="field sched-br-s" value="' +
+                escapeHtml((cur.blocked_ranges && cur.blocked_ranges[0] && cur.blocked_ranges[0].start) || "") +
+                '" /><input type="date" class="field sched-br-e" value="' +
+                escapeHtml((cur.blocked_ranges && cur.blocked_ranges[0] && cur.blocked_ranges[0].end) || "") +
+                '" /></div>' +
+                '<p class="help-text" style="margin:0.75rem 0 0.35rem">Allowed weekdays (empty = follow clinic week)</p>' +
+                '<div class="sched-wd-mini">' +
+                SCHED_WD.map(function (w) {
+                  const aw = cur.allowed_weekdays;
+                  const on =
+                    Array.isArray(aw) && aw.length ? aw.map(Number).indexOf(w.v) !== -1 : false;
+                  return (
+                    '<label class="sched-chip"><input type="checkbox" class="sched-awd" data-wd="' +
+                    w.v +
+                    '" ' +
+                    (on ? "checked" : "") +
+                    " />" +
+                    escapeHtml(w.lab) +
+                    "</label>"
+                  );
+                }).join("") +
+                '</div><p class="help-text" style="margin:0.75rem 0 0.35rem">Allowed slots (leave all unchecked = all clinic slots)</p>' +
+                '<select class="field sched-slots" multiple size="6"></select>';
+              const ms = row.querySelector(".sched-slots");
+              (b.time_slots || []).forEach(function (t) {
+                const o = document.createElement("option");
+                o.value = t;
+                o.textContent = t;
+                if (Array.isArray(cur.allowed_slots) && cur.allowed_slots.length && cur.allowed_slots.indexOf(t) !== -1) {
+                  o.selected = true;
+                }
+                ms.appendChild(o);
+              });
+              return row;
+            }
+
+            function paintOpenList() {
+              const b = bsched();
+              const host = wrap.querySelector("#schedOpenList");
+              if (!host) return;
+              host.innerHTML = (b.open_date_overrides || [])
+                .map(function (d) {
+                  return (
+                    '<span class="sched-chip" data-date="' +
+                    escapeHtml(d) +
+                    '">' +
+                    escapeHtml(d) +
+                    ' <button type="button" class="btn btn-ghost btn-xs sched-ox" data-date="' +
+                    escapeHtml(d) +
+                    '">×</button></span>'
+                  );
+                })
+                .join("");
+              host.querySelectorAll("button.sched-ox").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                  const ds = btn.getAttribute("data-date");
+                  b.open_date_overrides = (b.open_date_overrides || []).filter(function (x) {
+                    return String(x) !== ds;
+                  });
+                  paintOpenList();
+                  renderCal();
+                });
+              });
+            }
+
+            function paintClosedDaysEditor() {
+              const b = bsched();
+              const host = wrap.querySelector("#schedClosedDaysEditor");
+              if (!host) return;
+              if (!Array.isArray(b.closed_days)) b.closed_days = [];
+              host.innerHTML = "";
+              b.closed_days.forEach(function (entry, idx) {
+                const card = document.createElement("div");
+                card.className = "sched-closed-card";
+                card.innerHTML =
+                  '<div class="sched-closed-card__row">' +
+                  '<strong class="sched-closed-date">' +
+                  escapeHtml(entry.date || "") +
+                  "</strong>" +
+                  '<button type="button" class="btn btn-ghost btn-xs sched-remove-closed" data-i="' +
+                  idx +
+                  '">Remove</button></div>' +
+                  '<label class="help-text">Reason type</label>' +
+                  '<select class="field sched-reason-type" data-i="' +
+                  idx +
+                  '">' +
+                  ["maintenance", "holiday", "doctor_unavailable", "custom"]
+                    .map(function (rt) {
+                      return (
+                        '<option value="' +
+                        rt +
+                        '"' +
+                        (String(entry.reason_type) === rt ? " selected" : "") +
+                        ">" +
+                        escapeHtml(rt) +
+                        "</option>"
+                      );
+                    })
+                    .join("") +
+                  "</select>" +
+                  '<label class="help-text">Custom detail (optional)</label>' +
+                  '<input type="text" class="field sched-custom-detail" data-i="' +
+                  idx +
+                  '" value="' +
+                  escapeHtml(entry.custom_detail || "") +
+                  '" placeholder="e.g. Eid break" />' +
+                  '<label class="help-text">Message — English (optional)</label>' +
+                  '<input type="text" class="field sched-msg-en" data-i="' +
+                  idx +
+                  '" value="' +
+                  escapeHtml(entry.message_en || "") +
+                  '" />' +
+                  '<label class="help-text">Message — Arabic (optional)</label>' +
+                  '<input type="text" class="field sched-msg-ar" data-i="' +
+                  idx +
+                  '" value="' +
+                  escapeHtml(entry.message_ar || "") +
+                  '" />' +
+                  '<label class="sched-toggle sched-toggle--inline"><input type="checkbox" class="sched-show-msg" data-i="' +
+                  idx +
+                  '" ' +
+                  (entry.show_message !== false ? "checked" : "") +
+                  ' /><span>Show reason to patients on booking page</span></label>';
+                host.appendChild(card);
+                card.querySelector(".sched-remove-closed").addEventListener("click", function () {
+                  b.closed_days.splice(idx, 1);
+                  paintClosedDaysEditor();
+                  renderCal();
+                });
+                card.querySelector(".sched-reason-type").addEventListener("change", function (e) {
+                  b.closed_days[idx].reason_type = e.target.value;
+                });
+                card.querySelector(".sched-custom-detail").addEventListener("input", function (e) {
+                  b.closed_days[idx].custom_detail = e.target.value;
+                });
+                card.querySelector(".sched-msg-en").addEventListener("input", function (e) {
+                  b.closed_days[idx].message_en = e.target.value;
+                });
+                card.querySelector(".sched-msg-ar").addEventListener("input", function (e) {
+                  b.closed_days[idx].message_ar = e.target.value;
+                });
+                card.querySelector(".sched-show-msg").addEventListener("change", function (e) {
+                  b.closed_days[idx].show_message = !!e.target.checked;
+                });
+              });
+            }
+
+            function renderBranchPanel() {
+              const panel = wrap.querySelector("#schedBranchPanelHost");
+              if (!panel) return;
+              const b = bsched();
+              if (!Array.isArray(b.closed_days)) b.closed_days = [];
+              if (Array.isArray(b.closed_dates) && b.closed_dates.length) {
+                b.closed_dates.forEach(function (ds) {
+                  const s = String(ds).trim();
+                  if (!s) return;
+                  if (!b.closed_days.some(function (x) { return x && x.date === s; })) {
+                    b.closed_days.push(defaultClosedDay(s));
+                  }
+                });
+                b.closed_dates = [];
+              }
+              panel.innerHTML = "";
+              const grid = document.createElement("div");
+              grid.className = "sched-v2-grid";
+              const left = document.createElement("div");
+              left.className = "sched-v2-col";
+              left.innerHTML =
+                '<div class="sched-branch-tag sched-branch-tag--' +
+                activeBranchId +
+                '">' +
+                (activeBranchId === "main" ? "Khalidiyah Branch" : "Khalifa City A Branch") +
+                "</div>" +
+                '<p class="help-text" style="margin:0 0 0.5rem">Working weekdays (Sun=6 … Sat=5)</p>' +
+                '<div class="sched-wd-row" id="schedWdRow"></div>' +
+                '<p class="help-text" style="margin:1rem 0 0.5rem">Time slots (one HH:MM per line)</p>' +
+                '<textarea id="schedSlotsTa" class="field" rows="8" style="font-family:ui-monospace,Menlo,monospace"></textarea>' +
+                '<p class="help-text" style="margin:1rem 0 0.5rem">Force open a date (override weekly off)</p>' +
+                '<div class="sched-inline"><input type="date" id="schedOpenPick" class="field" />' +
+                '<button type="button" class="btn btn-secondary" id="schedOpenAdd">Add open override</button></div>' +
+                '<div id="schedOpenList" class="sched-chip-row"></div>';
+              const right = document.createElement("div");
+              right.className = "sched-v2-col";
+              right.innerHTML =
+                '<h4 class="section-title" style="margin:0 0 0.5rem">Off days & holidays</h4>' +
+                '<p class="help-text" style="margin:0 0 0.5rem">Add a closed day, then set reason and patient-facing messages.</p>' +
+                '<div class="sched-inline"><input type="date" id="schedClosedPick" class="field" />' +
+                '<button type="button" class="btn btn-secondary" id="schedClosedAdd">Mark day OFF</button></div>' +
+                '<div id="schedClosedDaysEditor" class="sched-closed-editor"></div>' +
+                '<h4 class="section-title" style="margin:1.25rem 0 0.5rem">Calendar</h4>' +
+                '<p class="help-text" style="margin:0 0 0.5rem">Navigate months; tap a day to toggle OFF (uses default holiday reason — edit above).</p>' +
+                '<div class="sched-cal-nav-row">' +
+                '<button type="button" class="btn btn-secondary btn-sm" id="schedCalPrev">←</button>' +
+                '<span id="schedCalTitle" class="sched-cal-title"></span>' +
+                '<button type="button" class="btn btn-secondary btn-sm" id="schedCalNext">→</button>' +
+                "</div>" +
+                '<div id="schedCalHost"></div>';
+              grid.appendChild(left);
+              grid.appendChild(right);
+              panel.appendChild(grid);
+
+              const wdRow = left.querySelector("#schedWdRow");
+              const weekly = new Set((b.weekly_open_weekdays || []).map(Number));
+              SCHED_WD.forEach(function (w) {
+                const lab = document.createElement("label");
+                lab.className = "sched-chip";
+                lab.innerHTML =
+                  '<input type="checkbox" data-wd="' +
+                  w.v +
+                  '" class="sched-weekly" ' +
+                  (weekly.has(w.v) ? "checked" : "") +
+                  " />" +
+                  escapeHtml(w.lab);
+                wdRow.appendChild(lab);
+              });
+              const slotsTa = left.querySelector("#schedSlotsTa");
+              slotsTa.value = (b.time_slots || []).join("\n");
+
+              const closedPick = right.querySelector("#schedClosedPick");
+              const closedAdd = right.querySelector("#schedClosedAdd");
+              if (closedAdd && closedPick) {
+                closedAdd.addEventListener("click", function () {
+                  const v = closedPick.value;
+                  if (!v) return;
+                  if (!b.closed_days.some(function (x) { return x && x.date === v; })) {
+                    b.closed_days.push(defaultClosedDay(v));
+                  }
+                  paintClosedDaysEditor();
+                  renderCal();
+                });
+              }
+              const openPick = left.querySelector("#schedOpenPick");
+              const openAdd = left.querySelector("#schedOpenAdd");
+              if (openAdd && openPick) {
+                openAdd.addEventListener("click", function () {
+                  const v = openPick.value;
+                  if (!v) return;
+                  b.open_date_overrides = b.open_date_overrides || [];
+                  if (b.open_date_overrides.indexOf(v) === -1) b.open_date_overrides.push(v);
+                  paintOpenList();
+                  renderCal();
+                });
+              }
+              paintOpenList();
+              paintClosedDaysEditor();
+
+              const docsHost = document.createElement("div");
+              docsHost.className = "sched-docs-block";
+              docsHost.innerHTML = '<h3 class="section-title" style="margin:1rem 0 0.5rem">Doctors (this branch)</h3>';
+              (state.doctors || []).forEach(function (doc) {
+                const el = doctorRow(doc, b);
+                if (el) docsHost.appendChild(el);
+              });
+              panel.appendChild(docsHost);
+
+              const prevB = right.querySelector("#schedCalPrev");
+              const nextB = right.querySelector("#schedCalNext");
+              if (prevB)
+                prevB.addEventListener("click", function () {
+                  calMonthOffset -= 1;
+                  renderCal();
+                });
+              if (nextB)
+                nextB.addEventListener("click", function () {
+                  calMonthOffset += 1;
+                  renderCal();
+                });
+              renderCal();
+            }
+
+            function renderCal() {
+              const b = bsched();
+              const calHostEl = wrap.querySelector("#schedCalHost");
+              const titleEl = wrap.querySelector("#schedCalTitle");
+              if (!calHostEl) return;
+              const now = new Date();
+              const y = now.getFullYear();
+              const m = now.getMonth() + calMonthOffset;
+              const first = new Date(y, m, 1);
+              const startPad = (first.getDay() + 6) % 7;
+              const daysInMonth = new Date(y, m + 1, 0).getDate();
+              const closedSet = new Set(
+                (b.closed_days || [])
+                  .map(function (x) {
+                    return x && x.date ? String(x.date) : "";
+                  })
+                  .filter(Boolean)
+              );
+              if (titleEl) {
+                titleEl.textContent = first.toLocaleString(undefined, { month: "long", year: "numeric" });
+              }
+              let html =
+                '<div class="sched-cal-grid"><span class="sched-cal-h">Mo</span><span class="sched-cal-h">Tu</span><span class="sched-cal-h">We</span><span class="sched-cal-h">Th</span><span class="sched-cal-h">Fr</span><span class="sched-cal-h">Sa</span><span class="sched-cal-h">Su</span>';
+              for (let i = 0; i < startPad; i++) html += '<span class="sched-cal-cell sched-cal-empty"></span>';
+              const todayStr =
+                now.getFullYear() +
+                "-" +
+                String(now.getMonth() + 1).padStart(2, "0") +
+                "-" +
+                String(now.getDate()).padStart(2, "0");
+              for (let d = 1; d <= daysInMonth; d++) {
+                const ds =
+                  first.getFullYear() +
+                  "-" +
+                  String(first.getMonth() + 1).padStart(2, "0") +
+                  "-" +
+                  String(d).padStart(2, "0");
+                const isCl = closedSet.has(ds);
+                const isTo = ds === todayStr;
+                html +=
+                  '<button type="button" class="sched-cal-cell sched-cal-day' +
+                  (isCl ? " is-closed" : "") +
+                  (isTo ? " is-today" : "") +
+                  '" data-date="' +
+                  escapeHtml(ds) +
+                  '">' +
+                  d +
+                  "</button>";
+              }
+              html += "</div>";
+              calHostEl.innerHTML = html;
+              calHostEl.querySelectorAll("button.sched-cal-day").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                  const ds = btn.getAttribute("data-date");
+                  if (!ds) return;
+                  const ix = (b.closed_days || []).findIndex(function (x) {
+                    return x && x.date === ds;
+                  });
+                  if (ix >= 0) {
+                    b.closed_days.splice(ix, 1);
+                  } else {
+                    b.closed_days.push(defaultClosedDay(ds));
+                  }
+                  paintClosedDaysEditor();
+                  renderCal();
+                });
+              });
+            }
+
+            root.innerHTML = "";
+            const wrap = document.createElement("div");
+            wrap.className = "schedule-admin schedule-admin-v2 sched-admin-stack";
+
+            const intro = document.createElement("p");
+            intro.className = "help-text";
+            intro.style.marginBottom = "0.75rem";
+            intro.textContent =
+              "Select a branch first. Saving writes all branches; the booking site filters by the visitor’s branch.";
+            wrap.appendChild(intro);
+
+            const pills = document.createElement("div");
+            pills.className = "sched-branch-pills";
+            ["main", "khalidiya"].forEach(function (bid) {
+              const pill = document.createElement("button");
+              pill.type = "button";
+              pill.className =
+                "btn sched-branch-pill sched-branch-pill--" + bid + (bid === activeBranchId ? " is-active" : "");
+              pill.setAttribute("data-branch", bid);
+              pill.textContent = bid === "main" ? "Khalidiyah Branch" : "Khalifa City A Branch";
+              pill.addEventListener("click", function () {
+                if (bid === activeBranchId) return;
+                commitActiveFromDom();
+                activeBranchId = bid;
+                pills.querySelectorAll(".sched-branch-pill").forEach(function (p) {
+                  p.classList.toggle("is-active", p.getAttribute("data-branch") === activeBranchId);
+                });
+                calMonthOffset = 0;
+                renderBranchPanel();
+              });
+              pills.appendChild(pill);
+            });
+            wrap.appendChild(pills);
+
+            const g = document.createElement("div");
+            g.className = "card glass";
+            g.innerHTML =
+              '<h3 class="section-title">Global</h3><label class="sched-toggle" style="margin:0.5rem 0 1rem;display:flex;align-items:center;gap:0.5rem">' +
+              '<input type="checkbox" id="schedGlobalPause" ' +
+              (fullSch.global_paused ? "checked" : "") +
+              " />" +
+              '<span>Pause all online bookings (all branches)</span></label>';
+            wrap.appendChild(g);
+
+            const branchHost = document.createElement("div");
+            branchHost.id = "schedBranchPanelHost";
+            wrap.appendChild(branchHost);
+
+            root.appendChild(wrap);
+            renderBranchPanel();
+
+            const saveBar = document.createElement("div");
+            saveBar.className = "toolbar-inline";
+            saveBar.style.marginTop = "1rem";
+            const saveBtn = document.createElement("button");
+            saveBtn.type = "button";
+            saveBtn.className = "btn btn-primary";
+            saveBtn.textContent = "Save schedule";
+            saveBar.appendChild(saveBtn);
+            wrap.appendChild(saveBar);
+
+            saveBtn.addEventListener("click", async function () {
+              try {
+                commitActiveFromDom();
+                const b = fullSch.branches[activeBranchId];
+                if (b && (!b.weekly_open_weekdays || !b.weekly_open_weekdays.length)) {
+                  b.weekly_open_weekdays = [6, 0, 1, 2, 3];
+                }
+                fullSch.version = 2;
+                await apiPutSchedule(fullSch);
+                notifyScheduleChanged();
+                showToast("Schedule saved — public booking updated.", true);
+              } catch (err) {
+                showToast(err.message || "Save failed", false);
+              }
+            });
+          })();
         }
 
         function renderBookings(root) {
@@ -2943,6 +3790,22 @@
             '<h3 class="section-title">Posts</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted);line-height:1.5">الموقع العام: <code>/blog</code> و <code>/blog/&lt;slug&gt;</code> — نفس الحقول في الـ API: <code>content_html</code> (نص المقال)، <code>hero_image</code> (الصورة)، <code>meta_title</code> / <code>meta_description</code> (SEO).<br/>Public: listing <code>GET /api/blog</code>, article <code>GET /api/blog/{slug}</code> — same fields as this editor.</p>';
           root.appendChild(shell);
 
+          const keyPanel = document.createElement("div");
+          keyPanel.style.marginBottom = "1rem";
+          keyPanel.style.padding = "1rem 1.1rem";
+          keyPanel.style.borderRadius = "12px";
+          keyPanel.style.border = "1px solid var(--border)";
+          keyPanel.style.background = "color-mix(in srgb, var(--surface) 92%, transparent)";
+          keyPanel.innerHTML =
+            '<h4 class="section-title" style="font-size:1rem;margin:0 0 0.5rem">OpenAI — مفتاح API</h4>' +
+            '<p id="openaiKeyStatusLine" style="margin:0 0 0.75rem;font-size:0.82rem;color:var(--text-muted)">…</p>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center">' +
+            '<input type="password" id="openaiKeyInput" autocomplete="new-password" spellcheck="false" placeholder="sk-…" style="flex:1;min-width:220px;padding:0.55rem 0.75rem;border-radius:10px;border:1px solid var(--border);font-family:ui-monospace,monospace;font-size:0.82rem" />' +
+            '<button type="button" class="btn btn-primary" id="openaiKeySaveBtn">حفظ المفتاح</button>' +
+            "</div>" +
+            '<p style="margin:0.65rem 0 0;font-size:0.72rem;color:var(--text-muted);line-height:1.45">يُحفظ في <code>api/.env</code> على السيرفر. الحقل مشفّر في المتصفح (نوع password). بعد الحفظ لا يُعرض المفتاح كاملاً — فقط معاينة قصيرة.</p>';
+          shell.insertBefore(keyPanel, shell.firstChild);
+
           const toolbar = document.createElement("div");
           toolbar.className = "toolbar-inline";
           const search = document.createElement("input");
@@ -2962,6 +3825,21 @@
           btnAi.className = "btn btn-ghost";
           btnAi.textContent = "Generate AI Blog";
           toolbar.appendChild(btnAi);
+
+          const aiDraftWrap = document.createElement("label");
+          aiDraftWrap.className = "toolbar-inline";
+          aiDraftWrap.style.cssText =
+            "align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--text-muted);cursor:pointer;user-select:none;";
+          const chkAiDraft = document.createElement("input");
+          chkAiDraft.type = "checkbox";
+          chkAiDraft.id = "blogAiDraftOnly";
+          chkAiDraft.title = "If checked, the new post stays hidden from the public blog until you publish it.";
+          const lblAiDraft = document.createElement("span");
+          lblAiDraft.textContent = "Draft only (do not show on public blog)";
+          aiDraftWrap.appendChild(chkAiDraft);
+          aiDraftWrap.appendChild(lblAiDraft);
+          toolbar.appendChild(aiDraftWrap);
+
           shell.appendChild(toolbar);
 
           const listHost = document.createElement("div");
@@ -3089,18 +3967,105 @@
             return wrap;
           }
 
+          /* ── Section divider helper ── */
+          function sectionDivider(label) {
+            const d = document.createElement("div");
+            d.style.cssText = "display:flex;align-items:center;gap:10px;margin:1.4rem 0 0.75rem;";
+            const line1 = document.createElement("div");
+            line1.style.cssText = "flex:0 0 18px;height:2px;border-radius:999px;background:var(--primary);opacity:.5";
+            const txt = document.createElement("span");
+            txt.style.cssText = "font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;";
+            txt.textContent = label;
+            const line2 = document.createElement("div");
+            line2.style.cssText = "flex:1;height:1px;background:var(--border-color);opacity:.6";
+            d.appendChild(line1);
+            d.appendChild(txt);
+            d.appendChild(line2);
+            return d;
+          }
+
+          /* ── SEO counter helper ── */
+          function withCounter(wrap, input, ideal, max) {
+            const bar = document.createElement("div");
+            bar.style.cssText = "margin-top:4px;display:flex;align-items:center;gap:6px;";
+            const count = document.createElement("span");
+            count.style.cssText = "font-size:.72rem;font-weight:700;";
+            const hint = document.createElement("span");
+            hint.style.cssText = "font-size:.72rem;color:var(--text-muted);";
+            hint.textContent = "ideal " + ideal + "–" + max + " chars";
+            function refresh() {
+              const n = (input.value || "").length;
+              count.textContent = n + " chars";
+              const ok = n >= ideal && n <= max;
+              const warn = n > 0 && (n < ideal * 0.6 || n > max * 1.1);
+              count.style.color = ok ? "var(--success-color, #10b981)" : warn ? "#f59e0b" : "var(--text-muted)";
+            }
+            input.addEventListener("input", refresh);
+            refresh();
+            bar.appendChild(count);
+            bar.appendChild(hint);
+            wrap.appendChild(bar);
+          }
+
+          /* ── Live HTML preview panel ── */
+          function buildContentField(labelAr, labelEn, obj, lang, onInput) {
+            const wrap = document.createElement("div");
+            wrap.style.cssText = "display:flex;flex-direction:column;gap:6px;";
+            const header = document.createElement("div");
+            header.style.cssText = "display:flex;align-items:center;justify-content:space-between;";
+            const lab = document.createElement("span");
+            lab.className = "floating-label";
+            lab.style.position = "static";
+            lab.style.fontSize = ".8rem";
+            lab.textContent = lang === "ar" ? labelAr : labelEn;
+            const btnPrev = document.createElement("button");
+            btnPrev.type = "button";
+            btnPrev.textContent = "👁 Preview";
+            btnPrev.style.cssText = "font-size:.72rem;padding:.2rem .6rem;border-radius:8px;border:1px solid var(--border-color);background:transparent;color:var(--text-muted);cursor:pointer;";
+            header.appendChild(lab);
+            header.appendChild(btnPrev);
+            wrap.appendChild(header);
+
+            const ta = document.createElement("textarea");
+            ta.className = "field";
+            ta.style.minHeight = "14rem";
+            ta.style.fontFamily = "monospace";
+            ta.style.fontSize = ".82rem";
+            ta.value = (obj && obj[lang]) || "";
+            ta.addEventListener("input", () => { onInput(lang, ta.value); updatePreview(); });
+            wrap.appendChild(ta);
+
+            const preview = document.createElement("div");
+            preview.hidden = true;
+            preview.style.cssText = "border:1px solid var(--border-color);border-radius:12px;padding:1rem 1.25rem;background:var(--bg-secondary, rgba(0,0,0,.04));font-size:.95rem;line-height:1.75;color:var(--text);";
+            wrap.appendChild(preview);
+
+            function updatePreview() {
+              if (!preview.hidden) preview.innerHTML = ta.value || "<em style='color:var(--text-muted)'>Empty</em>";
+            }
+            btnPrev.addEventListener("click", () => {
+              preview.hidden = !preview.hidden;
+              btnPrev.textContent = preview.hidden ? "👁 Preview" : "✕ Close";
+              updatePreview();
+            });
+            return wrap;
+          }
+
           function paintEditor() {
             editor.innerHTML = '<h3 class="section-title">Editor</h3>';
             if (!active) {
               editor.innerHTML +=
-                '<div class="empty-hint">Select a post to edit, or create a new post.</div>';
+                '<div class="empty-hint">Select a post to edit, or create a new one.</div>';
               return;
             }
 
             const row = active;
+
+            /* ── Core fields ── */
+            editor.appendChild(sectionDivider("Post info"));
+
             const grid = document.createElement("div");
             grid.className = "row-2";
-
             grid.appendChild(
               textLang("Title · AR", "Title · EN", row.title || { ar: "", en: "" }, (lang, val) => {
                 if (!row.title || typeof row.title !== "object") row.title = { ar: "", en: "" };
@@ -3108,11 +4073,10 @@
                 if (!row.slug) row.slug = slugify(row.title.en || row.title.ar || "");
               })
             );
-            grid.appendChild(
-              editorField("Slug (SEO)", row.slug || "", (v) => {
-                row.slug = slugify(v);
-              })
-            );
+            const slugWrap = editorField("Slug (URL)", row.slug || "", (v) => { row.slug = slugify(v); });
+            slugWrap.querySelector("input,textarea").style.fontFamily = "monospace";
+            slugWrap.querySelector("input,textarea").style.fontSize = ".88rem";
+            grid.appendChild(slugWrap);
             editor.appendChild(grid);
 
             editor.appendChild(
@@ -3131,113 +4095,159 @@
               })
             );
             grid2.appendChild(
-              editorField("Read time (minutes)", row.read_time || "", (v) => {
-                row.read_time = Number(v) || null;
-              })
+              editorField("Read time (min)", row.read_time || "", (v) => { row.read_time = Number(v) || null; })
             );
             editor.appendChild(grid2);
 
-            editor.appendChild(
-              editorField("Hero image URL", row.hero_image || "", (v) => {
-                row.hero_image = v;
-              })
-            );
+            /* ── Hero image ── */
+            editor.appendChild(sectionDivider("Hero image"));
 
-            // Hero image uploader (drag & drop + preview)
+            const imgUrlWrap = editorField("Image URL", row.hero_image || "", (v) => { row.hero_image = v; });
+            const imgInput = imgUrlWrap.querySelector("input,textarea");
+            /* live thumbnail */
+            const imgThumb = document.createElement("img");
+            imgThumb.style.cssText =
+              "display:none;max-width:min(100%,420px);max-height:160px;width:auto;height:auto;border-radius:8px;margin-top:6px;object-fit:contain;border:1px solid var(--border-color);";
+            function refreshThumb() {
+              const s = (imgInput.value || "").trim();
+              if (s) {
+                imgThumb.src = s;
+                imgThumb.style.display = "block";
+              } else {
+                imgThumb.style.display = "none";
+                imgThumb.removeAttribute("src");
+              }
+            }
+            imgInput.addEventListener("input", refreshThumb);
+            refreshThumb();
+            imgUrlWrap.appendChild(imgThumb);
+            editor.appendChild(imgUrlWrap);
+
             (function () {
               const up = createImageUploader({
-                label: "Hero image upload",
-                size: { w: 140, h: 90 },
+                label: "Upload hero image",
+                size: { w: 160, h: 100 },
+                maxPreview: { w: 480, h: 320 },
                 get: () => row.hero_image,
-                set: (v) => {
-                  row.hero_image = v;
-                },
+                set: (v) => { row.hero_image = v; imgInput.value = v; refreshThumb(); },
               });
               up.classList.add("item");
               editor.appendChild(up);
             })();
-            editor.appendChild(
-              textLang("Meta title · AR", "Meta title · EN", row.meta_title || { ar: "", en: "" }, (lang, val) => {
-                if (!row.meta_title || typeof row.meta_title !== "object") row.meta_title = { ar: "", en: "" };
-                row.meta_title[lang] = val;
-              })
-            );
-            editor.appendChild(
-              textLang("Meta description · AR", "Meta description · EN", row.meta_description || { ar: "", en: "" }, (lang, val) => {
-                if (!row.meta_description || typeof row.meta_description !== "object") row.meta_description = { ar: "", en: "" };
-                row.meta_description[lang] = val;
-              })
-            );
+
+            /* ── SEO ── */
+            editor.appendChild(sectionDivider("SEO metadata"));
+
+            const mtWrap = textLang("Meta title · AR", "Meta title · EN", row.meta_title || { ar: "", en: "" }, (lang, val) => {
+              if (!row.meta_title || typeof row.meta_title !== "object") row.meta_title = { ar: "", en: "" };
+              row.meta_title[lang] = val;
+            });
+            editor.appendChild(mtWrap);
+
+            const mdWrap = textLang("Meta description · AR", "Meta description · EN", row.meta_description || { ar: "", en: "" }, (lang, val) => {
+              if (!row.meta_description || typeof row.meta_description !== "object") row.meta_description = { ar: "", en: "" };
+              row.meta_description[lang] = val;
+            });
+            /* add SEO counter to each meta-desc textarea */
+            mdWrap.querySelectorAll("textarea,input").forEach((inp) => withCounter(inp.parentElement, inp, 120, 160));
+            editor.appendChild(mdWrap);
 
             editor.appendChild(
               editorField(
-                "Related slugs (comma-separated)",
+                "Related post slugs (comma-separated)",
                 Array.isArray(row.related_slugs) ? row.related_slugs.join(", ") : "",
                 (v) => {
-                  row.related_slugs = String(v || "")
-                    .split(",")
-                    .map((s) => s.trim())
-                    .filter(Boolean);
+                  row.related_slugs = String(v || "").split(",").map((s) => s.trim()).filter(Boolean);
                 }
               )
             );
 
+            /* ── Publish toggle ── */
+            editor.appendChild(sectionDivider("Visibility"));
+
             const pubRow = document.createElement("div");
             pubRow.className = "toolbar-inline";
+            pubRow.style.alignItems = "center";
             const chk = document.createElement("input");
             chk.type = "checkbox";
             chk.checked = row.published !== false;
+            chk.style.width = "18px";
+            chk.style.height = "18px";
+            chk.style.accentColor = "var(--primary)";
             const lbl = document.createElement("span");
             lbl.style.color = "var(--text-muted)";
-            lbl.style.fontSize = "0.9rem";
-            lbl.textContent = "Published (uncheck to keep as draft)";
-            chk.addEventListener("change", () => {
-              row.published = chk.checked;
-            });
+            lbl.style.fontSize = ".9rem";
+            lbl.textContent = "Published (visible on public blog)";
+            chk.addEventListener("change", () => { row.published = chk.checked; });
             pubRow.appendChild(chk);
             pubRow.appendChild(lbl);
             editor.appendChild(pubRow);
 
-            editor.appendChild(
-              textLang("Content (HTML) · AR", "Content (HTML) · EN", row.content_html || { ar: "", en: "" }, (lang, val) => {
-                if (!row.content_html || typeof row.content_html !== "object") row.content_html = { ar: "", en: "" };
-                row.content_html[lang] = val;
-              })
-            );
+            /* ── Content HTML ── */
+            editor.appendChild(sectionDivider("Article content (HTML)"));
+
+            const hint = document.createElement("p");
+            hint.style.cssText = "font-size:.8rem;color:var(--text-muted);margin:0 0 .75rem;line-height:1.55;";
+            hint.innerHTML = "Use semantic HTML: <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;blockquote&gt;</code>, <code>&lt;img&gt;</code>. Images will be rendered with rounded corners.";
+            editor.appendChild(hint);
+
+            const cObj = row.content_html || { ar: "", en: "" };
+            const cfAr = buildContentField("المحتوى (HTML) · عربي", "Content (HTML) · AR", cObj, "ar", (lang, val) => {
+              if (!row.content_html || typeof row.content_html !== "object") row.content_html = { ar: "", en: "" };
+              row.content_html[lang] = val;
+            });
+            const cfEn = buildContentField("Content (HTML) · English", "Content (HTML) · EN", cObj, "en", (lang, val) => {
+              if (!row.content_html || typeof row.content_html !== "object") row.content_html = { ar: "", en: "" };
+              row.content_html[lang] = val;
+            });
+            editor.appendChild(cfAr);
+            editor.appendChild(cfEn);
+
+            /* ── Actions ── */
+            editor.appendChild(sectionDivider("Actions"));
 
             const actions = document.createElement("div");
             actions.className = "toolbar-inline";
+
             const btnSavePost = document.createElement("button");
             btnSavePost.type = "button";
             btnSavePost.className = "btn btn-primary";
-            btnSavePost.textContent = "Save post";
+            btnSavePost.textContent = "💾 Save post";
 
             const btnPreview = document.createElement("a");
             btnPreview.className = "btn btn-ghost";
-            btnPreview.textContent = "Preview";
+            btnPreview.textContent = "🔗 Open preview";
             btnPreview.href = apiBase + "/blog/" + encodeURIComponent(row.slug || "");
             btnPreview.target = "_blank";
             btnPreview.rel = "noreferrer";
+            btnPreview.title = "Preview opens the public blog-post.html page — save first to see latest changes.";
+
+            const statusBadge = document.createElement("span");
+            statusBadge.style.cssText = "font-size:.78rem;font-weight:700;padding:.25rem .7rem;border-radius:999px;margin-inline-start:auto;";
+            const isPub = row.published !== false;
+            statusBadge.textContent = isPub ? "● Published" : "● Draft";
+            statusBadge.style.background = isPub ? "rgba(16,185,129,.14)" : "rgba(245,158,11,.14)";
+            statusBadge.style.color = isPub ? "#059669" : "#d97706";
 
             btnSavePost.addEventListener("click", async () => {
-              const payload = Object.assign(
-                {
-                  slug: row.slug || slugify((row.title && (row.title.en || row.title.ar)) || ""),
-                  title: row.title || { ar: "بدون عنوان", en: "Untitled" },
-                  excerpt: row.excerpt || { ar: "", en: "" },
-                  tag: row.tag || { ar: "", en: "" },
-                  read_time: row.read_time || null,
-                  hero_image: row.hero_image || null,
-                  meta_title: row.meta_title || { ar: "", en: "" },
-                  meta_description: row.meta_description || { ar: "", en: "" },
-                  content_html: row.content_html || { ar: "", en: "" },
-                  related_slugs: Array.isArray(row.related_slugs) ? row.related_slugs : [],
-                  published: row.published !== false,
-                  published_at: row.published_at || null,
-                  updated_at: row.updated_at || null,
-                },
-                row
-              );
+              btnSavePost.disabled = true;
+              btnSavePost.textContent = "Saving…";
+              /* Spread row first, then explicit fields so checkbox + slug win (Object.assign(defaults, row) let row overwrite published wrongly). */
+              const payload = Object.assign({}, row, {
+                slug: row.slug || slugify((row.title && (row.title.en || row.title.ar)) || ""),
+                title: row.title || { ar: "بدون عنوان", en: "Untitled" },
+                excerpt: row.excerpt || { ar: "", en: "" },
+                tag: row.tag || { ar: "", en: "" },
+                read_time: row.read_time != null ? row.read_time : null,
+                hero_image: row.hero_image != null ? row.hero_image : null,
+                meta_title: row.meta_title || { ar: "", en: "" },
+                meta_description: row.meta_description || { ar: "", en: "" },
+                content_html: row.content_html || { ar: "", en: "" },
+                related_slugs: Array.isArray(row.related_slugs) ? row.related_slugs : [],
+                published: Boolean(chk.checked),
+                published_at: row.published_at || null,
+                updated_at: row.updated_at || null,
+              });
 
               try {
                 const isNewPost = activeOriginalSlug === null;
@@ -3246,7 +4256,8 @@
                 } else {
                   await apiAdminUpdateBlog(activeOriginalSlug, payload);
                 }
-                showToast("Post saved", true);
+                showToast("Post saved ✓", true);
+                btnPreview.href = apiBase + "/blog/" + encodeURIComponent(payload.slug || "");
                 posts = await apiAdminGetBlog();
                 active = posts.find((p) => p && String(p.slug) === String(payload.slug)) || null;
                 activeOriginalSlug = active ? String(active.slug) : null;
@@ -3254,11 +4265,14 @@
                 paintEditor();
               } catch (e) {
                 showToast(e.message || "Save failed", false);
+                btnSavePost.disabled = false;
+                btnSavePost.textContent = "💾 Save post";
               }
             });
 
             actions.appendChild(btnSavePost);
             actions.appendChild(btnPreview);
+            actions.appendChild(statusBadge);
             editor.appendChild(actions);
           }
 
@@ -3298,7 +4312,7 @@
             btnAi.disabled = true;
             btnAi.textContent = "Generating…";
             try {
-              const res = await apiGenerateBlog(topic);
+              const res = await apiGenerateBlog(topic, chkAiDraft.checked);
               const post = res && res.post ? res.post : null;
               if (!post) throw new Error("Invalid response");
               posts = [post].concat(posts || []);
@@ -3306,13 +4320,55 @@
               activeOriginalSlug = post && post.slug ? String(post.slug) : null;
               paintList();
               paintEditor();
-              showToast("Draft generated", true);
+              showToast(
+                post.published === false
+                  ? "مسودة فقط — فعّل «Published» ثم احفظ ليظهر في المدونة العامة"
+                  : "تم إنشاء المقال وهو ظاهر الآن في المدونة العامة",
+                true
+              );
             } catch (e) {
               showToast(e.message || "Generation failed", false);
             }
             btnAi.disabled = false;
             btnAi.textContent = prev;
           });
+
+          async function refreshOpenaiKeyPanel() {
+            const line = document.getElementById("openaiKeyStatusLine");
+            if (!line) return;
+            line.textContent = "جاري التحقق…";
+            try {
+              const j = await apiGetOpenAIKeyStatus();
+              line.textContent = j.configured
+                ? "المفتاح محفوظ — المعاينة: " + (j.preview || "••••")
+                : "لم يُضبط مفتاح بعد. الصق المفتاح ثم «حفظ المفتاح».";
+            } catch (e) {
+              line.textContent = e.message || "تعذر قراءة حالة المفتاح.";
+            }
+          }
+
+          const openaiSaveBtn = document.getElementById("openaiKeySaveBtn");
+          const openaiInput = document.getElementById("openaiKeyInput");
+          if (openaiSaveBtn && openaiInput) {
+            openaiSaveBtn.addEventListener("click", async () => {
+              const v = String(openaiInput.value || "").trim();
+              if (!v) {
+                showToast("الصق المفتاح أولاً", false);
+                return;
+              }
+              openaiSaveBtn.disabled = true;
+              try {
+                await apiSetOpenAIKey(v);
+                openaiInput.value = "";
+                showToast("تم حفظ المفتاح في api/.env", true);
+                await refreshOpenaiKeyPanel();
+              } catch (e) {
+                showToast(e.message || "فشل الحفظ", false);
+              }
+              openaiSaveBtn.disabled = false;
+            });
+          }
+          void refreshOpenaiKeyPanel();
 
           search.addEventListener("input", paintList);
 
@@ -4181,6 +5237,7 @@
           homepage: renderHomepageTab,
           services: renderServicesTab,
           doctors: renderDoctorsTab,
+          schedule: renderSchedule,
           offers: renderOffersTab,
           bookings: renderBookings,
           blog: renderBlog,

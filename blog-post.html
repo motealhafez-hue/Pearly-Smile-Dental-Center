@@ -2,6 +2,21 @@
 <html lang="ar" dir="rtl" data-page="blog_post">
   <head>
     <meta charset="UTF-8" />
+    <!-- Under FastAPI /blog/{slug} the document path is /blog/… so relative "style.css" would wrongly resolve to /blog/style.css. Base "/" fixes assets for same-origin server; skip file://. -->
+    <script>
+      (function () {
+        try {
+          if (location.protocol === "file:") return;
+          var b = document.createElement("base");
+          b.href = "/";
+          var head = document.head || document.getElementsByTagName("head")[0];
+          if (head) {
+            var meta = head.querySelector("meta[charset]");
+            head.insertBefore(b, meta ? meta.nextSibling : head.firstChild);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2563eb" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -11,26 +26,15 @@
     <meta property="og:site_name" content="Pearly Smile Dental Center" />
     <title data-translate="blogPageTitle">Blog | Pearly Smile</title>
     <meta name="description" data-translate="blogPageDescription" content="" />
-    <link rel="canonical" href="/blog.html" id="blog-canonical-link" />
+    <link rel="canonical" href="blog.html" id="blog-canonical-link" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script>
-      const storedTheme = localStorage.getItem("ps-theme");
-      const storedLanguage = localStorage.getItem("ps-lang");
-      if (storedTheme === "dark") document.documentElement.classList.add("dark-theme");
-      if (storedLanguage === "en") {
-        document.documentElement.lang = "en";
-        document.documentElement.dir = "ltr";
-      } else {
-        document.documentElement.lang = "ar";
-        document.documentElement.dir = "rtl";
-      }
-    </script>
+    <script src="site-prefs-boot.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/style.css?v=blog-article-v3" />
+    <link rel="stylesheet" href="style.css?v=blog-reader-v23" />
   </head>
   <body>
     <header class="mobile-nav">
@@ -49,21 +53,21 @@
             id="mobileMenuClose"
             aria-label="Close menu"
           >
-            <span aria-hidden="true">âœ•</span>
+            <span aria-hidden="true">✕</span>
           </button>
           <ul>
-            <li><a href="/index.html" data-translate="navHome">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a></li>
-            <li><a href="/index.html#stats" data-translate="navStats">Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª</a></li>
+            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
+            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
             <li>
-              <a href="/services.html" data-translate="navServices">Ø®Ø¯Ù…Ø§ØªÙ†Ø§</a>
+              <a href="services.html" data-translate="navServices">خدماتنا</a>
             </li>
             <li>
-              <a href="/offers.html" data-translate="navOffers">Ø¹Ø±ÙˆØ¶Ù†Ø§</a>
+              <a href="offers.html" data-translate="navOffers">عروضنا</a>
             </li>
-            <li><a href="/blog.html" data-translate="navBlog" aria-current="page">Blog</a></li>
-            <li><a href="/team.html" data-translate="navTeam">ÙØ±ÙŠÙ‚Ù†Ø§</a></li>
-            <li><a href="/about.html" data-translate="navAbout">Ø¹Ù†Ù‘Ø§</a></li>
-            <li><a href="/index.html#booking" data-translate="navBooking">Ø­Ø¬Ø²</a></li>
+            <li><a href="blog.html" data-translate="navBlog" aria-current="page">Blog</a></li>
+            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
+            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
           </ul>
         </div>
       </nav>
@@ -84,86 +88,101 @@
           class="theme-toggle"
           aria-label="Toggle theme"
         >
-          ðŸŒ™
+          🌙
         </button>
         <button type="button" id="languageToggle" class="lang-toggle">
           EN
         </button>
         <a href="tel:+966500000000" class="header-btn" data-translate="callNow"
-          >Ø§ØªØµÙ„ Ø§Ù„Ø¢Ù†</a
+          >اتصل الآن</a
         >
       </div>
     </header>
 
-    <main class="blog-post-main" id="blogPostMain">
-      <div class="blog-post-shell">
-        <nav class="blog-breadcrumb" aria-label="Breadcrumb">
-          <a href="/blog.html" class="blog-breadcrumb__link" data-translate="blogBackToBlog"></a>
-        </nav>
+    <main class="blog-reader-main" id="blogPostMain">
+      <article
+        class="blog-reader-article"
+        itemscope
+        itemtype="https://schema.org/BlogPosting"
+        id="blogPostingArticle"
+      >
+        <meta itemprop="inLanguage" content="ar" id="blogPostingLangMeta" />
 
-        <article
-          class="blog-post-article"
-          itemscope
-          itemtype="https://schema.org/BlogPosting"
-          id="blogPostingArticle"
-        >
-          <meta itemprop="inLanguage" content="ar" id="blogPostingLangMeta" />
+        <!-- ── Editorial hero: normal scroll (not sticky), under nav, above featured image ── -->
+        <section class="blog-reader-hero" aria-labelledby="blog-title">
+          <div class="blog-reader-shell">
+            <nav class="blog-reader-breadcrumb" aria-label="Breadcrumb">
+              <a href="blog.html" class="blog-reader-breadcrumb__link" data-translate="blogBackToBlog"></a>
+            </nav>
 
-          <header class="blog-post-header">
-            <p class="blog-post-kicker" id="articleKicker" hidden></p>
-            <h1 class="blog-post-title" id="blog-title" itemprop="headline" data-translate="blogLoading"></h1>
-            <p class="blog-post-lede" id="articleExcerpt"></p>
-            <div class="blog-post-meta-row">
-              <span class="blog-post-author" data-translate="blogAuthorLabel"></span>
-              <span class="blog-post-meta-sep" aria-hidden="true">Â·</span>
-              <time id="articlePublishedTime" class="blog-post-date" datetime="" itemprop="datePublished"></time>
-              <span class="blog-post-meta-sep blog-post-meta-sep--read" aria-hidden="true">Â·</span>
-              <span id="articleReadTime" class="blog-post-readtime"></span>
-            </div>
-          </header>
+            <header class="blog-reader-header">
+              <div class="blog-reader-meta-top">
+                <span class="blog-reader-kicker" id="articleKicker" hidden></span>
+              </div>
 
-          <figure class="blog-featured-figure" id="articleFeaturedFigure" hidden>
-            <img
-              id="articleFeaturedImg"
-              alt=""
-              width="1200"
-              height="675"
-              loading="eager"
-              decoding="async"
-              class="blog-featured-img"
-              itemprop="image"
-            />
-          </figure>
+              <h1 class="blog-reader-title" id="blog-title" itemprop="headline" data-translate="blogLoading"></h1>
+              <p class="blog-reader-lede" id="articleExcerpt" itemprop="description"></p>
 
+              <div class="blog-reader-meta-row">
+                <span class="blog-reader-author" data-translate="blogAuthorLabel"></span>
+                <span class="blog-reader-meta-sep" aria-hidden="true">·</span>
+                <time id="articlePublishedTime" class="blog-reader-date" datetime="" itemprop="datePublished" hidden></time>
+                <span class="blog-reader-meta-sep blog-reader-meta-sep--read" aria-hidden="true" hidden>·</span>
+                <span id="articleReadTime" class="blog-reader-readtime" hidden></span>
+              </div>
+            </header>
+          </div>
+        </section>
+
+        <!-- ── Featured image: wider than reading column ── -->
+        <figure class="blog-reader-featured-wrap" id="articleFeaturedFigure" hidden>
+          <img
+            id="articleFeaturedImg"
+            alt=""
+            loading="eager"
+            decoding="async"
+            class="blog-reader-featured__img"
+            itemprop="image"
+          />
+        </figure>
+
+        <!-- ── Article body ── -->
+        <div class="blog-reader-shell">
           <div
             id="blog-content"
-            class="blog-prose"
+            class="blog-reader-prose"
             itemprop="articleBody"
             aria-live="polite"
           ></div>
 
-          <section class="service-detail-cta blog-post-bottom-cta" aria-label="Call to action">
-            <h2 data-translate="blogCtaTitle"></h2>
-            <p data-translate="blogCtaText"></p>
-            <div class="service-cta-actions">
-              <a class="btn btn-primary" href="/index.html#booking" data-translate="blogCtaBook"></a>
-              <a class="btn btn-secondary" href="/team.html" data-translate="blogCtaDoctors"></a>
+          <!-- ── In-article CTA ── -->
+          <section class="blog-reader-cta" aria-label="Book appointment">
+            <div class="blog-reader-cta__inner">
+              <div class="blog-reader-cta__copy">
+                <h2 class="blog-reader-cta__title" data-translate="blogCtaTitle"></h2>
+                <p class="blog-reader-cta__text" data-translate="blogCtaText"></p>
+              </div>
+              <div class="blog-reader-cta__actions">
+                <a class="btn btn-primary" href="index.html#booking" data-translate="blogCtaBook"></a>
+                <a class="btn btn-secondary" href="team.html" data-translate="blogCtaDoctors"></a>
+              </div>
             </div>
           </section>
-        </article>
-      </div>
+        </div>
+      </article>
 
+      <!-- ── Related posts ── -->
       <section class="offers-section blog-related-wrap" aria-labelledby="blog-related-heading">
         <div class="section-head section-head--solo-title">
           <h2 id="blog-related-heading" data-translate="blogRelatedTitle"></h2>
         </div>
-        <div id="relatedGrid" class="offers-grid blog-related-grid"></div>
+        <div id="relatedGrid" class="blog-cards-grid blog-related-grid"></div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <p>Â© 2026 Pearly Smile Dental Center. All rights reserved.</p>
+        <p>© 2026 Pearly Smile Dental Center. All rights reserved.</p>
       </div>
     </footer>
 
@@ -194,9 +213,9 @@
       }
     </script>
 
-    <script src="/site-data.js?v=blog-article-v3"></script>
-    <script src="/script.js?v=blog-article-v3"></script>
-    <script src="/blog.js?v=blog-article-v3"></script>
+    <script src="site-data.js?v=blog-article-v4"></script>
+    <script src="script.js?v=blog-article-v5"></script>
+    <script src="blog.js?v=blog-reader-v20"></script>
   </body>
 </html>
 

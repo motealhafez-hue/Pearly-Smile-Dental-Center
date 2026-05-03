@@ -21,26 +21,12 @@
     <title>Pearly Smile Dental Center | مركز بيرلي سمايل لطب الأسنان</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <script>
-      const initialTheme = localStorage.getItem("ps-theme");
-      const initialLanguage = localStorage.getItem("ps-lang");
-
-      if (initialTheme === "dark") {
-        document.documentElement.classList.add("dark-theme");
-      }
-      if (initialLanguage === "en") {
-        document.documentElement.lang = "en";
-        document.documentElement.dir = "ltr";
-      } else {
-        document.documentElement.lang = "ar";
-        document.documentElement.dir = "rtl";
-      }
-    </script>
+    <script src="site-prefs-boot.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=blog-cards-v5" />
     <script>
       (function () {
         try {
@@ -319,7 +305,7 @@
         </div>
         <div
           id="cms-home-blog"
-          class="offers-grid blog-teaser-grid"
+          class="blog-cards-grid blog-teaser-grid"
           aria-live="polite"
         ></div>
         <div class="services-actions">
@@ -463,16 +449,22 @@
               </div>
             </div>
             <div class="input-row">
-              <div class="input-group">
+              <div class="input-group" id="bookingDoctorGroup">
                 <select id="doctor" name="doctor" required>
                   <option value="" disabled selected data-translate="bookingDoctorPlaceholder">اختر الدكتور</option>
                 </select>
                 <label for="doctor" data-translate="bookingDoctorLabel">اختر الطبيب</label>
+                <p
+                  id="bookingDoctorBranchError"
+                  class="booking-field-error"
+                  role="alert"
+                  hidden
+                ></p>
               </div>
               <div class="input-group">
                 <select id="branch" name="branch" required>
-                  <option value="main" data-translate="branchMain">الفرع الرئيسي</option>
-                  <option value="one" data-translate="branchOne">الفرع الأول</option>
+                  <option value="main" data-translate="branchMain">فرع الخالدية</option>
+                  <option value="khalidiya" data-translate="branchKhalidiya">فرع مدينة خليفة أ</option>
                 </select>
                 <label for="branch" data-translate="bookingBranchLabel">اختر الفرع</label>
               </div>
@@ -495,6 +487,14 @@
                 <label for="time" data-translate="bookingTimeLabel">اختر الوقت</label>
               </div>
             </div>
+
+            <div
+              id="bookingScheduleNotice"
+              class="booking-schedule-notice"
+              role="status"
+              aria-live="polite"
+              hidden
+            ></div>
 
             <div class="input-group">
               <textarea id="notes" name="notes" rows="2" placeholder=" "></textarea>
@@ -565,9 +565,14 @@
         window.__API_BASE__ =
           typeof window.__API_BASE__ !== "undefined"
             ? window.__API_BASE__
-            : location.protocol === "file:"
-              ? "http://127.0.0.1:8000"
-              : location.origin;
+            : (function () {
+                var p = location.protocol;
+                var h = String(location.hostname || "").toLowerCase();
+                if (p === "file:" || h === "127.0.0.1" || h === "localhost" || h === "[::1]") {
+                  return "http://127.0.0.1:8000";
+                }
+                return location.origin;
+              })();
       } catch (e) {
         window.__API_BASE__ = "http://127.0.0.1:8000";
       }

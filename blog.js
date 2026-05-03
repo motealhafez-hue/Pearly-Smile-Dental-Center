@@ -9,7 +9,17 @@
     "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=960&q=75";
 
   function currentLang() {
-    return localStorage.getItem("ps-lang") || document.documentElement.lang || "ar";
+    try {
+      const as = window.appState;
+      if (as && (as.currentLang === "ar" || as.currentLang === "en")) return as.currentLang;
+    } catch (e) {
+      /* no-op */
+    }
+    const stored = localStorage.getItem("ps-lang");
+    if (stored === "ar" || stored === "en") return stored;
+    const h = document.documentElement && document.documentElement.lang;
+    if (h === "ar" || h === "en") return h;
+    return "ar";
   }
 
   function tr(key) {
@@ -32,10 +42,26 @@
 
   function apiBase() {
     try {
-      if (typeof window.__API_BASE__ !== "undefined" && window.__API_BASE__) {
+      if (
+        typeof window.__API_BASE__ !== "undefined" &&
+        window.__API_BASE__ !== "" &&
+        window.__API_BASE__ !== false &&
+        window.__API_BASE__ !== null
+      ) {
         return String(window.__API_BASE__).replace(/\/$/, "");
       }
-      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+      try {
+        var ls = String(window.localStorage.getItem("ps_api_base") || "").trim();
+        if (ls) return ls.replace(/\/$/, "");
+      } catch (eLs) {
+        /* no-op */
+      }
+      if (location.protocol === "file:") return "http://127.0.0.1:8000";
+      var host = String(location.hostname || "").toLowerCase();
+      if (host === "127.0.0.1" || host === "localhost" || host === "[::1]") {
+        return "http://127.0.0.1:8000";
+      }
+      return String(location.origin).replace(/\/$/, "");
     } catch (e) {
       return "http://127.0.0.1:8000";
     }
@@ -107,6 +133,85 @@
     if (location.protocol === "file:") return "blog-post.html?slug=" + s;
     const dir = (location.pathname || "").replace(/[^/]+$/, "");
     return (dir || "./") + "blog-post.html?slug=" + s;
+  }
+
+  function safeSlugId(slug) {
+    const s = String(slug || "post")
+      .replace(/[^a-zA-Z0-9_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    return (s || "post").slice(0, 64);
+  }
+
+  function absolutePostHref(slug) {
+    const path = postUrl(slug);
+    try {
+      return new URL(path, location.href).href;
+    } catch (e) {
+      return path;
+    }
+  }
+
+  /** Semantic blog card markup (listing, related, home teaser) — shared structure for SEO. */
+  function htmlPsBlogCard(p, lang) {
+    const title = pickLang(p.title, lang);
+    const excerpt = (pickLang(p.excerpt, lang) || "").trim();
+    const tagText = pickLang(p.tag, lang);
+    const coverSrc = resolveHeroImage(p) || DEFAULT_BLOG_COVER;
+    const href = postUrl(p.slug);
+    const urlProp = absolutePostHref(p.slug);
+    const titleId = "ps-blog-card-title-" + safeSlugId(p.slug);
+    const readMore = tr("blogReadMore") || "Read more";
+    const rt = p.read_time
+      ? lang === "ar"
+        ? String(p.read_time) + " " + (tr("blogReadTimeSuffix") || "دقائق قراءة")
+        : String(p.read_time) + " " + (tr("blogReadTimeSuffix") || "min read")
+      : tr("blogQuickRead") || "";
+
+    const metaParts = [];
+    if (tagText) {
+      metaParts.push('<span class="ps-blog-card__tag">' + escapeHtml(tagText) + "</span>");
+    }
+    if (rt) {
+      metaParts.push('<span class="ps-blog-card__readtime">' + escapeHtml(rt) + "</span>");
+    }
+    const metaRow = metaParts.length
+      ? '<div class="ps-blog-card__meta">' + metaParts.join("") + "</div>"
+      : "";
+
+    const excerptBlock = excerpt
+      ? '<p class="ps-blog-card__excerpt" itemprop="description">' + escapeHtml(excerpt) + "</p>"
+      : "";
+
+    return (
+      '<article class="ps-blog-card" itemscope itemtype="https://schema.org/BlogPosting">' +
+      '<link itemprop="url" href="' +
+      escapeHtml(urlProp) +
+      '" />' +
+      '<a class="ps-blog-card__surface" href="' +
+      escapeHtml(href) +
+      '" aria-labelledby="' +
+      escapeHtml(titleId) +
+      '">' +
+      '<figure class="ps-blog-card__figure">' +
+      '<img class="ps-blog-card__img" src="' +
+      escapeHtml(coverSrc) +
+      '" alt="' +
+      escapeHtml(title || readMore) +
+      '" width="960" height="540" loading="lazy" decoding="async" itemprop="image" />' +
+      "</figure>" +
+      '<div class="ps-blog-card__body">' +
+      metaRow +
+      '<h3 class="ps-blog-card__title" id="' +
+      escapeHtml(titleId) +
+      '" itemprop="headline">' +
+      escapeHtml(title || "") +
+      "</h3>" +
+      excerptBlock +
+      '<span class="ps-blog-card__cta"><span class="ps-blog-card__cta-text">' +
+      escapeHtml(readMore) +
+      "</span></span>" +
+      "</div></a></article>"
+    );
   }
 
   function markSameOriginBlogApi() {
@@ -228,12 +333,214 @@
     return r.json();
   }
 
+  // #region agent log
+  function _dbgBlogPad(message, hypothesisId, data) {
+    fetch("http://127.0.0.1:7564/ingest/b2698cbe-56cc-4593-963c-a04c198ebff3", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "efd322" },
+      body: JSON.stringify({
+        sessionId: "efd322",
+        runId: "navpad-pre",
+        hypothesisId: hypothesisId,
+        location: "blog.js:_dbgBlogPad",
+        message: message,
+        data: data || {},
+        timestamp: Date.now(),
+      }),
+    }).catch(function () {});
+  }
+  // #endregion
+
+  function initBlogNavbarBehavior() {
+    const page = currentPageType();
+    if (page !== "blog" && page !== "blog_post") return;
+    const header = document.querySelector("header.mobile-nav");
+    if (!header) return;
+
+    /* Never auto-hide the navbar on blog pages — it felt "blocked" by the tall hero + scroll. */
+    header.classList.remove("blog-nav-hidden");
+
+    let ticking = false;
+    function apply() {
+      const y = Math.max(0, window.scrollY || 0);
+      header.classList.toggle("blog-nav-elevated", y > 12);
+      ticking = false;
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(apply);
+      },
+      { passive: true }
+    );
+    window.addEventListener("resize", apply, { passive: true });
+    apply();
+  }
+
+  /**
+   * Blog article only: set #blogPostMain padding-top from the *actual* fixed header height.
+   * CSS guesses (rem/vw) break when the nav wraps to two rows — this matches the real bar every time.
+   */
+  function syncBlogPostMainUnderNav() {
+    const pt = currentPageType();
+    if (pt !== "blog_post") {
+      // #region agent log
+      _dbgBlogPad("syncBlogPostMainUnderNav skip: pageType", "H1", { pageType: pt, dsPage: document.documentElement && document.documentElement.getAttribute("data-page") });
+      // #endregion
+      return;
+    }
+    const main = document.getElementById("blogPostMain");
+    const header = document.querySelector("header.mobile-nav");
+    if (!main || !header) {
+      // #region agent log
+      _dbgBlogPad("syncBlogPostMainUnderNav skip: missing el", "H2", { hasMain: !!main, hasHeader: !!header });
+      // #endregion
+      return;
+    }
+    const b = header.getBoundingClientRect();
+    const pad = Math.max(Math.ceil(b.bottom) + 28, 128);
+    main.style.paddingTop = pad + "px";
+    var cs = "";
+    try {
+      cs = window.getComputedStyle(main).paddingTop;
+    } catch (e) {
+      cs = "err";
+    }
+    // #region agent log
+    _dbgBlogPad("syncBlogPostMainUnderNav applied", "H3_H4", {
+      headerTop: Math.round(b.top * 10) / 10,
+      headerBottom: Math.round(b.bottom * 10) / 10,
+      headerH: Math.round(b.height * 10) / 10,
+      padPx: pad,
+      computedPaddingTop: cs,
+      scrollY: typeof window.scrollY === "number" ? window.scrollY : 0,
+    });
+    // #endregion
+
+    /* After layout: bump padding if article (or title) still starts above the fixed header bottom */
+    var titleEl = document.getElementById("blog-title");
+    var hdrEl = header;
+    var mainEl = main;
+    var basePad = pad;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        try {
+          if (currentPageType() !== "blog_post") return;
+          var hR = hdrEl.getBoundingClientRect();
+          var gap = 12;
+          var bump = 0;
+          var art = mainEl.querySelector(".blog-reader-article") || document.getElementById("blogPostingArticle");
+          if (art && art.getClientRects().length) {
+            var aR = art.getBoundingClientRect();
+            if (aR.top < hR.bottom + gap) bump = Math.max(bump, Math.ceil(hR.bottom + gap - aR.top));
+          }
+          if (titleEl && titleEl.getClientRects().length) {
+            var tR = titleEl.getBoundingClientRect();
+            if (tR.height >= 2 && tR.top < hR.bottom + gap) bump = Math.max(bump, Math.ceil(hR.bottom + gap - tR.top));
+          }
+          if (bump <= 0) return;
+          var cur = parseFloat(mainEl.style.paddingTop, 10);
+          if (isNaN(cur)) cur = basePad;
+          var nextPad = cur + bump + 8;
+          mainEl.style.paddingTop = nextPad + "px";
+          // #region agent log
+          _dbgBlogPad("syncBlogPostMainUnderNav overlapFix", "H6", {
+            bump: bump,
+            nextPadPx: nextPad,
+            articleTop: art ? Math.round(art.getBoundingClientRect().top * 10) / 10 : null,
+            titleTop: titleEl ? Math.round(titleEl.getBoundingClientRect().top * 10) / 10 : null,
+            headerBottom: Math.round(hR.bottom * 10) / 10,
+          });
+          // #endregion
+        } catch (e2) {
+          // #region agent log
+          _dbgBlogPad("syncBlogPostMainUnderNav overlapFix err", "H6", { err: String(e2 && e2.message ? e2.message : e2) });
+          // #endregion
+        }
+      });
+    });
+  }
+
+  function scheduleBlogPostMainPadSync() {
+    if (currentPageType() !== "blog_post") return;
+    // #region agent log
+    _dbgBlogPad("scheduleBlogPostMainPadSync", "H5", { readyState: document.readyState });
+    // #endregion
+    requestAnimationFrame(function () {
+      syncBlogPostMainUnderNav();
+    });
+  }
+
+  /**
+   * Re-measure when the fixed navbar changes size — applies to every slug (old + new posts),
+   * same blog-post.html shell. Also after i18n removes ps-i18n-pending (App.init) when nav text reflows.
+   */
+  function attachBlogPostNavPadObservers() {
+    if (currentPageType() !== "blog_post") return;
+    const root = document.documentElement;
+    if (root._psBlogNavPadAttached) return;
+    root._psBlogNavPadAttached = true;
+
+    const header = document.querySelector("header.mobile-nav");
+    if (header && typeof ResizeObserver !== "undefined" && !header._psBlogPadRO) {
+      var ro = new ResizeObserver(function () {
+        scheduleBlogPostMainPadSync();
+      });
+      ro.observe(header);
+      header._psBlogPadRO = ro;
+    }
+
+    window.addEventListener(
+      "load",
+      function () {
+        scheduleBlogPostMainPadSync();
+      },
+      { once: true, passive: true }
+    );
+
+    if (typeof MutationObserver !== "undefined" && root && !root._psBlogPadMO) {
+      var moTimer = null;
+      var mo = new MutationObserver(function () {
+        clearTimeout(moTimer);
+        moTimer = setTimeout(function () {
+          scheduleBlogPostMainPadSync();
+        }, 16);
+      });
+      mo.observe(root, { attributes: true, attributeFilter: ["class"] });
+      root._psBlogPadMO = mo;
+    }
+
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(
+        function () {
+          scheduleBlogPostMainPadSync();
+        },
+        { timeout: 2500 }
+      );
+    }
+  }
+
   // -----------------------
   // Listing
   // -----------------------
   function renderListing(posts) {
     const grid = document.getElementById("blogGrid");
     if (!grid) return;
+
+    const prevAbort = grid._psBlogListingAbort;
+    if (prevAbort) {
+      try {
+        prevAbort.abort();
+      } catch (e) {
+        /* no-op */
+      }
+    }
+    const listSignal = new AbortController();
+    grid._psBlogListingAbort = listSignal;
+    const signal = listSignal.signal;
 
     const searchEl = document.getElementById("blogSearch");
     const tagEl = document.getElementById("blogTag");
@@ -255,6 +562,12 @@
       )
     ).sort();
     if (tagEl) {
+      const allLabel = tr("blogAllTags") || "";
+      tagEl.innerHTML = "";
+      const optAll = document.createElement("option");
+      optAll.value = "";
+      optAll.textContent = allLabel;
+      tagEl.appendChild(optAll);
       tags.forEach((t) => {
         const o = document.createElement("option");
         o.value = t;
@@ -288,44 +601,7 @@
       if (!pageRows.length) {
         grid.innerHTML = '<div class="empty-hint">' + escapeHtml(tr("blogNoArticles") || "No articles found.") + "</div>";
       } else {
-        grid.innerHTML = pageRows
-          .map((p) => {
-            const title = pickLang(p.title, lang);
-            const excerpt = pickLang(p.excerpt, lang);
-            const tagText = pickLang(p.tag, lang);
-            const coverSrc = p.hero_image ? String(p.hero_image) : DEFAULT_BLOG_COVER;
-            const imgStyle = "background-image:url('" + coverSrc.replace(/'/g, "%27") + "')";
-            const rt = p.read_time
-              ? (lang === "ar"
-                  ? String(p.read_time) + " " + (tr("blogReadTimeSuffix") || "دقائق قراءة")
-                  : String(p.read_time) + " " + (tr("blogReadTimeSuffix") || "min read"))
-              : tr("blogQuickRead") || "Quick read";
-            const tg = tagText ? '<span class="offer-tag">' + escapeHtml(tagText) + "</span>" : "";
-            return (
-              '<a class="offer-card blog-card" href="' +
-              escapeHtml(postUrl(p.slug)) +
-              '">' +
-              '<div class="offer-image" aria-hidden="true" style="' +
-              escapeHtml(imgStyle) +
-              '"></div>' +
-              '<div class="offer-content">' +
-              tg +
-              "<h3>" +
-              escapeHtml(title || "") +
-              "</h3>" +
-              '<p class="blog-card__excerpt">' +
-              escapeHtml(excerpt || "") +
-              "</p>" +
-              '<span class="blog-card__readmeta">' +
-              escapeHtml(rt) +
-              "</span>" +
-              '<span class="btn btn-secondary" style="margin-top:14px">' +
-              escapeHtml(tr("blogReadMore") || "Read more") +
-              "</span>" +
-              "</div></a>"
-            );
-          })
-          .join("");
+        grid.innerHTML = pageRows.map((p) => htmlPsBlogCard(p, lang)).join("");
       }
 
       if (infoEl) infoEl.textContent = "Page " + page + " / " + totalPages;
@@ -334,21 +610,29 @@
     }
 
     if (searchEl) {
-      searchEl.addEventListener("input", () => {
-        q = String(searchEl.value || "").trim().toLowerCase();
-        page = 1;
-        paint();
-      });
+      searchEl.addEventListener(
+        "input",
+        () => {
+          q = String(searchEl.value || "").trim().toLowerCase();
+          page = 1;
+          paint();
+        },
+        { signal }
+      );
     }
     if (tagEl) {
-      tagEl.addEventListener("change", () => {
-        tag = String(tagEl.value || "");
-        page = 1;
-        paint();
-      });
+      tagEl.addEventListener(
+        "change",
+        () => {
+          tag = String(tagEl.value || "");
+          page = 1;
+          paint();
+        },
+        { signal }
+      );
     }
-    if (prevBtn) prevBtn.addEventListener("click", () => ((page -= 1), paint()));
-    if (nextBtn) nextBtn.addEventListener("click", () => ((page += 1), paint()));
+    if (prevBtn) prevBtn.addEventListener("click", () => ((page -= 1), paint()), { signal });
+    if (nextBtn) nextBtn.addEventListener("click", () => ((page += 1), paint()), { signal });
 
     paint();
   }
@@ -379,6 +663,7 @@
             "</div></div>"
         );
       }
+      scheduleBlogPostMainPadSync();
       return;
     }
 
@@ -388,6 +673,7 @@
     if (!slug) {
       contentEl.innerHTML =
         '<div class="empty-hint">' + escapeHtml(tr("blogMissingSlug") || "Missing article slug.") + "</div>";
+      scheduleBlogPostMainPadSync();
       return;
     }
 
@@ -399,6 +685,13 @@
       const lang = currentLang();
 
       if (langMeta) langMeta.setAttribute("content", lang === "en" ? "en" : "ar");
+
+      /* Reading column follows article language (fixes EN punctuation under site RTL, e.g. "?Why…") */
+      const articleRoot = document.getElementById("blogPostingArticle");
+      if (articleRoot) {
+        articleRoot.setAttribute("dir", lang === "en" ? "ltr" : "rtl");
+        articleRoot.setAttribute("lang", lang === "en" ? "en" : "ar");
+      }
 
       const metaTitle = pickLang(post.meta_title, lang) || pickLang(post.title, lang) || "Blog | Pearly Smile";
       const metaDesc =
@@ -464,18 +757,14 @@
           publishedEl.hidden = true;
         }
       }
-      const sepBeforeDate = publishedEl && publishedEl.previousElementSibling;
-      if (
-        sepBeforeDate &&
-        sepBeforeDate.classList &&
-        sepBeforeDate.classList.contains("blog-post-meta-sep") &&
-        publishedEl
-      ) {
-        sepBeforeDate.hidden = Boolean(publishedEl.hidden);
-      }
 
-      const metaSepRead = document.querySelector(".blog-post-meta-sep--read");
-      if (metaSepRead) metaSepRead.style.display = rtLine ? "" : "none";
+      /* Separator between author and date: show only when there is a date */
+      const sepDate = document.querySelector(".blog-reader-meta-row .blog-reader-meta-sep:not(.blog-reader-meta-sep--read)");
+      if (sepDate) sepDate.hidden = !pubIso;
+
+      /* Separator between date and readtime: show only when both are present */
+      const sepRead = document.querySelector(".blog-reader-meta-sep--read");
+      if (sepRead) sepRead.hidden = !pubIso || !rtLine;
 
       if (pubIso) upsertMeta("property", "article:published_time", pubIso);
       if (post.updated_at || post.published_at) {
@@ -487,12 +776,27 @@
 
       if (featuredFig && featuredImg) {
         if (heroUrl) {
-          featuredImg.src = heroUrl;
           featuredImg.alt = headline ? headline : tr("blogPageTitle") || "";
+          featuredImg.onload = function () {
+            try {
+              const w = featuredImg.naturalWidth;
+              const h = featuredImg.naturalHeight;
+              if (w > 0 && h > 0) {
+                featuredImg.setAttribute("width", String(w));
+                featuredImg.setAttribute("height", String(h));
+              }
+            } catch (e0) {
+              /* no-op */
+            }
+            featuredImg.onload = null;
+          };
+          featuredImg.src = heroUrl;
           featuredFig.hidden = false;
         } else {
           featuredFig.hidden = true;
           featuredImg.removeAttribute("src");
+          featuredImg.removeAttribute("width");
+          featuredImg.removeAttribute("height");
         }
       }
 
@@ -524,35 +828,7 @@
         }
         const top = related.slice(0, 4);
         relatedGrid.innerHTML = top.length
-          ? top
-              .map((p) => {
-                const pTitle = pickLang(p.title, lang);
-                const excerpt = pickLang(p.excerpt, lang);
-                const pTag = pickLang(p.tag, lang);
-                const coverSrc = resolveHeroImage(p) || DEFAULT_BLOG_COVER;
-                const imgStyle = "background-image:url('" + coverSrc.replace(/'/g, "%27") + "')";
-                return (
-                  '<a class="offer-card blog-card blog-card--related" href="' +
-                  escapeHtml(postUrl(p.slug)) +
-                  '">' +
-                  '<div class="offer-image blog-card__image" aria-hidden="true" style="' +
-                  escapeHtml(imgStyle) +
-                  '"></div>' +
-                  '<div class="offer-content">' +
-                  (pTag ? '<span class="offer-tag">' + escapeHtml(pTag) + "</span>" : "") +
-                  "<h3>" +
-                  escapeHtml(pTitle || "") +
-                  "</h3>" +
-                  "<p>" +
-                  escapeHtml(excerpt || "") +
-                  "</p>" +
-                  '<span class="btn btn-secondary blog-card__cta">' +
-                  escapeHtml(tr("blogReadMore") || "Read more") +
-                  "</span>" +
-                  "</div></a>"
-                );
-              })
-              .join("")
+          ? top.map((p) => htmlPsBlogCard(p, lang)).join("")
           : '<div class="empty-hint">' + escapeHtml(tr("blogNoRelated") || "No related articles yet.") + "</div>";
       }
 
@@ -598,13 +874,17 @@
       console.error("[Pearly Blog] Failed to load article:", slug, e);
       contentEl.innerHTML =
         '<div class="empty-hint">' + escapeHtml(tr("blogNotFound") || "Article not found.") + "</div>";
+    } finally {
+      // #region agent log
+      _dbgBlogPad("renderArticle finally", "H5", { slug: String(extractBlogSlug() || "").trim() });
+      // #endregion
+      scheduleBlogPostMainPadSync();
     }
   }
 
   // Public API for global LanguageManager hook
   window.Blog = {
-    refreshLanguage: function () {
-      // Repaint dynamic content to match new lang
+    refreshLanguage: function (forcedLang) {
       const page = currentPageType();
       if (page === "blog") {
         setMetaDescription(tr("blogPageDescription"));
@@ -618,10 +898,42 @@
         renderArticle();
       }
     },
+    /** Called from App.init after i18n — nav text reflows; re-measure #blogPostMain padding */
+    resyncArticleMainPad: function () {
+      // #region agent log
+      _dbgBlogPad("Blog.resyncArticleMainPad", "H7", { page: currentPageType() });
+      // #endregion
+      scheduleBlogPostMainPadSync();
+    },
   };
 
   // Init
   const page = currentPageType();
+  // #region agent log
+  _dbgBlogPad("blog.js init", "H1_H5", {
+    page,
+    dataPageAttr: document.documentElement && document.documentElement.getAttribute("data-page"),
+    readyState: document.readyState,
+    path: typeof location !== "undefined" ? location.pathname : "",
+  });
+  // #endregion
+  initBlogNavbarBehavior();
+  if (page === "blog_post") {
+    scheduleBlogPostMainPadSync();
+    attachBlogPostNavPadObservers();
+    let _blogPadResizeT = null;
+    window.addEventListener(
+      "resize",
+      function () {
+        clearTimeout(_blogPadResizeT);
+        _blogPadResizeT = setTimeout(scheduleBlogPostMainPadSync, 100);
+      },
+      { passive: true }
+    );
+    if (typeof document !== "undefined" && document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleBlogPostMainPadSync).catch(function () {});
+    }
+  }
   if (page === "blog") {
     setMetaDescription(tr("blogPageDescription"));
     fetchJson("/api/blog")
@@ -635,6 +947,7 @@
       });
   } else if (page === "blog_post") {
     function bootArticle() {
+      scheduleBlogPostMainPadSync();
       renderArticle();
     }
     if (document.readyState === "loading") {
