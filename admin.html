@@ -224,6 +224,7 @@
       .nav-btn {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 0.65rem;
         width: 100%;
         padding: 0.65rem 0.9rem;
@@ -255,6 +256,34 @@
         width: 1.25rem;
         text-align: center;
         opacity: 0.85;
+      }
+
+      .nav-btn__main {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        min-width: 0;
+        text-align: left;
+      }
+
+      .nav-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.35rem;
+        height: 1.35rem;
+        padding: 0 0.38rem;
+        font-size: 0.68rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        background: var(--danger);
+        border-radius: 999px;
+        flex-shrink: 0;
+      }
+
+      .nav-badge[hidden] {
+        display: none !important;
       }
 
       .sidebar-foot {
@@ -474,6 +503,271 @@
         margin-top: 0.35rem;
       }
 
+      /* ——— Analytics dashboard ——— */
+      .analytics-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .analytics-page {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+        animation: analyticsFadeIn 0.45s ease;
+      }
+
+      @keyframes analyticsFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .analytics-section {
+        margin: 0;
+      }
+
+      .analytics-section-head {
+        margin-bottom: 1rem;
+      }
+
+      .analytics-section-title {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin: 0 0 0.35rem;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+
+      .analytics-section-desc {
+        margin: 0;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        max-width: 52rem;
+      }
+
+      .analytics-kpi-hero {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 1200px) {
+        .analytics-kpi-hero {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .analytics-kpi-hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .kpi-card .kpi-ico {
+        font-size: 1.35rem;
+        margin-bottom: 0.25rem;
+        opacity: 0.9;
+      }
+
+      .analytics-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      @media (max-width: 900px) {
+        .analytics-grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .analytics-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      @media (max-width: 1000px) {
+        .analytics-grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .analytics-chart-panel canvas {
+        display: block;
+        width: 100%;
+        max-height: 220px;
+      }
+
+      .analytics-funnel-rail {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        gap: 0.65rem;
+      }
+
+      .analytics-funnel-step {
+        flex: 1 1 140px;
+        min-width: 120px;
+        padding: 1rem 0.85rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--input-bg);
+        position: relative;
+        transition: transform var(--transition), border-color var(--transition);
+      }
+
+      .analytics-funnel-step:hover {
+        transform: translateY(-2px);
+        border-color: rgba(56, 189, 248, 0.35);
+      }
+
+      .analytics-funnel-step__n {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .analytics-funnel-step__l {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        margin-top: 0.35rem;
+      }
+
+      .analytics-funnel-step__pct {
+        font-size: 0.8rem;
+        color: var(--accent);
+        margin-top: 0.25rem;
+        font-weight: 600;
+      }
+
+      .analytics-funnel-arrow {
+        align-self: center;
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        flex: 0 0 auto;
+      }
+
+      @media (max-width: 700px) {
+        .analytics-funnel-arrow {
+          display: none;
+        }
+      }
+
+      .analytics-css-bars {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .analytics-css-bar {
+        display: grid;
+        grid-template-columns: 2.5rem 1fr 2.5rem;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.78rem;
+      }
+
+      .analytics-css-bar .track {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.15);
+        overflow: hidden;
+      }
+
+      .analytics-css-bar .fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), rgba(56, 189, 248, 0.35));
+        transition: width 0.6s ease;
+      }
+
+      .analytics-ai-panel {
+        border-left: 3px solid var(--accent);
+        padding-left: 1rem;
+      }
+
+      .analytics-ai-panel ul {
+        margin: 0.5rem 0 0;
+        padding-left: 1.15rem;
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      .analytics-ai-panel li {
+        margin: 0.4rem 0;
+      }
+
+      .analytics-sub-kpi {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+
+      @media (max-width: 900px) {
+        .analytics-sub-kpi {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 480px) {
+        .analytics-sub-kpi {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .analytics-mini-stat {
+        padding: 0.85rem 1rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        background: var(--input-bg);
+      }
+
+      .analytics-mini-stat .lbl {
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-muted);
+      }
+
+      .analytics-mini-stat .val {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-top: 0.25rem;
+      }
+
+      .analytics-tables-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      @media (max-width: 1100px) {
+        .analytics-tables-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .analytics-loading {
+        animation: analyticsFadeIn 0.35s ease;
+      }
+
       .card {
         border-radius: var(--radius);
         padding: 1.25rem 1.35rem;
@@ -530,7 +824,8 @@
         cursor: pointer;
       }
 
-      label.floating-label {
+      label.floating-label,
+      .floating-label {
         display: block;
         font-size: 0.68rem;
         font-weight: 600;
@@ -643,6 +938,207 @@
 
       .data-table tbody tr:hover {
         background: var(--accent-dim);
+      }
+
+      .pill-status {
+        display: inline-block;
+        padding: 0.2rem 0.45rem;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-radius: 6px;
+      }
+
+      .pill-status--new {
+        background: rgba(248, 113, 113, 0.25);
+        color: #fecaca;
+      }
+
+      .pill-status--viewed {
+        background: var(--accent-dim);
+        color: var(--text-muted);
+      }
+
+      .phone-link {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .phone-link:hover {
+        text-decoration: underline;
+      }
+
+      .td-phone-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.35rem 0.5rem;
+        min-width: 140px;
+      }
+
+      .td-phone-wrap .field {
+        flex: 1;
+        min-width: 100px;
+      }
+
+      .mono-ts {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+
+      /* Bookings tab — readable cards (no cramped table) */
+      .bookings-wrap {
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--glass-border);
+        padding: 1rem;
+        background: var(--accent-dim);
+      }
+
+      .bookings-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+      }
+
+      .booking-card {
+        border-radius: var(--radius);
+        border: 1px solid var(--glass-border);
+        padding: 1.2rem 1.35rem;
+        background: var(--input-bg);
+        box-shadow: var(--shadow);
+        transition: border-color var(--transition), box-shadow var(--transition);
+      }
+
+      .booking-card:hover {
+        border-color: rgba(56, 189, 248, 0.22);
+      }
+
+      .booking-card input,
+      .booking-card textarea,
+      .booking-card select {
+        -webkit-user-select: text;
+        user-select: text;
+      }
+
+      .booking-card.booking-row--new {
+        box-shadow: inset 3px 0 0 var(--danger), var(--shadow);
+        background: rgba(248, 113, 113, 0.06);
+        border-color: rgba(248, 113, 113, 0.2);
+      }
+
+      .admin-root.theme-light .booking-card.booking-row--new {
+        background: rgba(220, 38, 38, 0.05);
+      }
+
+      .booking-card__head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.85rem;
+        border-bottom: 1px solid var(--glass-border);
+      }
+
+      .booking-card__head .booking-status {
+        min-width: 8rem;
+      }
+
+      .booking-card__primary {
+        margin-bottom: 1.1rem;
+      }
+
+      .booking-label {
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+      }
+
+      .booking-card .field--patient,
+      .booking-card textarea.field[data-k="patient_name"] {
+        width: 100%;
+        min-height: 3.1rem;
+        padding: 0.65rem 0.85rem;
+        font-size: 1.02rem;
+        font-weight: 600;
+        line-height: 1.45;
+        resize: vertical;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+      }
+
+      .booking-card textarea.field[data-k="notes"] {
+        width: 100%;
+        min-height: 4rem;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        resize: vertical;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+      }
+
+      .booking-card__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .booking-field .field {
+        width: 100%;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+
+      .booking-card .td-phone-wrap {
+        min-width: 0;
+        margin-top: 0.15rem;
+      }
+
+      .booking-card .td-phone-wrap .field {
+        min-width: 0;
+        flex: 1 1 12rem;
+        max-width: 100%;
+        padding: 0.55rem 0.75rem;
+        font-size: 0.95rem;
+      }
+
+      .booking-card__booked {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        word-break: break-word;
+        margin-bottom: 1rem;
+        padding: 0.5rem 0.65rem;
+        border-radius: var(--radius-sm);
+        background: var(--accent-dim);
+      }
+
+      .booking-card__booked strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      @media (max-width: 720px) {
+        .booking-card__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .booking-card {
+          padding: 1rem 1rem;
+        }
       }
 
       .empty-hint {
@@ -1152,9 +1648,55 @@
           return r.json();
         }
 
+        function countNewBookings() {
+          return bookingsCache.filter((b) => b && String(b.status || "") === "new").length;
+        }
+
+        function updateBookingsBadge() {
+          const el = $("navBadgeBookings");
+          if (!el) return;
+          const n = countNewBookings();
+          el.textContent = n > 99 ? "99+" : String(n || "");
+          if (n > 0) el.removeAttribute("hidden");
+          else el.setAttribute("hidden", "");
+        }
+
         async function refreshBookings() {
           bookingsCache = await apiGetBookings();
+          updateBookingsBadge();
           return bookingsCache;
+        }
+
+        async function apiMarkBookingsViewed() {
+          const r = await fetch(apiBase + "/api/bookings/mark-viewed", {
+            method: "POST",
+            headers: authHeaders(),
+          });
+          if (r.status === 401) throw new Error("Session expired — sign in again");
+          if (!r.ok) throw new Error("Failed to update booking flags");
+          return r.json();
+        }
+
+        let bookingsPollId = null;
+
+        function startBookingsPolling() {
+          if (bookingsPollId) clearInterval(bookingsPollId);
+          bookingsPollId = setInterval(async () => {
+            if (!token) return;
+            try {
+              await refreshBookings();
+              if (activeRoute === "bookings" && typeof window.__repaintBookingsTable === "function") {
+                window.__repaintBookingsTable();
+              }
+            } catch (e) {}
+          }, 12000);
+        }
+
+        function stopBookingsPolling() {
+          if (bookingsPollId) {
+            clearInterval(bookingsPollId);
+            bookingsPollId = null;
+          }
         }
 
         // -----------------------------
@@ -1515,7 +2057,21 @@
             const b = document.createElement("button");
             b.type = "button";
             b.className = "nav-btn" + (item.id === activeRoute ? " active" : "");
-            b.innerHTML = '<span class="ico">' + item.icon + "</span> " + item.label;
+            if (item.id === "bookings") {
+              const n = countNewBookings();
+              b.innerHTML =
+                '<span class="nav-btn__main"><span class="ico">' +
+                item.icon +
+                "</span> " +
+                item.label +
+                '</span><span class="nav-badge" id="navBadgeBookings"' +
+                (n > 0 ? "" : " hidden") +
+                ">" +
+                escapeHtml(n > 99 ? "99+" : String(n || "")) +
+                "</span>";
+            } else {
+              b.innerHTML = '<span class="ico">' + item.icon + "</span> " + item.label;
+            }
             b.addEventListener("click", () => navigate(item.id));
             nav.appendChild(b);
           });
@@ -2103,184 +2659,278 @@
           ]);
         }
 
-        function renderBookings(root) {
-          setPageHead("Bookings", "Tracked bookings — stored on the server.");
-          root.innerHTML = "";
-          const card = document.createElement("div");
-          card.className = "card glass";
-
-          const toolbar = document.createElement("div");
-          toolbar.className = "toolbar-inline";
-          const search = document.createElement("input");
-          search.type = "search";
-          search.className = "search-input";
-          search.placeholder = "Search patient, service, doctor…";
-          const fDoc = document.createElement("select");
-          fDoc.className = "filter-select";
-          fDoc.innerHTML =
-            '<option value="">All doctors</option>' +
-            (state.doctors || [])
-              .map(
-                (d) =>
-                  '<option value="' +
-                  escapeHtml(d.name?.en || d.name?.ar || "") +
-                  '">' +
-                  escapeHtml(d.name?.en || d.name?.ar || d.id) +
-                  "</option>"
-              )
-              .join("");
-          const fDate = document.createElement("input");
-          fDate.type = "date";
-          fDate.className = "filter-select";
-          const fSvc = document.createElement("select");
-          fSvc.className = "filter-select";
-          fSvc.innerHTML =
-            '<option value="">All services</option><option>Cleaning</option><option>Implant consult</option><option>Whitening</option><option>Check-up</option>';
-          toolbar.appendChild(search);
-          toolbar.appendChild(fDoc);
-          toolbar.appendChild(fDate);
-          toolbar.appendChild(fSvc);
-          card.appendChild(toolbar);
-
-          const tw = document.createElement("div");
-          tw.className = "table-wrap";
-
-          function paintTable() {
-            let rows = bookingsCache.map((r) => ({
-              id: r.id,
-              date: r.date,
-              patient: r.patient_name,
-              service: r.service,
-              doctor: r.doctor,
-              status: r.timestamp ? "Saved" : "—",
-              timestamp: r.timestamp || "",
-              patient_id: r.patient_id || "",
-            }));
-            const q = search.value.trim().toLowerCase();
-            if (q) {
-              rows = rows.filter(
-                (r) =>
-                  (r.patient + r.service + r.doctor + r.status + r.date).toLowerCase().indexOf(q) !== -1
-              );
-            }
-            if (fDoc.value) rows = rows.filter((r) => r.doctor === fDoc.value);
-            if (fDate.value) rows = rows.filter((r) => r.date === fDate.value);
-            if (fSvc.value) rows = rows.filter((r) => r.service === fSvc.value);
-            if (fDoc.value) track("doctor_click", { doctor: fDoc.value });
-            if (fSvc.value) track("service_click", { service: fSvc.value });
-
-            if (!rows.length) {
-              tw.innerHTML = '<div class="empty-hint">No rows match your filters.</div>';
-              return;
-            }
-            tw.innerHTML =
-              "<table class=\"data-table\"><thead><tr><th>Date</th><th>Patient</th><th>Service</th><th>Doctor</th><th>Status</th><th></th></tr></thead><tbody>" +
-              rows
-                .map(
-                  (r) =>
-                    "<tr data-id=\"" +
-                    escapeHtml(r.id) +
-                    "\"><td><input type=\"date\" class=\"field\" value=\"" +
-                    escapeHtml(r.date) +
-                    "\" /></td><td><input class=\"field\" value=\"" +
-                    escapeHtml(r.patient) +
-                    "\" /></td><td><input class=\"field\" value=\"" +
-                    escapeHtml(r.service) +
-                    "\" /></td><td><input class=\"field\" value=\"" +
-                    escapeHtml(r.doctor) +
-                    "\" /></td><td><input class=\"field\" value=\"" +
-                    escapeHtml(r.status) +
-                    "\" /></td><td><button type=\"button\" class=\"btn btn-danger row-del\">Remove</button></td></tr>"
-                )
-                .join("") +
-              "</tbody></table>";
-
-            tw.querySelectorAll("tr[data-id]").forEach((tr) => {
-              const id = tr.getAttribute("data-id");
-              const inputs = tr.querySelectorAll("input.field");
-              const del = tr.querySelector(".row-del");
-              async function persistRow() {
-                const isNew = !bookingsCache.some((b) => b.id === id);
-                const payload = {
-                  id,
-                  date: inputs[0].value,
-                  patient_name: inputs[1].value,
-                  service: inputs[2].value,
-                  doctor: inputs[3].value,
-                  timestamp: inputs[4].value || undefined,
-                };
-                try {
-                  const res = await apiUpsertBooking(payload);
-                  await refreshBookings();
-                  paintTable();
-                  showToast("Saved booking", true);
-                  const saved = res && res.booking ? res.booking : payload;
-                  if (isNew) {
-                    track("booking_created", {
-                      doctor: saved.doctor,
-                      service: saved.service,
-                      patient_id: saved.patient_id,
-                    });
-                  }
-                } catch (e) {
-                  showToast(e.message || "Save failed", false);
-                }
-              }
-              inputs.forEach((inp) => inp.addEventListener("change", persistRow));
-              del.addEventListener("click", async () => {
-                try {
-                  await apiDeleteBooking(id);
-                  await refreshBookings();
-                  paintTable();
-                  showToast("Booking removed", true);
-                } catch (e) {
-                  showToast(e.message || "Delete failed", false);
-                }
-              });
-            });
+        function fmtBookingTs(iso) {
+          if (!iso) return "—";
+          try {
+            const d = new Date(iso);
+            return isNaN(d.getTime()) ? String(iso) : d.toLocaleString();
+          } catch (e) {
+            return String(iso);
           }
+        }
 
-          search.addEventListener("input", paintTable);
-          fDoc.addEventListener("change", paintTable);
-          fDate.addEventListener("change", paintTable);
-          fSvc.addEventListener("change", paintTable);
-          paintTable();
-          card.appendChild(tw);
-
-          const addRow = document.createElement("button");
-          addRow.type = "button";
-          addRow.className = "btn btn-primary";
-          addRow.style.marginTop = "0.85rem";
-          addRow.textContent = "+ Add booking";
-          addRow.addEventListener("click", async () => {
-            const id = "b" + Date.now();
-            const payload = {
-              id,
-              date: new Date().toISOString().slice(0, 10),
-              patient_name: "New patient",
-              service: "Check-up",
-              doctor:
-                (state.doctors && state.doctors[0] && (state.doctors[0].name?.en || state.doctors[0].name?.ar)) ||
-                "Doctor",
-              timestamp: new Date().toISOString(),
-            };
+        function renderBookings(root) {
+          setPageHead("Bookings", "Live patient requests — saved to bookings.json.");
+          root.innerHTML =
+            '<div class="card glass"><p class="empty-hint" style="margin:0">Loading bookings…</p></div>';
+          (async () => {
             try {
-              const res = await apiUpsertBooking(payload);
+              await apiMarkBookingsViewed();
               await refreshBookings();
-              paintTable();
-              showToast("Booking added", true);
-              const saved = res && res.booking ? res.booking : payload;
-              track("booking_created", {
-                doctor: saved.doctor,
-                service: saved.service,
-                patient_id: saved.patient_id,
-              });
             } catch (e) {
-              showToast(e.message || "Add failed", false);
+              showToast(e.message || "Could not sync booking flags", false);
             }
-          });
-          card.appendChild(addRow);
-          root.appendChild(card);
+
+            root.innerHTML = "";
+            const card = document.createElement("div");
+            card.className = "card glass";
+
+            const hint = document.createElement("p");
+            hint.className = "help-text";
+            hint.style.marginTop = "-0.25rem";
+            hint.textContent =
+              "Website submissions appear here with status “new”. Opening this tab marks pending rows as viewed. Refreshes every 12s while logged in.";
+            card.appendChild(hint);
+
+            const toolbar = document.createElement("div");
+            toolbar.className = "toolbar-inline";
+            const search = document.createElement("input");
+            search.type = "search";
+            search.className = "search-input";
+            search.placeholder = "Search name, phone, doctor, service…";
+            const fDoc = document.createElement("select");
+            fDoc.className = "filter-select";
+            fDoc.innerHTML =
+              '<option value="">All doctors</option>' +
+              (state.doctors || [])
+                .map(
+                  (d) =>
+                    '<option value="' +
+                    escapeHtml(d.name?.en || d.name?.ar || "") +
+                    '">' +
+                    escapeHtml(d.name?.en || d.name?.ar || d.id) +
+                    "</option>"
+                )
+                .join("");
+            const fDate = document.createElement("input");
+            fDate.type = "date";
+            fDate.className = "filter-select";
+            const fSvc = document.createElement("select");
+            fSvc.className = "filter-select";
+            toolbar.appendChild(search);
+            toolbar.appendChild(fDoc);
+            toolbar.appendChild(fDate);
+            toolbar.appendChild(fSvc);
+            card.appendChild(toolbar);
+
+            const tw = document.createElement("div");
+            tw.className = "bookings-wrap";
+
+            function paintTable() {
+              let rows = bookingsCache.map((r) => ({
+                id: r.id,
+                date: r.date || "",
+                time: r.time || "",
+                patient: r.patient_name || "",
+                phone: r.phone || "",
+                doctor: r.doctor || "",
+                service: r.service || "",
+                timestamp: r.timestamp || "",
+                status: String(r.status || "viewed") === "new" ? "new" : "viewed",
+                notes: r.notes != null ? String(r.notes) : "",
+                patient_id: r.patient_id || "",
+              }));
+
+              const q = search.value.trim().toLowerCase();
+              if (q) {
+                rows = rows.filter((r) =>
+                  (r.patient + r.phone + r.service + r.doctor + r.date + r.time + r.notes)
+                    .toLowerCase()
+                    .includes(q)
+                );
+              }
+              if (fDoc.value) rows = rows.filter((r) => r.doctor === fDoc.value);
+              if (fDate.value) rows = rows.filter((r) => r.date === fDate.value);
+              if (fSvc.value) rows = rows.filter((r) => r.service === fSvc.value);
+
+              if (!rows.length) {
+                tw.innerHTML = '<div class="empty-hint">No bookings match your filters.</div>';
+                window.__repaintBookingsTable = paintTable;
+                return;
+              }
+
+              tw.innerHTML =
+                '<div class="bookings-list">' +
+                rows
+                  .map((r) => {
+                    const isNew = r.status === "new";
+                    const rowCls = isNew ? "booking-row--new" : "";
+                    const telDigits = String(r.phone || "").replace(/[^\d+]/g, "");
+                    const phoneTd =
+                      '<div class="td-phone-wrap">' +
+                      '<input type="tel" class="field" data-k="phone" value="' +
+                      escapeHtml(r.phone) +
+                      '" />' +
+                      (r.phone && telDigits
+                        ? '<a class="phone-link" href="tel:' +
+                          escapeHtml(telDigits) +
+                          '">Call</a>'
+                        : "") +
+                      "</div>";
+                    return (
+                      '<article class="booking-card ' +
+                      rowCls +
+                      '" data-id="' +
+                      escapeHtml(r.id) +
+                      '" data-patient-id="' +
+                      escapeHtml(r.patient_id) +
+                      '" data-ts="' +
+                      escapeHtml(r.timestamp) +
+                      '"><div class="booking-card__head"><select class="field booking-status">' +
+                      '<option value="new"' +
+                      (isNew ? " selected" : "") +
+                      ">New</option>" +
+                      '<option value="viewed"' +
+                      (!isNew ? " selected" : "") +
+                      '>Viewed</option></select><button type="button" class="btn btn-danger row-del">Remove</button></div><div class="booking-card__primary"><span class="booking-label">Patient name</span><textarea class="field field--patient" data-k="patient_name" rows="2">' +
+                      escapeHtml(r.patient) +
+                      '</textarea><span class="booking-label" style="margin-top:0.85rem">Phone</span>' +
+                      phoneTd +
+                      '</div><div class="booking-card__grid"><div class="booking-field"><span class="booking-label">Doctor</span><input class="field" data-k="doctor" value="' +
+                      escapeHtml(r.doctor) +
+                      '" /></div><div class="booking-field"><span class="booking-label">Service</span><input class="field" data-k="service" value="' +
+                      escapeHtml(r.service) +
+                      '" /></div><div class="booking-field"><span class="booking-label">Date</span><input type="date" class="field" data-k="date" value="' +
+                      escapeHtml(r.date) +
+                      '" /></div><div class="booking-field"><span class="booking-label">Time</span><input type="text" class="field" data-k="time" value="' +
+                      escapeHtml(r.time) +
+                      '" placeholder="e.g. 09:30" /></div></div><div class="booking-card__booked"><strong>Booked</strong> · ' +
+                      escapeHtml(fmtBookingTs(r.timestamp)) +
+                      '</div><span class="booking-label">Notes</span><textarea class="field" data-k="notes" rows="3">' +
+                      escapeHtml(r.notes) +
+                      "</textarea></article>"
+                    );
+                  })
+                  .join("") +
+                "</div>";
+
+              tw.querySelectorAll("article.booking-card[data-id]").forEach((card) => {
+                const id = card.getAttribute("data-id");
+                const patientId = card.getAttribute("data-patient-id") || "";
+                const ts = card.getAttribute("data-ts") || "";
+                const del = card.querySelector(".row-del");
+                const stSel = card.querySelector(".booking-status");
+
+                function val(k) {
+                  const el = card.querySelector(
+                    'input.field[data-k="' + k + '"], textarea.field[data-k="' + k + '"]'
+                  );
+                  return el ? el.value.trim() : "";
+                }
+
+                async function persistRow() {
+                  const notesStr = val("notes");
+                  const payload = {
+                    id,
+                    patient_id: patientId || undefined,
+                    patient_name: val("patient_name"),
+                    phone: val("phone"),
+                    doctor: val("doctor"),
+                    service: val("service"),
+                    date: val("date"),
+                    time: val("time"),
+                    timestamp: ts || undefined,
+                    status: stSel && stSel.value === "new" ? "new" : "viewed",
+                    notes: notesStr ? notesStr : null,
+                  };
+                  try {
+                    await apiUpsertBooking(payload);
+                    await refreshBookings();
+                    paintTable();
+                    showToast("Saved booking", true);
+                  } catch (e) {
+                    showToast(e.message || "Save failed", false);
+                  }
+                }
+
+                card.querySelectorAll("input.field[data-k], textarea.field[data-k]").forEach((inp) => {
+                  inp.addEventListener("change", persistRow);
+                });
+                if (stSel) stSel.addEventListener("change", persistRow);
+                del.addEventListener("click", async () => {
+                  try {
+                    await apiDeleteBooking(id);
+                    await refreshBookings();
+                    paintTable();
+                    showToast("Booking removed", true);
+                  } catch (e) {
+                    showToast(e.message || "Delete failed", false);
+                  }
+                });
+              });
+
+              window.__repaintBookingsTable = paintTable;
+            }
+
+            const svcSet = new Set(
+              bookingsCache.map((b) => (b && b.service ? String(b.service) : "")).filter(Boolean)
+            );
+            fSvc.innerHTML =
+              '<option value="">All services</option>' +
+              Array.from(svcSet)
+                .sort()
+                .map((s) => '<option value="' + escapeHtml(s) + '">' + escapeHtml(s) + "</option>")
+                .join("");
+
+            fDoc.addEventListener("change", () => track("doctor_click", { doctor: fDoc.value }));
+            fSvc.addEventListener("change", () => track("service_click", { service: fSvc.value }));
+
+            search.addEventListener("input", paintTable);
+            fDoc.addEventListener("change", paintTable);
+            fDate.addEventListener("change", paintTable);
+            fSvc.addEventListener("change", paintTable);
+            paintTable();
+            card.appendChild(tw);
+
+            const addRow = document.createElement("button");
+            addRow.type = "button";
+            addRow.className = "btn btn-primary";
+            addRow.style.marginTop = "0.85rem";
+            addRow.textContent = "+ Add booking";
+            addRow.addEventListener("click", async () => {
+              const id = "b" + Date.now();
+              const payload = {
+                id,
+                patient_name: "New patient",
+                phone: "",
+                doctor:
+                  (state.doctors && state.doctors[0] && (state.doctors[0].name?.en || state.doctors[0].name?.ar)) ||
+                  "Doctor",
+                service: "Consultation",
+                date: new Date().toISOString().slice(0, 10),
+                time: "09:00",
+                timestamp: new Date().toISOString(),
+                status: "viewed",
+                notes: null,
+              };
+              try {
+                const res = await apiUpsertBooking(payload);
+                await refreshBookings();
+                paintTable();
+                showToast("Booking added", true);
+                const saved = res && res.booking ? res.booking : payload;
+                track("booking_created", {
+                  doctor: saved.doctor,
+                  service: saved.service,
+                  patient_id: saved.patient_id,
+                });
+              } catch (e) {
+                showToast(e.message || "Add failed", false);
+              }
+            });
+            card.appendChild(addRow);
+            root.appendChild(card);
+          })();
         }
 
         function renderBlog(root) {
@@ -2290,7 +2940,7 @@
           const shell = document.createElement("div");
           shell.className = "card glass";
           shell.innerHTML =
-            '<h3 class="section-title">Posts</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted)">Public pages: <code>/blog</code> and <code>/blog/&lt;slug&gt;</code></p>';
+            '<h3 class="section-title">Posts</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted);line-height:1.5">الموقع العام: <code>/blog</code> و <code>/blog/&lt;slug&gt;</code> — نفس الحقول في الـ API: <code>content_html</code> (نص المقال)، <code>hero_image</code> (الصورة)، <code>meta_title</code> / <code>meta_description</code> (SEO).<br/>Public: listing <code>GET /api/blog</code>, article <code>GET /api/blog/{slug}</code> — same fields as this editor.</p>';
           root.appendChild(shell);
 
           const toolbar = document.createElement("div");
@@ -2324,6 +2974,8 @@
 
           let posts = [];
           let active = null;
+          /** Slug of the post when editor opened — PUT must use this URL even if user renames slug in the form. */
+          let activeOriginalSlug = null;
 
           function slugify(s) {
             s = String(s || "").trim().toLowerCase();
@@ -2395,6 +3047,7 @@
               b.addEventListener("click", () => {
                 const slug = b.getAttribute("data-slug") || "";
                 active = posts.find((p) => String(p.slug) === slug) || null;
+                activeOriginalSlug = active ? String(active.slug) : null;
                 paintEditor();
               });
             });
@@ -2407,7 +3060,10 @@
                   await apiAdminDeleteBlog(slug);
                   showToast("Post deleted", true);
                   posts = await apiAdminGetBlog();
-                  if (active && String(active.slug) === slug) active = null;
+                  if (active && String(active.slug) === slug) {
+                    active = null;
+                    activeOriginalSlug = null;
+                  }
                   paintList();
                   paintEditor();
                 } catch (e) {
@@ -2584,15 +3240,16 @@
               );
 
               try {
-                const exists = posts.some((p) => p && String(p.slug) === String(row.slug));
-                if (!exists) {
+                const isNewPost = activeOriginalSlug === null;
+                if (isNewPost) {
                   await apiAdminCreateBlog(payload);
                 } else {
-                  await apiAdminUpdateBlog(row.slug, payload);
+                  await apiAdminUpdateBlog(activeOriginalSlug, payload);
                 }
                 showToast("Post saved", true);
                 posts = await apiAdminGetBlog();
-                active = posts.find((p) => p && p.slug === payload.slug) || null;
+                active = posts.find((p) => p && String(p.slug) === String(payload.slug)) || null;
+                activeOriginalSlug = active ? String(active.slug) : null;
                 paintList();
                 paintEditor();
               } catch (e) {
@@ -2606,6 +3263,7 @@
           }
 
           btnNew.addEventListener("click", () => {
+            activeOriginalSlug = null;
             const nowSlug = "post-" + Date.now();
             active = {
               slug: nowSlug,
@@ -2645,6 +3303,7 @@
               if (!post) throw new Error("Invalid response");
               posts = [post].concat(posts || []);
               active = post;
+              activeOriginalSlug = post && post.slug ? String(post.slug) : null;
               paintList();
               paintEditor();
               showToast("Draft generated", true);
@@ -2669,22 +3328,22 @@
         }
 
         function renderAnalytics(root) {
-          setPageHead("Analytics", "Actionable analytics from real user events + bookings.");
+          setPageHead("Analytics", "Sessions, journeys, and bookings — optimized for decisions.");
           root.innerHTML = "";
           const bookings = bookingsCache || [];
 
           const toolbar = document.createElement("div");
-          toolbar.style.display = "flex";
-          toolbar.style.flexWrap = "wrap";
-          toolbar.style.alignItems = "center";
-          toolbar.style.justifyContent = "flex-end";
-          toolbar.style.gap = "0.5rem";
-          toolbar.style.marginBottom = "0.75rem";
+          toolbar.className = "analytics-toolbar";
+          const toolbarHint = document.createElement("span");
+          toolbarHint.style.fontSize = "0.85rem";
+          toolbarHint.style.color = "var(--text-muted)";
+          toolbarHint.textContent = "Auto-refresh every 45s while on this page";
           const refreshBtn = document.createElement("button");
           refreshBtn.type = "button";
           refreshBtn.className = "btn btn-ghost";
           refreshBtn.textContent = "Refresh data";
           refreshBtn.addEventListener("click", () => renderAnalytics(root));
+          toolbar.appendChild(toolbarHint);
           toolbar.appendChild(refreshBtn);
           root.appendChild(toolbar);
 
@@ -2702,6 +3361,7 @@
           }, 45000);
 
           const host = document.createElement("div");
+          host.className = "analytics-loading";
           host.innerHTML = '<div class="card glass"><div class="empty-hint">Loading events…</div></div>';
           root.appendChild(host);
 
@@ -2772,15 +3432,44 @@
               const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
               d.setUTCDate(d.getUTCDate() - i);
               const key = isoDayUtc(d.toISOString());
-              days.push(key.slice(5)); // MM-DD
+              days.push(key.slice(5));
               vals.push(map[key] || 0);
             }
             return { days, vals };
           }
 
+          function pct(n, d) {
+            if (!d) return 0;
+            return (n / d) * 100;
+          }
+
+          function fmtMs(ms) {
+            if (!Number.isFinite(ms) || ms < 0) return "—";
+            const s = Math.round(ms / 1000);
+            const m = Math.floor(s / 60);
+            const h = Math.floor(m / 60);
+            const mm = m % 60;
+            const ss = s % 60;
+            if (h > 0) return h + "h " + String(mm).padStart(2, "0") + "m";
+            if (m > 0) return m + "m " + String(ss).padStart(2, "0") + "s";
+            return ss + "s";
+          }
+
+          function avg(arr) {
+            if (!arr || !arr.length) return NaN;
+            let sum = 0;
+            for (let i = 0; i < arr.length; i++) sum += arr[i];
+            return sum / arr.length;
+          }
+
+          function normPath(p) {
+            return String(p || "").trim().toLowerCase();
+          }
+
           apiGetEvents()
             .then((events) => {
               host.innerHTML = "";
+              host.className = "analytics-page";
 
               const sessions = new Set();
               let totalEvents = 0;
@@ -2792,17 +3481,35 @@
               let offerViewEvents = 0;
               const bookingCompletedSessions = new Set();
               const dailyEvents = Object.create(null);
+              const dailyPageViews = Object.create(null);
               const perSessionEvents = Object.create(null);
+              const sessionDaySets = Object.create(null);
+              const hourPvCounts = new Array(24).fill(0);
+              const dowPvCounts = new Array(7).fill(0);
 
               (events || []).forEach((ev) => {
                 if (!ev || typeof ev !== "object") return;
                 totalEvents += 1;
-                if (ev.session_id) sessions.add(String(ev.session_id));
+                const sidRaw = ev.session_id ? String(ev.session_id) : "";
+                if (sidRaw) sessions.add(sidRaw);
+
+                const day = isoDayUtc(ev.timestamp || "");
+                const ts = Date.parse(String(ev.timestamp || ""));
+                if (sidRaw && day) {
+                  const set = sessionDaySets[sidRaw] || (sessionDaySets[sidRaw] = new Set());
+                  set.add(day);
+                }
 
                 if (ev.type === "page_view") {
                   pageViews += 1;
                   const p = String(ev.page || "unknown");
                   pageCounts[p] = (pageCounts[p] || 0) + 1;
+                  if (day) dailyPageViews[day] = (dailyPageViews[day] || 0) + 1;
+                  if (!Number.isNaN(ts)) {
+                    const dt = new Date(ts);
+                    hourPvCounts[dt.getHours()] += 1;
+                    dowPvCounts[dt.getDay()] += 1;
+                  }
                 }
                 if (ev.type === "doctor_click") {
                   const d = String(ev.doctor || "Unknown").trim();
@@ -2817,23 +3524,17 @@
                   const oid = String(ev.offer_id || "unknown").trim();
                   offerViews[oid] = (offerViews[oid] || 0) + 1;
                 }
-                if (ev.type === "booking_completed" && ev.session_id) {
-                  bookingCompletedSessions.add(String(ev.session_id));
+                if (ev.type === "booking_completed" && sidRaw) {
+                  bookingCompletedSessions.add(sidRaw);
                 }
 
-                const day = isoDayUtc(ev.timestamp || "");
                 if (day) dailyEvents[day] = (dailyEvents[day] || 0) + 1;
 
-                // For strict funnel + time-to-conversion analytics
-                const sid = ev.session_id ? String(ev.session_id) : "";
-                if (sid) {
-                  const ts = Date.parse(String(ev.timestamp || ""));
-                  if (!Number.isNaN(ts)) {
-                    (perSessionEvents[sid] || (perSessionEvents[sid] = [])).push({
-                      type: String(ev.type || ""),
-                      ts,
-                    });
-                  }
+                if (sidRaw && !Number.isNaN(ts)) {
+                  (perSessionEvents[sidRaw] || (perSessionEvents[sidRaw] = [])).push({
+                    type: String(ev.type || ""),
+                    ts,
+                  });
                 }
               });
 
@@ -2842,9 +3543,15 @@
               const conversionRate = totalSessions ? totalBookings / totalSessions : 0;
               const dropOffRate = totalSessions ? (totalSessions - bookingCompletedSessions.size) / totalSessions : 0;
 
-              function normPath(p) {
-                return String(p || "").trim().toLowerCase();
-              }
+              let repeatDaySessions = 0;
+              let singleDaySessions = 0;
+              Object.keys(sessionDaySets).forEach((sid) => {
+                const st = sessionDaySets[sid];
+                if (!st || !st.size) return;
+                if (st.size > 1) repeatDaySessions += 1;
+                else singleDaySessions += 1;
+              });
+
               function countPageViewsIf(pred) {
                 let n = 0;
                 (events || []).forEach((ev2) => {
@@ -2857,31 +3564,12 @@
               const kpiServicesPageViews = countPageViewsIf((p) => p.includes("services") || p.includes("service-"));
               const kpiBlogPageViews = countPageViewsIf((p) => p.includes("blog"));
 
-              function pct(n, d) {
-                if (!d) return 0;
-                return (n / d) * 100;
-              }
-
-              function fmtMs(ms) {
-                if (!Number.isFinite(ms) || ms < 0) return "—";
-                const s = Math.round(ms / 1000);
-                const m = Math.floor(s / 60);
-                const h = Math.floor(m / 60);
-                const mm = m % 60;
-                const ss = s % 60;
-                if (h > 0) return h + "h " + String(mm).padStart(2, "0") + "m";
-                if (m > 0) return m + "m " + String(ss).padStart(2, "0") + "s";
-                return ss + "s";
-              }
-
-              // Strict funnel progression per session:
-              // page_view → doctor_click → booking_started → booking_completed
               const strict = {
                 step1: new Set(),
                 step2: new Set(),
                 step3: new Set(),
                 step4: new Set(),
-                times: Object.create(null), // session_id -> {pv, dc, bs, bc}
+                times: Object.create(null),
               };
 
               Object.keys(perSessionEvents).forEach((sid) => {
@@ -2923,14 +3611,13 @@
                 if (pv && dc && bs && bc) strict.step4.add(sid);
               });
 
-              const funnel = [
-                { key: "page_view", label: "Visited (page_view)", sessions: strict.step1 },
-                { key: "doctor_click", label: "Clicked doctor", sessions: strict.step2 },
-                { key: "booking_started", label: "Started booking", sessions: strict.step3 },
-                { key: "booking_completed", label: "Completed booking", sessions: strict.step4 },
-              ];
-
               const funnelBase = strict.step1.size;
+              const funnelSteps = [
+                { key: "page_view", short: "Page view", sessions: strict.step1 },
+                { key: "doctor_click", short: "Doctor click", sessions: strict.step2 },
+                { key: "booking_started", short: "Booking started", sessions: strict.step3 },
+                { key: "booking_completed", short: "Completed", sessions: strict.step4 },
+              ];
 
               const bookingsPerDoctor = Object.create(null);
               const bookingsPerService = Object.create(null);
@@ -2945,110 +3632,7 @@
                 if (day) dailyBookings[day] = (dailyBookings[day] || 0) + 1;
               });
 
-              // Funnel visualization (strict progression)
-              const funnelCard = document.createElement("div");
-              funnelCard.className = "card glass";
-              funnelCard.style.marginTop = "1rem";
-              funnelCard.innerHTML =
-                '<h3 class="section-title">Funnel</h3><p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted)">Session flow: <code>page_view → doctor_click → booking_started → booking_completed</code></p>';
-
-              if (!funnelBase) {
-                funnelCard.innerHTML += '<div class="empty-hint">No page views tracked yet.</div>';
-              } else {
-                const rows = document.createElement("div");
-                rows.style.display = "grid";
-                rows.style.gap = "0.75rem";
-
-                funnel.forEach((step, idx) => {
-                  const count = step.sessions.size;
-                  const prev = idx === 0 ? funnelBase : funnel[idx - 1].sessions.size;
-                  const stepRate = idx === 0 ? 100 : pct(count, prev);
-                  const overallRate = pct(count, funnelBase);
-                  const barPct = pct(count, funnelBase);
-
-                  const row = document.createElement("div");
-                  row.className = "item";
-                  row.style.marginBottom = "0";
-                  row.innerHTML =
-                    '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;flex-wrap:wrap">' +
-                    '<div><div style="font-weight:700">' +
-                    escapeHtml(step.label) +
-                    '</div><div style="margin-top:0.15rem;font-size:0.8rem;color:var(--text-muted)">' +
-                    escapeHtml(String(count)) +
-                    ' sessions · ' +
-                    (idx === 0
-                      ? "100% of visitors"
-                      : escapeHtml(stepRate.toFixed(1) + "% step") + " · " + escapeHtml(overallRate.toFixed(1) + "% overall")) +
-                    "</div></div>" +
-                    '<div class="pill" style="white-space:nowrap">' +
-                    escapeHtml(overallRate.toFixed(1) + "%") +
-                    "</div>" +
-                    "</div>" +
-                    '<div style="margin-top:0.65rem;height:10px;border-radius:999px;overflow:hidden;border:1px solid var(--glass-border);background:rgba(148,163,184,0.12)">' +
-                    '<div style="height:100%;width:' +
-                    escapeHtml(String(Math.max(0, Math.min(100, barPct)).toFixed(1))) +
-                    '%;background:linear-gradient(90deg,var(--accent),rgba(56,189,248,0.35))"></div></div>';
-                  rows.appendChild(row);
-                });
-
-                funnelCard.appendChild(rows);
-
-                // Explicit percentages requested
-                const pClickedDoctor = pct(strict.step2.size, strict.step1.size);
-                const pStartedBooking = pct(strict.step3.size, strict.step1.size);
-                const pCompletedBooking = pct(strict.step4.size, strict.step1.size);
-                const note = document.createElement("div");
-                note.style.marginTop = "0.85rem";
-                note.style.fontSize = "0.85rem";
-                note.style.color = "var(--text-muted)";
-                note.innerHTML =
-                  "<div><strong style=\"color:var(--text)\">Visitors →</strong> " +
-                  "doctor click: <span class=\"pill\">" +
-                  escapeHtml(pClickedDoctor.toFixed(1) + "%") +
-                  "</span> · booking started: <span class=\"pill\">" +
-                  escapeHtml(pStartedBooking.toFixed(1) + "%") +
-                  "</span> · booking completed: <span class=\"pill\">" +
-                  escapeHtml(pCompletedBooking.toFixed(1) + "%") +
-                  "</span></div>";
-                funnelCard.appendChild(note);
-
-                // Step drop-offs (strict progression)
-                const d1 = pct(strict.step1.size - strict.step2.size, strict.step1.size); // visited but didn't click doctor
-                const d2 = pct(strict.step2.size - strict.step3.size, strict.step2.size); // clicked but didn't start booking
-                const d3 = pct(strict.step3.size - strict.step4.size, strict.step3.size); // started but didn't complete
-
-                const warn = document.createElement("div");
-                warn.style.marginTop = "0.6rem";
-                warn.style.fontSize = "0.85rem";
-                warn.style.color = "var(--text-muted)";
-                warn.innerHTML =
-                  '<div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center">' +
-                  '<strong style="color:var(--text)">Drop-off:</strong>' +
-                  '<span class="pill" style="background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)">' +
-                  escapeHtml(d1.toFixed(1) + "%") +
-                  "</span>" +
-                  '<span style="color:var(--text-muted)">visited → no doctor click</span>' +
-                  '<span class="pill" style="background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)">' +
-                  escapeHtml(d2.toFixed(1) + "%") +
-                  "</span>" +
-                  '<span style="color:var(--text-muted)">click → no booking start</span>' +
-                  '<span class="pill" style="background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)">' +
-                  escapeHtml(d3.toFixed(1) + "%") +
-                  "</span>" +
-                  '<span style="color:var(--text-muted)">start → no completion</span>' +
-                  "</div>";
-                funnelCard.appendChild(warn);
-              }
-              host.appendChild(funnelCard);
-
-              // Time-to-conversion analytics (strict sessions only)
-              const durations = {
-                pv_to_dc: [],
-                dc_to_bs: [],
-                bs_to_bc: [],
-                pv_to_bc: [],
-              };
-
+              const durations = { pv_to_dc: [], dc_to_bs: [], bs_to_bc: [], pv_to_bc: [] };
               const completedRows = [];
               strict.step4.forEach((sid) => {
                 const t = strict.times[sid];
@@ -3059,472 +3643,537 @@
                 durations.pv_to_bc.push(t.bc - t.pv);
                 completedRows.push({ sid, total: t.bc - t.pv });
               });
-
-              function avg(arr) {
-                if (!arr || !arr.length) return NaN;
-                let sum = 0;
-                for (let i = 0; i < arr.length; i++) sum += arr[i];
-                return sum / arr.length;
-              }
-
               completedRows.sort((a, b) => a.total - b.total);
               const fastest = completedRows[0] || null;
               const slowest = completedRows.length ? completedRows[completedRows.length - 1] : null;
 
-              const timeCard = document.createElement("div");
-              timeCard.className = "card glass";
-              timeCard.innerHTML = '<h3 class="section-title">Time to conversion</h3>';
-              if (!completedRows.length) {
-                timeCard.innerHTML += '<div class="empty-hint">No completed funnel sessions yet.</div>';
-              } else {
-                const aTotal = fmtMs(avg(durations.pv_to_bc));
-                const a1 = fmtMs(avg(durations.pv_to_dc));
-                const a2 = fmtMs(avg(durations.dc_to_bs));
-                const a3 = fmtMs(avg(durations.bs_to_bc));
+              const peakHourIdx = hourPvCounts.indexOf(Math.max(...hourPvCounts));
+              const dowLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+              const peakDowIdx = dowPvCounts.indexOf(Math.max(...dowPvCounts));
 
-                timeCard.innerHTML +=
-                  '<div class="row-2">' +
-                  '<div class="item"><div class="floating-label">Avg page_view → booking_completed</div><div style="font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin-top:0.25rem">' +
-                  escapeHtml(aTotal) +
-                  "</div></div>" +
-                  '<div class="item"><div class="floating-label">Avg time per step</div><div style="margin-top:0.35rem;font-size:0.9rem;line-height:1.6">' +
-                  "<div><span class=\"pill\">visit → click</span> " +
-                  escapeHtml(a1) +
-                  "</div>" +
-                  "<div><span class=\"pill\">click → start</span> " +
-                  escapeHtml(a2) +
-                  "</div>" +
-                  "<div><span class=\"pill\">start → complete</span> " +
-                  escapeHtml(a3) +
-                  "</div>" +
-                  "</div></div>" +
-                  "</div>";
-
-                timeCard.innerHTML +=
-                  '<div style="margin-top:0.85rem" class="table-wrap"><table class="data-table"><thead><tr><th>Fastest session</th><th>Time</th><th>Slowest session</th><th>Time</th></tr></thead><tbody><tr><td>' +
-                  escapeHtml(fastest ? fastest.sid : "—") +
-                  "</td><td>" +
-                  escapeHtml(fastest ? fmtMs(fastest.total) : "—") +
-                  "</td><td>" +
-                  escapeHtml(slowest ? slowest.sid : "—") +
-                  "</td><td>" +
-                  escapeHtml(slowest ? fmtMs(slowest.total) : "—") +
-                  "</td></tr></tbody></table></div>";
-              }
-              host.appendChild(timeCard);
-
-              // Insights layer (actionable recommendations)
-              (function addInsights() {
-                const insights = [];
-                const recs = [];
-
-                // Helper: build severity pills
-                function sevStyle(sev) {
-                  if (sev === "red")
-                    return "background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)";
-                  if (sev === "yellow")
-                    return "background:rgba(251,191,36,0.12);color:var(--warning);border:1px solid rgba(251,191,36,0.25)";
-                  return "background:rgba(74,222,128,0.12);color:var(--success);border:1px solid rgba(74,222,128,0.25)";
-                }
-
-                const clicked = strict.step2.size;
-                const started = strict.step3.size;
-                const completed = strict.step4.size;
-
-                const clickToComplete = clicked ? completed / clicked : 0;
-                const viewToComplete = funnelBase ? completed / funnelBase : 0;
-
-                // 1) Conversion issues: doctor_click high but booking low
-                if (clicked >= 20 && clickToComplete < 0.2) {
-                  insights.push({
-                    sev: "red",
-                    title: "Conversion issue",
-                    text:
-                      "Doctor clicks are high but completed bookings are low. This suggests the doctor experience isn’t convincing enough after interest is shown.",
-                  });
-                  recs.push("Improve doctor profiles: add clearer credentials, before/after examples, and stronger trust signals near the booking CTA.");
-                  recs.push("Make booking CTA more prominent on doctor sections (sticky CTA, clearer ‘Next available time’, WhatsApp/call fallback).");
-                } else if (clicked >= 10 && clickToComplete < 0.35) {
-                  insights.push({
-                    sev: "yellow",
-                    title: "Conversion opportunity",
-                    text:
-                      "Many users click doctors, but a smaller portion completes booking. Small UX improvements could lift conversion.",
-                  });
-                  recs.push("Reduce booking friction: fewer fields, better defaults, and inline validation/feedback.");
-                } else if (clicked >= 10 && clickToComplete >= 0.35) {
-                  insights.push({
-                    sev: "green",
-                    title: "Doctor conversion looks healthy",
-                    text: "Users who click doctors often proceed to booking completion. Keep iterating on what’s working.",
-                  });
-                }
-
-                // 2) Service issues: high service_click but low bookings
-                const totalServiceClicks = Object.values(serviceClicks).reduce((a, b) => a + b, 0);
-                const serviceToBooking = totalServiceClicks ? totalBookings / totalServiceClicks : 0;
-                if (totalServiceClicks >= 30 && serviceToBooking < 0.08) {
-                  insights.push({
-                    sev: "red",
-                    title: "Service interest not converting",
-                    text:
-                      "Services are being clicked frequently, but bookings remain low. This often means pricing/info is unclear or the value isn’t landing.",
-                  });
-                  recs.push("Add clearer service info: starting price ranges, what’s included, duration, and expected outcomes.");
-                  recs.push("Add stronger service CTAs: ‘Book this service’ buttons on service cards and detail pages.");
-                } else if (totalServiceClicks >= 15 && serviceToBooking < 0.15) {
-                  insights.push({
-                    sev: "yellow",
-                    title: "Service conversion opportunity",
-                    text:
-                      "Service clicks are solid, but bookings could be higher. Improve clarity and reduce decision anxiety.",
-                  });
-                }
-
-                // 2b) Offers: impressions vs funnel completion
-                if (offerViewEvents >= 25 && funnelBase >= 30 && viewToComplete < 0.08) {
-                  insights.push({
-                    sev: "yellow",
-                    title: "Offer visibility not converting",
-                    text:
-                      "Users are seeing offers, but few strict journeys end in a completed booking. Add stronger CTAs from offer cards to booking with the right doctor/service preselected.",
-                  });
-                  recs.push("Link each offer card to a one-click booking preset (doctor/service/date hints) and repeat the offer details inside the booking flow.");
-                }
-
-                // 3) Biggest drop-off step in funnel (strict)
-                const d1 = pct(strict.step1.size - strict.step2.size, strict.step1.size);
-                const d2 = pct(strict.step2.size - strict.step3.size, strict.step2.size);
-                const d3 = pct(strict.step3.size - strict.step4.size, strict.step3.size);
-                const drops = [
-                  { key: "visit→click", label: "Visited → no doctor click", value: d1 },
-                  { key: "click→start", label: "Doctor click → no booking start", value: d2 },
-                  { key: "start→complete", label: "Booking started → no completion", value: d3 },
-                ].filter((x) => Number.isFinite(x.value));
-
-                if (drops.length) {
-                  drops.sort((a, b) => b.value - a.value);
-                  const top = drops[0];
-                  const sev = top.value >= 55 ? "red" : top.value >= 35 ? "yellow" : "green";
-                  insights.push({
-                    sev,
-                    title: "Biggest drop-off",
-                    text: top.label + " is the largest leakage point (" + top.value.toFixed(1) + "%).",
-                  });
-                  if (top.key === "visit→click") {
-                    recs.push("Make doctors more discoverable on landing pages: above-the-fold doctor highlights + social proof + clear ‘Choose a doctor’ prompt.");
-                  } else if (top.key === "click→start") {
-                    recs.push("After a doctor click, open/anchor the booking form automatically and preselect that doctor to reduce steps.");
-                  } else if (top.key === "start→complete") {
-                    recs.push("Fix booking completion friction: simplify form, ensure mobile-friendly inputs, and make submission feedback immediate.");
-                  }
-                }
-
-                // 4) Recommendations (limit 2–3, dedupe)
-                const seen = new Set();
-                const finalRecs = [];
-                recs.forEach((r) => {
-                  const key = String(r).trim();
-                  if (!key || seen.has(key)) return;
-                  seen.add(key);
-                  finalRecs.push(key);
-                });
-
-                // Render
-                const insightsCard = document.createElement("div");
-                insightsCard.className = "card glass";
-                insightsCard.innerHTML = '<h3 class="section-title">Insights</h3>';
-
-                if (!funnelBase) {
-                  insightsCard.innerHTML += '<div class="empty-hint">Not enough event data yet to generate insights.</div>';
-                  host.appendChild(insightsCard);
-                  return;
-                }
-
-                // Quick health summary
-                insightsCard.innerHTML +=
-                  '<p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted);line-height:1.55">Based on strict journeys. Overall conversion: <span class="pill">' +
-                  escapeHtml((viewToComplete * 100).toFixed(1) + "%") +
-                  "</span></p>";
-
-                const grid = document.createElement("div");
-                grid.style.display = "grid";
-                grid.style.gridTemplateColumns = "repeat(auto-fit, minmax(240px, 1fr))";
-                grid.style.gap = "0.85rem";
-
-                (insights.length ? insights : [{ sev: "green", title: "All good", text: "No major issues detected with current thresholds." }]).forEach(
-                  (it) => {
-                    const box = document.createElement("div");
-                    box.className = "item";
-                    box.style.marginBottom = "0";
-                    box.innerHTML =
-                      '<div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-bottom:0.5rem;flex-wrap:wrap">' +
-                      "<strong>" +
-                      escapeHtml(it.title) +
-                      "</strong>" +
-                      '<span class="pill" style="' +
-                      sevStyle(it.sev) +
-                      '">' +
-                      escapeHtml(it.sev.toUpperCase()) +
-                      "</span></div>" +
-                      '<div style="font-size:0.88rem;color:var(--text-muted);line-height:1.55">' +
-                      escapeHtml(it.text) +
-                      "</div>";
-                    grid.appendChild(box);
-                  }
-                );
-                insightsCard.appendChild(grid);
-
-                const recWrap = document.createElement("div");
-                recWrap.style.marginTop = "1rem";
-                recWrap.innerHTML = '<div class="floating-label">Recommended next actions</div>';
-                if (!finalRecs.length) {
-                  recWrap.innerHTML += '<div class="empty-hint" style="padding:1rem 0">No recommendations yet.</div>';
-                } else {
-                  recWrap.innerHTML +=
-                    "<ul style=\"margin:0.6rem 0 0;padding-left:1.2rem;color:var(--text);line-height:1.6\">" +
-                    finalRecs
-                      .slice(0, 3)
-                      .map((r) => "<li style=\"margin:0.35rem 0\"><span style=\"color:var(--text-muted)\">" + escapeHtml(r) + "</span></li>")
-                      .join("") +
-                    "</ul>";
-                }
-                insightsCard.appendChild(recWrap);
-
-                host.appendChild(insightsCard);
-              })();
-
-              const kpi = document.createElement("div");
-              kpi.className = "grid-kpi";
-              kpi.innerHTML =
-                '<article class="kpi-card glass"><div class="label">Total sessions</div><div class="value">' +
-                escapeHtml(String(totalSessions)) +
-                '</div><div class="hint">Unique session_id</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Total events</div><div class="value">' +
-                escapeHtml(String(totalEvents)) +
-                '</div><div class="hint">All tracked actions</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Page views</div><div class="value">' +
-                escapeHtml(String(pageViews)) +
-                '</div><div class="hint">page_view events</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Conversion rate</div><div class="value">' +
-                escapeHtml((conversionRate * 100).toFixed(1) + "%") +
-                '</div><div class="hint">Bookings / Sessions</div></article>';
-              host.appendChild(kpi);
-
-              const kpi2 = document.createElement("div");
-              kpi2.className = "grid-kpi";
-              kpi2.style.marginTop = "1rem";
-              kpi2.innerHTML =
-                '<article class="kpi-card glass"><div class="label">Bookings</div><div class="value">' +
-                escapeHtml(String(totalBookings)) +
-                '</div><div class="hint">From bookings.json</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Drop-off rate</div><div class="value">' +
-                escapeHtml((dropOffRate * 100).toFixed(1) + "%") +
-                '</div><div class="hint">Sessions without booking_completed</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Most visited page</div><div class="value">' +
-                escapeHtml((Object.entries(pageCounts).sort((a, b) => b[1] - a[1])[0] || ["—"])[0]) +
-                '</div><div class="hint">By page_view</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Top doctor</div><div class="value">' +
-                escapeHtml((Object.entries(doctorClicks).sort((a, b) => b[1] - a[1])[0] || ["—"])[0]) +
-                '</div><div class="hint">By doctor_click</div></article>';
-              host.appendChild(kpi2);
-
-              const kpi3 = document.createElement("div");
-              kpi3.className = "grid-kpi";
-              kpi3.style.marginTop = "1rem";
-              const topOfferEntry = Object.entries(offerViews).sort((a, b) => b[1] - a[1])[0] || null;
-              const bottomOfferEntry = Object.entries(offerViews).sort((a, b) => a[1] - b[1])[0] || null;
-              kpi3.innerHTML =
-                '<article class="kpi-card glass"><div class="label">Offers page views</div><div class="value">' +
-                escapeHtml(String(kpiOffersPageViews)) +
-                '</div><div class="hint">page_view on /offers…</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Services page views</div><div class="value">' +
-                escapeHtml(String(kpiServicesPageViews)) +
-                '</div><div class="hint">services + service detail paths</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Blog page views</div><div class="value">' +
-                escapeHtml(String(kpiBlogPageViews)) +
-                '</div><div class="hint">page_view paths containing blog</div></article>' +
-                '<article class="kpi-card glass"><div class="label">Offer impressions</div><div class="value">' +
-                escapeHtml(String(offerViewEvents)) +
-                '</div><div class="hint">offer_view events · top: ' +
-                escapeHtml(topOfferEntry ? topOfferEntry[0] + " (" + topOfferEntry[1] + ")" : "—") +
-                "</div></article>";
-              host.appendChild(kpi3);
-
-              const highlightsCard = document.createElement("div");
-              highlightsCard.className = "card glass";
-              highlightsCard.style.marginTop = "1rem";
-              highlightsCard.innerHTML =
-                '<h3 class="section-title">Traffic highlights</h3>' +
-                '<p style="margin:-0.5rem 0 1rem;font-size:0.85rem;color:var(--text-muted);line-height:1.55">Key URLs from <code>page_view</code> plus offer visibility from <code>offer_view</code>.</p>' +
-                '<div class="row-2">' +
-                '<div class="item" style="margin-bottom:0"><div class="floating-label">Offers / Services / Blog (views)</div>' +
-                "<div style=\"margin-top:0.35rem;font-size:0.9rem;line-height:1.65\">" +
-                '<div><span class="pill">Offers</span> ' +
-                escapeHtml(String(kpiOffersPageViews)) +
-                "</div>" +
-                '<div><span class="pill">Services</span> ' +
-                escapeHtml(String(kpiServicesPageViews)) +
-                "</div>" +
-                '<div><span class="pill">Blog</span> ' +
-                escapeHtml(String(kpiBlogPageViews)) +
-                "</div></div></div>" +
-                '<div class="item" style="margin-bottom:0"><div class="floating-label">Offers (in-view)</div>' +
-                "<div style=\"margin-top:0.35rem;font-size:0.9rem;line-height:1.65\">" +
-                "<div><strong style=\"color:var(--text)\">Most viewed</strong> · " +
-                escapeHtml(topOfferEntry ? topOfferEntry[0] + " — " + topOfferEntry[1] + " views" : "—") +
-                "</div>" +
-                "<div style=\"margin-top:0.35rem\"><strong style=\"color:var(--text)\">Least viewed</strong> · " +
-                escapeHtml(
-                  bottomOfferEntry && Object.keys(offerViews).length > 1
-                    ? bottomOfferEntry[0] + " — " + bottomOfferEntry[1] + " views"
-                    : bottomOfferEntry
-                      ? bottomOfferEntry[0] + " — " + bottomOfferEntry[1] + " views"
-                      : "—"
-                ) +
-                "</div></div></div></div>";
-              host.appendChild(highlightsCard);
-
-              const chartCard = document.createElement("div");
-              chartCard.className = "card glass";
-              chartCard.style.marginTop = "1rem";
-              chartCard.innerHTML = '<h3 class="section-title">Trends (last 14 days)</h3>';
-
-              const wrap = document.createElement("div");
-              wrap.className = "row-2";
-
-              const evBox = document.createElement("div");
-              evBox.innerHTML = '<div class="floating-label">Daily events</div>';
-              const evCanvas = document.createElement("canvas");
-              evCanvas.width = 640;
-              evCanvas.height = 180;
-              evCanvas.style.width = "100%";
-              evCanvas.style.borderRadius = "12px";
-              evCanvas.style.border = "1px solid var(--glass-border)";
-              evCanvas.style.background = "var(--input-bg)";
-              evBox.appendChild(evCanvas);
-
-              const bkBox = document.createElement("div");
-              bkBox.innerHTML = '<div class="floating-label">Daily bookings</div>';
-              const bkCanvas = document.createElement("canvas");
-              bkCanvas.width = 640;
-              bkCanvas.height = 180;
-              bkCanvas.style.width = "100%";
-              bkCanvas.style.borderRadius = "12px";
-              bkCanvas.style.border = "1px solid var(--glass-border)";
-              bkCanvas.style.background = "var(--input-bg)";
-              bkBox.appendChild(bkCanvas);
-
-              wrap.appendChild(evBox);
-              wrap.appendChild(bkBox);
-              chartCard.appendChild(wrap);
-              host.appendChild(chartCard);
-
-              const evSeries = lastNDaysSeries(dailyEvents, 14);
-              const bkSeries = lastNDaysSeries(dailyBookings, 14);
-              drawLine(evCanvas, evSeries.days, evSeries.vals, "rgba(56,189,248,0.95)");
-              drawLine(bkCanvas, bkSeries.days, bkSeries.vals, "rgba(74,222,128,0.95)");
-
-              const docCard = document.createElement("div");
-              docCard.className = "card glass";
-              docCard.innerHTML = '<h3 class="section-title">Top doctors</h3>';
               const docAll = Array.from(new Set([...Object.keys(doctorClicks), ...Object.keys(bookingsPerDoctor)])).map((name) => ({
                 name,
                 clicks: doctorClicks[name] || 0,
                 bookings: bookingsPerDoctor[name] || 0,
               }));
-              const docRows = [...docAll].sort((a, b) => b.clicks - a.clicks || b.bookings - a.bookings).slice(0, 12);
-              const docLeast = [...docAll].sort((a, b) => a.clicks - b.clicks || a.bookings - b.bookings).slice(0, 5);
-              if (!docRows.length) {
-                docCard.innerHTML += '<div class="empty-hint">No doctor interactions yet.</div>';
-              } else {
-                docCard.innerHTML +=
-                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Doctor</th><th>Clicks</th><th>Bookings</th></tr></thead><tbody>' +
-                  docRows
-                    .map((r) => "<tr><td>" + escapeHtml(r.name) + "</td><td>" + escapeHtml(String(r.clicks)) + "</td><td>" + escapeHtml(String(r.bookings)) + "</td></tr>")
-                    .join("") +
-                  "</tbody></table></div>";
-                docCard.innerHTML +=
-                  '<h4 style="margin:1rem 0 0.5rem;font-size:0.95rem;color:var(--text)">Lowest click volume (needs attention)</h4>' +
-                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Doctor</th><th>Clicks</th><th>Bookings</th></tr></thead><tbody>' +
-                  docLeast
-                    .map((r) => "<tr><td>" + escapeHtml(r.name) + "</td><td>" + escapeHtml(String(r.clicks)) + "</td><td>" + escapeHtml(String(r.bookings)) + "</td></tr>")
-                    .join("") +
-                  "</tbody></table></div>";
-              }
-              host.appendChild(docCard);
+              const topDoctor =
+                [...docAll].sort((a, b) => b.clicks + b.bookings * 3 - (a.clicks + a.bookings * 3))[0] || null;
+              const topOfferEntry = Object.entries(offerViews).sort((a, b) => b[1] - a[1])[0] || null;
 
-              const svcCard = document.createElement("div");
-              svcCard.className = "card glass";
-              svcCard.innerHTML = '<h3 class="section-title">Most popular services</h3>';
+              const clicked = strict.step2.size;
+              const completedStrict = strict.step4.size;
+              const clickToComplete = clicked ? completedStrict / clicked : 0;
+              const viewToComplete = funnelBase ? completedStrict / funnelBase : 0;
+
+              const d1 = pct(strict.step1.size - strict.step2.size, strict.step1.size);
+              const d2 = pct(strict.step2.size - strict.step3.size, strict.step2.size);
+              const d3 = pct(strict.step3.size - strict.step4.size, strict.step3.size);
+              const drops = [
+                { key: "visit→click", label: "Visited → no doctor click", value: d1 },
+                { key: "click→start", label: "Doctor click → no booking start", value: d2 },
+                { key: "start→complete", label: "Booking started → no completion", value: d3 },
+              ].filter((x) => Number.isFinite(x.value));
+              drops.sort((a, b) => b.value - a.value);
+              const worstDrop = drops[0] || null;
+
+              const insights = [];
+              const recs = [];
+              function sevStyle(sev) {
+                if (sev === "red") return "background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.25)";
+                if (sev === "yellow") return "background:rgba(251,191,36,0.12);color:var(--warning);border:1px solid rgba(251,191,36,0.25)";
+                return "background:rgba(74,222,128,0.12);color:var(--success);border:1px solid rgba(74,222,128,0.25)";
+              }
+
+              if (clicked >= 20 && clickToComplete < 0.2) {
+                insights.push({
+                  sev: "red",
+                  title: "Conversion issue",
+                  text: "Doctor clicks are high but completed journeys are low. Strengthen trust after interest.",
+                });
+                recs.push("Improve doctor profiles and make the booking CTA impossible to miss.");
+              } else if (clicked >= 10 && clickToComplete < 0.35) {
+                insights.push({
+                  sev: "yellow",
+                  title: "Conversion opportunity",
+                  text: "Many users click doctors but fewer finish — small UX wins could lift bookings.",
+                });
+                recs.push("Reduce booking friction: fewer fields, clearer defaults, inline validation.");
+              } else if (clicked >= 10 && clickToComplete >= 0.35) {
+                insights.push({ sev: "green", title: "Healthy funnel", text: "Doctor interest often converts to completion." });
+              }
+
+              const totalServiceClicks = Object.values(serviceClicks).reduce((a, b) => a + b, 0);
+              const serviceToBooking = totalServiceClicks ? totalBookings / totalServiceClicks : 0;
+              if (totalServiceClicks >= 30 && serviceToBooking < 0.08) {
+                insights.push({
+                  sev: "red",
+                  title: "Service interest gap",
+                  text: "Services get clicks but bookings stay low — clarify value and next step.",
+                });
+                recs.push("Add pricing hints, duration, and a direct ‘Book this service’ action.");
+              } else if (totalServiceClicks >= 15 && serviceToBooking < 0.15) {
+                insights.push({
+                  sev: "yellow",
+                  title: "Service clarity",
+                  text: "Service engagement is decent; bookings could rise with clearer offers.",
+                });
+              }
+
+              if (offerViewEvents >= 25 && funnelBase >= 30 && viewToComplete < 0.08) {
+                insights.push({
+                  sev: "yellow",
+                  title: "Offers vs completions",
+                  text: "Offers get impressions but strict completions are rare — tighten CTAs from offer to booking.",
+                });
+                recs.push("Preset doctor/service on booking when coming from an offer card.");
+              }
+
+              if (worstDrop && funnelBase) {
+                const sev = worstDrop.value >= 55 ? "red" : worstDrop.value >= 35 ? "yellow" : "green";
+                insights.push({
+                  sev,
+                  title: "Largest drop-off",
+                  text: worstDrop.label + " (" + worstDrop.value.toFixed(1) + "%).",
+                });
+                if (worstDrop.key === "visit→click") recs.push("Surface doctors earlier with proof and clear prompts.");
+                else if (worstDrop.key === "click→start") recs.push("Auto-open booking with the chosen doctor selected.");
+                else if (worstDrop.key === "start→complete") recs.push("Simplify the final booking steps on mobile.");
+              }
+
+              const seen = new Set();
+              const finalRecs = [];
+              recs.forEach((r) => {
+                const key = String(r).trim();
+                if (!key || seen.has(key)) return;
+                seen.add(key);
+                finalRecs.push(key);
+              });
+
+              const aiBullets = [];
+              if (topDoctor && (topDoctor.clicks || topDoctor.bookings)) {
+                aiBullets.push(
+                  "<strong>" +
+                    escapeHtml(topDoctor.name) +
+                    "</strong> is getting the most attention (" +
+                    escapeHtml(String(topDoctor.clicks)) +
+                    " clicks, " +
+                    escapeHtml(String(topDoctor.bookings)) +
+                    " bookings)."
+                );
+              }
+              if (worstDrop && worstDrop.value >= 25) {
+                aiBullets.push("Users tend to drop off at <strong>" + escapeHtml(worstDrop.label.toLowerCase()) + "</strong>.");
+              }
+              if (topOfferEntry) {
+                aiBullets.push(
+                  "Offer <strong>" + escapeHtml(topOfferEntry[0]) + "</strong> has the most views (" + escapeHtml(String(topOfferEntry[1])) + ")."
+                );
+              }
+              if (repeatDaySessions + singleDaySessions > 0) {
+                aiBullets.push(
+                  "<strong>" +
+                    escapeHtml(String(repeatDaySessions)) +
+                    "</strong> sessions span multiple days vs <strong>" +
+                    escapeHtml(String(singleDaySessions)) +
+                    "</strong> single-day journeys (tracked sessions)."
+                );
+              }
+              if (completedRows.length && Number.isFinite(avg(durations.pv_to_bc))) {
+                aiBullets.push(
+                  "Average time from first page view to completed booking is <strong>" +
+                    escapeHtml(fmtMs(avg(durations.pv_to_bc))) +
+                    "</strong>."
+                );
+              }
+
+              function escAttr(s) {
+                return String(s)
+                  .replace(/&/g, "&amp;")
+                  .replace(/"/g, "&quot;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;");
+              }
+
+              function cssBarsFromArray(arr, labels, title, maxH) {
+                const max = Math.max(1, ...arr);
+                let inner = "";
+                for (let i = 0; i < arr.length; i++) {
+                  const v = arr[i];
+                  const w = (v / max) * 100;
+                  inner +=
+                    '<div class="analytics-css-bar"><span>' +
+                    escapeHtml(labels[i]) +
+                    '</span><div class="track"><div class="fill" style="width:' +
+                    escAttr(w.toFixed(1)) +
+                    '%"></div></div><span>' +
+                    escapeHtml(String(v)) +
+                    "</span></div>";
+                }
+                return (
+                  '<div class="analytics-mini-stat" style="margin:0;border:0;padding:0;background:transparent">' +
+                  '<div class="floating-label">' +
+                  escapeHtml(title) +
+                  '</div><div class="analytics-css-bars" style="max-height:' +
+                  escAttr(String(maxH || 220)) +
+                  'px;overflow-y:auto;margin-top:0.5rem">' +
+                  inner +
+                  "</div></div>"
+                );
+              }
+
+              const hourLabels = [];
+              for (let h = 0; h < 24; h++) hourLabels.push(h + "h");
+
+              let funnelHtml = "";
+              if (!funnelBase) {
+                funnelHtml = '<div class="empty-hint">No page views tracked yet.</div>';
+              } else {
+                const parts = [];
+                funnelSteps.forEach((step, idx) => {
+                  const count = step.sessions.size;
+                  const overallRate = pct(count, funnelBase);
+                  parts.push(
+                    '<div class="analytics-funnel-step"><div class="analytics-funnel-step__n">' +
+                      escapeHtml(String(count)) +
+                      '</div><div class="analytics-funnel-step__l">' +
+                      escapeHtml(step.short) +
+                      '</div><div class="analytics-funnel-step__pct">' +
+                      escapeHtml(overallRate.toFixed(1) + "% of sessions") +
+                      "</div></div>"
+                  );
+                  if (idx < funnelSteps.length - 1) {
+                    parts.push('<span class="analytics-funnel-arrow" aria-hidden="true">→</span>');
+                  }
+                });
+                funnelHtml =
+                  '<div class="analytics-funnel-rail">' +
+                  parts.join("") +
+                  "</div>" +
+                  '<p style="margin:0.85rem 0 0;font-size:0.82rem;color:var(--text-muted)">Strict order: page_view → doctor_click → booking_started → booking_completed</p>' +
+                  '<div style="margin-top:0.75rem;display:flex;flex-wrap:wrap;gap:0.45rem;align-items:center;font-size:0.82rem;color:var(--text-muted)">' +
+                  '<span class="pill">' +
+                  escapeHtml(d1.toFixed(1) + "%") +
+                  '</span> no doctor click · <span class="pill">' +
+                  escapeHtml(d2.toFixed(1) + "%") +
+                  '</span> no booking start · <span class="pill">' +
+                  escapeHtml(d3.toFixed(1) + "%") +
+                  "%</span> no completion</div>";
+              }
+
+              const secKpi = document.createElement("section");
+              secKpi.className = "analytics-section";
+              secKpi.innerHTML =
+                '<header class="analytics-section-head"><h2 class="analytics-section-title">Overview</h2>' +
+                '<p class="analytics-section-desc">Bookings vs sessions and funnel completion from tracked events.</p></header>' +
+                '<div class="grid-kpi analytics-kpi-hero">' +
+                '<article class="kpi-card glass"><span class="kpi-ico" aria-hidden="true">👥</span><div class="label">Total sessions</div><div class="value">' +
+                escapeHtml(String(totalSessions)) +
+                '</div><div class="hint">Unique session_id values</div></article>' +
+                '<article class="kpi-card glass"><span class="kpi-ico" aria-hidden="true">👁</span><div class="label">Total page views</div><div class="value">' +
+                escapeHtml(String(pageViews)) +
+                '</div><div class="hint">page_view events</div></article>' +
+                '<article class="kpi-card glass"><span class="kpi-ico" aria-hidden="true">📅</span><div class="label">Total bookings</div><div class="value">' +
+                escapeHtml(String(totalBookings)) +
+                '</div><div class="hint">Records in bookings.json</div></article>' +
+                '<article class="kpi-card glass"><span class="kpi-ico" aria-hidden="true">📈</span><div class="label">Conversion rate</div><div class="value">' +
+                escapeHtml((conversionRate * 100).toFixed(1) + "%") +
+                '</div><div class="hint">Bookings ÷ sessions</div></article>' +
+                '<article class="kpi-card glass"><span class="kpi-ico" aria-hidden="true">📉</span><div class="label">Drop-off rate</div><div class="value">' +
+                escapeHtml((dropOffRate * 100).toFixed(1) + "%") +
+                '</div><div class="hint">Sessions without booking_completed event</div></article>' +
+                "</div>";
+              host.appendChild(secKpi);
+
+              const secCharts = document.createElement("section");
+              secCharts.className = "analytics-section";
+              const evCanvas = document.createElement("canvas");
+              evCanvas.width = 640;
+              evCanvas.height = 200;
+              evCanvas.setAttribute("aria-label", "Daily page views last 14 days");
+              const bkCanvas = document.createElement("canvas");
+              bkCanvas.width = 640;
+              bkCanvas.height = 200;
+              bkCanvas.setAttribute("aria-label", "Daily bookings last 14 days");
+              const chartWrap = document.createElement("div");
+              chartWrap.className = "analytics-grid-2";
+              chartWrap.innerHTML =
+                '<div class="card glass analytics-chart-panel"><h3 class="section-title">Daily traffic</h3>' +
+                '<p style="margin:-0.35rem 0 0.65rem;font-size:0.82rem;color:var(--text-muted)">Page views — last 14 days (local dates)</p></div>' +
+                '<div class="card glass analytics-chart-panel"><h3 class="section-title">Daily bookings</h3>' +
+                '<p style="margin:-0.35rem 0 0.65rem;font-size:0.82rem;color:var(--text-muted)">From booking records — last 14 days</p></div>';
+              const panels = chartWrap.querySelectorAll(".analytics-chart-panel");
+              panels[0].appendChild(evCanvas);
+              panels[1].appendChild(bkCanvas);
+              secCharts.innerHTML =
+                '<header class="analytics-section-head"><h2 class="analytics-section-title">Traffic & bookings</h2>' +
+                '<p class="analytics-section-desc">Spot spikes and gaps over the past two weeks.</p></header>';
+              secCharts.appendChild(chartWrap);
+              host.appendChild(secCharts);
+
+              const pvSeries = lastNDaysSeries(dailyPageViews, 14);
+              const bkSeries = lastNDaysSeries(dailyBookings, 14);
+              drawLine(evCanvas, pvSeries.days, pvSeries.vals, "rgba(56,189,248,0.95)");
+              drawLine(bkCanvas, bkSeries.days, bkSeries.vals, "rgba(74,222,128,0.95)");
+
+              const secFunnel = document.createElement("section");
+              secFunnel.className = "analytics-section";
+              secFunnel.innerHTML =
+                '<header class="analytics-section-head"><h2 class="analytics-section-title">Conversion funnel</h2>' +
+                '<p class="analytics-section-desc">Sessions that progress through each step in order.</p></header>' +
+                '<div class="card glass">' +
+                funnelHtml +
+                "</div>";
+              host.appendChild(secFunnel);
+
+              const secPatterns = document.createElement("section");
+              secPatterns.className = "analytics-section";
+              secPatterns.innerHTML =
+                '<header class="analytics-section-head"><h2 class="analytics-section-title">Timing & patterns</h2>' +
+                '<p class="analytics-section-desc">Peak traffic from page views; journey speed when the strict funnel completes.</p></header>' +
+                '<div class="analytics-grid-2">' +
+                '<div class="card glass">' +
+                cssBarsFromArray(hourPvCounts, hourLabels, "Peak traffic by hour (page views, local time)", 260) +
+                "</div>" +
+                '<div class="card glass">' +
+                cssBarsFromArray(dowPvCounts, dowLabels, "Traffic by weekday (page views)", 220) +
+                "</div></div>";
+              host.appendChild(secPatterns);
+
+              const subKpiHtml =
+                '<div class="analytics-sub-kpi">' +
+                '<div class="analytics-mini-stat"><div class="lbl">Sessions · multi-day</div><div class="val">' +
+                escapeHtml(String(repeatDaySessions)) +
+                '</div><div style="margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted)">Returned on another day</div></div>' +
+                '<div class="analytics-mini-stat"><div class="lbl">Sessions · single day</div><div class="val">' +
+                escapeHtml(String(singleDaySessions)) +
+                '</div><div style="margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted)">One calendar day</div></div>' +
+                '<div class="analytics-mini-stat"><div class="lbl">Strict funnel completion</div><div class="val">' +
+                escapeHtml(funnelBase ? ((strict.step4.size / funnelBase) * 100).toFixed(1) + "%" : "—") +
+                '</div><div style="margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted)">Sessions hitting all four steps</div></div>' +
+                '<div class="analytics-mini-stat"><div class="lbl">Peak hour / day</div><div class="val">' +
+                escapeHtml(String(peakHourIdx) + "h · " + dowLabels[peakDowIdx]) +
+                '</div><div style="margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted)">By page views</div></div>' +
+                "</div>";
+
+              const timeInner =
+                !completedRows.length
+                  ? '<div class="empty-hint">No completed strict funnel yet.</div>'
+                  : '<div class="analytics-grid-2" style="margin-top:0.5rem">' +
+                    '<div><div class="floating-label">Avg page_view → booking_completed</div><div style="font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin-top:0.25rem">' +
+                    escapeHtml(fmtMs(avg(durations.pv_to_bc))) +
+                    "</div></div>" +
+                    '<div style="font-size:0.88rem;line-height:1.65;color:var(--text-muted)">' +
+                    "<div><span class=\"pill\">visit → click</span> " +
+                    escapeHtml(fmtMs(avg(durations.pv_to_dc))) +
+                    "</div>" +
+                    "<div><span class=\"pill\">click → start</span> " +
+                    escapeHtml(fmtMs(avg(durations.dc_to_bs))) +
+                    "</div>" +
+                    "<div><span class=\"pill\">start → complete</span> " +
+                    escapeHtml(fmtMs(avg(durations.bs_to_bc))) +
+                    "</div></div></div>" +
+                    '<div style="margin-top:0.85rem" class="table-wrap"><table class="data-table"><thead><tr><th>Fastest session</th><th>Time</th><th>Slowest session</th><th>Time</th></tr></thead><tbody><tr><td>' +
+                    escapeHtml(fastest ? fastest.sid : "—") +
+                    "</td><td>" +
+                    escapeHtml(fastest ? fmtMs(fastest.total) : "—") +
+                    "</td><td>" +
+                    escapeHtml(slowest ? slowest.sid : "—") +
+                    "</td><td>" +
+                    escapeHtml(slowest ? fmtMs(slowest.total) : "—") +
+                    "</td></tr></tbody></table></div>";
+
+              const secMeta = document.createElement("section");
+              secMeta.className = "analytics-section";
+              secMeta.innerHTML =
+                subKpiHtml +
+                '<div class="card glass" style="margin-top:1rem"><h3 class="section-title">Time to conversion</h3>' +
+                '<p style="margin:-0.35rem 0 0.5rem;font-size:0.82rem;color:var(--text-muted)">Completed strict journeys only</p>' +
+                timeInner +
+                "</div>" +
+                '<div class="analytics-grid-3" style="margin-top:1rem">' +
+                '<div class="card glass"><h3 class="section-title">Content slices</h3>' +
+                '<div style="margin-top:0.5rem;font-size:0.88rem;line-height:1.65;color:var(--text)">' +
+                '<div><span class="pill">Offers pages</span> ' +
+                escapeHtml(String(kpiOffersPageViews)) +
+                " views</div>" +
+                '<div><span class="pill">Services</span> ' +
+                escapeHtml(String(kpiServicesPageViews)) +
+                " views</div>" +
+                '<div><span class="pill">Blog</span> ' +
+                escapeHtml(String(kpiBlogPageViews)) +
+                " views</div>" +
+                '<div style="margin-top:0.5rem;color:var(--text-muted)"><span class="pill">offer_view</span> ' +
+                escapeHtml(String(offerViewEvents)) +
+                " impressions</div></div></div>" +
+                "</div>";
+              host.appendChild(secMeta);
+
+              const secAi = document.createElement("section");
+              secAi.className = "analytics-section";
+              let aiHtml =
+                '<header class="analytics-section-head"><h2 class="analytics-section-title">AI-style insights</h2>' +
+                '<p class="analytics-section-desc">Rule-based highlights from your live metrics — not an external model.</p></header>' +
+                '<div class="card glass analytics-ai-panel">' +
+                '<h3 class="section-title" style="margin-top:0">Suggestions</h3>';
+              if (!funnelBase && !totalSessions) {
+                aiHtml += '<div class="empty-hint">Collect more events to unlock narratives.</div>';
+              } else {
+                aiHtml +=
+                  "<ul>" +
+                  (aiBullets.length
+                    ? aiBullets.map((x) => "<li>" + x + "</li>").join("")
+                    : "<li>No narrative highlights yet — keep tracking.</li>") +
+                  "</ul>";
+              }
+              aiHtml +=
+                '<div style="margin-top:1rem"><div class="floating-label">Recommended next actions</div>' +
+                (finalRecs.length
+                  ? "<ul style=\"margin-top:0.45rem\">" +
+                    finalRecs
+                      .slice(0, 4)
+                      .map((r) => "<li style=\"color:var(--text-muted)\">" + escapeHtml(r) + "</li>")
+                      .join("") +
+                    "</ul>"
+                  : '<p style="margin:0.45rem 0 0;font-size:0.85rem;color:var(--text-muted)">No automated recommendations yet.</p>') +
+                "</div></div>";
+
+              if (funnelBase) {
+                aiHtml +=
+                  '<div style="margin-top:1rem" class="analytics-grid-3">' +
+                  (insights.length
+                    ? insights
+                    : [{ sev: "green", title: "Stable signals", text: "No threshold alerts fired." }]
+                  )
+                    .map(
+                      (it) =>
+                        '<div class="item" style="margin:0;padding:1rem;border-radius:var(--radius-sm);border:1px solid var(--glass-border);background:var(--input-bg)">' +
+                        '<div style="display:flex;justify-content:space-between;gap:0.5rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:0.45rem">' +
+                        "<strong>" +
+                        escapeHtml(it.title) +
+                        '</strong><span class="pill" style="' +
+                        sevStyle(it.sev) +
+                        '">' +
+                        escapeHtml(it.sev.toUpperCase()) +
+                        "</span></div>" +
+                        '<div style="font-size:0.88rem;color:var(--text-muted);line-height:1.55">' +
+                        escapeHtml(it.text) +
+                        "</div></div>"
+                    )
+                    .join("") +
+                  "</div>";
+              }
+              secAi.innerHTML = aiHtml;
+              host.appendChild(secAi);
+
+              const docRows = [...docAll].sort((a, b) => b.clicks + b.bookings - (a.clicks + a.bookings)).slice(0, 12);
+              const docLeast = [...docAll].sort((a, b) => a.clicks - b.clicks || a.bookings - b.bookings).slice(0, 5);
+              let docTable =
+                '<div class="table-wrap"><table class="data-table"><thead><tr><th>Doctor</th><th>Clicks</th><th>Bookings</th><th>Conv.</th></tr></thead><tbody>';
+              docRows.forEach((r) => {
+                const conv = r.clicks ? ((r.bookings / r.clicks) * 100).toFixed(1) + "%" : "—";
+                docTable +=
+                  "<tr><td>" +
+                  escapeHtml(r.name) +
+                  "</td><td>" +
+                  escapeHtml(String(r.clicks)) +
+                  "</td><td>" +
+                  escapeHtml(String(r.bookings)) +
+                  "</td><td>" +
+                  escapeHtml(conv) +
+                  "</td></tr>";
+              });
+              docTable += "</tbody></table></div>";
+              if (docLeast.length && docRows.length) {
+                docTable +=
+                  '<h4 style="margin:1rem 0 0.5rem;font-size:0.95rem;color:var(--text)">Needs visibility</h4><div class="table-wrap"><table class="data-table"><thead><tr><th>Doctor</th><th>Clicks</th><th>Bookings</th><th>Conv.</th></tr></thead><tbody>';
+                docLeast.forEach((r) => {
+                  const conv = r.clicks ? ((r.bookings / r.clicks) * 100).toFixed(1) + "%" : "—";
+                  docTable +=
+                    "<tr><td>" +
+                    escapeHtml(r.name) +
+                    "</td><td>" +
+                    escapeHtml(String(r.clicks)) +
+                    "</td><td>" +
+                    escapeHtml(String(r.bookings)) +
+                    "</td><td>" +
+                    escapeHtml(conv) +
+                    "</td></tr>";
+                });
+                docTable += "</tbody></table></div>";
+              }
+
               const svcRows = Array.from(new Set([...Object.keys(serviceClicks), ...Object.keys(bookingsPerService)]))
                 .map((name) => ({
                   name,
                   clicks: serviceClicks[name] || 0,
                   bookings: bookingsPerService[name] || 0,
                 }))
-                .sort((a, b) => b.clicks - a.clicks || b.bookings - a.bookings)
+                .sort((a, b) => b.clicks + b.bookings - (a.clicks + a.bookings))
                 .slice(0, 12);
-              if (!svcRows.length) {
-                svcCard.innerHTML += '<div class="empty-hint">No service interactions yet.</div>';
-              } else {
-                svcCard.innerHTML +=
-                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Service</th><th>Clicks</th><th>Bookings</th></tr></thead><tbody>' +
-                  svcRows
-                    .map((r) => "<tr><td>" + escapeHtml(r.name) + "</td><td>" + escapeHtml(String(r.clicks)) + "</td><td>" + escapeHtml(String(r.bookings)) + "</td></tr>")
-                    .join("") +
-                  "</tbody></table></div>";
-              }
-              host.appendChild(svcCard);
+              let svcTable =
+                '<div class="table-wrap"><table class="data-table"><thead><tr><th>Service</th><th>Clicks</th><th>Bookings</th><th>Conv.</th></tr></thead><tbody>';
+              svcRows.forEach((r) => {
+                const conv = r.clicks ? ((r.bookings / r.clicks) * 100).toFixed(1) + "%" : "—";
+                svcTable +=
+                  "<tr><td>" +
+                  escapeHtml(r.name) +
+                  "</td><td>" +
+                  escapeHtml(String(r.clicks)) +
+                  "</td><td>" +
+                  escapeHtml(String(r.bookings)) +
+                  "</td><td>" +
+                  escapeHtml(conv) +
+                  "</td></tr>";
+              });
+              svcTable += "</tbody></table></div>";
 
-              const pagesCard = document.createElement("div");
-              pagesCard.className = "card glass";
-              pagesCard.innerHTML = '<h3 class="section-title">Most visited pages</h3>';
               const pageRows = Object.entries(pageCounts)
                 .sort((a, b) => b[1] - a[1])
-                .slice(0, 12);
-              if (!pageRows.length) {
-                pagesCard.innerHTML += '<div class="empty-hint">No page views tracked yet.</div>';
-              } else {
-                pagesCard.innerHTML +=
-                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Page</th><th>Views</th></tr></thead><tbody>' +
-                  pageRows.map(([p, n]) => "<tr><td>" + escapeHtml(p) + "</td><td>" + escapeHtml(String(n)) + "</td></tr>").join("") +
-                  "</tbody></table></div>";
-              }
-              host.appendChild(pagesCard);
+                .slice(0, 15);
+              let pagesTable =
+                '<div class="table-wrap"><table class="data-table"><thead><tr><th>Page</th><th>Views</th></tr></thead><tbody>';
+              pageRows.forEach(([p, n]) => {
+                pagesTable += "<tr><td>" + escapeHtml(p) + "</td><td>" + escapeHtml(String(n)) + "</td></tr>";
+              });
+              pagesTable += "</tbody></table></div>";
 
-              const offersCard = document.createElement("div");
-              offersCard.className = "card glass";
-              offersCard.innerHTML = '<h3 class="section-title">Offer visibility (offer_view)</h3>';
               const offerRows = Object.entries(offerViews).sort((a, b) => b[1] - a[1]);
-              if (!offerRows.length) {
-                offersCard.innerHTML += '<div class="empty-hint">No offer_view events yet. Open the public Offers page to generate impressions.</div>';
-              } else {
-                offersCard.innerHTML +=
-                  '<div class="table-wrap"><table class="data-table"><thead><tr><th>Offer ID</th><th>Views</th><th>Share</th></tr></thead><tbody>' +
-                  offerRows
-                    .slice(0, 20)
-                    .map(([id, n]) => {
-                      const share = offerViewEvents ? ((n / offerViewEvents) * 100).toFixed(1) + "%" : "—";
-                      return "<tr><td>" + escapeHtml(id) + "</td><td>" + escapeHtml(String(n)) + "</td><td>" + escapeHtml(share) + "</td></tr>";
-                    })
-                    .join("") +
-                  "</tbody></table></div>";
-                if (offerRows.length > 1) {
-                  const tail = offerRows.slice(-5).reverse();
-                  offersCard.innerHTML +=
-                    '<h4 style="margin:1rem 0 0.5rem;font-size:0.95rem;color:var(--text)">Lowest visibility</h4>' +
-                    '<div class="table-wrap"><table class="data-table"><thead><tr><th>Offer ID</th><th>Views</th></tr></thead><tbody>' +
-                    tail.map(([id, n]) => "<tr><td>" + escapeHtml(id) + "</td><td>" + escapeHtml(String(n)) + "</td></tr>").join("") +
-                    "</tbody></table></div>";
-                }
-              }
-              host.appendChild(offersCard);
+              let offersTable =
+                '<div class="table-wrap"><table class="data-table"><thead><tr><th>Offer ID</th><th>Views</th><th>Share</th></tr></thead><tbody>';
+              offerRows.slice(0, 20).forEach(([id, n]) => {
+                const share = offerViewEvents ? ((n / offerViewEvents) * 100).toFixed(1) + "%" : "—";
+                offersTable += "<tr><td>" + escapeHtml(id) + "</td><td>" + escapeHtml(String(n)) + "</td><td>" + escapeHtml(share) + "</td></tr>";
+              });
+              offersTable += "</tbody></table></div>";
+
+              const secTables = document.createElement("section");
+              secTables.className = "analytics-section";
+              secTables.innerHTML =
+                '<header class="analytics-section-head"><h2 class="analytics-section-title">Breakdowns</h2>' +
+                '<p class="analytics-section-desc">Doctors, services, pages, and offers ranked by engagement.</p></header>' +
+                '<div class="analytics-tables-grid">' +
+                '<div class="card glass"><h3 class="section-title">Top doctors</h3>' +
+                (docRows.length ? docTable : '<div class="empty-hint">No doctor interactions yet.</div>') +
+                "</div>" +
+                '<div class="card glass"><h3 class="section-title">Popular services</h3>' +
+                (svcRows.length ? svcTable : '<div class="empty-hint">No service interactions yet.</div>') +
+                "</div>" +
+                '<div class="card glass"><h3 class="section-title">Most visited pages</h3>' +
+                (pageRows.length ? pagesTable : '<div class="empty-hint">No page views tracked yet.</div>') +
+                "</div>" +
+                '<div class="card glass"><h3 class="section-title">Offer performance</h3>' +
+                (offerRows.length
+                  ? offersTable
+                  : '<div class="empty-hint">No offer_view events yet.</div>') +
+                "</div></div>";
+              host.appendChild(secTables);
             })
             .catch((e) => {
+              host.className = "";
               host.innerHTML = '<div class="card glass"><div class="empty-hint">' + escapeHtml(e.message || "Failed to load events") + "</div></div>";
             });
         }
+
 
         const routes = {
           overview: renderOverview,
@@ -3570,10 +4219,12 @@
           renderSidebar();
           navigate(activeRoute);
           markSaved();
+          startBookingsPolling();
           track("page_visit", { service: "dashboard" });
         }
 
         function showLogin() {
+          stopBookingsPolling();
           $("appDash").classList.add("hidden");
           $("loginScreen").classList.remove("hidden");
           closeSidebarMobile();

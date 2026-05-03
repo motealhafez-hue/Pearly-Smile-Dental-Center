@@ -41,8 +41,11 @@
     map.forEach(([key, val]) => {
       const el = document.querySelector('.counter[data-stat="' + key + '"]');
       if (el && val != null) {
-        el.dataset.target = String(val);
-        el.textContent = "0";
+        var next = String(val);
+        if (el.dataset.target !== next) {
+          el.dataset.target = next;
+          el.textContent = "0";
+        }
         markCms(el);
       }
     });
@@ -56,8 +59,11 @@
     aboutMap.forEach(([key, val]) => {
       const el = document.querySelector('.stat-number[data-stat="' + key + '"]');
       if (el && val != null) {
-        el.dataset.count = String(val);
-        el.textContent = "0";
+        var next = String(val);
+        if (el.dataset.count !== next) {
+          el.dataset.count = next;
+          el.textContent = "0";
+        }
         markCms(el);
       }
     });
@@ -70,10 +76,29 @@
     if (!services.length) return;
     /* Replace only when API returned usable rows (keeps static HTML on failure). */
     container.innerHTML = services
-      .map(
-        () =>
-          '<article class="service-card"><h3 data-cms-bound="1"></h3><p data-cms-bound="1"></p></article>'
-      )
+      .map(function (svc) {
+        var id = svc && svc.id ? String(svc.id) : "";
+        var imgUrl = escapeHtml(homeFeaturedImageUrl(svc));
+        var titleText = t(svc.title, lang);
+        var alt = escapeHtml(titleText);
+        return (
+          '<article class="service-card service-card--home" data-service-home="' +
+          escapeHtml(id) +
+          '">' +
+          '<div class="service-card__media-wrap">' +
+          '<img class="service-card__photo" src="' +
+          imgUrl +
+          '" alt="' +
+          alt +
+          '" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />' +
+          "</div>" +
+          '<div class="service-card__body">' +
+          '<h3 data-cms-bound="1"></h3>' +
+          '<p data-cms-bound="1"></p>' +
+          "</div>" +
+          "</article>"
+        );
+      })
       .join("");
     const cards = container.querySelectorAll(".service-card");
     services.forEach((svc, i) => {
@@ -84,6 +109,11 @@
       if (h3) h3.textContent = t(svc.title, lang);
       if (p) p.textContent = t(svc.text, lang);
     });
+    if (global.HomeServiceScrollReveal && typeof global.HomeServiceScrollReveal.refresh === "function") {
+      requestAnimationFrame(function () {
+        global.HomeServiceScrollReveal.refresh();
+      });
+    }
   }
 
   function serviceFlipCard(svc, _delay, lang) {
@@ -148,6 +178,26 @@
     const base = apiRoot();
     const normalized = p.charAt(0) === "/" ? p : "/" + p;
     return base ? base.replace(/\/$/, "") + normalized : normalized;
+  }
+
+  /** Stock photos by service id when CMS has no `image` (lazy-loaded, fixed dimensions). */
+  var HOME_SERVICE_FALLBACK_IMG = {
+    general: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=640&q=75",
+    xray: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=640&q=75",
+    gums: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=640&q=75",
+    implants: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=640&q=75",
+    restorations: "https://images.unsplash.com/photo-1583912267550-d6cc9f0c58cb?auto=format&fit=crop&w=640&q=75",
+    "oral-surgery": "https://images.unsplash.com/photo-1550831142-3a216bb7e4ce?auto=format&fit=crop&w=640&q=75",
+    pediatric: "https://images.unsplash.com/photo-1441439028-ec2026478844?auto=format&fit=crop&w=640&q=75",
+    endodontics: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=640&q=75",
+  };
+
+  function homeFeaturedImageUrl(svc) {
+    if (!svc) return HOME_SERVICE_FALLBACK_IMG.general;
+    var u = svc.image != null ? String(svc.image).trim() : "";
+    if (u) return absMediaUrl(u);
+    var id = String(svc.id || "").trim();
+    return HOME_SERVICE_FALLBACK_IMG[id] || HOME_SERVICE_FALLBACK_IMG.general;
   }
 
   function ctaPick(ha, field, translateKey, lang) {

@@ -1,12 +1,17 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl" data-page="blog_post">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2563eb" />
-    <title data-translate="blogPageTitle"></title>
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Pearly Smile Dental Center" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Pearly Smile Dental Center" />
+    <title data-translate="blogPageTitle">Blog | Pearly Smile</title>
     <meta name="description" data-translate="blogPageDescription" content="" />
-    <link rel="canonical" href="blog.html" />
+    <link rel="canonical" href="/blog.html" id="blog-canonical-link" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script>
@@ -25,7 +30,7 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css?v=blog-article-v3" />
   </head>
   <body>
     <header class="mobile-nav">
@@ -44,17 +49,21 @@
             id="mobileMenuClose"
             aria-label="Close menu"
           >
-            <span aria-hidden="true">✕</span>
+            <span aria-hidden="true">âœ•</span>
           </button>
           <ul>
-            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
-            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
-            <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
-            <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
-            <li><a href="blog.html" data-translate="navBlog">المدونة</a></li>
-            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
-            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
-            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+            <li><a href="/index.html" data-translate="navHome">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a></li>
+            <li><a href="/index.html#stats" data-translate="navStats">Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª</a></li>
+            <li>
+              <a href="/services.html" data-translate="navServices">Ø®Ø¯Ù…Ø§ØªÙ†Ø§</a>
+            </li>
+            <li>
+              <a href="/offers.html" data-translate="navOffers">Ø¹Ø±ÙˆØ¶Ù†Ø§</a>
+            </li>
+            <li><a href="/blog.html" data-translate="navBlog" aria-current="page">Blog</a></li>
+            <li><a href="/team.html" data-translate="navTeam">ÙØ±ÙŠÙ‚Ù†Ø§</a></li>
+            <li><a href="/about.html" data-translate="navAbout">Ø¹Ù†Ù‘Ø§</a></li>
+            <li><a href="/index.html#booking" data-translate="navBooking">Ø­Ø¬Ø²</a></li>
           </ul>
         </div>
       </nav>
@@ -69,54 +78,92 @@
         >
           <span class="mobile-menu-icon" aria-hidden="true"></span>
         </button>
-        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
-        <button type="button" id="languageToggle" class="lang-toggle">EN</button>
-        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">اتصل الآن</a>
+        <button
+          type="button"
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Toggle theme"
+        >
+          ðŸŒ™
+        </button>
+        <button type="button" id="languageToggle" class="lang-toggle">
+          EN
+        </button>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow"
+          >Ø§ØªØµÙ„ Ø§Ù„Ø¢Ù†</a
+        >
       </div>
     </header>
 
-    <main>
-      <section class="hero service-detail-hero" id="articleHero" aria-label="Article hero">
-        <div class="hero-content">
-          <p class="eyebrow" id="articleMeta"></p>
-          <h1 id="articleTitle" data-translate="blogLoading"></h1>
-          <p id="articleExcerpt"></p>
-          <div class="hero-actions">
-            <a class="btn btn-secondary" href="blog.html" data-translate="blogBackToBlog"></a>
-            <a class="btn btn-secondary" href="index.html#booking" data-translate="heroBook">احجز موعدك</a>
-          </div>
-        </div>
-      </section>
+    <main class="blog-post-main" id="blogPostMain">
+      <div class="blog-post-shell">
+        <nav class="blog-breadcrumb" aria-label="Breadcrumb">
+          <a href="/blog.html" class="blog-breadcrumb__link" data-translate="blogBackToBlog"></a>
+        </nav>
 
-      <section class="service-detail">
-        <div class="container service-detail-layout">
-          <article class="service-detail-content">
-            <div id="articleContent" aria-live="polite"></div>
+        <article
+          class="blog-post-article"
+          itemscope
+          itemtype="https://schema.org/BlogPosting"
+          id="blogPostingArticle"
+        >
+          <meta itemprop="inLanguage" content="ar" id="blogPostingLangMeta" />
 
-            <section class="service-detail-cta" aria-label="Call to action">
-              <h2 data-translate="blogCtaTitle"></h2>
-              <p data-translate="blogCtaText"></p>
-              <div class="service-cta-actions">
-                <a class="btn btn-primary" href="index.html#booking" data-translate="blogCtaBook"></a>
-                <a class="btn btn-secondary" href="team.html" data-translate="blogCtaDoctors"></a>
-              </div>
-            </section>
-          </article>
-        </div>
-      </section>
+          <header class="blog-post-header">
+            <p class="blog-post-kicker" id="articleKicker" hidden></p>
+            <h1 class="blog-post-title" id="blog-title" itemprop="headline" data-translate="blogLoading"></h1>
+            <p class="blog-post-lede" id="articleExcerpt"></p>
+            <div class="blog-post-meta-row">
+              <span class="blog-post-author" data-translate="blogAuthorLabel"></span>
+              <span class="blog-post-meta-sep" aria-hidden="true">Â·</span>
+              <time id="articlePublishedTime" class="blog-post-date" datetime="" itemprop="datePublished"></time>
+              <span class="blog-post-meta-sep blog-post-meta-sep--read" aria-hidden="true">Â·</span>
+              <span id="articleReadTime" class="blog-post-readtime"></span>
+            </div>
+          </header>
 
-      <section class="offers-section">
-        <div class="section-head">
-          <p class="eyebrow eyebrow-dark" data-translate="blogRelatedEyebrow"></p>
-          <h2 data-translate="blogRelatedTitle"></h2>
+          <figure class="blog-featured-figure" id="articleFeaturedFigure" hidden>
+            <img
+              id="articleFeaturedImg"
+              alt=""
+              width="1200"
+              height="675"
+              loading="eager"
+              decoding="async"
+              class="blog-featured-img"
+              itemprop="image"
+            />
+          </figure>
+
+          <div
+            id="blog-content"
+            class="blog-prose"
+            itemprop="articleBody"
+            aria-live="polite"
+          ></div>
+
+          <section class="service-detail-cta blog-post-bottom-cta" aria-label="Call to action">
+            <h2 data-translate="blogCtaTitle"></h2>
+            <p data-translate="blogCtaText"></p>
+            <div class="service-cta-actions">
+              <a class="btn btn-primary" href="/index.html#booking" data-translate="blogCtaBook"></a>
+              <a class="btn btn-secondary" href="/team.html" data-translate="blogCtaDoctors"></a>
+            </div>
+          </section>
+        </article>
+      </div>
+
+      <section class="offers-section blog-related-wrap" aria-labelledby="blog-related-heading">
+        <div class="section-head section-head--solo-title">
+          <h2 id="blog-related-heading" data-translate="blogRelatedTitle"></h2>
         </div>
-        <div id="relatedGrid" class="offers-grid"></div>
+        <div id="relatedGrid" class="offers-grid blog-related-grid"></div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <p>© 2026 Pearly Smile Dental Center. All rights reserved.</p>
+        <p>Â© 2026 Pearly Smile Dental Center. All rights reserved.</p>
       </div>
     </footer>
 
@@ -147,9 +194,9 @@
       }
     </script>
 
-    <script src="site-data.js"></script>
-    <script src="script.js"></script>
-    <script src="blog.js"></script>
+    <script src="/site-data.js?v=blog-article-v3"></script>
+    <script src="/script.js?v=blog-article-v3"></script>
+    <script src="/blog.js?v=blog-article-v3"></script>
   </body>
 </html>
 

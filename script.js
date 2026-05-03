@@ -16,6 +16,37 @@ const CONFIG = {
   },
 };
 
+// Blog post links: full page navigation only (no SPA). Clean `/blog/{slug}` when this origin serves that route (FastAPI); otherwise `blog-post.html?slug=` so static hosts still open a real article page.
+(function () {
+  var STORAGE_KEY = "ps-blog-clean-urls";
+  function relativeArticleUrl(enc) {
+    var dir = (location.pathname || "").replace(/[^/]+$/, "");
+    return (dir || "./") + "blog-post.html?slug=" + enc;
+  }
+  window.psMarkBlogApiAvailable = function (opts) {
+    if (!opts || !opts.sameOrigin) return;
+    try {
+      sessionStorage.setItem(STORAGE_KEY, "1");
+    } catch (e) {
+      /* no-op */
+    }
+  };
+  window.psBlogPostUrl = function (slug) {
+    var s = encodeURIComponent(String(slug || "").trim());
+    if (!s) return relativeArticleUrl("");
+    if (location.protocol === "file:") return "blog-post.html?slug=" + s;
+    if (typeof window.__PS_FORCE_BLOG_QUERY_URLS__ !== "undefined" && window.__PS_FORCE_BLOG_QUERY_URLS__) {
+      return relativeArticleUrl(s);
+    }
+    try {
+      if (sessionStorage.getItem(STORAGE_KEY) === "1") return "/blog/" + s;
+    } catch (e) {
+      /* no-op */
+    }
+    return relativeArticleUrl(s);
+  };
+})();
+
 // ============================================================================
 // LIGHTWEIGHT EVENT TRACKING (PUBLIC SITE)
 // ============================================================================
@@ -283,6 +314,10 @@ const TRANSLATIONS = {
   blogStartApi: { ar: "تعذر تحميل المقالات. شغّل السيرفر.", en: "Unable to load blog posts. Start the API server." },
   blogMissingSlug: { ar: "الرابط غير صحيح (slug مفقود).", en: "Missing article slug." },
   blogNotFound: { ar: "المقال غير موجود.", en: "Article not found." },
+  blogEmptyContent: {
+    ar: "لا يوجد محتوى لهذا المقال بعد.",
+    en: "This article has no body content yet.",
+  },
   blogLoading: { ar: "جارٍ التحميل…", en: "Loading…" },
   blogBackToBlog: { ar: "العودة إلى المدونة", en: "Back to Blog" },
   blogRelatedEyebrow: { ar: "مقترحات", en: "Recommended" },
@@ -294,7 +329,22 @@ const TRANSLATIONS = {
   },
   blogCtaBook: { ar: "احجز الآن", en: "Book now" },
   blogCtaDoctors: { ar: "تعرف على الأطباء", en: "Meet our doctors" },
+  blogAuthorLabel: { ar: "مركز بيرلي سمايل", en: "Pearly Smile Dental Center" },
   callNow: { ar: "اتصل الآن", en: "Call Now" },
+  homeBlogSeeAll: { ar: "كل المقالات", en: "All articles" },
+  homeBlogLoading: { ar: "جارٍ تحميل المقالات…", en: "Loading articles…" },
+  trustBadge1: {
+    ar: "تعقيم وبروتوكولات صارمة",
+    en: "Strict sterilization protocols",
+  },
+  trustBadge2: {
+    ar: "أطباء ذوو خبرة عالية",
+    en: "Highly experienced specialists",
+  },
+  trustBadge3: {
+    ar: "راحة المريض في المقام الأول",
+    en: "Patient comfort comes first",
+  },
   heroEyebrow: {
     ar: "عيادة أسنان مودرن وراحة لا مثيل لها",
     en: "Modern dental care with comfort",
@@ -799,6 +849,8 @@ const TRANSLATIONS = {
     en: "Instant booking confirmation by phone or WhatsApp",
   },
   bookingBenefit3: { ar: "خطوات بسيطة بدون تعقيد", en: "Simple, hassle-free steps" },
+  bookingDoctorPreviewEyebrow: { ar: "طبيبك المختار", en: "Your selected dentist" },
+  bookingDefaultService: { ar: "استشارة", en: "Consultation" },
   bookingTimeLabel: { ar: "اختر الوقت", en: "Choose Time" },
   bookingTimePlaceholder: { ar: "اختر الوقت", en: "Select a time" },
   bookingNotesLabel: { ar: "ملاحظة (اختياري)", en: "Note (optional)" },
@@ -1049,6 +1101,109 @@ class AppState {
 const appState = new AppState();
 
 // ============================================================================
+// HOMEPAGE IN-PAGE NAVIGATION (hash targets + scroll restoration)
+// ============================================================================
+
+function initHomePageNavigation() {
+  if (document.documentElement.dataset.page !== "home") return;
+
+  try {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  } catch (e) {
+    /* ignore */
+  }
+
+  const prefersReduced =
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function stripHash() {
+    try {
+      history.replaceState(null, "", location.pathname + location.search);
+    } catch (e2) {
+      /* ignore */
+    }
+  }
+
+  function scrollToFragment(id) {
+    if (!id || id === "home") {
+      window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
+      return;
+    }
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+    }
+  }
+
+  const initialHash = (location.hash || "").replace(/^#/, "");
+  if (!initialHash || initialHash === "home") {
+    window.scrollTo(0, 0);
+    if (initialHash === "home") stripHash();
+  }
+
+  window.addEventListener("load", () => {
+    const h = (location.hash || "").replace(/^#/, "");
+    if (!h || h === "home") {
+      window.scrollTo(0, 0);
+      if (h === "home") stripHash();
+    } else {
+      const el = document.getElementById(h);
+      if (el) {
+        el.scrollIntoView({ behavior: prefersReduced ? "auto" : "auto", block: "start" });
+      }
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t instanceof Element) {
+      if (
+        t.closest("#languageToggle, #themeToggle, #mobileMenuToggle, .mobile-menu-close, #mobileMenuBackdrop")
+      ) {
+        return;
+      }
+    }
+    const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a || !(a instanceof HTMLAnchorElement)) return;
+    const href = a.getAttribute("href");
+    if (!href || href === "#") return;
+    if (href.indexOf("/") !== -1) return;
+    e.preventDefault();
+    const id = href.slice(1);
+    if (!id || id === "home") {
+      scrollToFragment("home");
+      stripHash();
+      return;
+    }
+    try {
+      history.pushState(null, "", "#" + id);
+    } catch (err) {
+      /* ignore */
+    }
+    scrollToFragment(id);
+  });
+}
+
+initHomePageNavigation();
+
+/** Keeps scroll position through RTL/theme/CMS updates (avoids jump to booking/footer). */
+function preserveViewportDuring(fn) {
+  const sx = window.scrollX;
+  const sy = window.scrollY;
+  try {
+    fn();
+  } finally {
+    requestAnimationFrame(() => {
+      window.scrollTo(sx, sy);
+      requestAnimationFrame(() => {
+        window.scrollTo(sx, sy);
+      });
+    });
+  }
+}
+
+// ============================================================================
 // LANGUAGE MANAGEMENT
 // ============================================================================
 
@@ -1063,22 +1218,25 @@ class LanguageManager {
   }
 
   setLanguage(lang) {
-    this.updateDocumentLanguage(lang);
-    this.updatePageTitle(lang);
-    this.updateLanguageToggle(lang);
-    this.updateTranslatableElements(lang);
-    this.appState.setLanguage(lang);
-    if (typeof SiteData !== "undefined" && SiteData.refreshLanguage) {
-      SiteData.refreshLanguage();
-    }
-    // update booking selects if present
-    if (typeof BookingManager !== 'undefined' && BookingManager.updateForLanguage) {
-      BookingManager.updateForLanguage(lang);
-    }
-    // update blog UI if present
-    if (typeof window !== "undefined" && window.Blog && typeof window.Blog.refreshLanguage === "function") {
-      window.Blog.refreshLanguage(lang);
-    }
+    preserveViewportDuring(() => {
+      this.updateDocumentLanguage(lang);
+      this.updatePageTitle(lang);
+      this.updateLanguageToggle(lang);
+      this.updateTranslatableElements(lang);
+      this.appState.setLanguage(lang);
+      if (typeof SiteData !== "undefined" && SiteData.refreshLanguage) {
+        SiteData.refreshLanguage();
+      }
+      if (typeof BookingManager !== "undefined" && BookingManager.updateForLanguage) {
+        BookingManager.updateForLanguage(lang);
+      }
+      if (typeof window !== "undefined" && window.Blog && typeof window.Blog.refreshLanguage === "function") {
+        window.Blog.refreshLanguage(lang);
+      }
+      if (typeof window !== "undefined" && window.HomeBlogTeaser && typeof window.HomeBlogTeaser.refresh === "function") {
+        window.HomeBlogTeaser.refresh();
+      }
+    });
   }
 
   updateDocumentLanguage(lang) {
@@ -1124,6 +1282,281 @@ class LanguageManager {
 }
 
 // ============================================================================
+// PREMIUM BOOKING SELECTS (custom combobox, no dependencies)
+// ============================================================================
+
+const PremiumSelect = (() => {
+  const instances = new WeakMap();
+
+  function searchPlaceholder() {
+    const lang = typeof appState !== "undefined" ? appState.currentLang : "ar";
+    return lang === "en" ? "Search…" : "بحث…";
+  }
+
+  function searchAria() {
+    const lang = typeof appState !== "undefined" ? appState.currentLang : "ar";
+    return lang === "en" ? "Filter options" : "تصفية الخيارات";
+  }
+
+  function getVisibleOptions(st) {
+    return [...st.list.querySelectorAll(".premium-select__option")].filter(
+      (li) => !li.hidden && li.dataset.disabled !== "1"
+    );
+  }
+
+  function setKbHighlight(st, idx) {
+    const vis = getVisibleOptions(st);
+    if (!vis.length) return;
+    st.kbIndex = Math.max(0, Math.min(idx, vis.length - 1));
+    vis.forEach((li, i) => li.classList.toggle("premium-select__option--kb", i === st.kbIndex));
+    vis[st.kbIndex].scrollIntoView({ block: "nearest" });
+  }
+
+  function syncKbToValue(st) {
+    const vis = getVisibleOptions(st);
+    if (!vis.length) return;
+    const i = vis.findIndex((li) => li.dataset.value === st.select.value);
+    if (i >= 0) setKbHighlight(st, i);
+    else setKbHighlight(st, 0);
+  }
+
+  function toggleFilledClass(st) {
+    const ig = st.select.closest(".input-group");
+    if (ig) ig.classList.toggle("input-group--select-filled", st.select.value !== "");
+  }
+
+  function syncTriggerText(st) {
+    const sel = st.select.options[st.select.selectedIndex];
+    st.textSpan.textContent = sel ? sel.textContent : "";
+    st.list.querySelectorAll(".premium-select__option").forEach((li) => {
+      const on = st.select.value === li.dataset.value;
+      li.setAttribute("aria-selected", on ? "true" : "false");
+      li.classList.toggle("premium-select__option--selected", on);
+    });
+  }
+
+  function buildList(st) {
+    st.list.innerHTML = "";
+    Array.from(st.select.options).forEach((opt) => {
+      const li = document.createElement("li");
+      li.className = "premium-select__option";
+      li.setAttribute("role", "option");
+      li.dataset.value = opt.value;
+      li.dataset.disabled = opt.disabled ? "1" : "0";
+      li.textContent = opt.textContent;
+      if (opt.disabled) li.classList.add("premium-select__option--disabled");
+      li.addEventListener("click", () => {
+        if (opt.disabled) return;
+        st.select.value = opt.value;
+        st.select.dispatchEvent(new Event("change", { bubbles: true }));
+        closePanel(st);
+        st.btn.focus();
+      });
+      st.list.appendChild(li);
+    });
+    st.kbIndex = -1;
+    syncTriggerText(st);
+    toggleFilledClass(st);
+    filterList(st);
+  }
+
+  function filterList(st) {
+    if (!st.searchable || !st.search) return;
+    const q = st.search.value.trim().toLowerCase();
+    st.list.querySelectorAll(".premium-select__option").forEach((li) => {
+      const match = !q || li.textContent.toLowerCase().includes(q);
+      li.hidden = !match;
+    });
+    syncKbToValue(st);
+  }
+
+  function closePanel(st) {
+    st.open = false;
+    st.wrap.classList.remove("is-open");
+    st.panel.hidden = true;
+    st.btn.setAttribute("aria-expanded", "false");
+    st.kbIndex = -1;
+    st.list.querySelectorAll(".premium-select__option--kb").forEach((li) => li.classList.remove("premium-select__option--kb"));
+  }
+
+  function openPanel(st) {
+    st.open = true;
+    st.wrap.classList.add("is-open");
+    st.panel.hidden = false;
+    st.btn.setAttribute("aria-expanded", "true");
+    if (st.search) {
+      st.search.value = "";
+      filterList(st);
+      requestAnimationFrame(() => st.search.focus());
+    } else {
+      syncKbToValue(st);
+    }
+  }
+
+  function pickKb(st) {
+    const vis = getVisibleOptions(st);
+    if (!vis.length) return;
+    const li = vis[st.kbIndex >= 0 ? st.kbIndex : 0];
+    if (!li || li.dataset.disabled === "1") return;
+    st.select.value = li.dataset.value;
+    st.select.dispatchEvent(new Event("change", { bubbles: true }));
+    closePanel(st);
+    st.btn.focus();
+  }
+
+  function mount(selectEl, opts) {
+    if (!selectEl || instances.has(selectEl)) return;
+    const searchable = opts && opts.searchable === true;
+    const ig = selectEl.closest(".input-group");
+    if (!ig) return;
+
+    const wrap = document.createElement("div");
+    wrap.className = "premium-select";
+    selectEl.parentNode.insertBefore(wrap, selectEl);
+    wrap.appendChild(selectEl);
+    selectEl.classList.add("premium-select__native");
+
+    const label = ig.querySelector("label");
+    if (label && !label.id) {
+      label.id = "ps-lbl-" + (selectEl.id || "sel-" + Math.random().toString(36).slice(2, 9));
+    }
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "premium-select__trigger";
+    btn.setAttribute("role", "combobox");
+    btn.setAttribute("aria-haspopup", "listbox");
+    btn.setAttribute("aria-expanded", "false");
+    if (searchable) btn.setAttribute("aria-autocomplete", "list");
+    if (selectEl.required) btn.setAttribute("aria-required", "true");
+    if (label && label.id) btn.setAttribute("aria-labelledby", label.id);
+
+    const textSpan = document.createElement("span");
+    textSpan.className = "premium-select__value";
+    const chev = document.createElement("span");
+    chev.className = "premium-select__chev";
+    chev.setAttribute("aria-hidden", "true");
+    btn.appendChild(textSpan);
+    btn.appendChild(chev);
+
+    const panel = document.createElement("div");
+    panel.className = "premium-select__panel";
+    panel.hidden = true;
+
+    const list = document.createElement("ul");
+    list.className = "premium-select__list";
+    list.setAttribute("role", "listbox");
+    list.id = "ps-lb-" + (selectEl.id || Math.random().toString(36).slice(2, 9));
+    btn.setAttribute("aria-controls", list.id);
+
+    let search = null;
+    if (searchable) {
+      search = document.createElement("input");
+      search.type = "search";
+      search.className = "premium-select__search";
+      search.setAttribute("autocomplete", "off");
+      search.setAttribute("spellcheck", "false");
+      search.setAttribute("placeholder", searchPlaceholder());
+      search.setAttribute("aria-label", searchAria());
+      panel.appendChild(search);
+    }
+
+    panel.appendChild(list);
+
+    wrap.insertBefore(btn, selectEl);
+    wrap.insertBefore(panel, selectEl);
+
+    selectEl.setAttribute("tabindex", "-1");
+
+    const st = {
+      select: selectEl,
+      wrap,
+      btn,
+      textSpan,
+      panel,
+      list,
+      search,
+      searchable,
+      open: false,
+      kbIndex: -1,
+    };
+    instances.set(selectEl, st);
+
+    if (search) {
+      search.addEventListener("input", () => filterList(st));
+      search.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          syncKbToValue(st);
+          setKbHighlight(st, 0);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          setKbHighlight(st, (st.kbIndex || 0) - 1);
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          pickKb(st);
+        } else if (e.key === "Escape") {
+          e.preventDefault();
+          closePanel(st);
+          btn.focus();
+        }
+      });
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      st.open ? closePanel(st) : openPanel(st);
+    });
+
+    btn.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && st.open) {
+        e.preventDefault();
+        closePanel(st);
+        return;
+      }
+      if (!st.open && (e.key === "Enter" || e.key === " " || e.key === "ArrowDown")) {
+        e.preventDefault();
+        openPanel(st);
+        if (!st.searchable) {
+          syncKbToValue(st);
+        }
+      } else if (st.open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+        e.preventDefault();
+        if (st.kbIndex < 0) syncKbToValue(st);
+        setKbHighlight(st, st.kbIndex + (e.key === "ArrowDown" ? 1 : -1));
+      } else if (st.open && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        pickKb(st);
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (st.open && !wrap.contains(e.target)) closePanel(st);
+    });
+
+    selectEl.addEventListener("change", () => {
+      syncTriggerText(st);
+      toggleFilledClass(st);
+    });
+
+    buildList(st);
+    toggleFilledClass(st);
+  }
+
+  function refresh(selectEl) {
+    const st = instances.get(selectEl);
+    if (!st) return;
+    if (st.search) {
+      st.search.setAttribute("placeholder", searchPlaceholder());
+      st.search.setAttribute("aria-label", searchAria());
+    }
+    buildList(st);
+  }
+
+  return { mount, refresh };
+})();
+
+// ============================================================================
 // BOOKING MANAGER
 // ============================================================================
 
@@ -1137,7 +1570,13 @@ class BookingManager {
     this.bookingMessage = document.getElementById('bookingMessage');
     this._bookingStartedTracked = false;
     this.populateAll(this.appLang());
+    PremiumSelect.mount(this.doctorSelect, { searchable: true });
+    PremiumSelect.mount(this.branchSelect, { searchable: false });
+    PremiumSelect.mount(this.timeSelect, { searchable: true });
     this.attachListeners();
+    document.addEventListener('cms-data-applied', () => {
+      this.syncDoctorPreviewPanel();
+    });
   }
 
   static appLang() {
@@ -1148,6 +1587,7 @@ class BookingManager {
     this.renderDoctors(lang);
     this.renderBranches(lang);
     this.renderTimes(lang);
+    this.syncDoctorPreviewPanel();
   }
 
   static renderDoctors(lang) {
@@ -1174,6 +1614,7 @@ class BookingManager {
         select.appendChild(opt);
       }
     }
+    PremiumSelect.refresh(select);
   }
 
   static renderBranches(lang) {
@@ -1191,6 +1632,7 @@ class BookingManager {
     b2.dataset.translate = 'branchOne';
     b2.textContent = TRANSLATIONS.branchOne?.[lang] || 'Branch One';
     select.appendChild(b2);
+    PremiumSelect.refresh(select);
   }
 
   static timeSlotsFor(date, doctorKey, branch) {
@@ -1236,11 +1678,15 @@ class BookingManager {
       opt.textContent = t;
       select.appendChild(opt);
     });
+    PremiumSelect.refresh(select);
   }
 
   static attachListeners() {
     if (this.doctorSelect) {
-      this.doctorSelect.addEventListener('change', () => this.renderTimes(this.appLang()));
+      this.doctorSelect.addEventListener('change', () => {
+        this.syncDoctorPreviewPanel();
+        this.renderTimes(this.appLang());
+      });
     }
     if (this.branchSelect) {
       this.branchSelect.addEventListener('change', () => this.renderTimes(this.appLang()));
@@ -1269,7 +1715,15 @@ class BookingManager {
     }
   }
 
-  static handleSubmit() {
+  static bookingApiBase() {
+    try {
+      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+    } catch (e) {
+      return "http://127.0.0.1:8000";
+    }
+  }
+
+  static async handleSubmit() {
     const name = document.getElementById('name')?.value.trim();
     const phone = document.getElementById('phone')?.value.trim();
     const doctorKey = this.doctorSelect?.value;
@@ -1277,26 +1731,74 @@ class BookingManager {
     const branch = this.branchSelect?.value;
     const date = this.dateInput?.value;
     const time = this.timeSelect?.value;
+    const notesRaw = document.getElementById('notes')?.value.trim() || '';
+    const lang = this.appLang();
 
     if (!name || !phone || !doctorName || !date || !time) {
-      const msg = this.appLang() === 'ar' ? 'يرجى تعبئة جميع الحقول المطلوبة' : 'Please fill all required fields';
+      const msg = lang === 'ar' ? 'يرجى تعبئة جميع الحقول المطلوبة' : 'Please fill all required fields';
       this.showMessage(msg, 'error');
       return;
     }
 
-    // Simulate a successful booking submission (progressive enhancement).
-    const successText = TRANSLATIONS.bookingSuccess?.[this.appLang()] || 'تم إرسال طلبكم بنجاح! سنعاود الاتصال لتأكيد الموعد.';
-    this.showMessage(successText, 'success');
+    const serviceLabel =
+      lang === 'ar'
+        ? TRANSLATIONS.bookingDefaultService?.ar || 'استشارة'
+        : TRANSLATIONS.bookingDefaultService?.en || 'Consultation';
 
-    if (typeof Analytics !== "undefined" && Analytics.trackEvent) {
-      Analytics.trackEvent("booking_completed", {
-        doctor: doctorName || undefined,
-        service: "consultation",
+    let branchLabel = '';
+    if (branch === 'main') branchLabel = TRANSLATIONS.branchMain?.[lang] || 'Main';
+    else if (branch === 'one') branchLabel = TRANSLATIONS.branchOne?.[lang] || '';
+
+    const payload = {
+      patient_name: name,
+      phone,
+      doctor: doctorName,
+      service: serviceLabel,
+      date,
+      time,
+      notes: notesRaw || undefined,
+      branch: branchLabel || undefined,
+    };
+
+    try {
+      const res = await fetch(this.bookingApiBase() + '/api/bookings/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
+      const data = res.ok ? await res.json().catch(() => ({})) : null;
+      if (!res.ok) {
+        const errMsg =
+          lang === 'ar'
+            ? 'تعذر إرسال الطلب. تحقق من الاتصال وحاول مرة أخرى.'
+            : 'Could not submit your request. Check your connection and try again.';
+        this.showMessage(errMsg, 'error');
+        return;
+      }
+
+      const successText =
+        TRANSLATIONS.bookingSuccess?.[lang] ||
+        'تم إرسال طلبكم بنجاح! سنعاود الاتصال لتأكيد الموعد.';
+      this.showMessage(successText, 'success');
+
+      if (typeof Analytics !== 'undefined' && Analytics.trackEvent) {
+        Analytics.trackEvent('booking_completed', {
+          doctor: doctorName || undefined,
+          service: serviceLabel,
+          booking_id: data && data.id ? data.id : undefined,
+        });
+      }
+
+      this.form.reset();
+      this.populateAll(lang);
+      BookingManager.syncDoctorPreviewPanel();
+    } catch (e) {
+      const errMsg =
+        lang === 'ar'
+          ? 'تعذر إرسال الطلب. تحقق من الاتصال وحاول مرة أخرى.'
+          : 'Could not submit your request. Check your connection and try again.';
+      this.showMessage(errMsg, 'error');
     }
-    // reset form while preserving language and re-populate selects
-    this.form.reset();
-    this.populateAll(this.appLang());
   }
 
   static showMessage(text, type = 'success') {
@@ -1319,6 +1821,118 @@ class BookingManager {
     }
     this.populateAll(lang);
   }
+
+  /** Same absolute URL rules as site-data.js `absMediaUrl`. */
+  static resolveMediaUrl(path) {
+    const p = String(path || '').trim();
+    if (!p) return '';
+    if (p.indexOf('http://') === 0 || p.indexOf('https://') === 0) return p;
+    const base =
+      typeof window !== 'undefined' && window.__API_BASE__ != null && window.__API_BASE__ !== ''
+        ? String(window.__API_BASE__).replace(/\/$/, '')
+        : typeof window !== 'undefined' && window.location
+          ? window.location.origin.replace(/\/$/, '')
+          : '';
+    const normalized = p.charAt(0) === '/' ? p : '/' + p;
+    return base ? base + normalized : normalized;
+  }
+
+  static doctorIndexFromSelectValue(value) {
+    if (!value || typeof value !== 'string') return -1;
+    const m = /^teamDoctor(\d+)Name$/.exec(value);
+    if (!m) return -1;
+    const n = parseInt(m[1], 10);
+    if (Number.isNaN(n) || n < 1) return -1;
+    return n - 1;
+  }
+
+  static getDoctorRecord(selectValue) {
+    const idx = this.doctorIndexFromSelectValue(selectValue);
+    if (idx < 0) return null;
+    const list = typeof window !== 'undefined' && window.__SITE_DATA__ && window.__SITE_DATA__.doctors;
+    if (!Array.isArray(list) || !list[idx]) return null;
+    return list[idx];
+  }
+
+  static initialsFromName(name) {
+    const s = String(name || '').trim();
+    if (!s) return '?';
+    const parts = s.split(/\s+/).filter(Boolean);
+    if (parts.length >= 2) {
+      return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+    }
+    return s.slice(0, 2).toUpperCase();
+  }
+
+  static tField(obj, lang) {
+    if (!obj || typeof obj !== 'object') return '';
+    return obj[lang] || obj.en || obj.ar || '';
+  }
+
+  static syncDoctorPreviewPanel() {
+    const intro = document.getElementById('bookingIntroPanel');
+    const doctorPanel = document.getElementById('bookingDoctorPanel');
+    const select = this.doctorSelect;
+    if (!intro || !doctorPanel) return;
+
+    const val = select && select.value ? select.value : '';
+    const lang = this.appLang();
+    let doc = val ? this.getDoctorRecord(val) : null;
+
+    let name = '';
+    let role = '';
+    let imagePath = '';
+
+    if (val && doc) {
+      name = this.tField(doc.name, lang);
+      role = this.tField(doc.role, lang);
+      imagePath = doc.image != null ? String(doc.image).trim() : '';
+    } else if (val && TRANSLATIONS[val]) {
+      name = TRANSLATIONS[val][lang] || TRANSLATIONS[val].en || '';
+      const roleKey = val.replace(/Name$/, 'Role');
+      role = TRANSLATIONS[roleKey] ? TRANSLATIONS[roleKey][lang] || TRANSLATIONS[roleKey].en || '' : '';
+    }
+
+    const showCard = Boolean(val && name);
+
+    if (!showCard) {
+      intro.classList.add('is-active');
+      doctorPanel.classList.remove('is-active');
+      intro.setAttribute('aria-hidden', 'false');
+      doctorPanel.setAttribute('aria-hidden', 'true');
+      return;
+    }
+
+    const imgEl = document.getElementById('bookingDoctorPhoto');
+    const fig = document.getElementById('bookingDoctorFigure');
+    const initialsEl = document.getElementById('bookingDoctorInitials');
+    const url = this.resolveMediaUrl(imagePath);
+
+    if (imgEl && fig) {
+      if (url) {
+        imgEl.alt = name;
+        imgEl.src = url;
+        imgEl.classList.remove('is-hidden');
+        fig.classList.remove('booking-doctor-card__figure--no-photo');
+      } else {
+        imgEl.removeAttribute('src');
+        imgEl.alt = '';
+        imgEl.classList.add('is-hidden');
+        fig.classList.add('booking-doctor-card__figure--no-photo');
+      }
+    }
+    if (initialsEl) initialsEl.textContent = this.initialsFromName(name);
+
+    const nameEl = document.getElementById('bookingDoctorName');
+    const roleEl = document.getElementById('bookingDoctorRole');
+    if (nameEl) nameEl.textContent = name;
+    if (roleEl) roleEl.textContent = role || '';
+
+    intro.classList.remove('is-active');
+    doctorPanel.classList.add('is-active');
+    intro.setAttribute('aria-hidden', 'true');
+    doctorPanel.setAttribute('aria-hidden', 'false');
+  }
 }
 
 // ============================================================================
@@ -1331,10 +1945,12 @@ class ThemeManager {
   }
 
   setTheme(theme) {
-    const isDark = theme === "dark";
-    document.documentElement.classList.toggle("dark-theme", isDark);
-    this.updateThemeToggle(isDark);
-    this.appState.setTheme(theme);
+    preserveViewportDuring(() => {
+      const isDark = theme === "dark";
+      document.documentElement.classList.toggle("dark-theme", isDark);
+      this.updateThemeToggle(isDark);
+      this.appState.setTheme(theme);
+    });
   }
 
   updateThemeToggle(isDark) {
@@ -1456,6 +2072,287 @@ if (typeof window !== "undefined") {
   window.RevealObserver = RevealObserver;
 }
 
+/**
+ * One-shot scroll reveal for homepage service cards (IntersectionObserver only; respects reduced motion).
+ */
+const HomeServiceScrollReveal = (function () {
+  let io = null;
+
+  function refresh() {
+    if (typeof document === "undefined") return;
+    if (document.documentElement.getAttribute("data-page") !== "home") return;
+    const grid = document.getElementById("cms-home-services");
+    if (!grid) return;
+    if (io) {
+      io.disconnect();
+      io = null;
+    }
+    const cards = grid.querySelectorAll(".service-card--home");
+    if (!cards.length) return;
+    const reduced =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      cards.forEach((el) => el.classList.add("is-inview"));
+      return;
+    }
+    io = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-inview");
+          observer.unobserve(entry.target);
+        });
+      },
+      { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+    );
+    cards.forEach((el) => io.observe(el));
+  }
+
+  return { refresh };
+})();
+
+if (typeof window !== "undefined") {
+  window.HomeServiceScrollReveal = HomeServiceScrollReveal;
+}
+
+/** Homepage blog teaser: latest 3 posts from `/api/blog`; matches blog.js card markup & URLs. */
+const HomeBlogTeaser = (function () {
+  const DEFAULT_COVER =
+    "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=960&q=75";
+
+  let cachedPosts = null;
+  let loadPromise = null;
+
+  function apiRoot() {
+    try {
+      if (typeof window.__API_BASE__ !== "undefined" && window.__API_BASE__) {
+        const b = String(window.__API_BASE__).replace(/\/$/, "");
+        if (b) return b;
+      }
+      return location.protocol === "file:" ? "http://127.0.0.1:8000" : location.origin;
+    } catch (e) {
+      return "http://127.0.0.1:8000";
+    }
+  }
+
+  function currentLang() {
+    return (
+      (typeof appState !== "undefined" && appState.currentLang) ||
+      localStorage.getItem("ps-lang") ||
+      document.documentElement.lang ||
+      "ar"
+    );
+  }
+
+  function tr(key) {
+    const lang = currentLang();
+    const dict = typeof TRANSLATIONS !== "undefined" ? TRANSLATIONS : {};
+    const v = dict[key];
+    return (v && (v[lang] || v.ar || v.en)) || "";
+  }
+
+  function pickLang(val, lang) {
+    if (val == null) return "";
+    if (typeof val === "string") return val;
+    if (typeof val === "object") return val[lang] || val.ar || val.en || "";
+    return String(val);
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function paint(host, posts) {
+    const lang = currentLang();
+    if (!host) return;
+    const list = Array.isArray(posts) ? posts.slice(0, 3) : [];
+    if (!list.length) {
+      host.innerHTML =
+        '<p class="empty-hint blog-teaser-empty">' + escapeHtml(tr("blogNoArticles") || "") + "</p>";
+      return;
+    }
+    host.innerHTML = list
+      .map(function (p) {
+        const title = pickLang(p.title, lang);
+        const excerpt = pickLang(p.excerpt, lang);
+        const tagText = pickLang(p.tag, lang);
+        const coverSrc = p.hero_image ? String(p.hero_image) : DEFAULT_COVER;
+        const imgStyle = "background-image:url('" + coverSrc.replace(/'/g, "%27") + "')";
+        const rt = p.read_time
+          ? String(p.read_time) +
+            " " +
+            (lang === "ar"
+              ? tr("blogReadTimeSuffix") || ""
+              : tr("blogReadTimeSuffix") || "")
+          : tr("blogQuickRead") || "";
+        const tg = tagText ? '<span class="offer-tag">' + escapeHtml(tagText) + "</span>" : "";
+        const href =
+          typeof window.psBlogPostUrl === "function"
+            ? window.psBlogPostUrl(p.slug)
+            : "blog-post.html?slug=" + encodeURIComponent(p.slug || "");
+        return (
+          '<a class="offer-card blog-card blog-teaser-card" href="' +
+          escapeHtml(href) +
+          '">' +
+          '<div class="offer-image" aria-hidden="true" style="' +
+          escapeHtml(imgStyle) +
+          '"></div>' +
+          '<div class="offer-content">' +
+          tg +
+          "<h3>" +
+          escapeHtml(title || "") +
+          "</h3>" +
+          '<p style="margin-top:10px">' +
+          escapeHtml(excerpt || "") +
+          "</p>" +
+          '<span style="margin-top:12px;color:var(--muted);font-weight:700">' +
+          escapeHtml(rt) +
+          "</span>" +
+          '<span class="btn btn-secondary" style="margin-top:14px">' +
+          escapeHtml(tr("blogReadMore") || "") +
+          "</span>" +
+          "</div></a>"
+        );
+      })
+      .join("");
+  }
+
+  function loadPosts() {
+    if (cachedPosts !== null) return Promise.resolve(cachedPosts);
+    if (loadPromise) return loadPromise;
+    var apiOrigin = "";
+    try {
+      apiOrigin = String(apiRoot() || "").replace(/\/$/, "");
+    } catch (e) {
+      apiOrigin = "";
+    }
+    var pageOrigin = "";
+    try {
+      pageOrigin = location.origin;
+    } catch (e2) {
+      pageOrigin = "";
+    }
+    var sameOriginApi = Boolean(
+      apiOrigin &&
+        pageOrigin &&
+        location.protocol !== "file:" &&
+        apiOrigin === pageOrigin
+    );
+    loadPromise = fetch(apiRoot() + "/api/blog", { credentials: "omit" })
+      .then(function (r) {
+        if (!r.ok) return { apiOk: false, rows: [] };
+        return r.json().then(function (j) {
+          return { apiOk: true, rows: Array.isArray(j) ? j : [] };
+        });
+      })
+      .catch(function () {
+        return { apiOk: false, rows: [] };
+      })
+      .then(function (pack) {
+        cachedPosts = pack.rows;
+        loadPromise = null;
+        if (
+          sameOriginApi &&
+          pack.apiOk &&
+          typeof window.psMarkBlogApiAvailable === "function"
+        ) {
+          window.psMarkBlogApiAvailable({ sameOrigin: true });
+        }
+        return cachedPosts;
+      });
+    return loadPromise;
+  }
+
+  function init() {
+    if (document.documentElement.getAttribute("data-page") !== "home") return;
+    const host = document.getElementById("cms-home-blog");
+    if (!host) return;
+    host.innerHTML = '<p class="empty-hint">' + escapeHtml(tr("homeBlogLoading")) + "</p>";
+    loadPosts().then(function (posts) {
+      var el = document.getElementById("cms-home-blog");
+      if (el) paint(el, posts);
+    });
+  }
+
+  function refresh() {
+    if (document.documentElement.getAttribute("data-page") !== "home") return;
+    const host = document.getElementById("cms-home-blog");
+    if (!host) return;
+    if (cachedPosts === null) {
+      loadPosts().then(function (posts) {
+        var el = document.getElementById("cms-home-blog");
+        if (el) paint(el, posts);
+      });
+      return;
+    }
+    paint(host, cachedPosts);
+  }
+
+  return { init, refresh };
+})();
+
+if (typeof window !== "undefined") {
+  window.HomeBlogTeaser = HomeBlogTeaser;
+}
+
+/** Homepage hero background crossfade — lightweight interval + visibility pause; skips reduced-motion. */
+const HomeHeroCinema = (function () {
+  let timer = null;
+  let idx = 0;
+
+  function init() {
+    if (typeof document === "undefined") return;
+    if (document.documentElement.getAttribute("data-page") !== "home") return;
+    const hero = document.getElementById("home");
+    if (!hero || !hero.classList.contains("hero--cinema")) return;
+    const layers = hero.querySelectorAll(".hero__cinema-layer");
+    if (layers.length < 2) return;
+    if (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    function apply() {
+      idx = (idx + 1) % layers.length;
+      layers.forEach((el, i) => {
+        el.classList.toggle("is-active", i === idx);
+      });
+      hero.setAttribute("data-hero-slide", String(idx + 1));
+    }
+
+    function start() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(apply, 6800);
+    }
+
+    function stop() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    start();
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else start();
+    });
+  }
+
+  return { init };
+})();
+
+if (typeof window !== "undefined") {
+  window.HomeHeroCinema = HomeHeroCinema;
+}
+
 // ============================================================================
 // FAQ ACCORDION
 // ============================================================================
@@ -1557,6 +2454,27 @@ class App {
   initializeAnimations() {
     RevealObserver.init();
     CounterAnimator.animateCounters();
+    if (
+      (appState.pageType || "home") === "home" &&
+      typeof window.HomeServiceScrollReveal !== "undefined" &&
+      typeof window.HomeServiceScrollReveal.refresh === "function"
+    ) {
+      requestAnimationFrame(() => window.HomeServiceScrollReveal.refresh());
+    }
+    if (
+      (appState.pageType || "home") === "home" &&
+      typeof window.HomeHeroCinema !== "undefined" &&
+      typeof window.HomeHeroCinema.init === "function"
+    ) {
+      window.HomeHeroCinema.init();
+    }
+    if (
+      (appState.pageType || "home") === "home" &&
+      typeof window.HomeBlogTeaser !== "undefined" &&
+      typeof window.HomeBlogTeaser.init === "function"
+    ) {
+      window.HomeBlogTeaser.init();
+    }
   }
 
   initializeMobileNavbar() {
@@ -1727,7 +2645,7 @@ const initializeApp = () => {
     if (!(t instanceof Element)) return false;
     return Boolean(
       t.closest(
-        'input, textarea, select, option, [contenteditable="true"], #articleContent, .service-detail-content'
+        'input, textarea, select, option, [contenteditable="true"], #blog-content, #articleContent, .service-detail-content'
       )
     );
   }

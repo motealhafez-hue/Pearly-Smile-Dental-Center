@@ -41,6 +41,16 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script>
+      (function () {
+        try {
+          if (document.documentElement.getAttribute("data-page") !== "home") return;
+          if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+          var h = (location.hash || "").replace(/^#/, "");
+          if (!h || h === "home") window.scrollTo(0, 0);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <header class="mobile-nav">
@@ -65,13 +75,13 @@
             <li><a href="#home" data-translate="navHome">الرئيسية</a></li>
             <li><a href="#stats" data-translate="navStats">إحصائيات</a></li>
             <li>
-              <a href="services.html" data-translate="navServices">خدماتنا</a>
+              <a href="#services" data-translate="navServices">خدماتنا</a>
             </li>
             <li>
               <a href="offers.html" data-translate="navOffers">عروضنا</a>
             </li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
+            <li><a href="blog.html" data-translate="navBlog">Blog</a></li>
+            <li><a href="#doctors" data-translate="navTeam">فريقنا</a></li>
             <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
             <li><a href="#booking" data-translate="navBooking">حجز</a></li>
           </ul>
@@ -106,8 +116,19 @@
     </header>
 
     <main>
-      <section id="home" class="hero">
-        <div class="hero-content">
+      <section id="home" class="hero hero--media hero--cinema" data-hero-slide="1">
+        <div class="hero__cinema" aria-hidden="true">
+          <div class="hero__cinema-layer hero__cinema-layer--a is-active"></div>
+          <div class="hero__cinema-layer hero__cinema-layer--b"></div>
+          <div class="hero__cinema-layer hero__cinema-layer--c"></div>
+          <div class="hero__cinema-veil"></div>
+          <div class="hero__cinema-orbs">
+            <span class="hero__orb hero__orb--1"></span>
+            <span class="hero__orb hero__orb--2"></span>
+            <span class="hero__orb hero__orb--3"></span>
+          </div>
+        </div>
+        <div class="hero-content hero-content--rise">
           <p class="eyebrow" data-translate="heroEyebrow">
             عيادة أسنان مودرن وراحة لا مثيل لها
           </p>
@@ -119,7 +140,7 @@
           <div class="hero-actions">
             <a
               href="#booking"
-              class="btn btn-secondary"
+              class="btn btn-secondary btn-glow"
               data-translate="heroBook"
               >احجز موعدك</a
             >
@@ -142,6 +163,23 @@
         </div>
       </section>
 
+      <div class="trust-strip home-trust-strip reveal visible">
+        <div class="trust-strip__inner">
+          <div class="trust-strip__item">
+            <span class="trust-strip__dot" aria-hidden="true"></span>
+            <span data-translate="trustBadge1">تعقيم وبروتوكولات صارمة</span>
+          </div>
+          <div class="trust-strip__item">
+            <span class="trust-strip__dot" aria-hidden="true"></span>
+            <span data-translate="trustBadge2">أطباء ذوو خبرة عالية</span>
+          </div>
+          <div class="trust-strip__item">
+            <span class="trust-strip__dot" aria-hidden="true"></span>
+            <span data-translate="trustBadge3">راحة المريض في المقام الأول</span>
+          </div>
+        </div>
+      </div>
+
       <!-- About Us (homepage) — content from CMS via site-data.js (#cms-home-about) -->
       <section class="about-preview about-showcase reveal about-preview-premium" aria-labelledby="aboutPreviewHeading">
         <div class="container">
@@ -159,29 +197,81 @@
           </h2>
         </div>
         <div class="services-grid" id="cms-home-services">
-          <article class="service-card">
-            <h3 data-translate="service1Title">طبيب عام</h3>
-            <p data-translate="service1Text">
-              فحص أسنان كامل، تنظيف، علاج تسوس، وترتيب خطة العناية اليومية.
-            </p>
+          <article class="service-card service-card--home" data-service-home="general">
+            <div class="service-card__media-wrap">
+              <img
+                class="service-card__photo"
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=640&q=75"
+                alt=""
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="service-card__body">
+              <h3 data-translate="service1Title">طبيب عام</h3>
+              <p data-translate="service1Text">
+                فحص أسنان كامل، تنظيف، علاج تسوس، وترتيب خطة العناية اليومية.
+              </p>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service2Title">صور إكس رِي</h3>
-            <p data-translate="service2Text">
-              تصوير رقمي سريع ودقيق لتشخيص حالة الأسنان والفم قبل العلاج.
-            </p>
+          <article class="service-card service-card--home" data-service-home="xray">
+            <div class="service-card__media-wrap">
+              <img
+                class="service-card__photo"
+                src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=640&q=75"
+                alt=""
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="service-card__body">
+              <h3 data-translate="service2Title">صور إكس رِي</h3>
+              <p data-translate="service2Text">
+                تصوير رقمي سريع ودقيق لتشخيص حالة الأسنان والفم قبل العلاج.
+              </p>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service4Title">اختصاص لثة</h3>
-            <p data-translate="service4Text">
-              علاج اللثة والتهاباتها، وتنظيف عميق لجذور الأسنان واستعادة الصحة.
-            </p>
+          <article class="service-card service-card--home" data-service-home="gums">
+            <div class="service-card__media-wrap">
+              <img
+                class="service-card__photo"
+                src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=640&q=75"
+                alt=""
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="service-card__body">
+              <h3 data-translate="service4Title">اختصاص لثة</h3>
+              <p data-translate="service4Text">
+                علاج اللثة والتهاباتها، وتنظيف عميق لجذور الأسنان واستعادة الصحة.
+              </p>
+            </div>
           </article>
-          <article class="service-card">
-            <h3 data-translate="service5Title">اختصاص زراعة</h3>
-            <p data-translate="service5Text">
-              زراعة أسنان ثابتة مع متابعة دقيقة لضمان نتيجة طبيعية وقوية.
-            </p>
+          <article class="service-card service-card--home" data-service-home="implants">
+            <div class="service-card__media-wrap">
+              <img
+                class="service-card__photo"
+                src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=640&q=75"
+                alt=""
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="service-card__body">
+              <h3 data-translate="service5Title">اختصاص زراعة</h3>
+              <p data-translate="service5Text">
+                زراعة أسنان ثابتة مع متابعة دقيقة لضمان نتيجة طبيعية وقوية.
+              </p>
+            </div>
           </article>
         </div>
         <div class="services-actions">
@@ -194,9 +284,8 @@
         </div>
       </section>
 
-      <section class="doctors-section">
-        <div class="section-head">
-          <p class="eyebrow eyebrow-dark" data-translate="teamLabel">فريقنا</p>
+      <section id="doctors" class="doctors-section">
+        <div class="section-head section-head--solo-title">
           <h2 data-translate="teamTitle">أطباء ذوي خبرة عالية</h2>
         </div>
         <div class="doctors-grid" id="cms-home-doctors">
@@ -215,6 +304,31 @@
             <h4 data-translate="doctor3Name">د. سارة الماجد</h4>
             <span data-translate="doctor3Role">أخصائية تقويم</span>
           </div>
+        </div>
+      </section>
+
+      <section
+        id="blog-teaser"
+        class="blog-teaser-section info-section"
+        aria-labelledby="blogTeaserHeading"
+      >
+        <div class="section-head section-head--solo-title">
+          <h2 id="blogTeaserHeading" data-translate="blogSectionTitle">
+            أحدث المقالات
+          </h2>
+        </div>
+        <div
+          id="cms-home-blog"
+          class="offers-grid blog-teaser-grid"
+          aria-live="polite"
+        ></div>
+        <div class="services-actions">
+          <a
+            href="blog.html"
+            class="btn btn-primary"
+            data-translate="homeBlogSeeAll"
+            >كل المقالات</a
+          >
         </div>
       </section>
 
@@ -258,25 +372,64 @@
       <section id="booking" class="booking-section">
         <div class="booking-container">
           <div class="booking-content">
-            <p class="eyebrow eyebrow-light" data-translate="bookingLabel">
-              احجز موعدك الآن
-            </p>
-            <h2 data-translate="bookingTitle">استشر طبيبك في خطوات بسيطة</h2>
-            <p data-translate="bookingText">
-              املأ البيانات وسنتواصل معك لتأكيد موعدك بأسرع وقت.
-            </p>
-            <ul class="booking-benefits">
-              <li data-translate="bookingBenefit1">
-                استجابة سريعة خلال 24 ساعة
-              </li>
-              <li data-translate="bookingBenefit2">
-                تأكيد الحجز الفوري عبر الهاتف أو الواتساب
-              </li>
-              <li data-translate="bookingBenefit3">خطوات بسيطة بدون تعقيد</li>
-            </ul>
+            <div class="booking-content__stack">
+              <div
+                id="bookingIntroPanel"
+                class="booking-view booking-view--intro is-active"
+                aria-hidden="false"
+              >
+                <p class="eyebrow eyebrow-light" data-translate="bookingLabel">
+                  احجز موعدك الآن
+                </p>
+                <h2 data-translate="bookingTitle">استشر طبيبك في خطوات بسيطة</h2>
+                <p data-translate="bookingText">
+                  املأ البيانات وسنتواصل معك لتأكيد موعدك بأسرع وقت.
+                </p>
+                <ul class="booking-benefits">
+                  <li data-translate="bookingBenefit1">
+                    استجابة سريعة خلال 24 ساعة
+                  </li>
+                  <li data-translate="bookingBenefit2">
+                    تأكيد الحجز الفوري عبر الهاتف أو الواتساب
+                  </li>
+                  <li data-translate="bookingBenefit3">خطوات بسيطة بدون تعقيد</li>
+                </ul>
+              </div>
+              <div
+                id="bookingDoctorPanel"
+                class="booking-view booking-view--doctor"
+                aria-hidden="true"
+              >
+                <article class="booking-doctor-card" aria-live="polite">
+                  <p
+                    class="booking-doctor-card__eyebrow eyebrow eyebrow-light"
+                    data-translate="bookingDoctorPreviewEyebrow"
+                  >
+                    طبيبك المختار
+                  </p>
+                  <div class="booking-doctor-card__figure" id="bookingDoctorFigure">
+                    <img
+                      id="bookingDoctorPhoto"
+                      alt=""
+                      decoding="async"
+                      loading="lazy"
+                    />
+                    <span
+                      class="booking-doctor-card__initials"
+                      id="bookingDoctorInitials"
+                      aria-hidden="true"
+                    ></span>
+                  </div>
+                  <div class="booking-doctor-card__meta">
+                    <h3 class="booking-doctor-card__name" id="bookingDoctorName"></h3>
+                    <p class="booking-doctor-card__role" id="bookingDoctorRole"></p>
+                  </div>
+                </article>
+              </div>
+            </div>
           </div>
           <form
-            class="modern-form"
+            class="modern-form modern-form--stacked"
             action="#"
             method="post"
             aria-label="Booking form"

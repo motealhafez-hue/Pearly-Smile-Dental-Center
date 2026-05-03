@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl" data-page="blog">
   <head>
     <meta charset="UTF-8" />
@@ -10,7 +10,7 @@
       data-translate="blogPageDescription"
       content=""
     />
-    <link rel="canonical" href="blog.html" />
+    <link rel="canonical" href="/blog.html" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script>
@@ -29,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css?v=blog-article-v3" />
   </head>
   <body>
     <header class="mobile-nav">
@@ -48,17 +48,23 @@
             id="mobileMenuClose"
             aria-label="Close menu"
           >
-            <span aria-hidden="true">✕</span>
+            <span aria-hidden="true">âœ•</span>
           </button>
           <ul>
-            <li><a href="index.html" data-translate="navHome">الرئيسية</a></li>
-            <li><a href="index.html#stats" data-translate="navStats">إحصائيات</a></li>
-            <li><a href="services.html" data-translate="navServices">خدماتنا</a></li>
-            <li><a href="offers.html" data-translate="navOffers">عروضنا</a></li>
-            <li><a href="blog.html" data-translate="navBlog" aria-current="page">المدونة</a></li>
-            <li><a href="team.html" data-translate="navTeam">فريقنا</a></li>
-            <li><a href="about.html" data-translate="navAbout">عنّا</a></li>
-            <li><a href="index.html#booking" data-translate="navBooking">حجز</a></li>
+            <li><a href="/index.html" data-translate="navHome">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a></li>
+            <li><a href="/index.html#stats" data-translate="navStats">Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª</a></li>
+            <li>
+              <a href="/services.html" data-translate="navServices">Ø®Ø¯Ù…Ø§ØªÙ†Ø§</a>
+            </li>
+            <li>
+              <a href="/offers.html" data-translate="navOffers">Ø¹Ø±ÙˆØ¶Ù†Ø§</a>
+            </li>
+            <li>
+              <a href="/blog.html" data-translate="navBlog" aria-current="page">Blog</a>
+            </li>
+            <li><a href="/team.html" data-translate="navTeam">ÙØ±ÙŠÙ‚Ù†Ø§</a></li>
+            <li><a href="/about.html" data-translate="navAbout">Ø¹Ù†Ù‘Ø§</a></li>
+            <li><a href="/index.html#booking" data-translate="navBooking">Ø­Ø¬Ø²</a></li>
           </ul>
         </div>
       </nav>
@@ -79,28 +85,27 @@
           class="theme-toggle"
           aria-label="Toggle theme"
         >
-          🌙
+          ðŸŒ™
         </button>
         <button type="button" id="languageToggle" class="lang-toggle">EN</button>
-        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">اتصل الآن</a>
+        <a href="tel:+966500000000" class="header-btn" data-translate="callNow">Ø§ØªØµÙ„ Ø§Ù„Ø¢Ù†</a>
       </div>
     </header>
 
-    <main>
-      <section class="hero">
+    <main class="blog-index-main">
+      <section class="hero hero--media blog-index-hero">
         <div class="hero-content">
           <p class="eyebrow" data-translate="navBlog"></p>
           <h1 data-translate="blogHeroTitle"></h1>
           <p data-translate="blogHeroText"></p>
           <div class="hero-actions">
-            <a href="index.html#booking" class="btn btn-secondary" data-translate="heroBook">احجز موعدك</a>
+            <a href="/index.html#booking" class="btn btn-secondary" data-translate="heroBook">Ø§Ø­Ø¬Ø² Ù…ÙˆØ¹Ø¯Ùƒ</a>
           </div>
         </div>
       </section>
 
-      <section class="offers-section">
-        <div class="section-head">
-          <p class="eyebrow eyebrow-dark" data-translate="blogSectionEyebrow"></p>
+      <section class="offers-section blog-index-listing">
+        <div class="section-head section-head--solo-title">
           <h2 data-translate="blogSectionTitle"></h2>
         </div>
 
@@ -129,7 +134,7 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p>© 2026 Pearly Smile Dental Center. All rights reserved.</p>
+        <p>Â© 2026 Pearly Smile Dental Center. All rights reserved.</p>
       </div>
     </footer>
 
@@ -160,9 +165,10 @@
       }
     </script>
 
-    <script src="site-data.js"></script>
-    <script src="script.js"></script>
-    <script src="blog.js"></script>
+    <script src="/site-data.js?v=blog-article-v3"></script>
+    <script src="/script.js?v=blog-article-v3"></script>
+    <script src="/blog.js?v=blog-article-v3"></script>
   </body>
 </html>
+
 
