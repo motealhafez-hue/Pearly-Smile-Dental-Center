@@ -1,0 +1,195 @@
+{
+  "version": 2,
+  "global_paused": false,
+  "branches": {
+    "main": {
+      "label_en": "Khalidiyah Branch",
+      "label_ar": "فرع الخالدية",
+      "time_slots": [
+        "09:00",
+        "09:30",
+        "10:00",
+        "10:30",
+        "11:00",
+        "11:30",
+        "12:00",
+        "12:30",
+        "13:00",
+        "13:30",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "16:30",
+        "17:00",
+        "17:30",
+        "18:00"
+      ],
+      "weekly_open_weekdays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "closed_dates": [],
+      "closed_days": [],
+      "open_date_overrides": [],
+      "doctors": [
+        {
+          "doctor_id": "d1",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d2",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d3",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d4",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d5",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d7",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d8",
+          "accepts_bookings": false,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        }
+      ]
+    },
+    "khalidiya": {
+      "label_en": "Khalifa City A Branch",
+      "label_ar": "فرع مدينة خليفة أ",
+      "time_slots": [
+        "09:00",
+        "09:30",
+        "10:00",
+        "10:30",
+        "11:00",
+        "11:30",
+        "12:00",
+        "12:30",
+        "13:00",
+        "13:30",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "16:30",
+        "17:00",
+        "17:30",
+        "18:00"
+      ],
+      "weekly_open_weekdays": [
+        6,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "closed_dates": [],
+      "closed_days": [],
+      "open_date_overrides": [],
+      "doctors": [
+        {
+          "doctor_id": "d1",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d2",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d3",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d4",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d5",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d7",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        },
+        {
+          "doctor_id": "d8",
+          "accepts_bookings": true,
+          "blocked_dates": [],
+          "blocked_ranges": [],
+          "allowed_weekdays": null,
+          "allowed_slots": null
+        }
+      ]
+    }
+  }
+}

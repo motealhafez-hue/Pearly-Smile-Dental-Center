@@ -1,0 +1,603 @@
+{
+  "stats": {
+    "patients": 80000,
+    "doctors": 15,
+    "staff": 50,
+    "aboutPatients": 84000,
+    "aboutDoctors": 15,
+    "aboutStaff": 45,
+    "aboutSatisfaction": 98
+  },
+  "homeAbout": {
+    "eyebrow": {
+      "ar": "تعرف علينا",
+      "en": "Get to Know Us"
+    },
+    "title": {
+      "ar": "Pearly Smile Dental Center — رعاية أسنان مميزة في أبوظبي",
+      "en": "Pearly Smile Dental Center — premium dental care in Abu Dhabi"
+    },
+    "description": {
+      "ar": "رعاية أسنان متقدمة بتجربة مريحة وخطة علاج واضحة — من الفحص وحتى التجميل والزرعات.",
+      "en": "Advanced dental care with a comfort-first experience and a clear treatment plan—from check-ups to cosmetic dentistry and implants."
+    },
+    "highlightsLabel": {
+      "ar": "لمحة سريعة",
+      "en": "At a glance"
+    },
+    "pills": [
+      {
+        "title": {
+          "ar": "تشخيص رقمي",
+          "en": "Digital diagnosticss"
+        }
+      },
+      {
+        "title": {
+          "ar": "راحة وخصوصية",
+          "en": "Comfort & privacy"
+        }
+      },
+      {
+        "title": {
+          "ar": "نتائج طبيعية",
+          "en": "Natural results"
+        }
+      }
+    ],
+    "cards": [
+      {
+        "id": "h1",
+        "icon": "✦",
+        "title": {
+          "ar": "عناية شاملة في مكان واحد",
+          "en": "Comprehensive care in one place"
+        },
+        "text": {
+          "ar": "فحوصات، تنظيف، تجميل، تقويم، زرعات، وجراحة — بخطة علاج مدروسة تناسب احتياجك.",
+          "en": "Check-ups, cleanings, cosmetic dentistry, orthodontics, implants, and surgery—guided by a thoughtful plan tailored to you."
+        }
+      },
+      {
+        "id": "h2",
+        "icon": "🛡",
+        "title": {
+          "ar": "معايير عالية للسلامة",
+          "en": "High safety standards"
+        },
+        "text": {
+          "ar": "تعقيم دقيق وإجراءات واضحة لضمان تجربة آمنة ومطمئنة في كل زيارة.",
+          "en": "Strict sterilization and clear protocols to ensure a safe, reassuring visit every time."
+        }
+      },
+      {
+        "id": "h3",
+        "icon": "⚡",
+        "title": {
+          "ar": "تقنيات حديثة",
+          "en": "Modern tech"
+        },
+        "text": {
+          "ar": "تشخيص وعلاج بدقة أعلى",
+          "en": "More precise diagnosis and treatment"
+        }
+      }
+    ],
+    "tags": [
+      {
+        "title": {
+          "ar": "جودة معتمدة ",
+          "en": "Trusted qualitys "
+        }
+      },
+      {
+        "title": {
+          "ar": "رعاية متابعة",
+          "en": "Follow-up cares"
+        }
+      }
+    ],
+    "visual": {
+      "image": "http://127.0.0.1:8000/uploads/img_8646ee7ba9366207c683.jpg",
+      "kicker": {
+        "ar": "منذ 2004",
+        "en": "Since 2004"
+      },
+      "sub": {
+        "ar": "ثقة المجتمع وخبرة متراكمة",
+        "en": "Trusted locally with years of experience"
+      },
+      "chip": {
+        "ar": "مركز بيرلي سمايل لطب الأسنان",
+        "en": "Pearly Smile Dental Center"
+      },
+      "image_scale": 1.6,
+      "image_focal_x": 50.85,
+      "image_focal_y": 6.7
+    },
+    "cta": {
+      "primaryLabel": {
+        "ar": "",
+        "en": ""
+      },
+      "secondaryLabel": {
+        "ar": "",
+        "en": ""
+      },
+      "tertiaryLabel": {
+        "ar": "",
+        "en": ""
+      },
+      "primaryHref": "#booking",
+      "secondaryHref": "about.html",
+      "tertiaryHref": "#stats"
+    }
+  },
+  "offersPage": {
+    "heroEyebrow": {
+      "ar": "عروض خاصة بمناسبة عيد الأضحى",
+      "en": "Special Eid Al-Adha Offers"
+    },
+    "heroTitle": {
+      "ar": "استفد من التخفيضات على زراعة الأسنان، قشور الفينير، التبييض، والتنظيف.",
+      "en": "Enjoy discounts on dental implants, veneers, whitening, and cleaning."
+    },
+    "sectionEyebrow": {
+      "ar": "عروض عيد الأضحى",
+      "en": "Eid Al-Adha Offers"
+    },
+    "sectionTitle": {
+      "ar": "استمتع بتخفيضات حصرية على أفضل خدمات الأسنان.",
+      "en": "Enjoy exclusive discounts on our best dental services."
+    }
+  },
+  "services": [
+    {
+      "id": "general",
+      "icon": "🦷",
+      "href": "service-general.html",
+      "title": {
+        "ar": "طبيب عام",
+        "en": "General Dentistry"
+      },
+      "text": {
+        "ar": "فحص دوري، تنظيف، علاج تسوس، وخطة صحة أسنان مستمرة لكل العائلة.",
+        "en": "Routine check-ups, cleanings, cavity care, and an ongoing oral health plan for the whole family."
+      },
+      "more": {
+        "ar": "متابعة شاملة لصحة الفم والأسنان مع خطة علاج واضحة ونصائح يومية بسيطة للحفاظ على الابتسامة.",
+        "en": "Comprehensive follow-up with a clear plan and simple daily guidance to maintain a healthy smile."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_b6da690b3126d89e93fc.webp"
+    },
+    {
+      "id": "xray",
+      "icon": "📷",
+      "href": "service-xray.html",
+      "title": {
+        "ar": "صور إكس رِي",
+        "en": "X-Ray Imaging"
+      },
+      "text": {
+        "ar": "أشعة دقيقة لعرض حالة الفم كاملة قبل أي علاج أو عملية.",
+        "en": "Accurate imaging to assess your oral health before any treatment or procedure."
+      },
+      "more": {
+        "ar": "تصوير رقمي سريع يساعد على تشخيص أدق وخطة علاج آمنة، مع تقارير واضحة ومتابعة أفضل للحالة.",
+        "en": "Fast digital imaging for more accurate diagnosis, safer planning, and clearer follow-up."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_ee435a4be20ff9c0b66b.webp"
+    },
+    {
+      "id": "restorations",
+      "icon": "🧩",
+      "href": "service-restorations.html",
+      "title": {
+        "ar": "حشوات وترميمات",
+        "en": "Fillings & Restorations"
+      },
+      "text": {
+        "ar": "حشوات تجميلية وتقويمية لاستعادة الأسنان وتقوية مظهرها.",
+        "en": "Cosmetic fillings and restorations to rebuild strength and improve appearance."
+      },
+      "more": {
+        "ar": "حلول ترميمية بمواد عالية الجودة لتقوية السن وتحسين الشكل والوظيفة مع نتائج طبيعية ومريحة.",
+        "en": "High-quality restorative options to strengthen the tooth and improve look and function with natural results."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_97eda5bdbaa543308477.webp"
+    },
+    {
+      "id": "gums",
+      "icon": "🩺",
+      "href": "service-gums.html",
+      "title": {
+        "ar": "اختصاص لثة",
+        "en": "Periodontal Care"
+      },
+      "text": {
+        "ar": "علاج لثة والتهاباتها مع تنظيف عميق وحماية للأسنان.",
+        "en": "Gum care, inflammation treatment, and deep cleaning to protect teeth."
+      },
+      "more": {
+        "ar": "علاج التهاب اللثة وتنظيف عميق للجذور لتحسين الصحة وتقليل النزيف والرائحة، مع خطة وقائية طويلة المدى.",
+        "en": "Gum inflammation care and deep cleaning to improve health and reduce bleeding/odor, with a long-term prevention plan."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_73c35d52c687d0f22628.webp",
+      "image_focal_x": 54.15,
+      "image_focal_y": 49.75
+    },
+    {
+      "id": "implants",
+      "icon": "🔩",
+      "href": "service-implants.html",
+      "title": {
+        "ar": "اختصاص زراعة",
+        "en": "Implant Specialist"
+      },
+      "text": {
+        "ar": "زراعة أسنان ثابتة تدوم طويلاً وتبدو طبيعية للغاية.",
+        "en": "Fixed implants designed to last and look natural."
+      },
+      "more": {
+        "ar": "تقييم دقيق وخطة زراعة مناسبة لحالتك لاستعادة الابتسامة والمضغ بثبات، مع متابعة لضمان أفضل نتيجة.",
+        "en": "A precise assessment and tailored implant plan to restore your smile and bite with confident follow-up."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_c3c669717cf804f530b3.webp"
+    },
+    {
+      "id": "oral-surgery",
+      "icon": "🩹",
+      "href": "service-oral-surgery.html",
+      "title": {
+        "ar": "اختصاص جراحة فم",
+        "en": "Oral Surgery"
+      },
+      "text": {
+        "ar": "جراحات فم متقدمة لحالات معقدة والأخراج بالراحة والأمان.",
+        "en": "Advanced oral procedures for complex cases with comfort and safety."
+      },
+      "more": {
+        "ar": "إجراءات جراحية دقيقة مع تخطيط مسبق وتعليمات واضحة قبل وبعد، لتجربة آمنة وتقليل الانزعاج.",
+        "en": "Carefully planned procedures with clear before/after guidance for a safer, more comfortable experience."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_9e2ad361383c6bf81962.webp"
+    },
+    {
+      "id": "pediatric",
+      "icon": "🧒",
+      "href": "service-pediatric.html",
+      "title": {
+        "ar": "اختصاص أطفال",
+        "en": "Pediatric Dentistry"
+      },
+      "text": {
+        "ar": "رعاية لطيفة ومشجعة للأطفال لتجربة زيارة سهلة ومريحة.",
+        "en": "Gentle, encouraging care for an easy and comfortable visit."
+      },
+      "more": {
+        "ar": "بيئة ودودة وخطوات علاج بسيطة تساعد الطفل على الشعور بالأمان، مع إرشادات للأهل للعناية اليومية.",
+        "en": "A friendly environment and simple steps to help kids feel safe—plus guidance for parents at home."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_a0afec4740c7ca88cf05.webp"
+    },
+    {
+      "id": "endodontics",
+      "icon": "🧠",
+      "href": "service-endodontics.html",
+      "title": {
+        "ar": "اختصاص عصب",
+        "en": "Endodontics"
+      },
+      "text": {
+        "ar": "علاج جذور حديث لتخفيف الألم وحفظ الأسنان باستخدام تقنيات متطورة.",
+        "en": "Modern root canal treatment to relieve pain and preserve teeth."
+      },
+      "more": {
+        "ar": "علاج جذور يركز على تقليل الألم وحفظ السن، مع خطوات دقيقة وشرح واضح لما تحتاجه قبل وبعد الجلسة.",
+        "en": "Root canal care focused on pain relief and tooth preservation, with clear guidance before and after."
+      },
+      "image": "http://127.0.0.1:8000/uploads/img_99c5d8680f29a78e4be6.webp"
+    }
+  ],
+  "homeFeaturedServiceIds": [
+    "general",
+    "xray",
+    "gums",
+    "implants"
+  ],
+  "doctors": [
+    {
+      "id": "d1",
+      "name": {
+        "ar": "Dr. Mohamed Bilal Abdulsamad",
+        "en": "Dr. Mohamed Bilal Abdulsamad"
+      },
+      "role": {
+        "ar": "أخصائي تقويم الأسنان",
+        "en": "Orthodontist"
+      },
+      "image": "",
+      "branch_ids": [
+        "main",
+        "khalidiya"
+      ],
+      "image_focal_x": 48.45,
+      "image_focal_y": 28.15,
+      "image_scale": 1.6
+    },
+    {
+      "id": "d2",
+      "name": {
+        "ar": "Dr. Shadi Almoghayer",
+        "en": "Dr. Shadi Almoghayer"
+      },
+      "role": {
+        "ar": "أخصائي زراعة الأسنان",
+        "en": "Dental Implantologist"
+      },
+      "branch_ids": [
+        "main",
+        "khalidiya"
+      ],
+      "image": ""
+    },
+    {
+      "id": "d3",
+      "name": {
+        "ar": "Dr. Srivalli Perumalla",
+        "en": "Dr. Srivalli Perumalla"
+      },
+      "role": {
+        "ar": "أخصائي التركيبات",
+        "en": "Prosthodontist"
+      },
+      "branch_ids": [
+        "main",
+        "khalidiya"
+      ],
+      "image": ""
+    },
+    {
+      "id": "d4",
+      "name": {
+        "ar": "Dr. Alaa Adi",
+        "en": "Dr. Alaa Adi"
+      },
+      "role": {
+        "ar": "أخصائي لثة",
+        "en": "Periodontist"
+      },
+      "branch_ids": [
+        "main"
+      ],
+      "image": ""
+    },
+    {
+      "id": "d5",
+      "name": {
+        "ar": "Dr. Shaha Eddib",
+        "en": "Dr. Shaha Eddib"
+      },
+      "role": {
+        "ar": "طبيب أسنان عام",
+        "en": "GP Dentist"
+      },
+      "branch_ids": [
+        "main"
+      ],
+      "image": ""
+    },
+    {
+      "id": "d7",
+      "name": {
+        "ar": "Dr. Ali Alnuami",
+        "en": "Dr. Ali Alnuami"
+      },
+      "role": {
+        "ar": "طبيب أسنان عام",
+        "en": "GP Dentist"
+      },
+      "branch_ids": [
+        "khalidiya"
+      ],
+      "image": ""
+    },
+    {
+      "id": "d8",
+      "name": {
+        "ar": "دكتورة ندا العوضي",
+        "en": "Dr. Nada Alawadhi"
+      },
+      "role": {
+        "ar": "طبيب أسنان عام",
+        "en": "GP Dentist"
+      },
+      "branch_ids": [
+        "khalidiya"
+      ],
+      "image": ""
+    }
+  ],
+  "homeDoctorIds": [
+    "home-1",
+    "home-2",
+    "home-3"
+  ],
+  "homeDoctors": [
+    {
+      "id": "home-1",
+      "name": {
+        "ar": "دكتورة ندا العوضي",
+        "en": "Dr. Nada Alawadhi"
+      },
+      "role": {
+        "ar": "طبيبة عامة",
+        "en": "GP Dentist"
+      },
+      "image": ""
+    },
+    {
+      "id": "home-2",
+      "name": {
+        "ar": "دكتور شادي المغير",
+        "en": "Dr. Shadi Almoghayer"
+      },
+      "role": {
+        "ar": "أخصائي زراعة الأسنان",
+        "en": "Dental Implantologist"
+      },
+      "image": ""
+    }
+  ],
+  "offers": [
+    {
+      "id": "o1",
+      "title": {
+        "ar": "عرض زراعة الأسنان",
+        "en": "Dental Implant Offer"
+      },
+      "text": {
+        "ar": "خصم 25% على علاج الزراعة الكامل مع متابعة بعد العملية.",
+        "en": "25% off full implant treatment with post-care follow-up."
+      },
+      "image": ""
+    },
+    {
+      "id": "o2",
+      "title": {
+        "ar": "عرض قشور الفينير",
+        "en": "Veneer Makeover Offer"
+      },
+      "text": {
+        "ar": "خصم 30% على قشور الفينير للحصول على ابتسامة طبيعية ومشرقة.",
+        "en": "30% off veneers for a natural, bright smile."
+      }
+    },
+    {
+      "id": "o3",
+      "title": {
+        "ar": "عرض تبييض الأسنان",
+        "en": "Teeth Whitening Offer"
+      },
+      "text": {
+        "ar": "جلسة تبييض احترافية مع نتائج سريعة وأقل حساسية.",
+        "en": "Professional whitening session with fast results and reduced sensitivity."
+      }
+    },
+    {
+      "id": "o4",
+      "title": {
+        "ar": "عرض فحص وتنظيف",
+        "en": "Check-up & Cleaning Offer"
+      },
+      "text": {
+        "ar": "فحص شامل وتنظيف دقيق لضمان صحة فمك ووقايته.",
+        "en": "Comprehensive check-up and deep cleaning to protect your oral health."
+      }
+    }
+  ],
+  "footerBranches": {
+    "main": {
+      "name": {
+        "ar": "فرع الخالدية",
+        "en": "Khalidiyah Branch"
+      },
+      "address": {
+        "ar": "",
+        "en": ""
+      },
+      "phone": "+97126393677",
+      "hours": {
+        "ar": "10:00 – 21:00 (ما عدا الأحد)",
+        "en": "10:00 – 21:00 (except Sunday)"
+      },
+      "map_embed_url": "https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUqEQgFEC4YChgLGK8BGMcBGIAEMgYIABBFGDkyCAgBEEUYJxg7MgsIAhAAGAoYCxiABDILCAMQABgKGAsYgAQyCwgEEAAYChgLGIAEMhEIBRAuGAoYCxivARjHARiABDIRCAYQLhgKGAsYrwEYxwEYgAQyCwgHEAAYChgLGIAEMgsICBAAGAoYCxiABDILCAkQABgKGAsYgATSAQoxMDEwOWowajE1qAIAsAIA&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KUH0HH5dZl4-MSOn8oLRhnpF&daddr=Al+Khalidiyah,+AWQAF+Building+(same+building+of+New+COOP+Mezzanine+Floor+M04+-+Abu+Dhabi",
+      "map_query": "Pearly Smile Dental Center Khalidiyah Abu Dhabi"
+    },
+    "khalidiya": {
+      "name": {
+        "ar": "فرع مدينة خليفة أ",
+        "en": "Khalifa City A Branch"
+      },
+      "address": {
+        "ar": "",
+        "en": ""
+      },
+      "phone": "+97125566520",
+      "hours": {
+        "ar": "10:00 – 00:00",
+        "en": "10:00 – 00:00"
+      },
+      "map_embed_url": "https://maps.app.goo.gl/XrbgUHzQXUCnwUfr9",
+      "map_query": "Pearly Smile Dental Center Khalifa City A Abu Dhabi"
+    }
+  },
+  "footerSocials": {
+    "instagram": "https://www.instagram.com/pearly.smile/",
+    "facebook": "https://www.facebook.com/psdc.org"
+  },
+  "navbar": {
+    "logo": "http://127.0.0.1:8000/uploads/img_3a6d59d22a1035fc3eb0.png"
+  },
+  "footerMeta": {
+    "email": "",
+    "terms_href": ""
+  },
+  "careersJobs": [
+    {
+      "id": "job-1",
+      "title": {
+        "ar": "طبيب أسنان عام",
+        "en": "General Dentist"
+      },
+      "department": {
+        "ar": "العيادة",
+        "en": "Clinic"
+      },
+      "employment_type": {
+        "ar": "دوام كامل",
+        "en": "Full-time"
+      },
+      "location": {
+        "ar": "أبوظبي",
+        "en": "Abu Dhabi"
+      },
+      "short": {
+        "ar": "نبحث عن طبيب أسنان عام بخبرة جيدة لتقديم رعاية عالية الجودة ضمن فريق احترافي.",
+        "en": "We’re looking for a skilled General Dentist to deliver high-quality care within a professional team."
+      },
+      "description": {
+        "ar": "",
+        "en": ""
+      },
+      "requirements": {
+        "ar": "",
+        "en": ""
+      },
+      "benefits": {
+        "ar": "",
+        "en": ""
+      },
+      "apply_url": ""
+    }
+  ],
+  "insuranceProviders": [
+    {
+      "id": "ins-1",
+      "logo": "",
+      "name": {
+        "ar": "مزود تأمين",
+        "en": "Insurance provider"
+      },
+      "short": {
+        "ar": "وصف مختصر عن التغطية.",
+        "en": "Short coverage summary."
+      },
+      "coverage": {
+        "ar": "",
+        "en": ""
+      },
+      "accepted_services": []
+    }
+  ]
+}
